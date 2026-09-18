@@ -1,0 +1,17 @@
+{
+  "mode": "built-in image_gen",
+  "images": [
+    {
+      "name": "hero-objects",
+      "prompt": "Use case: product-mockup\nAsset type: conceptual product image for a design-led 3D printed home decor website, editorial hero, landscape 1536x1024.\nPrimary request: An exceptional restrained editorial still life of matte FDM 3D printed objects: one large petrol green sculptural ribbed vase with an open mouth, one cream arched small sculptural vase, and one low terracotta wavy catchall tray.\nScene/backdrop: warm ivory plinths against a warm neutral seamless studio background.\nComposition/framing: landscape 3:2, products occupy center and right, generous quiet negative space on left, all objects fully visible in a carefully balanced arrangement.\nLighting/mood: natural directional side light, soft shadows, calm sophisticated editorial mood.\nMaterials/textures: tactile matte 3D printed plastic, fine visible horizontal FDM layer lines, refined surface and ribbing.\nConstraints: three designed objects only; no text, no humans, no logos, no watermark."
+    },
+    {
+      "name": "pet",
+      "prompt": "Use case: product-mockup\nAsset type: square conceptual product render for a design-led 3D printed decor website, 1024x1024.\nPrimary request: an adorable stylized sitting calico cat miniature, full body, with rounded ears, soft simplified sculptural shapes, feet and tail close to the body.\nScene/backdrop: low pale sandstone plinth, light warm neutral seamless studio background.\nComposition/framing: centered full miniature, tasteful close editorial product composition with breathing room.\nLighting/mood: studio side light, soft warm shadows, charming and refined.\nColor palette: four clearly delineated colors on the miniature: ivory, black, terracotta, and muted pink. Solid material color areas, no fuzzy fur.\nMaterials/textures: tactile matte fine FDM 3D printing layer lines, collectible sculptural miniature.\nConstraints: clearly a designed plastic miniature, not a real animal; no text, no logos, no watermark, no UI."
+    },
+    {
+      "name": "collection",
+      "prompt": "Use case: product-mockup\nAsset type: square editorial conceptual still life for a design-led 3D printed decor website, 1024x1024.\nPrimary request: two small ribbed terracotta pumpkin sculptures and one small ivory minimalist ghost sculpture together, simple tasteful seasonal decor.\nScene/backdrop: ivory platform with a warm peach seamless studio background.\nComposition/framing: three sculptures fully visible, centered editorial still life, quiet balanced spacing, ghost with a simple undulating base and tiny eye recesses.\nLighting/mood: warm directional studio side light and warm soft shadows.\nMaterials/textures: matte 3D printed finish with fine horizontal FDM layer texture, refined ribbing on pumpkins.\nConstraints: exactly two pumpkins and one ghost; no text, no logos, no watermark, no UI."
+    }
+  ]
+}

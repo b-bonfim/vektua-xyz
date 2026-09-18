@@ -2,6 +2,8 @@
 
 Protótipo navegável com dados mockados para a experiência de comércio da Vektua XYZ. Implementado em 18/09/2026 a partir do COM-SITE-2026-001 v1.0 e da direção do Brand Book v1.1.
 
+![Prévia do protótipo](docs/preview-desktop.jpg)
+
 ## Executar
 
 Requisitos: Node.js 22.13+ e a versão de pnpm declarada em `package.json`.

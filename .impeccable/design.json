@@ -1,0 +1,291 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-18T00:00:00Z",
+  "title": "Design System: Vektua XYZ",
+  "extensions": {
+    "colorMeta": {
+      "petrol": {
+        "role": "primary",
+        "displayName": "Petrol",
+        "tonalRamp": [
+          "oklch(15.00% 0.07771 187.83)",
+          "oklch(26.43% 0.07771 187.83)",
+          "oklch(37.86% 0.07771 187.83)",
+          "oklch(49.29% 0.07771 187.83)",
+          "oklch(60.71% 0.07771 187.83)",
+          "oklch(72.14% 0.07771 187.83)",
+          "oklch(83.57% 0.07771 187.83)",
+          "oklch(95.00% 0.07771 187.83)"
+        ]
+      },
+      "petrol-hover": {
+        "role": "primary",
+        "displayName": "Deep petrol",
+        "tonalRamp": [
+          "oklch(15.00% 0.06662 184.83)",
+          "oklch(26.43% 0.06662 184.83)",
+          "oklch(37.86% 0.06662 184.83)",
+          "oklch(49.29% 0.06662 184.83)",
+          "oklch(60.71% 0.06662 184.83)",
+          "oklch(72.14% 0.06662 184.83)",
+          "oklch(83.57% 0.06662 184.83)",
+          "oklch(95.00% 0.06662 184.83)"
+        ]
+      },
+      "terra": {
+        "role": "secondary",
+        "displayName": "Terra",
+        "tonalRamp": [
+          "oklch(15.00% 0.14160 38.11)",
+          "oklch(26.43% 0.14160 38.11)",
+          "oklch(37.86% 0.14160 38.11)",
+          "oklch(49.29% 0.14160 38.11)",
+          "oklch(60.71% 0.14160 38.11)",
+          "oklch(72.14% 0.14160 38.11)",
+          "oklch(83.57% 0.14160 38.11)",
+          "oklch(95.00% 0.14160 38.11)"
+        ]
+      },
+      "ivory": {
+        "role": "neutral",
+        "displayName": "Ivory",
+        "tonalRamp": [
+          "oklch(15.00% 0.00697 88.64)",
+          "oklch(26.43% 0.00697 88.64)",
+          "oklch(37.86% 0.00697 88.64)",
+          "oklch(49.29% 0.00697 88.64)",
+          "oklch(60.71% 0.00697 88.64)",
+          "oklch(72.14% 0.00697 88.64)",
+          "oklch(83.57% 0.00697 88.64)",
+          "oklch(95.00% 0.00697 88.64)"
+        ]
+      },
+      "graphite": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "tonalRamp": [
+          "oklch(15.00% 0.01637 190.02)",
+          "oklch(26.43% 0.01637 190.02)",
+          "oklch(37.86% 0.01637 190.02)",
+          "oklch(49.29% 0.01637 190.02)",
+          "oklch(60.71% 0.01637 190.02)",
+          "oklch(72.14% 0.01637 190.02)",
+          "oklch(83.57% 0.01637 190.02)",
+          "oklch(95.00% 0.01637 190.02)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95.00% 0.00000 89.88)"
+        ]
+      },
+      "soft": {
+        "role": "neutral",
+        "displayName": "Soft warm neutral",
+        "tonalRamp": [
+          "oklch(15.00% 0.00961 93.57)",
+          "oklch(26.43% 0.00961 93.57)",
+          "oklch(37.86% 0.00961 93.57)",
+          "oklch(49.29% 0.00961 93.57)",
+          "oklch(60.71% 0.00961 93.57)",
+          "oklch(72.14% 0.00961 93.57)",
+          "oklch(83.57% 0.00961 93.57)",
+          "oklch(95.00% 0.00961 93.57)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted green-gray",
+        "tonalRamp": [
+          "oklch(15.00% 0.01550 166.71)",
+          "oklch(26.43% 0.01550 166.71)",
+          "oklch(37.86% 0.01550 166.71)",
+          "oklch(49.29% 0.01550 166.71)",
+          "oklch(60.71% 0.01550 166.71)",
+          "oklch(72.14% 0.01550 166.71)",
+          "oklch(83.57% 0.01550 166.71)",
+          "oklch(95.00% 0.01550 166.71)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Pale gray-green border",
+        "tonalRamp": [
+          "oklch(15.00% 0.00998 125.69)",
+          "oklch(26.43% 0.00998 125.69)",
+          "oklch(37.86% 0.00998 125.69)",
+          "oklch(49.29% 0.00998 125.69)",
+          "oklch(60.71% 0.00998 125.69)",
+          "oklch(72.14% 0.00998 125.69)",
+          "oklch(83.57% 0.00998 125.69)",
+          "oklch(95.00% 0.00998 125.69)"
+        ]
+      },
+      "destructive": {
+        "role": "neutral",
+        "displayName": "Brick error",
+        "tonalRamp": [
+          "oklch(15.00% 0.15477 31.51)",
+          "oklch(26.43% 0.15477 31.51)",
+          "oklch(37.86% 0.15477 31.51)",
+          "oklch(49.29% 0.15477 31.51)",
+          "oklch(60.71% 0.15477 31.51)",
+          "oklch(72.14% 0.15477 31.51)",
+          "oklch(83.57% 0.15477 31.51)",
+          "oklch(95.00% 0.15477 31.51)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headlines with responsive overrides."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "General reading, with a 70ch paragraph cap."
+      }
+    },
+    "motion": [
+      {
+        "name": "control-transition",
+        "value": "200ms",
+        "purpose": "Button color/lift and image-action opacity."
+      },
+      {
+        "name": "image-easing",
+        "value": "cubic-bezier(.16,1,.3,1)",
+        "purpose": "Hero settle and card-image zoom."
+      },
+      {
+        "name": "hero-settle",
+        "value": "1s",
+        "purpose": "One-time image scale settle; removed for reduced motion."
+      },
+      {
+        "name": "product-zoom",
+        "value": "500ms",
+        "purpose": "Product image hover transition; removed for reduced motion."
+      },
+      {
+        "name": "line-zoom",
+        "value": "550ms",
+        "purpose": "Catalog-line image hover transition; removed for reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile-max",
+        "value": "640px"
+      },
+      {
+        "name": "navigation-collapse-max",
+        "value": "960px"
+      },
+      {
+        "name": "compact-desktop-max",
+        "value": "1190px"
+      },
+      {
+        "name": "wide-desktop-min",
+        "value": "1552px"
+      }
+    ],
+    "notes": [
+      "Tonal ramps are synthesized OKLCH preview aids, not additional implemented CSS tokens.",
+      "Descriptive language records implementation decisions. The source stylesheet remains authoritative."
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main navigation and simulated-cart actions.",
+      "html": "<button class=\"ds-primary\">Explorar objetos<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M7 17 17 7M7 7h10v10\"/></svg></button>",
+      "css": ".ds-primary{font-family:Manrope,Arial,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:50px;padding:13px 21px;border:1px solid transparent;background:var(--green,#176D67);color:#fff;font-size:14px;font-weight:650;border-radius:4px;line-height:1.4;cursor:pointer;transition:background .2s,transform .2s;}.ds-primary:not(:disabled):hover{background:#10564f;transform:translateY(-2px)}.ds-primary:focus-visible{outline:2px solid var(--green,#176D67);outline-offset:5px;}.ds-primary:disabled{opacity:.48;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}.ds-primary:hover{transform:none}}"
+    },
+    {
+      "name": "Secondary button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A bordered alternative for secondary navigation.",
+      "html": "<button class=\"ds-secondary\">Voltar<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M7 17 17 7M7 7h10v10\"/></svg></button>",
+      "css": ".ds-secondary{font-family:Manrope,Arial,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:50px;padding:13px 21px;border:1px solid transparent;background:var(--green,#176D67);color:#fff;font-size:14px;font-weight:650;border-radius:4px;line-height:1.4;cursor:pointer;transition:background .2s,transform .2s;background:transparent;color:var(--ink,#24302F);border-color:#bdc4bb}.ds-secondary:not(:disabled):hover{background:#eaece4;transform:translateY(-2px)}.ds-secondary:focus-visible{outline:2px solid var(--green,#176D67);outline-offset:5px;}.ds-secondary:disabled{opacity:.48;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}.ds-secondary:hover{transform:none}}"
+    },
+    {
+      "name": "Text link",
+      "kind": "button",
+      "description": "Underlined editorial navigation.",
+      "html": "<a href=\"#\" class=\"ds-text-link\">Ver todas as peças<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M7 17 17 7M7 7h10v10\"/></svg></a>",
+      "css": ".ds-text-link{font-family:Manrope,Arial,sans-serif;display:inline-flex;align-items:center;gap:12px;color:var(--ink,#24302F);font-size:14px;font-weight:650;text-decoration:underline;text-underline-offset:6px;text-decoration-color:#abb6ac}.ds-text-link:hover{color:var(--green,#176D67)}.ds-text-link:focus-visible{outline:2px solid var(--green,#176D67);outline-offset:5px;}"
+    },
+    {
+      "name": "Search field",
+      "kind": "input",
+      "refersTo": "search-input",
+      "description": "A transparent search input with a focus underline.",
+      "html": "<label class=\"ds-search\"><svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg><input type=\"search\" aria-label=\"Buscar por nome, estilo ou ocasião\" placeholder=\"O que você está procurando?\"></label>",
+      "css": ".ds-search{font-family:Manrope,Arial,sans-serif;display:flex;align-items:center;gap:15px;border-bottom:1px solid #9aa899;max-width:690px;padding:7px 0;color:#6c7869}.ds-search input{font-family:Manrope,Arial,sans-serif;width:100%;border:0;outline:0;padding:14px 0;background:transparent;color:var(--ink,#24302F);font-size:17px;caret-color:var(--green,#176D67)}.ds-search:focus-within{border-color:var(--green,#176D67);box-shadow:0 1px 0 var(--green,#176D67)}.ds-search input::placeholder{color:#697469}"
+    },
+    {
+      "name": "Desktop navigation",
+      "kind": "nav",
+      "description": "Three-line catalog navigation with active underline.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Navegação principal\"><a href=\"#\" aria-current=\"page\">Objetos &amp; Colecionáveis</a><a href=\"#\">Datas &amp; Coleções</a><a href=\"#\">Feitos para Você</a></nav>",
+      "css": ".ds-nav{font-family:Manrope,Arial,sans-serif;display:flex;align-items:center;gap:30px;font-size:13px;font-weight:550;background:var(--paper,#F7F5F0)}.ds-nav a{padding:36px 0;position:relative;text-decoration:none;color:var(--ink,#24302F)}.ds-nav a:hover,.ds-nav [aria-current]{color:var(--green,#176D67)}.ds-nav [aria-current]:after{content:\"\";position:absolute;bottom:24px;left:0;right:0;height:1px;background:var(--green,#176D67)}.ds-nav a:focus-visible{outline:2px solid var(--green,#176D67);outline-offset:5px;}"
+    },
+    {
+      "name": "Filter chip",
+      "kind": "chip",
+      "refersTo": "chip-selected",
+      "description": "Pressed state signals the current catalog filter.",
+      "html": "<div class=\"ds-chips\"><button aria-pressed=\"true\">Todas as peças</button><button aria-pressed=\"false\">Objetos</button></div>",
+      "css": ".ds-chips{display:flex;flex-wrap:wrap;gap:9px}.ds-chips button{font-family:Manrope,Arial,sans-serif;padding:8px 15px;border:1px solid #d3d9d0;border-radius:30px;background:transparent;color:#566457;font-size:12px;min-height:36px;cursor:pointer;transition:background .2s}.ds-chips button:hover{background:#e4e9df}.ds-chips [aria-pressed=true]{background:var(--ink,#24302F);color:#fff;border-color:var(--ink,#24302F)}.ds-chips button:focus-visible{outline:2px solid var(--green,#176D67);outline-offset:5px;}@media(prefers-reduced-motion:reduce){.ds-chips button{transition:none}}"
+    },
+    {
+      "name": "Product card",
+      "kind": "card",
+      "description": "Open image-and-copy structure; this component preview leaves the photography slot empty.",
+      "html": "<article class=\"ds-card\"><a class=\"ds-picture\" href=\"#\" aria-label=\"Conhecer peça de demonstração\"><span class=\"ds-card-label\">Imagem conceitual · IA</span><span class=\"ds-open\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M7 17 17 7M7 7h10v10\"/></svg></span></a><div class=\"ds-info\"><span class=\"ds-category\">Objetos &amp; Colecionáveis</span><a class=\"ds-name\" href=\"#\">Peça de demonstração</a><div class=\"ds-price\"><span>R$ 89,00</span><span>Valor ilustrativo</span></div></div></article>",
+      "css": ".ds-card{font-family:Manrope,Arial,sans-serif;max-width:300px;color:var(--ink,#24302F)}.ds-picture{display:block;position:relative;overflow:hidden;aspect-ratio:1/.99;background:#e9e3d9}.ds-card-label{position:absolute;left:10px;bottom:10px;background:#f7f5f0ed;color:#485149;font-size:12px;padding:4px 6px;line-height:1.4;border-radius:2px}.ds-open{position:absolute;right:12px;top:12px;width:32px;height:32px;background:var(--paper,#F7F5F0);display:flex;align-items:center;justify-content:center;border-radius:50%;opacity:0;transition:opacity .2s}.ds-picture:hover .ds-open,.ds-picture:focus-visible .ds-open{opacity:1}.ds-info{padding-top:16px}.ds-category{display:block;font-size:12px;color:#647267}.ds-name{font-size:16px;font-weight:600;display:block;letter-spacing:-.025em;margin-top:4px;text-decoration:none;color:inherit}.ds-price{display:flex;justify-content:space-between;gap:8px;margin-top:10px;font-size:13px}.ds-price span:last-child{font-size:12px;color:#667167}.ds-card a:focus-visible{outline:2px solid var(--green,#176D67);outline-offset:5px;}@media(prefers-reduced-motion:reduce){.ds-open{transition:none}}"
+    },
+    {
+      "name": "Concept label",
+      "kind": "custom",
+      "refersTo": "concept-label",
+      "description": "Visible attribution for synthetic imagery.",
+      "html": "<span class=\"ds-concept\">Imagem conceitual · IA</span>",
+      "css": ".ds-concept{font-family:Manrope,Arial,sans-serif;display:inline-block;background:#f7f5f0ed;padding:4px 8px;font-size:12px;line-height:1.4;letter-spacing:.01em;color:#485149;border-radius:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Object Editorial",
+    "overview": "The Object Editorial describes the implemented system: warm paper, restrained typography and object imagery with generous surrounding space. Petrol identifies actions and selected emphasis; graphite anchors reading and navigation. Terra is a small identity accent. This description is an implementation decision, not a newly approved brand principle.\n\nThe current source is app/globals.css and components/storefront.tsx, captured on 2026-09-18. Local Manrope and the four named brand colors are established inputs. The code-led workflow and absence of a separate visual comp apply to this session only. This document records an implemented prototype and does not establish trademark or legal approval.",
+    "keyCharacteristics": [
+      "Warm ivory canvas with graphite text and petrol actions.",
+      "Flat image-led cards, slim dividers and compact labels.",
+      "Responsive grids with explicit demo and conceptual-image labeling."
+    ],
+    "rules": [],
+    "dos": [
+      "Do retain the observed palette, locally served Manrope and visible keyboard focus.",
+      "Do preserve conceptual-image labels and illustrative-price wording when extending prototype cards.",
+      "Do keep reduced-motion behavior and responsive navigation intact."
+    ],
+    "donts": [
+      "Don't present the simulated cart or disabled checkout as a real purchase.",
+      "Don't describe generated scenes as photographs of finished products.",
+      "Don't promote this session’s code-led workflow into a permanent user preference."
+    ]
+  }
+}
