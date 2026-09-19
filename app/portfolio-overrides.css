@@ -1,0 +1,19 @@
+/* DEC-009 private/staging adaptation. This small override preserves the original storefront.
+   It must NOT be mistaken for a product validation or publication permission. */
+.product-picture,.pdp-image,.line-objetos .line-image,.line-datas .line-image{background:#f7f5f0}
+.product-picture>img,.pdp-image>img{object-fit:contain!important;object-position:center!important}
+.product-picture .concept-label,.pdp-image .concept-label,.hero-image .concept-label,.line-objetos .concept-label,.line-datas .concept-label{font-size:0!important;max-width:calc(100% - 24px);white-space:normal}
+.product-picture .concept-label::after,.pdp-image .concept-label::after{content:'Render digital do arquivo 3D · não é foto física';font-size:11px;line-height:1.35}
+.product-picture:has(img[src*='placeholder.svg']) .concept-label::after,.pdp-image:has(img[src*='placeholder.svg']) .concept-label::after{content:'Ilustração de demonstração · amostra pendente'}
+.hero-image{background:#e8e8e2 url('/images/products/G-ORG-RC-01-main.webp') center/contain no-repeat}
+.hero-image>img{display:none}
+.hero-image .concept-label::after{content:'Render digital do modelo 3D · foto física pendente';font-size:12px}
+.line-objetos .line-image{background:#f7f5f0 url('/images/products/G-ORG-HS-01-main.webp') center/contain no-repeat}
+.line-datas .line-image{background:#f7f5f0 url('/images/products/S-HAL-DEC-01-main.webp') center/contain no-repeat}
+.line-objetos .line-image>img,.line-datas .line-image>img{display:none}
+.line-objetos .concept-label::after,.line-datas .concept-label::after{content:'Render do arquivo 3D · sem peça física validada';font-size:11px}
+/* The legacy fictional Halloween collection is not one of the nine approved offers. */
+.collection-link{display:none!important}
+.seasonal-intro{background:#f3f0e8 url('/images/products/S-HAL-DEC-01-main.webp') right 35px center/auto 85% no-repeat}
+.seasonal-intro>img{display:none}
+@media(max-width:760px){.seasonal-intro{background-size:140px auto;background-position:right bottom;padding-bottom:125px}}
