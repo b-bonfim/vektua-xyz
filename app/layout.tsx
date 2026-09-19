@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { CartProvider } from '@/components/cart-context';
 import './globals.css';
+import './portfolio-overrides.css';
 export const metadata: Metadata = {
-  title: 'Vektua XYZ — Objetos com personalidade',
-  description: 'Explore objetos, coleções e miniaturas estilizadas. Protótipo demonstrativo da Vektua XYZ, sem vendas ou recebimento de dados pessoais.',
+  title: 'Vektua XYZ — Portfólio inicial em validação',
+  description: 'Prévia interna dos nove SKUs selecionados pelo Founder. Renders digitais dos modelos 3D, sem produto físico validado, vendas ou coleta de dados pessoais.',
   robots: { index: false, follow: false },
   icons: { icon: '/favicon.svg', shortcut: '/favicon.svg' },
 };
