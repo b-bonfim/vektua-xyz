@@ -1,0 +1,24 @@
+/* Impeccable remediation · 2026-09-20. Preserve the existing Vektua XYZ visual system. */
+:root { --vx-muted-accessible: #566157; }
+/* Notes on the ivory canvas: use a darker semantic secondary foreground. */
+.hero-footnote,
+.demo-note,
+.small-note,
+.section-heading p,
+.product-category,
+.price-row > span:last-child,
+.catalog-intro p,
+.result-count { color: var(--vx-muted-accessible); }
+/* Project's 44px comfort target (not a blanket WCAG AA requirement). */
+.icon-button,
+.filter-chips button,
+.gallery-controls button,
+.quantity-control button,
+.search-form button { min-width: 44px; min-height: 44px; }
+/* Do not let a narrow screen clip labels when touch targets grow. */
+.filter-chips { row-gap: 10px; }
+.gallery-controls { flex-wrap: wrap; }
+@media (prefers-reduced-motion: reduce) {
+  .filter-chips button,
+  .gallery-controls button { transition: none; }
+}
