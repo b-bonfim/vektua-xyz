@@ -1,0 +1,52 @@
+/* Brand Book v2.0 digital implementation. Provisional vectors, not approved trademark artwork. */
+:root{--vx-graphite:#24302f;--vx-ivory:#f7f5f0;--vx-white:#fff;--vx-petrol:#176d67;--vx-terra:#c45c3b;--vx-stone:#e8e8e2}
+body{background:var(--vx-ivory);color:var(--vx-graphite)}
+/* Use the same horizontal vector mark across the new home and every existing route. */
+.brand:not(.vx-logo){width:192px;height:48px;display:inline-flex;align-items:center;flex:0 0 192px;position:relative}
+.brand:not(.vx-logo)>span{display:none}
+.brand:not(.vx-logo)::before{content:"";width:192px;height:48px;display:block;background:url('/brand/vektua-wordmark.svg') center/contain no-repeat}
+.brand.light:not(.vx-logo)::before{background-image:url('/brand/vektua-wordmark-negative.svg')}
+.vx-logo{height:48px;display:inline-flex;align-items:center;flex-shrink:0}
+.vx-logo img{width:192px;height:48px;object-fit:contain}
+.desktop-nav{gap:clamp(12px,1.7vw,27px);font-size:12px;white-space:nowrap}
+.desktop-nav a{min-height:44px;display:flex;align-items:center}
+.demo-strip{gap:12px}
+/* Four equal pathways on wide screens, not three squeezed columns. */
+.line-grid,.vx-line-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.line-image{height:226px}
+.line-card h3{font-size:clamp(17px,1.7vw,21px);gap:10px}
+.line-card h3 svg{flex-shrink:0}
+.line-card-text p{overflow-wrap:anywhere}
+.vx-line-verb{font-size:12px;color:var(--vx-petrol);display:block;margin-bottom:8px}
+.line-chaveiros .vx-line-verb{color:#9d492d}
+.line-chaveiros .line-image{background:#ebe7de}
+.vx-hero h1{max-width:11ch}
+.vx-hero .hero-copy>p{max-width:47ch}
+.vx-products .product-card{min-width:0}
+.vx-keyring-feature{display:grid;grid-template-columns:1fr 1fr;min-height:455px;background:var(--vx-graphite);color:var(--vx-ivory);overflow:hidden}
+.vx-keyring-photo{position:relative;min-width:0;background:#e8e5dc}
+.vx-keyring-photo>img{width:100%;height:100%;min-height:455px;object-fit:cover;object-position:center}
+.vx-keyring-copy{padding:clamp(36px,5.4vw,82px);display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.vx-keyring-copy h2{font-size:clamp(29px,3.25vw,46px);max-width:15ch;line-height:1.17;margin-bottom:24px}
+.vx-keyring-copy p{font-size:14px;line-height:1.8;max-width:49ch;color:#dce5dd;margin-bottom:17px}
+.vx-keyring-copy .button{background:var(--vx-ivory);color:var(--vx-graphite);margin-top:8px}
+.vx-keyring-copy .button:hover{background:#fff;color:var(--vx-graphite)}
+.vx-partner-link{margin-top:22px;color:var(--vx-ivory);text-decoration-color:#b9cbbf}
+.vx-partner-link:hover{color:white}
+.vx-mobile-nav{display:none;position:relative}
+.vx-mobile-nav summary{display:flex;align-items:center;justify-content:center;width:44px;height:44px;cursor:pointer;list-style:none;border-radius:4px}
+.vx-mobile-nav summary::-webkit-details-marker{display:none}
+.vx-mobile-nav summary:hover{background:var(--vx-stone)}
+.vx-mobile-nav[open]>nav{position:absolute;right:0;top:calc(100% + 12px);min-width:min(340px,calc(100vw - 32px));padding:12px 22px;background:var(--vx-ivory);border:1px solid #d8dbd4;box-shadow:0 16px 28px -18px #24302f66;z-index:45}
+.vx-mobile-nav nav a{display:flex;align-items:center;justify-content:space-between;min-height:51px;gap:18px;border-bottom:1px solid #d8dbd4;font-size:14px}
+.vx-mobile-nav nav a:last-child{border:0}
+.vx-mobile-nav nav a:hover{color:var(--vx-petrol)}
+.product-name,.line-card h3,.desktop-nav a{transition:color .15s ease}
+.product-name:hover,.line-card:hover h3{color:var(--vx-petrol)}
+button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--vx-petrol);outline-offset:4px}
+@media(min-width:1552px){.vx-hero .hero-copy>p{font-size:17px}}
+@media(max-width:1190px){.desktop-nav{gap:12px}.header-inner{gap:18px}.line-grid,.vx-line-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.line-image{height:260px}}
+@media(max-width:960px){.brand:not(.vx-logo){width:172px;flex-basis:172px}.brand:not(.vx-logo)::before{width:172px}.vx-logo,.vx-logo img{width:172px}.vx-mobile-nav{display:block}.vx-keyring-feature{grid-template-columns:1fr 1fr}.vx-keyring-copy{padding:36px}}
+@media(max-width:640px){.brand:not(.vx-logo){width:151px;flex-basis:151px}.brand:not(.vx-logo)::before{width:151px}.vx-logo,.vx-logo img{width:151px}.demo-strip span:first-child{display:none}.demo-strip{justify-content:center;text-align:center}.header-inner{gap:8px}.header-actions{gap:2px}.vx-hero h1{max-width:none}.line-grid,.vx-line-grid{grid-template-columns:1fr;gap:30px}.line-card{display:block}.line-image{height:auto;aspect-ratio:1.4}.line-card-text{padding-top:14px}.vx-keyring-feature{grid-template-columns:1fr}.vx-keyring-photo>img{min-height:300px;max-height:370px}.vx-keyring-copy{padding:38px 25px 43px}.vx-keyring-copy h2{max-width:20ch}.vx-keyring-copy .button{width:100%}.vx-partner-link{line-height:1.65}.catalog-toolbar{align-items:flex-start}.vx-products{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:390px){.vx-products{grid-template-columns:1fr}.header-actions .help-nav{display:none}}
+@media(prefers-reduced-motion:reduce){.product-name,.line-card h3,.desktop-nav a{transition:none}}
