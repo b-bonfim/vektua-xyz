@@ -1,8 +1,7 @@
 /**
- * Copy source: Google Sheets "shortlist-sku", tab Página1, C5:C13,
- * spreadsheet ID 1QNSSEhMnCF427aj_oz8BMw5KI4E_MaHPnRu43Pmio2s,
- * retrieved 2026-09-20. Indexed by column B SKU, not by sheet row order.
- * Text here is source copy, not evidence of licenses, manufacturing or commercial release.
+ * Source: Google Sheets "shortlist-sku", tab Página1, B5:C13,
+ * retrieved 2026-09-20; indexed by SKU rather than sheet order.
+ * Source text is not evidence of licenses, manufacturing or commercial release.
  */
 export const optimizedSkuCopy: Record<string, string> = {
   'S-HAL-DEC-01': 'Abóbora decorativa de Halloween | Entre no clima da data com uma peça temática que também pode compor a apresentação de doces embalados. Uma escolha para decorar mesas, montar um cantinho de Halloween ou complementar a ambientação da festa. Confira as medidas e as opções disponíveis antes de escolher.',
@@ -16,7 +15,7 @@ export const optimizedSkuCopy: Record<string, string> = {
   'CAN-PET-001': 'Miniatura estilizada de pet | Uma forma especial de celebrar a personalidade do seu companheiro. A proposta é transformar fotos do seu pet em uma miniatura estilizada para decorar, presentear ou guardar como lembrança. Não se trata de reprodução fotográfica. Confira os estilos disponíveis, as referências exigidas, o escopo de ajustes e os prazos informados antes de fazer a encomenda.',
 };
 
-/** Additional fact-specific safeguards; raw descriptions above remain unchanged for traceability. */
+/** Fact-specific safeguards are distinct from the source marketing copy. */
 export const skuCaveats: Record<string, string> = {
   'S-HAL-DEC-01': 'Uso com doces, segurança e direitos sobre o modelo original e remix ainda em análise.',
   'G-ORG-RC-01': 'Configuração de apoio, não de parede, conforme escolha do Founder. Medidas e compatibilidade ainda não testadas fisicamente.',
@@ -32,5 +31,8 @@ export const skuCaveats: Record<string, string> = {
 export function skuDescription(id: string, genericNotice: string): string {
   const copy = optimizedSkuCopy[id];
   if (!copy) throw new Error(`Descrição otimizada ausente para SKU ${id}`);
-  return `${copy} ${skuCaveats[id]} ${genericNotice}`;
+  // The product page already renders its heading; omit the sheet's redundant title prefix.
+  const divider = copy.indexOf(' | ');
+  const body = divider >= 0 ? copy.slice(divider + 3) : copy;
+  return `${body} ${skuCaveats[id]} ${genericNotice}`;
 }
