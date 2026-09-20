@@ -1,0 +1,239 @@
+{
+  "date": "2026-09-20",
+  "source_folder": "https://drive.google.com/drive/u/0/folders/1FseJyMONYmNCIFXkR7Iye1Gorr5A24nE",
+  "catalog_sk_us_with_remix": 7,
+  "images": [
+    {
+      "sku": "G-CHV-JJ-01",
+      "source_filename": "G-CHV-JJ-01_REMIX.png",
+      "drive_file_id": "15cdY5NG-VNVsdNG1KcEPzS8LpC1nKk1z",
+      "source_sha256": "9b4a841f6943fd2d5de3427091010326318fd7effbc01dbe33c5dacc02243684",
+      "site_path": "/public/images/products/remix/G-CHV-JJ-01_REMIX.webp",
+      "site_sha256": "1bb5ad40183aca13a87f3e1df1f7c0dfc192a402897823695dc9e93a1faca1d1",
+      "size_bytes": 158950,
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "G-CHV-JJ-01",
+      "source_filename": "G-CHV-JJ-01_REMIX_02.png",
+      "drive_file_id": "1jOW1-oLAg8skcbaC8O_4LTZ_ajYKla9z",
+      "source_sha256": "85d5a2ee62c4c6fd640c349892680018014a4e66bc1857c3d8c7a16b158f40ca",
+      "site_path": "/public/images/products/remix/G-CHV-JJ-01_REMIX_02.webp",
+      "site_sha256": "26545852657cd20337d884b14efd7e0474dcbdad8864aaa186d85f69e917cfdc",
+      "size_bytes": 253410,
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "G-CHV-JJ-01",
+      "source_filename": "G-CHV-JJ-01_REMIX_03.png",
+      "drive_file_id": "1UZOMdDHhoUkB1Vf4p6iOn62ctIfU11Kq",
+      "source_sha256": "3a0912dcf45e019b9dc747cb2cfe9de8d082db8be5c22488a21102e4f4bcb584",
+      "site_path": "/public/images/products/remix/G-CHV-JJ-01_REMIX_03.webp",
+      "site_sha256": "24de0912729acb43c169188b83bd1403452290acfb986caf5c8810dd12f21a72",
+      "size_bytes": 191960,
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "G-ORG-HS-01",
+      "source_filename": "G-ORG-HS-01_REMIX.png",
+      "drive_file_id": "1ShdgJvPmRWIipjQwSHoepAUtNTI91cNB",
+      "source_sha256": "8956c2437b406c2b27d37f87d0141a36e7921a8634e8ba374e38ff0ab12fc1a6",
+      "site_path": "/public/images/products/remix/G-ORG-HS-01_REMIX.webp",
+      "site_sha256": "b59f4fd063b60701da0300d9293f624a7c068b4c25624493aef9a1938a490d7c",
+      "size_bytes": 64366,
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "G-ORG-HS-01",
+      "source_filename": "G-ORG-HS-01_REMIX_02.png",
+      "drive_file_id": "1pauwbfObCWQ4oz0x_bT5fFVk_aqQ0LDw",
+      "source_sha256": "2b823ce9930fc593b261c8b48ffe070d1f3df902c77cffec986c171e8826feb8",
+      "site_path": "/public/images/products/remix/G-ORG-HS-01_REMIX_02.webp",
+      "site_sha256": "833f58f653c3d8f0168bd7d8be733937f4723abf715a083b6d15a1152d70fb32",
+      "size_bytes": 60164,
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "G-ORG-HS-01",
+      "source_filename": "G-ORG-HS-01_REMIX_03.png",
+      "drive_file_id": "1UMu48G0TEgUiwZjNee1IpumEGXyUTqMc",
+      "source_sha256": "600ae6e0a6928f5fd5a32f6920fb79557ac86368a96ea0f68d3fa4f3c372e71c",
+      "site_path": "/public/images/products/remix/G-ORG-HS-01_REMIX_03.webp",
+      "site_sha256": "6a0e94c96aed08cf8e03bed59ec56308c3389e4d9322d2623a74080583b08374",
+      "size_bytes": 64056,
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "G-ORG-RC-01",
+      "source_filename": "G-ORG-RC-01_REMIX.png",
+      "drive_file_id": "1WpKmF-DzsYUHnWhtiY1iTe20dBDWW0qj",
+      "source_sha256": "194e200bbf4d16a60b4fd95d1aa00a77d427516115cfd3f77b6419394f164a51",
+      "site_path": "/public/images/products/remix/G-ORG-RC-01_REMIX.webp",
+      "site_sha256": "6f8371cd645976b59c4b89bf82f41abf9a764698301489bcd309e1e1302e8a18",
+      "size_bytes": 100488,
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "G-VAS-ESC-01",
+      "source_filename": "G-VAS-ESC-01_REMIX.png",
+      "drive_file_id": "1KzhO4dEZ4XXDnuzAV9_Yhgeqj2IwxSa2",
+      "source_sha256": "fad8225ba9a40ee40f2e21f6edc979f952233ebbd87246cd8e5b0840cc4466f2",
+      "site_path": "/public/images/products/remix/G-VAS-ESC-01_REMIX.webp",
+      "site_sha256": "1761e66137144698c778a38f3f9cabcd95df79e962f88b1144a8c55ee05adb69",
+      "size_bytes": 141488,
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "G-VAS-MIN-01",
+      "source_filename": "G-VAS-MIN-01_REMIX.png",
+      "drive_file_id": "1BKJyXwLcv0950VRHywbQjB7b7K4wLPmF",
+      "source_sha256": "2d7fa46490fd8ea690b1eea725020be7de5fa736e82e6c23cbbae844cc548f2a",
+      "site_path": "/public/images/products/remix/G-VAS-MIN-01_REMIX.webp",
+      "site_sha256": "2c982c6c5bc2c46d632c361f6ad9860273b01224a4cb7bfe1b0ff376dbbd5704",
+      "size_bytes": 176010,
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "S-HAL-DEC-01",
+      "source_filename": "S-HAL-DEC-01_REMIX.png",
+      "drive_file_id": "12iwXgPz3LgtyHivNHgN5gg4dqPVVgAj0",
+      "source_sha256": "348d27bc45d77a996d482cb39f2daeae3765b4b537283250752f10f72d071afc",
+      "site_path": "/public/images/products/remix/S-HAL-DEC-01_REMIX.webp",
+      "site_sha256": "328936d309c39d1568d3e67be0076c863b51d02365a0a4bb381db5604d7587e3",
+      "size_bytes": 199540,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "S-HAL-DEC-01",
+      "source_filename": "S-HAL-DEC-01_REMIX_02.png",
+      "drive_file_id": "1uR6_I-KLdLgPayIM99e3g1zhG0D2cmzG",
+      "source_sha256": "465772b99b2505e8949e5b6e0af99cf861d7c0e0319a1cf07e67d736a23709e5",
+      "site_path": "/public/images/products/remix/S-HAL-DEC-01_REMIX_02.webp",
+      "site_sha256": "b3ee843ec5183627ca4a3720d30cd3a39b7c2b5b35d7d1800f4bfc467b4f91dc",
+      "size_bytes": 197052,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "S-HAL-DEC-01",
+      "source_filename": "S-HAL-DEC-01_REMIX_03.png",
+      "drive_file_id": "1BVpSKSyUbXEhZwgg_ghryYBKZ5P96f4G",
+      "source_sha256": "6ba09d46ac09a166deba6d4cce7577a85c34abb9fd2c15c5092a98bd2799c904",
+      "site_path": "/public/images/products/remix/S-HAL-DEC-01_REMIX_03.webp",
+      "site_sha256": "a2023d9527f7bd8b40f534cf54670c0061d6baacb7de16bc46a69ae2a8669e43",
+      "size_bytes": 213548,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "S-HAL-DEC-01",
+      "source_filename": "S-HAL-DEC-01_REMIX_04.png",
+      "drive_file_id": "1GypfjJNYvDHLvhw1O-mFZ0od3ooj9uFk",
+      "source_sha256": "94d1839cf2e5c7a970c6798615e5ff5c7e4c72f0cfb6aec1daf8bf29c8163fe1",
+      "site_path": "/public/images/products/remix/S-HAL-DEC-01_REMIX_04.webp",
+      "site_sha256": "ad2d590c91b1efeef7c8a154f2924d2902b6215fa38d5cbe9b38c0d797650386",
+      "size_bytes": 207462,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "S-NAT-PRE-01",
+      "source_filename": "S-NAT-PRE-01_REMIX.png",
+      "drive_file_id": "1WqMD8yQChbs3H9HJUm0CNMPDlxh3g5sv",
+      "source_sha256": "f342e9fa953fdf223647a7c7042a60ee5660dd067db81d8782739b9684d145d7",
+      "site_path": "/public/images/products/remix/S-NAT-PRE-01_REMIX.webp",
+      "site_sha256": "c17f68eabf8e9570cc7cec148f6782cb47dcefde5c0f6365bc93f6aaf7e618d9",
+      "size_bytes": 173338,
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "S-NAT-PRE-01",
+      "source_filename": "S-NAT-PRE-01_REMIX_02.png",
+      "drive_file_id": "1y7TlYc9HaLA74zjVRCFl-qIuIdt-7zd-",
+      "source_sha256": "670bc146e8e36aa7c8e04523521e3215bcc0e1d54b6a8c487aa7d271ea632caa",
+      "site_path": "/public/images/products/remix/S-NAT-PRE-01_REMIX_02.webp",
+      "site_sha256": "3025e8726aa3f7ed95a579a3be8d4331519d16034edbd1226e4874ce826abe9d",
+      "size_bytes": 241674,
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    },
+    {
+      "sku": "S-NAT-PRE-01",
+      "source_filename": "S-NAT-PRE-01_REMIX_03.png",
+      "drive_file_id": "1qwAWsKRqROQeQy-Buy3SuWW5d8hRPhQY",
+      "source_sha256": "34c538c85db19660d861791252fa4067063df1ba98e30b0cc1a8dc07d8dc7ca4",
+      "site_path": "/public/images/products/remix/S-NAT-PRE-01_REMIX_03.webp",
+      "site_sha256": "10d8e2f4d8761f18384cba85b629df66a5d6dab7da12551d4400174f0b32f672",
+      "size_bytes": 156918,
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "classification": "Imagem REMIX ambientada/editada; fotografia de peça fabricada não comprovada"
+    }
+  ],
+  "excluded_skus": [
+    "CAN-PET-001",
+    "CAN-PESSOA-001"
+  ],
+  "status": "Integrado ao código; evidências em docs/remix-import-status.md e confirmação de commit/merge no PR #5.",
+  "source_package": "vektua-xyz-imagens-remix-atualizacao(2).zip",
+  "source_package_sha256": "01aa60e327c4bbffbe4ad2273f67fe2df33b9642ff308ef97ca36f7d64c3e31f",
+  "source_package_status": "Pacote preparado; não implantado no GitHub"
+}

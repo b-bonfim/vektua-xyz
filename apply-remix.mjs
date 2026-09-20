@@ -26,10 +26,9 @@ for (const names of Object.values(refs)) for (const name of names) {
     throw new Error(`Imagem REMIX ausente: ${name}`);
   }
 }
-const files = ['lib/catalog.ts','components/storefront.tsx','components/home-v2.tsx','components/chaveiros-v2.tsx'];
+const files = ['lib/catalog.ts','components/storefront.tsx','components/home-v2.tsx','components/chaveiros-v2.tsx','app/sobre/page.tsx','app/globals.css'];
 const original = new Map(files.map(p=>[p,fs.readFileSync(path.join(root,p),'utf8')]));
 const changes = new Map(original);
-const escapeRegex = s => s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 function change(file, needle, replacement, expected=1) {
   const before=changes.get(file);
   const count=before.split(needle).length-1;
@@ -61,15 +60,18 @@ const storefront='components/storefront.tsx';
 change(storefront, 'alt={`Representação conceitual de ${product.name}; não é foto de produto físico`}', 'alt={`Imagem ${product.gallery ? "REMIX ambientada, edição visual de" : "conceitual de"} ${product.name}; fotografia da peça fabricada não verificada`}');
 change(storefront, 'width="640" height="640"/><Concept/>', 'width="640" height="640"/><Concept>{product.gallery ? "Imagem REMIX · ambientação editada" : "Imagem conceitual · IA"}</Concept>');
 change(storefront, "const [view,setView]=useState('composicao')", 'const [view,setView]=useState(0)');
-change(storefront, '<div className={`pdp-image ${view===\'detalhe\'?\'detail-zoom\':\'\'}`}><img src={product.image}', '<div className="pdp-image"><img src={product.gallery?.[view] ?? product.image}');
-change(storefront, 'alt={`Conceito visual: ${product.name}`}', 'alt={`${product.gallery ? "Imagem REMIX ambientada" : "Conceito visual"}: ${product.name}; amostra física não verificada`',2);
+change(storefront, '<div className={`pdp-image ${view===\'detalhe\'?\'detail-zoom\':\'\'}`}><img src={product.image}', '<div className={`pdp-image ${!product.gallery && view===1 ? "detail-zoom" : ""}`}><img src={product.gallery?.[view] ?? product.image}');
+change(storefront, 'alt={`Conceito visual: ${product.name}`}', 'alt={`${product.gallery ? "Imagem REMIX ambientada" : "Conceito visual"}: ${product.name}; amostra física não verificada`}');
 change(storefront, '<Concept>Imagem conceitual · foto real pendente</Concept>', '<Concept>{product.gallery ? "Imagem REMIX · ambientação editada; peça física não verificada" : "Imagem conceitual · foto real pendente"}</Concept>');
+change(storefront, 'style={{objectPosition:product.imagePosition}}/><Concept>', 'style={{objectPosition:product.imagePosition,objectFit:product.gallery ? "contain" : undefined}}/><Concept>');
 change(storefront,
   "{['composicao','detalhe'].map(v=><button key={v} className={view===v?'selected':''} aria-pressed={view===v} onClick={()=>setView(v)}>{v==='composicao'?'Composição':'Aproximar conceito'}</button>)}",
-  "{(product.gallery ?? [product.image]).map((src,index)=><button key={src} className={view===index?'selected':''} aria-pressed={view===index} onClick={()=>setView(index)}>Imagem {index+1}</button>}"
+  "{(product.gallery ?? ['composicao','detalhe']).map((src,index)=><button key={src} className={view===index?'selected':''} aria-pressed={view===index} onClick={()=>setView(index)}>{product.gallery ? `Imagem ${index+1}` : index===0 ? 'Composição' : 'Aproximar conceito'}</button>)}"
 );
 change(storefront, '<p className="small-note">Cena ilustrativa. Consulte abaixo o conteúdo previsto para este exemplo.</p>', '<p className="small-note">{product.gallery ? "Imagens REMIX ambientadas e editadas. Adereços de cenário não integram a oferta; conferir composição e amostra física antes de vender." : "Cena ilustrativa. Consulte abaixo o conteúdo previsto para este exemplo."}</p>');
-change(storefront,'src="/images/objects.webp"','src="'+webPath(refs['G-VAS-ESC-01'][0])+'"');
+change(storefront,'src="/images/objects.webp"','src="'+webPath(refs['G-VAS-ESC-01'][0])+'"',2);
+change(storefront, 'alt="Composição conceitual de objetos decorativos" width="800" height="900"/><Concept/>', 'alt="Ambientação REMIX editada do SKU G-VAS-ESC-01; peça física não verificada" width="800" height="900"/><Concept>Imagem REMIX · ambientação editada</Concept>');
+change(storefront, 'alt={`Conceito visual: ${p.name}`}', 'alt={`${p.gallery ? "Imagem REMIX ambientada" : "Conceito visual"}: ${p.name}`}');
 change(storefront,'src="/images/collection.webp"','src="'+webPath(refs['S-HAL-DEC-01'][0])+'"');
 change(storefront, 'alt="Composição conceitual de vasos esculturais em verde e marfim, com uma bandeja terracota"', 'alt="Ambientação REMIX editada do SKU G-VAS-ESC-01; peça física não verificada"');
 change(storefront, '<Concept>Conceito visual · foto real pendente</Concept>', '<Concept>Imagem REMIX · ambientação editada</Concept>');
@@ -96,7 +98,15 @@ change(keyrings,'<span className="concept-label">Visualização 3MF · foto real
 change(keyrings,'alt={`Geometria digital de ${product.name}; não é fotografia do produto físico`}', 'alt={`Imagem REMIX ambientada e editada de ${product.name}; peça física não verificada`}');
 change(keyrings,'<span className="concept-label">Visualização digital · foto pendente</span>','<span className="concept-label">Imagem REMIX · ambientação editada</span>');
 
-// Falhar antes de qualquer escrita caso ainda existam imagens SVG de SKU nas quatro superfícies alvo.
+const about='app/sobre/page.tsx';
+change(about, 'src="/images/objects.webp"', 'src="'+webPath(refs['G-VAS-ESC-01'][0])+'"');
+change(about, 'alt="Composição visual conceitual de objetos decorativos, não fotografia dos produtos fabricados"', 'alt="Ambientação REMIX editada do SKU G-VAS-ESC-01; peça física não verificada"');
+change(about, '<span className="concept-label">Conceito visual · foto real pendente</span>', '<span className="concept-label">Imagem REMIX · ambientação editada</span>');
+change(about, 'alt={`Representação digital conceitual da linha ${line.name}`}', 'alt={`Imagem ${line.id === "feitos" ? "conceitual" : "REMIX ambientada"} da linha ${line.name}; peça física não verificada`}');
+change(about, '<span className="concept-label">Visualização digital</span>', '<span className="concept-label">{line.id === "feitos" ? "Imagem conceitual" : "Imagem REMIX · ambientação editada"}</span>');
+change('app/globals.css', '.gallery-controls{display:flex;gap:10px;', '.gallery-controls{display:flex;flex-wrap:wrap;gap:10px;');
+
+// Falhar antes de qualquer escrita caso ainda existam imagens SVG de SKU nas superfícies alvo.
 for (const [file,text] of changes) {
   if (/\/images\/products\/[A-Z0-9-]+-main\.svg/.test(text)) throw new Error(`Referência SVG de SKU ainda presente em ${file}; nada foi escrito.`);
 }
