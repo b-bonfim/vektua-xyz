@@ -9,10 +9,17 @@ export function CartProvider({children}:{children:ReactNode}) {
   const [items,setItems] = useState<CartItem[]>([]);
   const [ready,setReady] = useState(false);
   useEffect(()=>{
-    try { const parsed = JSON.parse(sessionStorage.getItem(STORAGE)||'[]');
-      if(Array.isArray(parsed)) setItems(parsed.filter((x):x is CartItem => !!x && typeof x==='object' && products.some(p=>p.id===x.productId && p.colors.includes(x.color)) && Number.isInteger(x.quantity) && x.quantity>0 && x.quantity<=10).slice(0,30));
-    } catch { /* Storage unavailable or invalid: use an empty cart. */ }
-    setReady(true);
+    // Defer storage hydration until after the first commit to avoid sync setState in an effect.
+    // The initial empty state is identical on server and client during hydration.
+    let active = true;
+    queueMicrotask(()=>{
+      if(!active)return;
+      try { const parsed:unknown = JSON.parse(sessionStorage.getItem(STORAGE)||'[]');
+        if(Array.isArray(parsed)) setItems(parsed.filter((x):x is CartItem => !!x && typeof x==='object' && products.some(p=>p.id===x.productId && p.colors.includes(x.color)) && Number.isInteger(x.quantity) && x.quantity>0 && x.quantity<=10).slice(0,30));
+      } catch { /* Storage unavailable or invalid: use an empty cart. */ }
+      setReady(true);
+    });
+    return()=>{active=false;};
   },[]);
   useEffect(()=>{ if(ready) { try { sessionStorage.setItem(STORAGE,JSON.stringify(items)); } catch { /* In-memory demo remains usable. */ } } },[items,ready]);
   const add = (id:string,color:string,quantity:number) => {
