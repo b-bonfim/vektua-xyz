@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { CartProvider } from '@/components/cart-context';
 import './globals.css';
 import './brand-v2.css';
+import './impeccable-audit-fixes.css';
 
 // SEO-ready metadata without falsely indexing a non-commercial, unapproved mockup.
 // Do not set metadataBase/canonical until the actual domain and public release are verified.
