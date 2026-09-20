@@ -1,0 +1,131 @@
+{
+  "routes": [
+    {
+      "route": "/",
+      "status": 200,
+      "image_count": 13
+    },
+    {
+      "route": "/busca",
+      "status": 200,
+      "image_count": 9
+    },
+    {
+      "route": "/objetos-colecionaveis",
+      "status": 200,
+      "image_count": 4
+    },
+    {
+      "route": "/datas-colecoes",
+      "status": 200,
+      "image_count": 3
+    },
+    {
+      "route": "/datas-colecoes/pequenos-encantos",
+      "status": 200,
+      "image_count": 3
+    },
+    {
+      "route": "/chaveiros",
+      "status": 200,
+      "image_count": 4
+    },
+    {
+      "route": "/sobre",
+      "status": 200,
+      "image_count": 7
+    },
+    {
+      "route": "/feitos-para-voce",
+      "status": 200,
+      "image_count": 1
+    },
+    {
+      "route": "/checkout",
+      "status": 200,
+      "image_count": 0
+    },
+    {
+      "route": "/produto/g-chv-jj-01",
+      "status": 200,
+      "image_count": 5,
+      "gallery_buttons": 3,
+      "image": "/images/products/remix/G-CHV-JJ-01_REMIX.webp"
+    },
+    {
+      "route": "/produto/g-org-hs-01",
+      "status": 200,
+      "image_count": 5,
+      "gallery_buttons": 3,
+      "image": "/images/products/remix/G-ORG-HS-01_REMIX.webp"
+    },
+    {
+      "route": "/produto/g-org-rc-01",
+      "status": 200,
+      "image_count": 5,
+      "gallery_buttons": 1,
+      "image": "/images/products/remix/G-ORG-RC-01_REMIX.webp"
+    },
+    {
+      "route": "/produto/g-vas-esc-01",
+      "status": 200,
+      "image_count": 5,
+      "gallery_buttons": 1,
+      "image": "/images/products/remix/G-VAS-ESC-01_REMIX.webp"
+    },
+    {
+      "route": "/produto/g-vas-min-01",
+      "status": 200,
+      "image_count": 5,
+      "gallery_buttons": 1,
+      "image": "/images/products/remix/G-VAS-MIN-01_REMIX.webp"
+    },
+    {
+      "route": "/produto/s-hal-dec-01",
+      "status": 200,
+      "image_count": 5,
+      "gallery_buttons": 4,
+      "image": "/images/products/remix/S-HAL-DEC-01_REMIX.webp"
+    },
+    {
+      "route": "/produto/s-nat-pre-01",
+      "status": 200,
+      "image_count": 5,
+      "gallery_buttons": 3,
+      "image": "/images/products/remix/S-NAT-PRE-01_REMIX.webp"
+    },
+    {
+      "route": "/produto/can-pet-001",
+      "status": 200,
+      "image_count": 5,
+      "gallery_buttons": 2,
+      "image": "/images/pet.webp"
+    },
+    {
+      "route": "/produto/can-pessoa-001",
+      "status": 200,
+      "image_count": 5,
+      "gallery_buttons": 2,
+      "image": "/images/person.webp"
+    }
+  ],
+  "unique_assets_checked": 20,
+  "remix_assets_checked": 16,
+  "browser_qa": "Not performed: browser binary unavailable; installation did not complete.",
+  "date": "2026-09-20",
+  "baseline_main": "58bf54522d4cba21e341a17f9c5dae9742e3a8cd",
+  "build": "passed",
+  "typescript": "passed",
+  "diff_check": "passed",
+  "lint": {
+    "errors": 2,
+    "warnings": 21,
+    "new_errors": 0,
+    "existing_error_locations": [
+      "components/cart-context.tsx:13",
+      "components/storefront.tsx:22"
+    ],
+    "rule": "react-hooks/set-state-in-effect"
+  },
+  "importer": "Reproduces six files from baseline; a second application fails without changing files."
+}
