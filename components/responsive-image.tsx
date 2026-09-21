@@ -22,13 +22,15 @@ export default function ResponsiveImage({ src, alt, sizes, width, loading, fetch
     : `${numericWidth || 320}px`);
   const hasVariants = Boolean(entry && entry.variants.length > 1);
   const srcSet = hasVariants ? entry.variants.map(variant => `${variant.src} ${variant.width}w`).join(', ') : undefined;
-  // Existing explicit lazy requests stay lazy; LCP/above-fold images without
-  // loading="lazy" remain eager, including fetchPriority="high" hero.
+  // Preserve explicitly lazy images; keep the hero and the initially visible
+  // 900px product gallery eager. Give eager large images high resource priority
+  // to address the measured mobile PDP LCP regression in the first fixed build.
   const effectiveLoading = loading || 'eager';
+  const effectivePriority = fetchPriority || (effectiveLoading === 'eager' && numericWidth >= 900 ? 'high' : undefined);
   return (
     // eslint-disable-next-line @next/next/no-img-element -- Vinext beta drops next/image srcSet and lazifies LCP; this scoped wrapper implements measured native responsive variants, not a blanket lint suppression.
     <img {...props} src={src} srcSet={srcSet} sizes={hasVariants ? responsiveSizes : undefined}
-      alt={alt} width={width} loading={effectiveLoading} fetchPriority={fetchPriority}
+      alt={alt} width={width} loading={effectiveLoading} fetchPriority={effectivePriority}
       decoding={decoding || 'async'} />
   );
 }
