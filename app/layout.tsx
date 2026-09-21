@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from 'next';
 import { CartProvider } from '@/components/cart-context';
+import { WhatsAppContact } from '@/components/whatsapp-contact';
 import './globals.css';
 import './brand-v2.css';
 import './impeccable-audit-fixes.css';
+import './whatsapp-contact.css';
 
 // SEO-ready metadata without falsely indexing a non-commercial, unapproved mockup.
 // Do not set metadataBase/canonical until the actual domain and public release are verified.
@@ -18,5 +20,5 @@ export const metadata: Metadata = {
 };
 export const viewport: Viewport = { themeColor: '#F7F5F0', colorScheme: 'light', width: 'device-width', initialScale: 1 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="pt-BR"><body><CartProvider>{children}</CartProvider></body></html>;
+  return <html lang="pt-BR"><body><CartProvider>{children}<WhatsAppContact /></CartProvider></body></html>;
 }
