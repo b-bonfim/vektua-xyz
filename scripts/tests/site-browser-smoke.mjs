@@ -34,7 +34,8 @@ try {
     assert.equal(response?.status(), 200);
     assert.equal(await page.locator('header.site-header').count(), 1);
     assert.equal(await page.locator('footer.site-footer').count(), 1);
-    assert.match(await page.title(), /Vektua XYZ/);
+    const title = await page.title();
+    assert.match(title, /Vektua XYZ/);
     assert.ok(await page.getByRole('heading', { level: 1 }).count() > 0);
     await page.screenshot({ path: `${out}/desktop-home.png`, fullPage: true });
     assert.deepEqual(errors, [], 'erros de execução no navegador');
@@ -44,7 +45,7 @@ try {
       vitals: window.__qaVitals,
     }));
     await context.close();
-    return { title: await page.title().catch(() => 'closed'), metric, note: 'Laboratório GitHub runner; não corresponde a campo/usuários reais.' };
+    return { title, metric, note: 'Laboratório GitHub runner em modo dev; não corresponde a campo/usuários reais.' };
   });
 
   await check('desktop: coleção, ficha pessoa, personalização e metadados', async () => {
@@ -53,6 +54,7 @@ try {
       ['/datas-colecoes/pequenos-encantos', 'Pequenos Encantos'],
       ['/produto/can-pessoa-001', 'Vektua XYZ'],
       ['/feitos-para-voce/pessoa', 'Feitos para Você'],
+      ['/feitos-para-voce/pet', 'Feitos para Você'],
       ['/politicas/privacidade', 'Privacidade'],
     ]) {
       const response = await page.goto(`${baseURL}${path}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
@@ -68,13 +70,16 @@ try {
 
   await check('mobile: menu acessível, navegação sem duplicação', async () => {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
-    const response = await page.goto(baseURL, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    const response = await page.goto(baseURL, { waitUntil: 'networkidle', timeout: 60000 });
     assert.equal(response?.status(), 200);
+    // DOMContentLoaded não comprova hidratação dos handlers React.
+    await page.waitForTimeout(300);
     const summary = page.locator('.vx-mobile-nav summary');
     assert.equal(await summary.count(), 1);
     await summary.click();
     assert.equal(await page.locator('.vx-mobile-nav').getAttribute('open'), '');
     await page.keyboard.press('Escape');
+    await page.waitForFunction(() => !document.querySelector('.vx-mobile-nav')?.hasAttribute('open'), null, { timeout: 3000 });
     assert.equal(await page.locator('.vx-mobile-nav').getAttribute('open'), null);
     await page.screenshot({ path: `${out}/mobile-home.png`, fullPage: true });
     await page.close();
