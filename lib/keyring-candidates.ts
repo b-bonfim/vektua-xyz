@@ -1,0 +1,53 @@
+/**
+ * Snapshot da shortlist-sku, aba Página1, linhas de dados 10–30, lida em 21/09/2026.
+ * Fonte: https://docs.google.com/spreadsheets/d/1QNSSEhMnCF427aj_oz8BMw5KI4E_MaHPnRu43Pmio2s/edit?gid=0#gid=0
+ * REGISTRO INTERNO DE CANDIDATOS, NÃO CATÁLOGO COMERCIAL. Não importar em
+ * `products`, alimentar ficha pública individual, checkout ou atribuir preços.
+ * Todos aguardam licença comercial comprovada, teste físico, economia, prazo,
+ * parecer Quality e autorização comercial individual do Founder.
+ * `imageGeneratedInSheet` reproduz SOMENTE a declaração da planilha; não prova
+ * presença de arquivo REMIX no repositório, foto física, direitos ou qualidade.
+ */
+export type KeyringCandidate = {
+  row: number;
+  sku: string;
+  name: string;
+  collection: string;
+  makerWorldUrl: string;
+  licenseInSheet: string;
+  imageGeneratedInSheet: boolean;
+  gate: 'EVIDENCE_PENDING' | 'HOLD_SPECIFIC_ACTION';
+  review: string;
+};
+
+export const keyringCandidates: readonly KeyringCandidate[] = [
+  { row:10, sku:'G-CHV-MUM-01', name:'Chaveiro Múmia Articulada | Mini Personagem de Halloween', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/3132867-flexi-mummy-keyring#profileId-3535911', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova', imageGeneratedInSheet:true, gate:'EVIDENCE_PENDING', review:'Licença, arquivo, articulações e protótipo pendentes.' },
+  { row:11, sku:'G-CHV-PAL-01', name:'Chaveiro Mini Palhaço de Terror | Coleção Halloween', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/3083965-mini-penny-wise-no-ams-toy-keychain#profileId-3473721', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova', imageGeneratedInSheet:true, gate:'HOLD_SPECIFIC_ACTION', review:'Possível personagem Pennywise; comprovar direitos da franquia e do arquivo antes de qualquer anúncio.' },
+  { row:12, sku:'G-CHV-GAT-01', name:'Miniatura Gatinho Esqueleto | Decoração Fofa de Halloween', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/3271827-skeleton-kitty#profileId-3710047', licenseInSheet:'MakerWorld Exclusive License — fonte secundária; confirmar na origem', imageGeneratedInSheet:true, gate:'HOLD_SPECIFIC_ACTION', review:'Licença comercial pendente; a página não demonstra versão chaveiro.' },
+  { row:13, sku:'G-CHV-FAN-01', name:'Chaveiro Fantasminha Boo | Halloween Divertido', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/3270115-ghost-keychain-boo-who-stole-my-keys#profileId-3707914', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova', imageGeneratedInSheet:true, gate:'EVIDENCE_PENDING', review:'Licença, inscrição, fixação e amostra pendentes.' },
+  { row:14, sku:'G-CHV-CRA-01', name:'Chaveiro Caveira Demoníaca | Acessório de Halloween Sombrio', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/1676123-demon-skull-keychain#profileId-1775121', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova', imageGeneratedInSheet:true, gate:'EVIDENCE_PENDING', review:'Licença, geometria, fixação e amostra pendentes.' },
+  { row:15, sku:'G-CHV-MUM-02', name:'Chaveiro Mini Múmia | Halloween Divertido para Chaves', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/1936461-mini-mummia-no-ams-toy-keychain#profileId-2083153', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova', imageGeneratedInSheet:true, gate:'EVIDENCE_PENDING', review:'Licença, protótipo e fixação pendentes; no AMS no título não é teste comprovado.' },
+  { row:16, sku:'G-CHV-FAN-02', name:'Chaveiro Fantasminha Fofo | Charme de Halloween', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/654995-cute-ghost-keychain#profileId-581998', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova', imageGeneratedInSheet:true, gate:'EVIDENCE_PENDING', review:'Licença, tamanho, componentes e amostra pendentes.' },
+  { row:17, sku:'G-CHV-MAS-01', name:'Chaveiro Máscara de Terror | Estilo Halloween', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/2960935-jason-mask-keychain#profileId-3319065', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova; PI pendente', imageGeneratedInSheet:true, gate:'HOLD_SPECIFIC_ACTION', review:'Referência a Jason; direitos de personagem e modelo pendentes. Não anunciar.' },
+  { row:18, sku:'G-CHV-MED-01', name:'Chaveiro Mini Médico da Peste | Estilo Gótico de Halloween', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/1928265-mini-plague-doctor-no-ams-keychain-toy#profileId-2069707', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova', imageGeneratedInSheet:true, gate:'EVIDENCE_PENDING', review:'Licença, versão física, fixação e parâmetros pendentes.' },
+  { row:19, sku:'G-CHV-LOB-01', name:'Chaveiro Mini Lobisomem | Criaturas do Halloween', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/1868739-mini-werewolf-no-ams-toy-keychain#profileId-1999902', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova', imageGeneratedInSheet:true, gate:'EVIDENCE_PENDING', review:'Licença, fixação, pequenas partes e protótipo pendentes; modelo distinto do SKU da linha 20 após correção.' },
+  { row:20, sku:'G-CHV-CAV-01', name:'Chaveiro Caveira com Capuz Azul | Estilo Urbano', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/1995632-skull-hoodie-keychain-blue-urban-skeleton-toy#profileId-2148135', licenseInSheet:'A CONFIRMAR — licença comercial do modelo e autorização efetiva', imageGeneratedInSheet:true, gate:'HOLD_SPECIFIC_ACTION', review:'URL corrigida pelo Founder; modelo distinto da linha 19. Oferta de licença do criador não é licença adquirida.' },
+  { row:21, sku:'G-CHV-MON-01', name:'Chaveiro Monstro Articulado | Mini Criatura de Halloween', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/2093004-demogorgon-mini-flexi-keychain#profileId-2262711', licenseInSheet:'MakerWorld Exclusive License — fonte secundária; PI pendente', imageGeneratedInSheet:true, gate:'HOLD_SPECIFIC_ACTION', review:'Referência Demogorgon; direitos da franquia e licença efetiva pendentes. Não anunciar.' },
+  { row:22, sku:'G-CHV-ESQ-01', name:'Chaveiro Mini Esqueleto | Acessório de Halloween', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/1879252-mini-scheletro-toy-keychain-halloween-toy#profileId-2012147', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova', imageGeneratedInSheet:true, gate:'EVIDENCE_PENDING', review:'Licença, destinação, ferragem, idade/segurança e amostra pendentes.' },
+  { row:23, sku:'G-CHV-MAS-02', name:'Chaveiro Figura Mascarada de Terror | Coleção Halloween', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/1453926-ghostface-horror-mini-figure#profileId-1514977', licenseInSheet:'Standard Digital File License — fonte secundária; PI pendente', imageGeneratedInSheet:true, gate:'HOLD_SPECIFIC_ACTION', review:'Ghostface, personagem de terceiros; licença comercial e direitos separados pendentes. Não anunciar.' },
+  { row:24, sku:'G-CHV-ABO-01', name:'Chaveiro Mini Abóbora de Halloween | Toque de Outono', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/1830533-halloween-pumpkin-keychain#profileId-1954683', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova', imageGeneratedInSheet:true, gate:'EVIDENCE_PENDING', review:'Licença, versão física, ferragem, resistência e amostra pendentes.' },
+  { row:25, sku:'G-CHV-ESQ-02', name:'Chaveiro Esqueletinho Fofo | Halloween Divertido', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/2069340-skeleton-keychain-mini-cute-bone-figure#profileId-2234875', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova', imageGeneratedInSheet:true, gate:'EVIDENCE_PENDING', review:'Licença, peças soltas, fixação, destinação e amostra pendentes.' },
+  { row:26, sku:'G-CHV-FAN-03', name:'Chaveiro Fantasma Clássico | Um Toque de Halloween', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/682859-ghost-keychain#profileId-620830', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova', imageGeneratedInSheet:true, gate:'EVIDENCE_PENDING', review:'Licença, arquivo, fixação e amostra pendentes.' },
+  { row:27, sku:'G-CHV-MAO-01', name:'Chaveiro Mão Misteriosa | Acessório de Halloween', collection:'Halloween', makerWorldUrl:'https://makerworld.com/en/models/1170320-thing-from-wednesday-addams-family-keychain-remix#profileId-1263084', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova; PI pendente', imageGeneratedInSheet:true, gate:'HOLD_SPECIFIC_ACTION', review:'Thing/Wednesday/Addams: direitos do personagem, remix e licença comercial pendentes. Não anunciar.' },
+  { row:28, sku:'G-CHV-ALI-01', name:'Miniatura Alienígena | Colecionável de Ficção Científica', collection:'Divertidos', makerWorldUrl:'https://makerworld.com/en/models/3083455-miniature-alien#profileId-3473110', licenseInSheet:'NÃO VERIFICADA — Public Domain pré-preenchido sem prova; verificar PI', imageGeneratedInSheet:true, gate:'HOLD_SPECIFIC_ACTION', review:'URL não demonstra versão chaveiro; categoria e possível referência a franquia pendentes.' },
+  { row:29, sku:'G-CHV-BLO-01', name:'Chaveiro Bloco de Interrogação | Estilo Gamer Retrô', collection:'Games', makerWorldUrl:'https://makerworld.com/en/models/588101-super-mario-question-block-keychain#profileId-509333', licenseInSheet:'Standard Digital File License — fonte secundária; uso pessoal', imageGeneratedInSheet:false, gate:'HOLD_SPECIFIC_ACTION', review:'Super Mario/Nintendo e licença para uso pessoal; direitos independentes pendentes. Não anunciar.' },
+  { row:30, sku:'G-CHV-POL-01', name:'Mini Polvinho Articulado | Colecionável Divertido', collection:'Divertidos', makerWorldUrl:'https://makerworld.com/en/models/1029890-flexi-funny-octopus#profileId-1012486', licenseInSheet:'VENDA REQUER LICENÇA DO AUTOR — licença da página não confirmada', imageGeneratedInSheet:false, gate:'HOLD_SPECIFIC_ACTION', review:'Autor condiciona venda a licença comercial; URL não confirma versão chaveiro. Não anunciar.' },
+];
+
+export const keyringCandidateSummary = {
+  snapshotDate: '2026-09-21',
+  total: keyringCandidates.length,
+  evidencePending: keyringCandidates.filter(candidate => candidate.gate === 'EVIDENCE_PENDING').length,
+  onHold: keyringCandidates.filter(candidate => candidate.gate === 'HOLD_SPECIFIC_ACTION').length,
+  releasedForSale: 0,
+} as const;
