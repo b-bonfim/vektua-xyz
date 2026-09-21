@@ -5,12 +5,12 @@ import { ArrowRight, ArrowUpRight, Search, X } from 'lucide-react';
 import { useState } from 'react';
 import { BrandHeader, BrandFooter } from '@/components/brand-shell-v2';
 import { products, money, normalize } from '@/lib/catalog';
-import { keyringCandidateSummary } from '@/lib/keyring-candidates';
+import KeyringPreview from '@/components/keyring-preview';
 
 export default function ChaveirosV2() {
   const [query, setQuery] = useState('');
-  // Somente os itens da vitrine demonstrativa preexistente: a shortlist nova
-  // é registro de candidatos, não autorização para anunciar ou vender SKUs.
+  // Produtos preexistentes continuam em modo demonstrativo. Novos candidatos
+  // recebem prévia editorial separada, sem preço, carrinho nem liberação de venda.
   const keyrings = products.filter(p => p.line === 'chaveiros' && normalize(`${p.name} ${p.kind} ${p.description}`).includes(normalize(query.trim())));
   return <>
     <BrandHeader />
@@ -49,11 +49,7 @@ export default function ChaveirosV2() {
             </article>)}
           </div> : <div className="empty-state"><Search size={32} aria-hidden="true"/><h3>Nenhum modelo com esse termo.</h3><p>Limpe a busca para explorar os chaveiros em estudo.</p><button className="button" type="button" onClick={() => setQuery('')}>Limpar busca<ArrowRight size={16}/></button></div>}
         </section>
-        <section className="vx-partner-panel" aria-labelledby="vx-candidates-heading">
-          <h2 id="vx-candidates-heading">Novos chaveiros em curadoria.</h2>
-          <p>Recebemos {keyringCandidateSummary.total} novos SKUs na atualização de 21/09/2026. Eles estão registrados para avaliação, mas ainda não integram esta vitrine: {keyringCandidateSummary.evidencePending} aguardam documentação e testes, e {keyringCandidateSummary.onHold} têm bloqueios específicos de licença, direitos ou classificação.</p>
-          <p className="small-note">Nenhum dos novos modelos está anunciado, precificado ou liberado para venda. As imagens informadas na planilha não substituem amostra física, direitos e autorização comercial.</p>
-        </section>
+        <KeyringPreview />
         <section className="vx-partner-panel" aria-labelledby="vx-local-partner">
           <h2 id="vx-local-partner">Uma proposta para negócios locais.</h2>
           <p>Selecionar chaveiros que façam sentido para o público e o contexto de cada estabelecimento é uma oportunidade ainda em validação. A presença em loja dependerá de acordo, condições comerciais, estoque, exposição e reposição efetivamente confirmados.</p>
