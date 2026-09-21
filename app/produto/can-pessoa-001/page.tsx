@@ -1,3 +1,4 @@
+import ResponsiveImage from '@/components/responsive-image';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpRight, LockKeyhole } from 'lucide-react';
@@ -19,7 +20,7 @@ export default function PersonProductPage() {
     <main className="container page-space" id="conteudo" tabIndex={-1}>
       <nav className="breadcrumbs" aria-label="Localização"><Link href="/">Início</Link><span aria-hidden="true">/</span><Link href="/feitos-para-voce">Feitos para Você</Link><span aria-hidden="true">/</span><span aria-current="page">{product.name}</span></nav>
       <div className="pdp-grid">
-        <div><div className="pdp-image"><img src={product.image} alt={`Exemplo conceitual de ${product.name}; não é fotografia de peça fabricada`} width={900} height={900}/><span className="concept-label">Imagem conceitual · foto real pendente</span></div><p className="small-note">Imagem apenas ilustrativa. Nenhuma amostra física está comprovada.</p></div>
+        <div><div className="pdp-image"><ResponsiveImage src={product.image} alt={`Exemplo conceitual de ${product.name}; não é fotografia de peça fabricada`} width={900} height={900}/><span className="concept-label">Imagem conceitual · foto real pendente</span></div><p className="small-note">Imagem apenas ilustrativa. Nenhuma amostra física está comprovada.</p></div>
         <div className="pdp-copy">
           <h1>{product.name}</h1><p className="pdp-description">{product.description}</p>
           <div className="pdp-price">{money(product.price)}<span>Preço fictício para demonstração</span></div>
