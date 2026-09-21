@@ -1,4 +1,4 @@
-name: Issue 8 - production build lab (no deploy)
+name: Issue 8 - paired production-build image lab (NO DEPLOY)
 
 on:
   push:
@@ -6,8 +6,10 @@ on:
       - fix/issue-8-image-performance-20260920
   workflow_dispatch:
 
+# The only write is committing testable image/source changes to this issue branch.
+# Never merge, deploy, publish assets externally, or enable checkout/payment.
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   production-lab:
@@ -16,37 +18,37 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Record exact revision and environment
+      - name: Record source revision and install frozen application dependencies
         run: |
-          echo "Commit: $(git rev-parse HEAD)"
+          set -euo pipefail
+          echo "Original UI commit: $(git rev-parse HEAD)"
           echo "Runner: $RUNNER_OS / $RUNNER_ARCH"
           node --version
           corepack enable
           corepack pnpm --version
-          echo 'PROD DEPLOY BLOCKED: no production URL or deploy authorization in issue #8.'
-      - name: Install frozen dependencies
-        run: corepack pnpm install --frozen-lockfile
-      - name: Source lint (save complete image warning log)
+          corepack pnpm install --frozen-lockfile
+          echo 'PROD DEPLOY BLOCKED: issue #8 does not authorize a deployment.'
+      - name: Install pinned measurement and image tools outside application
         run: |
-          set -o pipefail
-          corepack pnpm lint 2>&1 | tee lint.log
-      - name: TypeScript
-        run: corepack pnpm exec tsc --noEmit
-      - name: Production build (Vinext/Cloudflare, no deployment)
-        run: corepack pnpm build
-      - name: Install isolated Chromium automation
-        run: |
+          set -euo pipefail
           npm install --prefix "$RUNNER_TEMP/browser-qa" --no-audit --no-fund playwright@1.56.0
           "$RUNNER_TEMP/browser-qa/node_modules/.bin/playwright" install chromium
-      - name: Serve production build locally and collect CDP metrics
+          npm install --prefix "$RUNNER_TEMP/image-tools" --no-audit --no-fund sharp@0.35.4
+      - name: BEFORE - capture 23 warnings and compile baseline production build
+        run: |
+          set -euo pipefail
+          corepack pnpm lint 2>&1 | tee lint-before.log
+          corepack pnpm exec tsc --noEmit
+          corepack pnpm build
+      - name: BEFORE - measure unoptimized production build with CDP, retain framework errors
         shell: bash
         run: |
           set -euo pipefail
-          corepack pnpm start > "$RUNNER_TEMP/vektua-production-lab.log" 2>&1 &
+          corepack pnpm start --port 8787 > "$RUNNER_TEMP/vektua-prod-before.log" 2>&1 &
           SERVER_PID=$!
           trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
           ready=0
@@ -56,31 +58,91 @@ jobs:
             if ! kill -0 "$SERVER_PID" 2>/dev/null; then break; fi
             sleep 2
           done
-          if [ "$ready" -ne 1 ]; then
-            echo "PRODUCTION_LAB_START_FAILED HTTP ${code:-none}"
-            cat "$RUNNER_TEMP/vektua-production-lab.log"
-            exit 1
-          fi
+          if [ "$ready" -ne 1 ]; then cat "$RUNNER_TEMP/vektua-prod-before.log"; exit 1; fi
           PLAYWRIGHT_MODULE="$RUNNER_TEMP/browser-qa/node_modules/playwright" \
             BASE_URL=http://127.0.0.1:8787 PERF_SHA="$(git rev-parse HEAD)" \
             PERF_OUTPUT=perf-baseline node scripts/tests/site-production-perf.mjs
-      - name: Upload baseline even when checks fail
+          kill "$SERVER_PID" 2>/dev/null || true
+          wait "$SERVER_PID" 2>/dev/null || true
+          trap - EXIT
+      - name: Generate provenance-tracked static derivatives and remediate exactly 23 tags
+        shell: bash
+        run: |
+          set -euo pipefail
+          sha256sum public/images/products/remix/*.webp > "$RUNNER_TEMP/original-remix-before.sha256"
+          SHARP_MODULE="$RUNNER_TEMP/image-tools/node_modules/sharp" node scripts/generate-responsive-images.mjs
+          sha256sum public/images/products/remix/*.webp > "$RUNNER_TEMP/original-remix-after.sha256"
+          diff -u "$RUNNER_TEMP/original-remix-before.sha256" "$RUNNER_TEMP/original-remix-after.sha256"
+          node scripts/remediate-image-tags.mjs --write
+          node scripts/remediate-image-tags.mjs --check
+          git add app/datas-colecoes/pequenos-encantos/page.tsx app/produto/can-pessoa-001/page.tsx app/sobre/page.tsx components/brand-shell-v2.tsx components/chaveiros-v2.tsx components/home-v2.tsx components/storefront.tsx public/images/responsive lib/responsive-images.json docs/ISSUE_8_IMAGE_INVENTORY.md
+          git diff --cached --check
+          git diff --cached --stat
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'fix(images): resolve 23 raw tags with sourced responsive WebP variants'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+          echo "TESTED_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          echo "Post-change exact commit: $(git rev-parse HEAD)"
+      - name: AFTER - enforce zero ESLint warnings on committed sources and typecheck
+        run: |
+          set -euo pipefail
+          corepack pnpm lint 2>&1 | tee lint-after.log
+          corepack pnpm exec eslint . --ignore-pattern dist --ignore-pattern .next --max-warnings=0
+          corepack pnpm exec tsc --noEmit
+          node scripts/remediate-image-tags.mjs --check
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
+      - name: AFTER - build exact committed revision (NO DEPLOY)
+        run: corepack pnpm build
+      - name: AFTER - browser smoke and paired CDP performance measurements
+        shell: bash
+        run: |
+          set -euo pipefail
+          corepack pnpm start --port 8788 > "$RUNNER_TEMP/vektua-prod-after.log" 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          ready=0
+          for attempt in $(seq 1 60); do
+            code=$(curl --noproxy '*' -sS --max-time 5 -o /dev/null -w '%{http_code}' http://127.0.0.1:8788/ || true)
+            if [ "$code" = 200 ]; then ready=1; break; fi
+            if ! kill -0 "$SERVER_PID" 2>/dev/null; then break; fi
+            sleep 2
+          done
+          if [ "$ready" -ne 1 ]; then cat "$RUNNER_TEMP/vektua-prod-after.log"; exit 1; fi
+          PLAYWRIGHT_MODULE="$RUNNER_TEMP/browser-qa/node_modules/playwright" \
+            BASE_URL=http://127.0.0.1:8788 QA_OUTPUT=qa-artifacts \
+            node scripts/tests/site-browser-smoke.mjs
+          PLAYWRIGHT_MODULE="$RUNNER_TEMP/browser-qa/node_modules/playwright" \
+            BASE_URL=http://127.0.0.1:8788 PERF_SHA="$(git rev-parse HEAD)" \
+            PERF_OUTPUT=perf-post node scripts/tests/site-production-perf.mjs
+          node --input-type=module -e "import fs from 'node:fs';const r=JSON.parse(fs.readFileSync('perf-post/results.json','utf8'));if(!r.results.some(x=>x.images?.some(i=>i.srcset?.includes('/images/responsive/'))))throw Error('No responsive static images loaded in browser');console.log('PASS static responsive images served, URL and srcset verified')"
+      - name: Preserve artifacts including failures
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: issue-8-baseline-${{ github.run_id }}
+          name: issue-8-paired-lab-${{ github.run_id }}
           path: |
+            lint-before.log
+            lint-after.log
+            docs/ISSUE_8_IMAGE_INVENTORY.md
             perf-baseline/
-            lint.log
-            ${{ runner.temp }}/vektua-production-lab.log
+            perf-post/
+            qa-artifacts/
+            ${{ runner.temp }}/vektua-prod-before.log
+            ${{ runner.temp }}/vektua-prod-after.log
           if-no-files-found: ignore
-      - name: Report lab scope
+      - name: Publish factual summary, no performance claims without metrics
         if: always()
         run: |
           {
-            echo '## Issue #8 — local production-build lab, no deploy'
-            echo "Tested SHA: $(git rev-parse HEAD)"
-            echo '3 cold-cache repetitions per route and profile. Network and CPU profiles are in perf-baseline/results.json.'
-            echo 'No public production URL, no field INP, no DNS, no deploy or checkout changes.'
-            if [ -f perf-baseline/summary.md ]; then cat perf-baseline/summary.md; else echo 'PROD LAB MEASUREMENT BLOCKED; see logs.'; fi
+            echo '## Issue #8: paired local production-build study; NOT deployed'
+            echo "Source/ref: ${GITHUB_REF_NAME}; current SHA: $(git rev-parse HEAD)"
+            echo 'Profiles and 3 cold-cache repetitions per route live in results.json; synthetic LCP/FCP/TTFB/CLS/bytes only, no INP.'
+            echo 'Pre-existing Vinext prefetch errors are retained and labelled WARN; they are NOT considered resolved.'
+            echo 'No merge, production deployment, domain or purchase functionality.'
+            if [ -f perf-baseline/summary.md ]; then echo '### Before'; cat perf-baseline/summary.md; else echo 'BEFORE MEASUREMENT NOT COMPLETED'; fi
+            if [ -f perf-post/summary.md ]; then echo '### After'; cat perf-post/summary.md; else echo 'AFTER MEASUREMENT NOT COMPLETED'; fi
           } >> "$GITHUB_STEP_SUMMARY"
