@@ -43,6 +43,7 @@ const newKeyrings: Array<[string, string, string, string, boolean?]> = [
 const remixKeyringImages: Partial<Record<string, string>> = {
   "G-CHV-ABO-01": "/images/products/remix/G-CHV-ABO-01_REMIX.webp",
   "G-CHV-ALI-01": "/images/products/remix/G-CHV-ALI-01_REMIX.png",
+  "G-CHV-BLO-01": "/images/products/remix/G-CHV-BLO-01_REMIX.png",
   "G-CHV-CAV-01": "/images/products/remix/G-CHV-CAV-01_REMIX.png",
   "G-CHV-CRA-01": "/images/products/remix/G-CHV-CRA-01_REMIX.webp",
   "G-CHV-ESQ-01": "/images/products/remix/G-CHV-ESQ-01_REMIX.webp",
@@ -59,7 +60,8 @@ const remixKeyringImages: Partial<Record<string, string>> = {
   "G-CHV-MON-01": "/images/products/remix/G-CHV-MON-01_REMIX.png",
   "G-CHV-MUM-01": "/images/products/remix/G-CHV-MUM-01_REMIX.png",
   "G-CHV-MUM-02": "/images/products/remix/G-CHV-MUM-02_REMIX.webp",
-  "G-CHV-PAL-01": "/images/products/remix/G-CHV-PAL-01_REMIX.png"
+  "G-CHV-PAL-01": "/images/products/remix/G-CHV-PAL-01_REMIX.png",
+  "G-CHV-POL-01": "/images/products/remix/G-CHV-POL-01_REMIX.png"
 };
 
 export const commercialProducts: CommercialProduct[] = [
