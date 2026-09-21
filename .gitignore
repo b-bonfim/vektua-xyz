@@ -49,3 +49,11 @@ next-env.d.ts
 *.tsbuildinfo
 /.impeccable/review/
 /public/__qa-mobile.html
+
+# Issue #8: generated local-only CI lab artifacts, uploaded by GitHub Actions.
+/lint-before.log
+/lint-after.log
+/lint.log
+/perf-baseline/
+/perf-post/
+/qa-artifacts/
