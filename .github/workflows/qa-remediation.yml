@@ -1,0 +1,117 @@
+name: QA remediation - storefront
+
+on:
+  push:
+    branches:
+      - fix/navigation-metadata-perf-20260920
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Apply codemod and commit source before all project checks
+        id: codemod
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --test scripts/tests/site-qa-codemod.test.mjs
+          node scripts/apply-site-qa-fixes.mjs --write
+          node scripts/apply-site-qa-fixes.mjs --check
+          git diff --check
+          if ! git diff --quiet -- components/storefront.tsx; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add components/storefront.tsx
+            git commit -m 'fix: apply shared navigation and server metadata in storefront'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+          echo "COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          echo "Commit under test: $(git rev-parse HEAD)"
+      - name: Install dependencies
+        id: install
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          corepack enable
+          corepack pnpm install --frozen-lockfile
+      - name: ESLint - exact commit
+        id: lint
+        if: steps.install.outcome == 'success'
+        continue-on-error: true
+        run: corepack pnpm lint
+      - name: TypeScript - exact commit
+        id: typescript
+        if: steps.install.outcome == 'success'
+        continue-on-error: true
+        run: corepack pnpm exec tsc --noEmit
+      - name: Build - exact commit
+        id: build
+        if: steps.install.outcome == 'success'
+        continue-on-error: true
+        run: corepack pnpm build
+      - name: Chromium browser smoke and runtime performance observations
+        id: browser
+        if: steps.install.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/browser-qa" --no-audit --no-fund playwright@1.56.0
+          "$RUNNER_TEMP/browser-qa/node_modules/.bin/playwright" install chromium
+          node scripts/run-framework.mjs dev > "$RUNNER_TEMP/vektua-dev.log" 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          ready=0
+          for attempt in $(seq 1 45); do
+            code=$(curl --noproxy '*' -g -sS --max-time 5 -o /dev/null -w '%{http_code}' 'http://[::1]:5173/' || true)
+            if [ "$code" = 200 ]; then ready=1; break; fi
+            if ! kill -0 "$SERVER_PID" 2>/dev/null; then break; fi
+            sleep 2
+          done
+          if [ "$ready" -ne 1 ]; then
+            echo "Server readiness failure on IPv6 loopback; last HTTP status: ${code:-none}"
+            cat "$RUNNER_TEMP/vektua-dev.log"
+            ss -ltn || true
+            exit 1
+          fi
+          PLAYWRIGHT_MODULE="$RUNNER_TEMP/browser-qa/node_modules/playwright" \
+            BASE_URL='http://[::1]:5173' QA_OUTPUT=qa-artifacts \
+            node scripts/tests/site-browser-smoke.mjs
+      - name: Upload measured browser artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-qa-${{ github.run_id }}
+          path: |
+            qa-artifacts/
+            ${{ runner.temp }}/vektua-dev.log
+          if-no-files-found: ignore
+      - name: Publish statuses and require real checks
+        if: always()
+        shell: bash
+        env:
+          INSTALL: ${{ steps.install.outcome }}
+          LINT: ${{ steps.lint.outcome }}
+          TS: ${{ steps.typescript.outcome }}
+          BUILD: ${{ steps.build.outcome }}
+          BROWSER: ${{ steps.browser.outcome }}
+        run: |
+          {
+            echo '## Storefront QA on committed revision'
+            echo "Commit: ${COMMIT:-not committed}"
+            echo "Install: $INSTALL; lint: $LINT; TypeScript: $TS; build: $BUILD; browser: $BROWSER"
+            echo 'Browser timings are synthetic lab observations, not field Core Web Vitals.'
+          } >> "$GITHUB_STEP_SUMMARY"
+          test "$INSTALL" = success && test "$LINT" = success && test "$TS" = success && test "$BUILD" = success && test "$BROWSER" = success
