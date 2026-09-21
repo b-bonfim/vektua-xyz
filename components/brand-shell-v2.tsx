@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Menu, Search, ShoppingBag, ArrowUpRight } from 'lucide-react';
 import { lines } from '@/lib/catalog';
 import { useCart } from '@/components/cart-context';
@@ -23,6 +23,17 @@ export function BrandHeader() {
   const closeMenu = () => { if (menuRef.current) menuRef.current.open = false; };
   const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
 
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape' || !menuRef.current?.open) return;
+      event.preventDefault();
+      menuRef.current.open = false;
+      menuRef.current.querySelector('summary')?.focus();
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, []);
+
   return <>
     <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <div className="demo-strip"><span>Vektua XYZ · Objetos com personalidade</span><span>Protótipo · preços ilustrativos · vendas desabilitadas</span></div>
@@ -36,13 +47,7 @@ export function BrandHeader() {
           <Link href="/busca" aria-label="Buscar no catálogo" aria-current={path === '/busca' ? 'page' : undefined} className="icon-button"><Search aria-hidden="true" size={21} /></Link>
           <Link href="/ajuda" aria-current={path === '/ajuda' ? 'page' : undefined} className="help-nav">Ajuda</Link>
           <Link href="/carrinho" aria-label={`Carrinho demonstrativo: ${quantity} itens`} aria-current={path === '/carrinho' ? 'page' : undefined} className="icon-button cart-icon"><ShoppingBag aria-hidden="true" size={21} />{quantity > 0 && <span className="cart-count">{quantity}</span>}</Link>
-          <details key={path} ref={menuRef} className="vx-mobile-nav" onKeyDown={event => {
-            if (event.key === 'Escape' && menuRef.current?.open) {
-              event.preventDefault();
-              closeMenu();
-              menuRef.current?.querySelector('summary')?.focus();
-            }
-          }}>
+          <details key={path} ref={menuRef} className="vx-mobile-nav">
             <summary aria-label="Abrir menu de navegação"><Menu aria-hidden="true" size={23} /></summary>
             <nav aria-label="Navegação móvel">
               {lines.map(line => <Link key={line.id} href={line.path} aria-current={path === line.path ? 'page' : undefined} onClick={closeMenu}>{line.name}<ArrowUpRight aria-hidden="true" size={15} /></Link>)}
