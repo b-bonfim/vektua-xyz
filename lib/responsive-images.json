@@ -1,1 +1,500 @@
-{}
+{
+  "/images/person.webp": {
+    "sourceWidth": 160,
+    "sourceSha256": "36020cecb8bcbf1278454beb51a544965ff069afbdf938ea7c0cc57d467c8ad2",
+    "variants": [
+      {
+        "src": "/images/person.webp",
+        "width": 160,
+        "bytes": 846,
+        "sha256": "36020cecb8bcbf1278454beb51a544965ff069afbdf938ea7c0cc57d467c8ad2"
+      }
+    ]
+  },
+  "/images/pet.webp": {
+    "sourceWidth": 1254,
+    "sourceSha256": "45de57792e2019b697ca0fe098695a4bf958406aea6342a3fe48c18d79a49497",
+    "variants": [
+      {
+        "src": "/images/responsive/pet__w480.webp",
+        "width": 480,
+        "bytes": 24214,
+        "sha256": "2de010b5d50ade9c11fd48c14f957a939e46f79c08ba35e9d467c3f5711a4f7e"
+      },
+      {
+        "src": "/images/responsive/pet__w768.webp",
+        "width": 768,
+        "bytes": 53818,
+        "sha256": "09a9477db1ebedcdacef355ec48224cfa7a649ca371d75d34adc8e24e5e37cfe"
+      },
+      {
+        "src": "/images/responsive/pet__w1024.webp",
+        "width": 1024,
+        "bytes": 84872,
+        "sha256": "44efc8d4ab71c3b57b90a4c5bc8ec03e8166e4dd2d777739b8865e2713af461a"
+      },
+      {
+        "src": "/images/pet.webp",
+        "width": 1254,
+        "bytes": 124118,
+        "sha256": "45de57792e2019b697ca0fe098695a4bf958406aea6342a3fe48c18d79a49497"
+      }
+    ]
+  },
+  "/images/products/remix/G-CHV-JJ-01_REMIX.webp": {
+    "sourceWidth": 1122,
+    "sourceSha256": "1bb5ad40183aca13a87f3e1df1f7c0dfc192a402897823695dc9e93a1faca1d1",
+    "variants": [
+      {
+        "src": "/images/responsive/G-CHV-JJ-01_REMIX__w480.webp",
+        "width": 480,
+        "bytes": 57022,
+        "sha256": "518511eee95be537235ec4f9ae2d63abf5cc38a9407f8c071bd077c67b890497"
+      },
+      {
+        "src": "/images/responsive/G-CHV-JJ-01_REMIX__w768.webp",
+        "width": 768,
+        "bytes": 112068,
+        "sha256": "f6953dd98d2361eceed2ed41e589b78edeb8947e5fb2e5886691e648fa67fc03"
+      },
+      {
+        "src": "/images/responsive/G-CHV-JJ-01_REMIX__w1024.webp",
+        "width": 1024,
+        "bytes": 152704,
+        "sha256": "eca1e4d4c1fe0da012c0b5b0c032d04ca9053a51c7d170dedbfaf93c8b82466f"
+      },
+      {
+        "src": "/images/products/remix/G-CHV-JJ-01_REMIX.webp",
+        "width": 1122,
+        "bytes": 158950,
+        "sha256": "1bb5ad40183aca13a87f3e1df1f7c0dfc192a402897823695dc9e93a1faca1d1"
+      }
+    ]
+  },
+  "/images/products/remix/G-CHV-JJ-01_REMIX_02.webp": {
+    "sourceWidth": 1122,
+    "sourceSha256": "26545852657cd20337d884b14efd7e0474dcbdad8864aaa186d85f69e917cfdc",
+    "variants": [
+      {
+        "src": "/images/responsive/G-CHV-JJ-01_REMIX_02__w480.webp",
+        "width": 480,
+        "bytes": 79726,
+        "sha256": "5525b9a26a2d3773c371ac38b5beba09d416e2439c69d379aee27b4b5f3e61bd"
+      },
+      {
+        "src": "/images/responsive/G-CHV-JJ-01_REMIX_02__w768.webp",
+        "width": 768,
+        "bytes": 167856,
+        "sha256": "bb86d992f0ada628fca0cc0d8ba8d11b2dee636bd5295e3e387a8c40c1f8ecd1"
+      },
+      {
+        "src": "/images/responsive/G-CHV-JJ-01_REMIX_02__w1024.webp",
+        "width": 1024,
+        "bytes": 241330,
+        "sha256": "516deb84ecbc15928da15b26adba2e0a1f0c10b6995fff5b3cf6c7c8952c8166"
+      },
+      {
+        "src": "/images/products/remix/G-CHV-JJ-01_REMIX_02.webp",
+        "width": 1122,
+        "bytes": 253410,
+        "sha256": "26545852657cd20337d884b14efd7e0474dcbdad8864aaa186d85f69e917cfdc"
+      }
+    ]
+  },
+  "/images/products/remix/G-CHV-JJ-01_REMIX_03.webp": {
+    "sourceWidth": 1122,
+    "sourceSha256": "24de0912729acb43c169188b83bd1403452290acfb986caf5c8810dd12f21a72",
+    "variants": [
+      {
+        "src": "/images/responsive/G-CHV-JJ-01_REMIX_03__w480.webp",
+        "width": 480,
+        "bytes": 66532,
+        "sha256": "0226961ad1ec4c3e0ef24f1fcb66badf77c7a486fac324aec83194ac2c1ed373"
+      },
+      {
+        "src": "/images/responsive/G-CHV-JJ-01_REMIX_03__w768.webp",
+        "width": 768,
+        "bytes": 132326,
+        "sha256": "efe9847ab928994c5eac46629875a2630db5c9d339036a7037906814bbf1d0c5"
+      },
+      {
+        "src": "/images/responsive/G-CHV-JJ-01_REMIX_03__w1024.webp",
+        "width": 1024,
+        "bytes": 182736,
+        "sha256": "3f45c166caa1ebeac23d6d1e2a467072d9953dba6e33ee276531e8c22fbfb116"
+      },
+      {
+        "src": "/images/products/remix/G-CHV-JJ-01_REMIX_03.webp",
+        "width": 1122,
+        "bytes": 191960,
+        "sha256": "24de0912729acb43c169188b83bd1403452290acfb986caf5c8810dd12f21a72"
+      }
+    ]
+  },
+  "/images/products/remix/G-ORG-HS-01_REMIX.webp": {
+    "sourceWidth": 1122,
+    "sourceSha256": "b59f4fd063b60701da0300d9293f624a7c068b4c25624493aef9a1938a490d7c",
+    "variants": [
+      {
+        "src": "/images/responsive/G-ORG-HS-01_REMIX__w480.webp",
+        "width": 480,
+        "bytes": 28484,
+        "sha256": "79131839b62008eb816a10b2929dd77aa27134816e4e952897641450c975aa9f"
+      },
+      {
+        "src": "/images/responsive/G-ORG-HS-01_REMIX__w768.webp",
+        "width": 768,
+        "bytes": 49278,
+        "sha256": "c72d8b91d95d9dd6ebe0f0a74eb73b022631afa64df8b6f9098f1f3895673210"
+      },
+      {
+        "src": "/images/products/remix/G-ORG-HS-01_REMIX.webp",
+        "width": 1122,
+        "bytes": 64366,
+        "sha256": "b59f4fd063b60701da0300d9293f624a7c068b4c25624493aef9a1938a490d7c"
+      }
+    ]
+  },
+  "/images/products/remix/G-ORG-HS-01_REMIX_02.webp": {
+    "sourceWidth": 1122,
+    "sourceSha256": "833f58f653c3d8f0168bd7d8be733937f4723abf715a083b6d15a1152d70fb32",
+    "variants": [
+      {
+        "src": "/images/responsive/G-ORG-HS-01_REMIX_02__w480.webp",
+        "width": 480,
+        "bytes": 24672,
+        "sha256": "b07898a97497f9c88e855fb30fee1cc1ef1301a00c94d52bb3cfd4ae27d3b0ff"
+      },
+      {
+        "src": "/images/responsive/G-ORG-HS-01_REMIX_02__w768.webp",
+        "width": 768,
+        "bytes": 45574,
+        "sha256": "1aa66208aa57cc9b60dc7acfab5170bce267bb9cd22f6088c19507b030e0b2b6"
+      },
+      {
+        "src": "/images/responsive/G-ORG-HS-01_REMIX_02__w1024.webp",
+        "width": 1024,
+        "bytes": 59812,
+        "sha256": "b7d794b6c5eb5b451b721333a7e0327198152ccaed9c48d5e376b7b8f9099faf"
+      },
+      {
+        "src": "/images/products/remix/G-ORG-HS-01_REMIX_02.webp",
+        "width": 1122,
+        "bytes": 60164,
+        "sha256": "833f58f653c3d8f0168bd7d8be733937f4723abf715a083b6d15a1152d70fb32"
+      }
+    ]
+  },
+  "/images/products/remix/G-ORG-HS-01_REMIX_03.webp": {
+    "sourceWidth": 1122,
+    "sourceSha256": "6a0e94c96aed08cf8e03bed59ec56308c3389e4d9322d2623a74080583b08374",
+    "variants": [
+      {
+        "src": "/images/responsive/G-ORG-HS-01_REMIX_03__w480.webp",
+        "width": 480,
+        "bytes": 28248,
+        "sha256": "e7f410591523a6cf40ad4bba7b3ea96ff33d88a497bc590d838d95487e557882"
+      },
+      {
+        "src": "/images/responsive/G-ORG-HS-01_REMIX_03__w768.webp",
+        "width": 768,
+        "bytes": 50146,
+        "sha256": "2c710402689a6bed4999b7ee814ba4f52ea4bf558a894553641583c5f197eed1"
+      },
+      {
+        "src": "/images/products/remix/G-ORG-HS-01_REMIX_03.webp",
+        "width": 1122,
+        "bytes": 64056,
+        "sha256": "6a0e94c96aed08cf8e03bed59ec56308c3389e4d9322d2623a74080583b08374"
+      }
+    ]
+  },
+  "/images/products/remix/G-ORG-RC-01_REMIX.webp": {
+    "sourceWidth": 1448,
+    "sourceSha256": "6f8371cd645976b59c4b89bf82f41abf9a764698301489bcd309e1e1302e8a18",
+    "variants": [
+      {
+        "src": "/images/responsive/G-ORG-RC-01_REMIX__w480.webp",
+        "width": 480,
+        "bytes": 28056,
+        "sha256": "8300bd42883f2229aa2cefd76894bd13898b9e23c7a3c3c9311159527353d133"
+      },
+      {
+        "src": "/images/responsive/G-ORG-RC-01_REMIX__w768.webp",
+        "width": 768,
+        "bytes": 51366,
+        "sha256": "ecb70df83f75cc5a6e3c56af6f28eb09fc964a9c5940b63ce987f22730085fd5"
+      },
+      {
+        "src": "/images/responsive/G-ORG-RC-01_REMIX__w1024.webp",
+        "width": 1024,
+        "bytes": 77168,
+        "sha256": "2adfa9e99a2c7f021af6f309d6c2cf8d4f2fa56eeef0ca82a0c7ba312f255c24"
+      },
+      {
+        "src": "/images/products/remix/G-ORG-RC-01_REMIX.webp",
+        "width": 1448,
+        "bytes": 100488,
+        "sha256": "6f8371cd645976b59c4b89bf82f41abf9a764698301489bcd309e1e1302e8a18"
+      }
+    ]
+  },
+  "/images/products/remix/G-VAS-ESC-01_REMIX.webp": {
+    "sourceWidth": 1448,
+    "sourceSha256": "1761e66137144698c778a38f3f9cabcd95df79e962f88b1144a8c55ee05adb69",
+    "variants": [
+      {
+        "src": "/images/responsive/G-VAS-ESC-01_REMIX__w480.webp",
+        "width": 480,
+        "bytes": 37738,
+        "sha256": "97463a3cad12ca52dc5eaff44ea74613e2184ee40d670dcc8c6c15be9358d6d2"
+      },
+      {
+        "src": "/images/responsive/G-VAS-ESC-01_REMIX__w768.webp",
+        "width": 768,
+        "bytes": 73616,
+        "sha256": "420fc51b41ad8883398b2c921f3c07b9d080072bf3ee802384d5dda161cb5250"
+      },
+      {
+        "src": "/images/responsive/G-VAS-ESC-01_REMIX__w1024.webp",
+        "width": 1024,
+        "bytes": 108390,
+        "sha256": "2038c98db18f32f8941fabcab57b377ea75d1b436178fc85344a1b329a3a0e0a"
+      },
+      {
+        "src": "/images/products/remix/G-VAS-ESC-01_REMIX.webp",
+        "width": 1448,
+        "bytes": 141488,
+        "sha256": "1761e66137144698c778a38f3f9cabcd95df79e962f88b1144a8c55ee05adb69"
+      }
+    ]
+  },
+  "/images/products/remix/G-VAS-MIN-01_REMIX.webp": {
+    "sourceWidth": 1448,
+    "sourceSha256": "2c982c6c5bc2c46d632c361f6ad9860273b01224a4cb7bfe1b0ff376dbbd5704",
+    "variants": [
+      {
+        "src": "/images/responsive/G-VAS-MIN-01_REMIX__w480.webp",
+        "width": 480,
+        "bytes": 41378,
+        "sha256": "39d34f1d24ab4cd98d595884864e784b57ac1f9f0ffee0497656d6f3aabe5438"
+      },
+      {
+        "src": "/images/responsive/G-VAS-MIN-01_REMIX__w768.webp",
+        "width": 768,
+        "bytes": 82534,
+        "sha256": "d1d6b7908c1a9fbe1af985fe77737fc63f40b5b0c7ac096378b9935e6f0165ab"
+      },
+      {
+        "src": "/images/responsive/G-VAS-MIN-01_REMIX__w1024.webp",
+        "width": 1024,
+        "bytes": 126042,
+        "sha256": "2850638cbc66b1ed0530a017ec401701062f3e57820e5f755dfcae96e9132ed2"
+      },
+      {
+        "src": "/images/products/remix/G-VAS-MIN-01_REMIX.webp",
+        "width": 1448,
+        "bytes": 176010,
+        "sha256": "2c982c6c5bc2c46d632c361f6ad9860273b01224a4cb7bfe1b0ff376dbbd5704"
+      }
+    ]
+  },
+  "/images/products/remix/S-HAL-DEC-01_REMIX.webp": {
+    "sourceWidth": 1254,
+    "sourceSha256": "328936d309c39d1568d3e67be0076c863b51d02365a0a4bb381db5604d7587e3",
+    "variants": [
+      {
+        "src": "/images/responsive/S-HAL-DEC-01_REMIX__w480.webp",
+        "width": 480,
+        "bytes": 51128,
+        "sha256": "cccb224162bf24884095adf5456c23515bf7a7c951dd8cffd950633fe3d0cfec"
+      },
+      {
+        "src": "/images/responsive/S-HAL-DEC-01_REMIX__w768.webp",
+        "width": 768,
+        "bytes": 105216,
+        "sha256": "7e900bd5d3598e1391a9167248596230a0bb0798db032c3b8693c198ed97bf13"
+      },
+      {
+        "src": "/images/responsive/S-HAL-DEC-01_REMIX__w1024.webp",
+        "width": 1024,
+        "bytes": 158912,
+        "sha256": "97563ca4e89de733b64025f875243b952c88a344606e8dcfc46db849c8edc396"
+      },
+      {
+        "src": "/images/products/remix/S-HAL-DEC-01_REMIX.webp",
+        "width": 1254,
+        "bytes": 199540,
+        "sha256": "328936d309c39d1568d3e67be0076c863b51d02365a0a4bb381db5604d7587e3"
+      }
+    ]
+  },
+  "/images/products/remix/S-HAL-DEC-01_REMIX_02.webp": {
+    "sourceWidth": 1254,
+    "sourceSha256": "b3ee843ec5183627ca4a3720d30cd3a39b7c2b5b35d7d1800f4bfc467b4f91dc",
+    "variants": [
+      {
+        "src": "/images/responsive/S-HAL-DEC-01_REMIX_02__w480.webp",
+        "width": 480,
+        "bytes": 48908,
+        "sha256": "38b5322d8a76903d855d0c4126b9d544e19662128214bf3f1f87cb1db4044d8c"
+      },
+      {
+        "src": "/images/responsive/S-HAL-DEC-01_REMIX_02__w768.webp",
+        "width": 768,
+        "bytes": 104392,
+        "sha256": "e7ccad28b3abe4247a09d318f8b4a5e065bb06449881b931d21a575b3007b21c"
+      },
+      {
+        "src": "/images/responsive/S-HAL-DEC-01_REMIX_02__w1024.webp",
+        "width": 1024,
+        "bytes": 153900,
+        "sha256": "b6d907b1d3fad17b7dbd0473dde04cf28e3c94381e4c1cd6b5aae34f8f40059a"
+      },
+      {
+        "src": "/images/products/remix/S-HAL-DEC-01_REMIX_02.webp",
+        "width": 1254,
+        "bytes": 197052,
+        "sha256": "b3ee843ec5183627ca4a3720d30cd3a39b7c2b5b35d7d1800f4bfc467b4f91dc"
+      }
+    ]
+  },
+  "/images/products/remix/S-HAL-DEC-01_REMIX_03.webp": {
+    "sourceWidth": 1254,
+    "sourceSha256": "a2023d9527f7bd8b40f534cf54670c0061d6baacb7de16bc46a69ae2a8669e43",
+    "variants": [
+      {
+        "src": "/images/responsive/S-HAL-DEC-01_REMIX_03__w480.webp",
+        "width": 480,
+        "bytes": 52896,
+        "sha256": "f2ccafa66f1b78035f283354910870272ad8f7bddcce23c340021d0f4afbd32b"
+      },
+      {
+        "src": "/images/responsive/S-HAL-DEC-01_REMIX_03__w768.webp",
+        "width": 768,
+        "bytes": 111636,
+        "sha256": "b9a5776a20c796546df482656a02c7459b5c473b93b769585a5d298ef8cd4f95"
+      },
+      {
+        "src": "/images/responsive/S-HAL-DEC-01_REMIX_03__w1024.webp",
+        "width": 1024,
+        "bytes": 165912,
+        "sha256": "184a84a43f5cbdb755896796ba2d36d73b748cb3079178131396f3ed80a415e2"
+      },
+      {
+        "src": "/images/products/remix/S-HAL-DEC-01_REMIX_03.webp",
+        "width": 1254,
+        "bytes": 213548,
+        "sha256": "a2023d9527f7bd8b40f534cf54670c0061d6baacb7de16bc46a69ae2a8669e43"
+      }
+    ]
+  },
+  "/images/products/remix/S-HAL-DEC-01_REMIX_04.webp": {
+    "sourceWidth": 1254,
+    "sourceSha256": "ad2d590c91b1efeef7c8a154f2924d2902b6215fa38d5cbe9b38c0d797650386",
+    "variants": [
+      {
+        "src": "/images/responsive/S-HAL-DEC-01_REMIX_04__w480.webp",
+        "width": 480,
+        "bytes": 51938,
+        "sha256": "2ff8ad97be3f591a3a5cede57918ceb99df5f985700d08390be4719f63a1fa71"
+      },
+      {
+        "src": "/images/responsive/S-HAL-DEC-01_REMIX_04__w768.webp",
+        "width": 768,
+        "bytes": 109348,
+        "sha256": "dbb59bf40053ee678dc0ecacd5651ebab0bd795e912a00428d8a7a69799afbd1"
+      },
+      {
+        "src": "/images/responsive/S-HAL-DEC-01_REMIX_04__w1024.webp",
+        "width": 1024,
+        "bytes": 162124,
+        "sha256": "2cd5144ff5f158cade20153961547836d95ae181646a108d2fc12a8707250aba"
+      },
+      {
+        "src": "/images/products/remix/S-HAL-DEC-01_REMIX_04.webp",
+        "width": 1254,
+        "bytes": 207462,
+        "sha256": "ad2d590c91b1efeef7c8a154f2924d2902b6215fa38d5cbe9b38c0d797650386"
+      }
+    ]
+  },
+  "/images/products/remix/S-NAT-PRE-01_REMIX.webp": {
+    "sourceWidth": 1122,
+    "sourceSha256": "c17f68eabf8e9570cc7cec148f6782cb47dcefde5c0f6365bc93f6aaf7e618d9",
+    "variants": [
+      {
+        "src": "/images/responsive/S-NAT-PRE-01_REMIX__w480.webp",
+        "width": 480,
+        "bytes": 66666,
+        "sha256": "dab1a7120e7f0a53c1474752fd4e06897a1cf706c97fb1e08a302eb3696f5e00"
+      },
+      {
+        "src": "/images/responsive/S-NAT-PRE-01_REMIX__w768.webp",
+        "width": 768,
+        "bytes": 124370,
+        "sha256": "2801fc26073999e20b0fc468ee1b578bb2a757bd68164d1ed38183fe925a3ab1"
+      },
+      {
+        "src": "/images/products/remix/S-NAT-PRE-01_REMIX.webp",
+        "width": 1122,
+        "bytes": 173338,
+        "sha256": "c17f68eabf8e9570cc7cec148f6782cb47dcefde5c0f6365bc93f6aaf7e618d9"
+      }
+    ]
+  },
+  "/images/products/remix/S-NAT-PRE-01_REMIX_02.webp": {
+    "sourceWidth": 1122,
+    "sourceSha256": "3025e8726aa3f7ed95a579a3be8d4331519d16034edbd1226e4874ce826abe9d",
+    "variants": [
+      {
+        "src": "/images/responsive/S-NAT-PRE-01_REMIX_02__w480.webp",
+        "width": 480,
+        "bytes": 83626,
+        "sha256": "2648f4328a10921fe038c90f770d6230326d71d42f57fbb96032f23c66ef0397"
+      },
+      {
+        "src": "/images/responsive/S-NAT-PRE-01_REMIX_02__w768.webp",
+        "width": 768,
+        "bytes": 167406,
+        "sha256": "dcc2500d3bb3b8c87b3c3898560b3fbe9a4832df92a786c30827e224c85b1d36"
+      },
+      {
+        "src": "/images/responsive/S-NAT-PRE-01_REMIX_02__w1024.webp",
+        "width": 1024,
+        "bytes": 235632,
+        "sha256": "0a1fff330d5aad168c502a1cf3037cdc0b21646f0164af7a41f6172a895a6a10"
+      },
+      {
+        "src": "/images/products/remix/S-NAT-PRE-01_REMIX_02.webp",
+        "width": 1122,
+        "bytes": 241674,
+        "sha256": "3025e8726aa3f7ed95a579a3be8d4331519d16034edbd1226e4874ce826abe9d"
+      }
+    ]
+  },
+  "/images/products/remix/S-NAT-PRE-01_REMIX_03.webp": {
+    "sourceWidth": 1122,
+    "sourceSha256": "10d8e2f4d8761f18384cba85b629df66a5d6dab7da12551d4400174f0b32f672",
+    "variants": [
+      {
+        "src": "/images/responsive/S-NAT-PRE-01_REMIX_03__w480.webp",
+        "width": 480,
+        "bytes": 59068,
+        "sha256": "9dc7a00e71fef94abbfedd431652f841169aa74c3e9ba3d3f673239b864f11b3"
+      },
+      {
+        "src": "/images/responsive/S-NAT-PRE-01_REMIX_03__w768.webp",
+        "width": 768,
+        "bytes": 114744,
+        "sha256": "1fb686a3f435c885e3a9a1fd3e65f3a94848265990a492b6a5cec0addcfdefaf"
+      },
+      {
+        "src": "/images/products/remix/S-NAT-PRE-01_REMIX_03.webp",
+        "width": 1122,
+        "bytes": 156918,
+        "sha256": "10d8e2f4d8761f18384cba85b629df66a5d6dab7da12551d4400174f0b32f672"
+      }
+    ]
+  }
+}

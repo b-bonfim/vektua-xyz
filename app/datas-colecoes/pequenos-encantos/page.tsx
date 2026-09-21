@@ -1,3 +1,4 @@
+import ResponsiveImage from '@/components/responsive-image';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
@@ -21,12 +22,12 @@ export default function PequenosEncantosPage() {
       <nav className="breadcrumbs" aria-label="Localização"><Link href="/">Início</Link><span aria-hidden="true">/</span><Link href="/datas-colecoes">Datas & Coleções</Link><span aria-hidden="true">/</span><span aria-current="page">Pequenos Encantos</span></nav>
       <div className="catalog-intro seasonal-intro">
         <div><h1>Pequenos Encantos</h1><p>Uma interpretação leve e divertida do Halloween. Coleção conceitual, sem janela de venda definida.</p><span className="small-note">{collectionProducts.length} peça em estudo · nenhum SKU liberado para venda.</span></div>
-        <img src="/images/products/remix/S-HAL-DEC-01_REMIX.webp" alt="Ambientação REMIX editada do SKU S-HAL-DEC-01; composição da oferta ainda não verificada" width={420} height={300}/>
+        <ResponsiveImage src="/images/products/remix/S-HAL-DEC-01_REMIX.webp" alt="Ambientação REMIX editada do SKU S-HAL-DEC-01; composição da oferta ainda não verificada" width={420} height={300}/>
       </div>
       <section aria-label="Peças desta coleção" className="product-grid catalog-grid">
         {collectionProducts.map(product => <article className="product-card" key={product.id}>
           <Link href={`/produto/${product.slug}`} className="product-picture" aria-label={`Conhecer ${product.name}`}>
-            <img src={product.image} alt={`Ambientação REMIX editada de ${product.name}; peça física não verificada`} width={640} height={640} loading="lazy"/>
+            <ResponsiveImage src={product.image} alt={`Ambientação REMIX editada de ${product.name}; peça física não verificada`} width={640} height={640} loading="lazy"/>
             <span className="concept-label">Imagem REMIX · ambientação editada</span>
           </Link>
           <div className="product-info"><span className="product-category">Halloween · conceito</span><Link href={`/produto/${product.slug}`} className="product-name">{product.name}</Link><div className="price-row"><span>{money(product.price)}</span><span>Valor ilustrativo</span></div></div>

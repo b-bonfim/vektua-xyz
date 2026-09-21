@@ -1,4 +1,5 @@
 'use client';
+import ResponsiveImage from '@/components/responsive-image';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -10,7 +11,7 @@ import { useCart } from '@/components/cart-context';
 export function BrandLogo({ light = false }: { light?: boolean }) {
   return (
     <Link href="/" className={`brand vx-logo ${light ? 'light' : ''}`} aria-label="Vektua XYZ — início">
-      <img src={light ? '/brand/vektua-wordmark-negative.svg' : '/brand/vektua-wordmark.svg'} alt="Vektua XYZ" width="192" height="48" />
+      <ResponsiveImage src={light ? '/brand/vektua-wordmark-negative.svg' : '/brand/vektua-wordmark.svg'} alt="Vektua XYZ" width="192" height="48" />
     </Link>
   );
 }
