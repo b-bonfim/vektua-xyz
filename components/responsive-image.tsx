@@ -7,7 +7,7 @@ type Entry = { sourceWidth: number; sourceSha256: string; variants: { src: strin
 const imageManifest = manifest as Record<string, Entry>;
 type Props = Omit<ImageProps, 'src' | 'loader' | 'unoptimized'> & { src: string };
 
-export default function ResponsiveImage({ src, sizes, width, ...props }: Props) {
+export default function ResponsiveImage({ src, alt, sizes, width, ...props }: Props) {
   const entry = imageManifest[src];
   const numericWidth = Number(width || 0);
   const responsiveSizes = sizes || (numericWidth >= 1200
@@ -19,8 +19,8 @@ export default function ResponsiveImage({ src, sizes, width, ...props }: Props) 
     const sorted = entry.variants;
     return (sorted.find(candidate => candidate.width >= requested) || sorted[sorted.length - 1]).src;
   } : undefined;
-  // SVG wordmarks and any unmatched concept images remain unoptimized: vinext
+  // SVG wordmarks and unmatched concept assets remain unoptimized: vinext
   // Cloudflare image optimization is not configured in this repository.
-  return <Image {...props} src={src} width={width} sizes={responsiveSizes}
+  return <Image {...props} alt={alt} src={src} width={width} sizes={responsiveSizes}
     loader={loader} unoptimized={!entry} />;
 }
