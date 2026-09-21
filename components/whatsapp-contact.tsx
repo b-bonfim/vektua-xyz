@@ -1,6 +1,5 @@
 import { MessageCircle } from 'lucide-react';
-
-const WHATSAPP_URL = 'https://wa.me/5535984445677';
+import { WHATSAPP_URL } from '@/lib/whatsapp';
 
 export function WhatsAppContact() {
   return (

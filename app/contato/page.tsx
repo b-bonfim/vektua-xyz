@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpRight, LockKeyhole } from 'lucide-react';
 import { BrandHeader, BrandFooter } from '@/components/brand-shell-v2';
+import { WHATSAPP_URL } from '@/lib/whatsapp';
 
 export const metadata: Metadata = {
   title: 'Contato | Vektua XYZ',
@@ -20,8 +21,8 @@ export default function ContactInfoPage() {
       <ul className="editorial-list"><li>Seleção de modelos adequada ao contexto e ao público do estabelecimento.</li><li>Condições comerciais e responsabilidades acordadas previamente.</li><li>Disponibilidade real, exposição, reposição e eventual devolução.</li><li>Direitos, qualidade e autorização de venda de cada SKU envolvido.</li></ul>
       <p className="small-note"><LockKeyhole aria-hidden="true" size={16}/> Nenhum parceiro, ponto de venda, margem ou estoque está confirmado. Não há formulário nem recebimento de pedidos neste protótipo.</p>
       <h2>Fale com a Vektua XYZ</h2>
-      <p>Para dúvidas gerais ou para conversar sobre a proposta, entre em contato pelo WhatsApp. O link abre uma conversa; não confirma pedidos, prazos nem disponibilidade de produtos.</p>
-      <p><a className="text-link" href="https://wa.me/5535984445677" target="_blank" rel="noopener noreferrer" aria-label="Entrar em contato pelo WhatsApp (abre em nova aba)">Entrar em contato pelo WhatsApp <ArrowUpRight aria-hidden="true" size={18}/></a></p>
+      <p>Para dúvidas gerais ou para conversar sobre a proposta, entre em contato pelo WhatsApp. O link abre uma conversa com mensagem sugerida que você pode editar antes de enviar; não confirma pedidos, prazos nem disponibilidade de produtos.</p>
+      <p><a className="text-link" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="Entrar em contato pelo WhatsApp (abre em nova aba)">Entrar em contato pelo WhatsApp <ArrowUpRight aria-hidden="true" size={18}/></a></p>
       <Link className="text-link" href="/chaveiros">Conhecer a linha de chaveiros <ArrowUpRight aria-hidden="true" size={18}/></Link>
       <p><Link className="text-link" href="/ajuda">Consultar perguntas frequentes <ArrowUpRight aria-hidden="true" size={18}/></Link></p>
     </main>
