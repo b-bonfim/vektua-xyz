@@ -4,41 +4,76 @@ on:
     branches: [fix/vinext-rsc-prefetch-20260921]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
-  diagnose:
+  validate:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Frozen install, static checks and production build
+      - name: Update and commit reproducible lockfile for pinned Vinext version
+        shell: bash
         run: |
           set -euo pipefail
           corepack enable
+          corepack pnpm install --lockfile-only --no-frozen-lockfile
+          git diff --check
+          if ! git diff --quiet -- pnpm-lock.yaml; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add pnpm-lock.yaml
+            git commit -m 'chore(deps): lock pinned Vinext prefetch fix'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+          echo "TESTED_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          echo "Exact revision: $(git rev-parse HEAD)"
+      - name: Frozen install, lint with zero warnings, TypeScript and production build
+        run: |
+          set -euo pipefail
           corepack pnpm install --frozen-lockfile
-          corepack pnpm lint
+          corepack pnpm exec eslint . --ignore-pattern dist --ignore-pattern .next --max-warnings=0
           corepack pnpm exec tsc --noEmit
           corepack pnpm build
-      - name: Pinpoint faulty export and original declaration
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
+      - name: Install pinned Chromium test runner
         run: |
-          node --input-type=module <<'NODE'
-          import fs from 'node:fs';import path from 'node:path';
-          const dir='dist/client/_next/static/chunks';const f=fs.readdirSync(dir).find(f=>/^index-.*\.js$/.test(f));const index=fs.readFileSync(path.join(dir,f),'utf8');
-          console.log('INDEX FILE',f,'length',index.length);
-          for(const re of [/\bfunction\s+is\s*\(/g,/\b(?:let|const|var)\s+is\s*=/g,/\bis\s*=/g,/getPrefetchInterceptionContext/g]){
-            console.log('REGEX',re.source,[...index.matchAll(re)].slice(0,8).map(m=>({p:m.index,source:index.slice(Math.max(0,m.index-420),m.index+900)})));
-          }
-          console.log('INDEX tail',index.slice(-420));
-          const src='node_modules/vinext/dist/client/navigation.js';
-          const nav=fs.existsSync(src)?fs.readFileSync(src,'utf8'):'';
-          console.log('navigation file exists',!!nav,'length',nav.length);
-          for(const term of ['getPrefetchInterceptionContext','getMountedSlotsHeader','export {']){
-            const matches=[...nav.matchAll(new RegExp(term.replaceAll(/[.*+?^${}()|[\]\\]/g,'\\$&'),'g'))];console.log('NAV',term,'matches',matches.length,matches.slice(0,6).map(m=>nav.slice(Math.max(0,m.index-500),m.index+850)));
-          }
-          NODE
-      - name: Preserve lab diagnostics
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/browser-qa" --no-audit --no-fund playwright@1.56.0
+          "$RUNNER_TEMP/browser-qa/node_modules/.bin/playwright" install chromium
+      - name: Unsuppressed RSC prefetch and linked navigation smoke on local production build
+        shell: bash
+        run: |
+          set -euo pipefail
+          corepack pnpm start --port 8788 > "$RUNNER_TEMP/vinext-prefetch-production.log" 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          ready=0
+          for attempt in $(seq 1 60); do
+            code=$(curl --noproxy '*' -sS --max-time 5 -o /dev/null -w '%{http_code}' http://127.0.0.1:8788/ || true)
+            if [ "$code" = 200 ]; then ready=1; break; fi
+            if ! kill -0 "$SERVER_PID" 2>/dev/null; then break; fi
+            sleep 2
+          done
+          if [ "$ready" -ne 1 ]; then cat "$RUNNER_TEMP/vinext-prefetch-production.log"; exit 1; fi
+          PLAYWRIGHT_MODULE="$RUNNER_TEMP/browser-qa/node_modules/playwright" BASE_URL=http://127.0.0.1:8788 node scripts/tests/vinext-prefetch-regression.mjs
+          PLAYWRIGHT_MODULE="$RUNNER_TEMP/browser-qa/node_modules/playwright" BASE_URL=http://127.0.0.1:8788 QA_OUTPUT=qa-artifacts node scripts/tests/site-browser-smoke.mjs
+      - name: Upload evidence on failures and successes
         if: always()
-        run: echo 'No deploy; diagnostics only.' >> "$GITHUB_STEP_SUMMARY"
+        uses: actions/upload-artifact@v4
+        with:
+          name: vinext-prefetch-${{ github.run_id }}
+          path: |
+            qa-artifacts/
+            ${{ runner.temp }}/vinext-prefetch-production.log
+          if-no-files-found: ignore
+      - name: Report scope
+        if: always()
+        run: |
+          echo "Production build and browser tested commit: ${TESTED_COMMIT:-not tested}" >> "$GITHUB_STEP_SUMMARY"
+          echo 'Local CI only; no deploy, merge, SKU or Launch Gate approved. Browser test must fail on ANY console error.' >> "$GITHUB_STEP_SUMMARY"
