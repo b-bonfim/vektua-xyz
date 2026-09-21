@@ -1,2 +1,2 @@
-import HomeV2 from '@/components/home-v2';
-export default function Home() { return <HomeV2 />; }
+import CommerceStorefront from '@/components/commerce-storefront';
+export default function HomePage(){return <CommerceStorefront/>;}
