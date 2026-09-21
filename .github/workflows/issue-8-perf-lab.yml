@@ -1,0 +1,86 @@
+name: Issue 8 - production build lab (no deploy)
+
+on:
+  push:
+    branches:
+      - fix/issue-8-image-performance-20260920
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  production-lab:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Record exact revision and environment
+        run: |
+          echo "Commit: $(git rev-parse HEAD)"
+          echo "Runner: $RUNNER_OS / $RUNNER_ARCH"
+          node --version
+          corepack enable
+          corepack pnpm --version
+          echo 'PROD DEPLOY BLOCKED: no production URL or deploy authorization in issue #8.'
+      - name: Install frozen dependencies
+        run: corepack pnpm install --frozen-lockfile
+      - name: Source lint (save complete image warning log)
+        run: |
+          set -o pipefail
+          corepack pnpm lint 2>&1 | tee lint.log
+      - name: TypeScript
+        run: corepack pnpm exec tsc --noEmit
+      - name: Production build (Vinext/Cloudflare, no deployment)
+        run: corepack pnpm build
+      - name: Install isolated Chromium automation
+        run: |
+          npm install --prefix "$RUNNER_TEMP/browser-qa" --no-audit --no-fund playwright@1.56.0
+          "$RUNNER_TEMP/browser-qa/node_modules/.bin/playwright" install chromium
+      - name: Serve production build locally and collect CDP metrics
+        shell: bash
+        run: |
+          set -euo pipefail
+          corepack pnpm start > "$RUNNER_TEMP/vektua-production-lab.log" 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          ready=0
+          for attempt in $(seq 1 60); do
+            code=$(curl --noproxy '*' -sS --max-time 5 -o /dev/null -w '%{http_code}' http://127.0.0.1:8787/ || true)
+            if [ "$code" = 200 ]; then ready=1; break; fi
+            if ! kill -0 "$SERVER_PID" 2>/dev/null; then break; fi
+            sleep 2
+          done
+          if [ "$ready" -ne 1 ]; then
+            echo "PRODUCTION_LAB_START_FAILED HTTP ${code:-none}"
+            cat "$RUNNER_TEMP/vektua-production-lab.log"
+            exit 1
+          fi
+          PLAYWRIGHT_MODULE="$RUNNER_TEMP/browser-qa/node_modules/playwright" \
+            BASE_URL=http://127.0.0.1:8787 PERF_SHA="$(git rev-parse HEAD)" \
+            PERF_OUTPUT=perf-baseline node scripts/tests/site-production-perf.mjs
+      - name: Upload baseline even when checks fail
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue-8-baseline-${{ github.run_id }}
+          path: |
+            perf-baseline/
+            lint.log
+            ${{ runner.temp }}/vektua-production-lab.log
+          if-no-files-found: ignore
+      - name: Report lab scope
+        if: always()
+        run: |
+          {
+            echo '## Issue #8 — local production-build lab, no deploy'
+            echo "Tested SHA: $(git rev-parse HEAD)"
+            echo '3 cold-cache repetitions per route and profile. Network and CPU profiles are in perf-baseline/results.json.'
+            echo 'No public production URL, no field INP, no DNS, no deploy or checkout changes.'
+            if [ -f perf-baseline/summary.md ]; then cat perf-baseline/summary.md; else echo 'PROD LAB MEASUREMENT BLOCKED; see logs.'; fi
+          } >> "$GITHUB_STEP_SUMMARY"
