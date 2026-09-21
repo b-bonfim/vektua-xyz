@@ -22,23 +22,23 @@ jobs:
           corepack pnpm lint
           corepack pnpm exec tsc --noEmit
           corepack pnpm build
-      - name: Trace emitted Link module import binding at failing location
+      - name: Pinpoint faulty export and original declaration
         run: |
           node --input-type=module <<'NODE'
-          import fs from 'node:fs';
-          import path from 'node:path';
-          const root='dist/client/_next/static/chunks';
-          const files=fs.readdirSync(root);const link=fs.readFileSync(path.join(root,files.find(f=>/^link-.*\.js$/.test(f))),'utf8');
-          const index=fs.readFileSync(path.join(root,files.find(f=>/^index-.*\.js$/.test(f))),'utf8');
-          const src=fs.readFileSync('node_modules/vinext/dist/shims/link.js','utf8');
-          console.log('LINK IMPORTS',link.slice(0,1800));
-          const lines=link.split('\n');console.log('FAILING LINK LINE',lines[1]?.slice(3800,5100));
-          console.log('INDEX HEAD',index.slice(0,2300));console.log('INDEX TAIL',index.slice(-5000));
-          console.log('INDEX export snippets', [...index.matchAll(/.{0,160}\bl\s+as\s+\w+.{0,160}|.{0,160}\b\w+\s+as\s+l\b.{0,160}/g)].slice(-12).map(m=>m[0]));
-          for(const term of ['getPrefetchInterceptionContext','async function prefetchUrl','function prefetchUrl','RSC prefetch setup error']){
-            const p=src.indexOf(term);console.log('SOURCE',term,'offset',p,'context',src.slice(Math.max(0,p-400),p+700));
+          import fs from 'node:fs';import path from 'node:path';
+          const dir='dist/client/_next/static/chunks';const f=fs.readdirSync(dir).find(f=>/^index-.*\.js$/.test(f));const index=fs.readFileSync(path.join(dir,f),'utf8');
+          console.log('INDEX FILE',f,'length',index.length);
+          for(const re of [/\bfunction\s+is\s*\(/g,/\b(?:let|const|var)\s+is\s*=/g,/\bis\s*=/g,/getPrefetchInterceptionContext/g]){
+            console.log('REGEX',re.source,[...index.matchAll(re)].slice(0,8).map(m=>({p:m.index,source:index.slice(Math.max(0,m.index-420),m.index+900)})));
+          }
+          console.log('INDEX tail',index.slice(-420));
+          const src='node_modules/vinext/dist/client/navigation.js';
+          const nav=fs.existsSync(src)?fs.readFileSync(src,'utf8'):'';
+          console.log('navigation file exists',!!nav,'length',nav.length);
+          for(const term of ['getPrefetchInterceptionContext','getMountedSlotsHeader','export {']){
+            const matches=[...nav.matchAll(new RegExp(term.replaceAll(/[.*+?^${}()|[\]\\]/g,'\\$&'),'g'))];console.log('NAV',term,'matches',matches.length,matches.slice(0,6).map(m=>nav.slice(Math.max(0,m.index-500),m.index+850)));
           }
           NODE
       - name: Preserve lab diagnostics
         if: always()
-        run: echo 'No deploy; this workflow is diagnostics-only.' >> "$GITHUB_STEP_SUMMARY"
+        run: echo 'No deploy; diagnostics only.' >> "$GITHUB_STEP_SUMMARY"
