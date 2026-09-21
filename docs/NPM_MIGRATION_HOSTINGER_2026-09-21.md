@@ -1,16 +1,16 @@
-# Vektua XYZ — migração controlada de pnpm para npm (Hostinger)
+# Vektua XYZ — migração controlada para npm na Hostinger
 
-**Data:** 21/09/2026 (BRT). **Status: EM PREPARAÇÃO / BLOQUEADO PARA MERGE E DEPLOY.** A aprovação do Founder para migrar o gerenciador de pacotes não é comprovação de instalação, compilação, publicação ou QA. Escopo: manter o site e o carrinho/solicitação via WhatsApp, sem pagamentos, sem ativar indexação e sem GitHub Actions.
+**21/09/2026 (BRT) — PREPARADA EM BRANCH; NÃO MERGEAR/NÃO IMPLANTAR.** Decisão expressa do Founder: migrar para npm para contornar a falha de Corepack no executor Hostinger. Não alterar produtos, pagamentos, DNS, indexação, carrinho→WhatsApp, nem executar GitHub Actions. A alteração do gerenciador não autoriza publicar ou declara QA aprovado.
 
-## Diagnóstico e decisão
+## Diagnóstico e modificações verificadas
 
-A Hostinger confirmou falha ANTES do build em Corepack `pnpm/12.5.1/bin/pnpm.cjs`, embora `package.json` declare `pnpm@11.25.0`; o suporte ofereceu npm como contingência, sujeito a lockfile correspondente. Na `main` de origem `e10e592a5a62551694136c88915ac0b9e352130b` já existe `package-lock.json` em formato v3, porém seu manifesto-raiz guarda `@vitejs/plugin-rsc: 0.5.26` e `vinext: 1.0.0-beta.5`, diferentes do `package.json` vigente (`0.5.34` e `1.0.0-beta.9`). Não renomear o lockfile pnpm, não trocar apenas o seletor do hPanel, não usar `npm install` como substituto silencioso de `npm ci` e não usar `--force` ou `--legacy-peer-deps` para ocultar incompatibilidade.
+A Hostinger falha ANTES do build em `corepack/v1/pnpm/12.5.1/bin/pnpm.cjs`, apesar de `packageManager: pnpm@11.25.0` na `main`. O `package-lock.json` que já existe é antigo: declara `@vitejs/plugin-rsc: 0.5.26` e `vinext: 1.0.0-beta.5` enquanto o manifesto atual requer `0.5.34` e `1.0.0-beta.9`. O lock precisa ser regenerado via npm em checkout real com rede, não renomeado/copied do pnpm.
 
-Esta branch prepara `package.json` (`npm@10.9.2`, `install:ci=npm ci`), o teste do artefato Hostinger e um teste de coerência do lockfile. **O `package-lock.json` ainda precisa ser regenerado em checkout real com rede; portanto esta branch NÃO está pronta para produção.** Os arquivos pnpm antigos ficam temporariamente intactos como trilha de rollback até a instalação e o build npm passarem. Não configurar Hostinger para apontar a esta branch enquanto houver pendências.
+Branch `fix/hostinger-npm-migration-20260921` partiu de `main` SHA `e10e592a5a62551694136c88915ac0b9e352130b`; contém `package.json` com `packageManager: npm@10.9.2`, `install:ci: npm ci` e `check:npm-lock`, teste do artefato Hostinger adaptado, `scripts/tests/npm-lock-consistency.mjs` e **remoção de `pnpm-lock.yaml` e `pnpm-workspace.yaml` SOMENTE NA BRANCH**. Scripts históricos `scripts/install-pnpm.sh`/`scripts/pnpm-install.mjs` e documentos antigos requerem revisão, não são evidência de execução do npm. A `main` continua sem mudança por este PR.
 
-## Execução necessária em checkout completo (sem GitHub Actions)
+## Passo obrigatório no checkout com rede, Node >=22.13 e npm 10.x
 
-No computador do operador com Git, Node >=22.13 e npm 10.x, rodar na raiz do repositório:
+No repositório já clonado:
 
 ```sh
 git fetch origin
@@ -28,22 +28,12 @@ npm run build:hostinger
 node scripts/tests/hostinger-artifact.mjs
 ```
 
-O npm precisa acessar seu registry para resolver dependências. Se `npm install --package-lock-only` retornar ERESOLVE/ETARGET/erro de rede, PARAR, preservar log sem segredos e resolver o problema específico; não afirmar migração concluída. `npm run check:npm-lock` compara dependências diretas/engines, **não** valida toda a árvore; somente `npm ci` valida instalação reproduzível e integridade. Build e testes só valem no checkout/commit candidato. Node 22.18.0 do log do provedor satisfaz o mínimo do projeto, mas a versão real do npm do provedor deve ser conferida.
+Se a instalação retornar `ERESOLVE`, `ETARGET`, falha de registry ou qualquer erro, **PARAR**, guardar log sem segredos e corrigir causa específica; não usar `--force` nem `--legacy-peer-deps` sem análise e decisão formal. `npm run check:npm-lock` valida manifesto-raiz; só `npm ci` verifica árvore, lock e instalação. Confirmar existência de `dist/standalone/server.js`. O ambiente atual desta execução NÃO possui checkout completo com registry funcional: nenhum `npm ci`, lint, TypeScript, build, browser ou Hostinger deploy foi validado aqui.
 
-Se todos os comandos acima passarem, remover os artefatos pnpm antigos do controle de versão: `git rm pnpm-lock.yaml pnpm-workspace.yaml`. Revisar referências ativas a `scripts/install-pnpm.sh` e `scripts/pnpm-install.mjs` antes de excluí-los; não remover caminhos utilizados por outros fluxos sem adaptar. Rodar `npm ci`, `npm run check:npm-lock` e `npm run build:hostinger` **novamente após as remoções**. Atualizar o README e o runbook Hostinger para trocar os comandos pnpm pelos npm e documentar o rollback histórico, e então:
+Após obter todos os códigos de saída zero: revisar se há referências ativas aos scripts pnpm históricos e ajustar README e `docs/HOSTINGER_DEPLOY_2026-09-21.md` para npm, preservando o diagnóstico original como histórico. Executar **novamente** `npm ci`, `npm run check:npm-lock` e `npm run build:hostinger` na revisão final; registrar logs, versões, SHA, resultado estático e artefato. Commitar `package-lock.json`, README e runbook e enviar à mesma branch (`git add ...`, `git commit -m "fix(hostinger): finish npm migration"`, `git push`). Revisar PR #23 antes do merge. Nenhum deploy antes do merge e do Founder Gate.
 
-```sh
-git add package.json package-lock.json scripts/tests/hostinger-artifact.mjs scripts/tests/npm-lock-consistency.mjs docs/NPM_MIGRATION_HOSTINGER_2026-09-21.md README.md docs/HOSTINGER_DEPLOY_2026-09-21.md
-git commit -m "fix(hostinger): complete npm lockfile migration and verify Node build"
-git push -u origin fix/hostinger-npm-migration-20260921
-```
+## Configuração de destino, somente depois de validação e merge
 
-Se não houver alterações adicionais para commitar, verificar `git status` antes do push. **Não fazer merge de PR apenas porque o lockfile foi atualizado**: anexar comando, exit code, Node/npm, commit SHA e evidência do artefato; depois revisar o diff, fazer merge aprovado e somente então configurar o hPanel. Não usar GitHub Actions.
+No hPanel selecionar `npm`; Node `22.x` com minor >=22.13; raiz `./`; comando `npm run build:hostinger`; saída `dist/standalone`; arquivo de entrada `server.js` quando relativo ao diretório de saída. Verificar no log que o auto-installer usa npm (preferencialmente `npm ci`) e NÃO Corepack/pnpm; confirmar SHA e artefato. Depois testar servidor HTTP, rotas, imagens REMIX, SSL, carrinho e link `wa.me/5535984445677` sem enviar pedidos reais. O teste HTTP automatizado existente é `scripts/tests/hostinger-http-smoke.mjs` e exige `BASE_URL`; não substitui testes reais de browser/WhatsApp. Manter `noindex` e pagamento indisponível; confirmar qual domínio será o definitivo (`vektua.xyz` mostrado no hPanel ou outro documentado).
 
-## Configuração Hostinger após merge e gates
-
-Gerenciador de pacotes `npm`; build `npm run build:hostinger`; root `./`; Node `22.x` (>=22.13); saída `dist/standalone`; entry `server.js` se relativo ao diretório de saída. O painel não expõe install command: verificar que instalação automática executa npm e, idealmente, `npm ci`, e não Corepack/pnpm. Confirmar SHA do merge no log. Se o painel continuar selecionando pnpm, encaminhar prova ao suporte.
-
-Após instalação: conferir build, `dist/standalone/server.js`, boot, smoke HTTP/MIME/imagens pelo `scripts/tests/hostinger-http-smoke.mjs`, fluxo de carrinho para URL `wa.me/5535984445677`, SSL e domínio correto. O teste HTTP não comprova recebimento de WhatsApp, pagamento ou aprovação de lançamento. Não alterar DNS, indexação, produtos, preços ou gates comerciais por efeito colateral. Founder decide liberação específica do site depois da evidência.
-
-**Owners:** implementação/lockfile/testes: Engenharia web + operador com checkout/rede; revisão de implantação: VP/Commerce; instalação automática e logs: Hostinger; merge/publicação: Founder após evidência. **Notion não atualizado nesta preparação.** Incidente: https://github.com/b-bonfim/vektua-xyz/issues/21.
+**Owners:** Engenharia web + operador com checkout/rede: lock, compatibilidade, build, README/runbook; Hostinger: log de instalação npm; Founder: merge/publicação com evidência. **Notion não atualizado.** Incidente https://github.com/b-bonfim/vektua-xyz/issues/21 ; PR https://github.com/b-bonfim/vektua-xyz/pull/23 .
