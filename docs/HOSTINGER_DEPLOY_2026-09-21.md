@@ -1,101 +1,59 @@
-# Vektua XYZ — Hostinger Node.js: build, pin de pnpm e release controlado
+# Vektua XYZ — Hostinger Node.js: implantação controlada com npm
 
-**Data:** 21/09/2026 (BRT)  
-**Escopo:** hospedagem do SITE de vitrine + carrinho + rascunho de solicitação via WhatsApp. Sem pagamentos no site, confirmação automática de pedido ou liberação do lançamento integrado.  
-**Status:** configuração de código preparada; **build Node, instalação na Hostinger, deploy público, testes de navegação e recebimento do WhatsApp NÃO verificados**.
+**Data:** 21/09/2026 (BRT). **Estado:** documento atualizado APENAS na branch draft da PR #23; npm lock, `npm ci`, build, smoke e deploy ainda NÃO verificados. Não usar este documento como autorização para publicar. Escopo permanece vitrine + carrinho + rascunho WhatsApp, sem pagamento ou confirmação automática de pedido; sem ativar indexação.
 
-## 1. Diagnóstico: não alterar pnpm por dedução
+## 1. Histórico do incidente pnpm e motivo da migração
 
-O relato recebido informa que o instalador da Hostinger tenta usar `pnpm@12.5.1`, não encontrado no cache do Corepack, enquanto `package.json` fixa `pnpm@11.25.0`. **O log bruto completo do provedor não foi fornecido**; não é possível confirmar se a falha veio da camada de detecção, de rede/cache, do instalador ou de outro comando. Verificar o primeiro stack trace do deployment.
+A implementação original da PR #20 adicionou `build:hostinger` e `start:hostinger` porque `build`/`start` padrão usam Cloudflare Worker/Wrangler, não o servidor Node standalone esperado. A Hostinger, porém, falhou antes de executar qualquer build ao tentar carregar `~/.cache/node/corepack/v1/pnpm/12.5.1/bin/pnpm.cjs` com `MODULE_NOT_FOUND` em Node v22.18.0, apesar de o `package.json` original fixar pnpm 11.25.0. Novos redeploys reproduziram o mesmo erro. O suporte informou que não há comando personalizado de instalação anterior ao build no hPanel; propôs npm como contingência com um `package-lock.json` correspondente e investigação interna para manter pnpm. A causa definitiva no Corepack do provedor não foi comprovada por acesso ao executor.
 
-O repositório possui **três componentes coerentes com pnpm 11.25.0**:
+**Decisão do Founder 21/09/2026:** iniciar migração para npm. A branch `fix/hostinger-npm-migration-20260921` prepara `packageManager: npm@10.9.2`, `install:ci: npm ci`, check de lockfile e exclusão do `pnpm-lock.yaml` e `pnpm-workspace.yaml` somente na branch. A `main` continua com pnpm até eventual merge. O antigo `package-lock.json` ainda possui dependências divergentes: `vinext beta.5` e `@vitejs/plugin-rsc 0.5.26` no root, em vez de `beta.9`/`0.5.34`. **Esta PR NÃO pode ser implantada ou integrada até regenerar lock, verificar instalação e testes.** Procedimento autoritativo de migração: [NPM_MIGRATION_HOSTINGER_2026-09-21.md](NPM_MIGRATION_HOSTINGER_2026-09-21.md). Histórico detalhado no incidente [#21](https://github.com/b-bonfim/vektua-xyz/issues/21).
 
-1. `package.json`: `packageManager: pnpm@11.25.0`.
-2. `scripts/install-pnpm.sh`: compara a versão instalada com `11.25.0` e valida cache/store v11.
-3. `pnpm-lock.yaml`: lockfile gerado para a árvore de dependências vigente.
+## 2. Build Node correto, independente do gerenciador
 
-**Não aceitar a sugestão automática de trocar somente para `pnpm@12.5.1`:** ela não instala uma versão faltante no cache, invalida a coerência com o instalador e exige revalidação integral do lockfile. Este patch não migra o gerenciador de pacotes nem altera dependências.
+`npm run build:hostinger` usa `scripts/run-framework.mjs build-hostinger`, define `VEKTUA_DEPLOY_TARGET=hostinger` e solicita a saída `output: standalone` via `next.config.ts`; o teste `scripts/tests/hostinger-artifact.mjs` exige `dist/standalone/server.js` e verifica o pin npm preparado. `npm run start:hostinger` executa `node dist/standalone/server.js`; o `npm run start` padrão continua sendo comando do ambiente Cloudflare anterior, portanto não o usar na Hostinger. A existência do artefato e compatibilidade de runtime no SHA final NÃO foram demonstradas nesta migração.
 
-### Ação do operador no painel
+### Configuração pretendida no hPanel — somente após testes, merge e Founder Gate
 
-Hostinger → Websites → Dashboard do site → Deployments → selecionar deployment falho → abrir **Build logs** e registrar: versão do Node, comando exato que aciona `pnpm@12.5.1`, URL de registry acessível ou falha de rede, erro Corepack completo e branch/SHA. Remover credenciais/tokens antes de compartilhar logs. Confirmar se as configurações permitem selecionar a versão **11.25.0** do pnpm ou reinstalar/recriar seu cache/ambiente de build. Se a plataforma impuser 12.5.1 sem disponibilizar instalação de 11.25.0, abrir suporte da Hostinger com o log; **isso não é corrigível com segurança somente por um commit no repositório**. Não alterar nem gerar novo lockfile com pnpm 12 às cegas.
-
-Em ambiente de checkout com terminal e rede, para preparar a versão de projeto **antes** de instalar dependências:
-
-```bash
-node --version                         # >= 22.13.0
-corepack enable
-corepack install --global pnpm@11.25.0  # exige que registro/cache sejam acessíveis
-corepack pnpm --version                # precisa mostrar 11.25.0
-corepack pnpm install --frozen-lockfile
-```
-
-A interface de hospedagem compartilhada da Hostinger pode não oferecer terminal ou comando de instalação personalizado. Não presumir que comandos manuais sejam possíveis pelo hPanel. Se o erro surgir antes de `package.json`/scripts serem executados, `preinstall`, `postinstall` e scripts de build não podem remediá-lo.
-
-## 2. Problema adicional corrigido no código: artefato errado para Hostinger
-
-Antes desta mudança, `pnpm build` usa Vinext + plugin Cloudflare e gera saída para Worker; `pnpm start` chama Wrangler em `127.0.0.1`. **Não usar esses dois scripts como build/start do site hospedado em Node pela Hostinger.**
-
-O código oferece uma rota **explícita**, isolada do build Cloudflare original:
-
-- `pnpm run build:hostinger`: define `VEKTUA_DEPLOY_TARGET=hostinger`, usa Vinext sem plugin de Worker e solicita `output: "standalone"` pelo `next.config.ts`.
-- `pnpm run start:hostinger`: executa `node dist/standalone/server.js` (não Wrangler).
-- `pnpm build` e `pnpm start` existentes são preservados para o ambiente anterior. Nenhum GitHub Actions é utilizado.
-
-O output Node standalone e o comando de execução seguem a documentação de Vinext: https://github.com/cloudflare/vinext (seção `output: standalone`). **A existência e a compatibilidade real do bundle nesta revisão só podem ser confirmadas executando o build e o smoke num checkout integral.**
-
-### Configuração-alvo no Redeploy da Hostinger
-
-| Campo | Valor solicitado / condição |
+| Campo | Valor |
 |---|---|
-| Origem | repositório `b-bonfim/vektua-xyz`, branch `main`, SHA exato do release após merge |
-| Tipo/framework | aplicação **Node.js / Other** quando necessário para não aplicar preset Next.js/Cloudflare incompatível |
-| Node.js | **22.x**, respeitando requisito `>=22.13.0`; verificar versão minor no log |
-| Package manager | **pnpm 11.25.0**, respeitando pin e lockfile; resolver primeiro o cache do Corepack no provedor |
-| Build command | `pnpm run build:hostinger`, se o campo aceitar comando personalizado |
-| Start command | `pnpm run start:hostinger` ou `node dist/standalone/server.js`, conforme formato aceito |
-| Output / entry | `dist/standalone` / `dist/standalone/server.js`, somente se a interface exigir esses campos; conferir layout gerado |
-| Bind | `HOST=0.0.0.0`; `PORT` fornecido pela Hostinger, normalmente `3000`; não impor `127.0.0.1` |
-| Variáveis/segredos | cadastrar apenas variáveis legitimamente requeridas no ambiente do provedor; não commitar `.env`, tokens ou chaves privilegiadas |
-| Domínio | `vektua.com.br`; conferir DNS, HTTPS, `www` e redirecionamentos após deploy |
+| Origem | repositório `b-bonfim/vektua-xyz`, branch `main`, conferir SHA efetivamente implantado |
+| Preset | Node.js / Other, se necessário para evitar preset incompatível; observar campos reais do hPanel |
+| Node | 22.x, minor >= 22.13.0; conferir minor e versão real do npm nos logs |
+| Gerenciador de pacotes | **npm**; conferir que a instalação automática não invoca Corepack/pnpm, idealmente `npm ci` |
+| Build | `npm run build:hostinger` — NÃO incluir instalação ou Corepack no comando de build |
+| Saída | `dist/standalone` |
+| Arquivo de entrada | `server.js` quando o campo é relativo ao diretório de saída; conferir layout efetivo |
+| Start, se houver campo | `npm run start:hostinger` ou `node dist/standalone/server.js`, conforme formato aceito |
+| Endereço/porta | `HOST=0.0.0.0` e `PORT` fornecido pela hospedagem; não impor bind em `127.0.0.1` em produção |
+| Segredos | somente no ambiente do provedor; não versionar `.env`, senhas ou chaves privilegiadas |
+| Domínio | hPanel mostrado com `vektua.xyz`, mas registros anteriores citam `vektua.com.br`: Founder confirma endereço definitivo antes de DNS/redirect |
 
-**Nota:** os campos realmente disponíveis dependem do painel/plano, que não foi acessado nesta execução. Se o hPanel não permitir script de start personalizado nem entry compatível, não publicar uma saída Worker sob Node fingindo compatibilidade; usar alvo de hospedagem que execute o bundle ou tratar com o suporte.
+O `packageManager: npm@10.9.2` fixa a intenção da migração; não prova que o provedor disponibilize essa versão exata. O log deve registrar npm realmente executado e instalar lock reproduzível. Se o provedor voltar a chamar Corepack/pnpm, documentar e devolver ao suporte com SHA/deploy ID.
 
-## 3. Validação de um único candidato de release — sem Actions
+## 3. Verificação sem GitHub Actions
 
-Executar localmente ou em terminal autorizado com checkout completo, pnpm 11.25.0 e Node 22.13+:
+Usar checkout completo e rede de registry com Node >=22.13/npm10; primeiro regenerar o `package-lock.json` conforme o runbook de migração. Depois, no MESMO candidato de release:
 
-```bash
-node --version
-corepack pnpm --version
-corepack pnpm install --frozen-lockfile
+```sh
+npm run check:npm-lock
+npm ci --no-audit --no-fund
 node scripts/tests/go-live-static.mjs
-corepack pnpm lint
-corepack pnpm exec tsc --noEmit
-corepack pnpm run build:hostinger
-test -f dist/standalone/server.js
-HOST=127.0.0.1 PORT=3000 corepack pnpm run start:hostinger
+npm run lint
+npm exec -- tsc --noEmit
+npm run build:hostinger
+node scripts/tests/hostinger-artifact.mjs
 ```
 
-Com servidor realmente inicializado, noutra sessão:
+Inicializar o servidor standalone em ambiente isolado com `HOST=127.0.0.1 PORT=3000 npm run start:hostinger` (em Windows PowerShell, definir variáveis separadamente) e rodar em outra sessão `BASE_URL=http://127.0.0.1:3000 node scripts/tests/hostinger-http-smoke.mjs`. Esse teste percorre rotas/imagens e HTTP/MIME/assinaturas, mas não substitui visual/browser, prefetch, carrinho ou aceitação manual de WhatsApp. Testar carrinho → URL `wa.me/5535984445677` em desktop/mobile sem enviar mensagem real ou coletar dado de cliente. Registrar SHA, Node/npm, exit codes, horários, logs, screenshots e lista de falhas. Não afirmar PASS por existência de script não executado.
 
-```bash
-curl -fsS -o /dev/null -w '%{http_code}\n' http://127.0.0.1:3000/
-curl -fsS -o /dev/null -w '%{http_code}\n' http://127.0.0.1:3000/chaveiros
-curl -fsS -o /dev/null -w '%{http_code}\n' http://127.0.0.1:3000/carrinho
-curl -fsS -o /dev/null -w '%{http_code}\n' http://127.0.0.1:3000/produto/g-chv-blo-01
-```
+## 4. Merge, publicação e rollback
 
-Repetir testes de browser, integridade de todas as imagens REMIX, console/prefetch, carrinho e URL `wa.me/5535984445677`, incluindo celular. Registrar SHA, horário, comandos, exit codes, URLs, capturas e resultado. O protocolo completo está em [`GO_LIVE_SITE_2026-09-21.md`](GO_LIVE_SITE_2026-09-21.md). Evitar coleta/envio real de dados e mensagem a terceiros sem autorização.
+1. Verificar regeneração/commit do lock, remoção dos artefatos pnpm nesta PR, coerência de scripts e evidências no SHA revisado; revisar diff. O antigo instalador pnpm é legado e suas referências ativas precisam de inspeção antes de exclusão.
+2. Founder autoriza formalmente a liberação do site depois de QA; mudança do gerenciador não equivale a autorização de lançamento integrado, indexação ou comercialização sem demais gates.
+3. Após merge para `main`, configurar npm no hPanel e iniciar deploy pela integração GitHub da Hostinger, **NUNCA GitHub Actions**. Salvar deployment ID, SHA, comando/versão npm efetivos, instalação, build e runtime.
+4. Conferir URL/HTTPS, páginas `/`, `/busca`, `/chaveiros`, `/carrinho`, `/produto/g-chv-blo-01`, políticas, imagens REMIX, responsividade, carrinho e WhatsApp. `noindex` permanece enquanto não houver decisão expressa.
+5. Falha após deploy: aplicar rollback pelo mecanismo realmente disponível e verificado no hPanel, apontando para release anterior conhecido; a `main` anterior e o incidente #21 preservam a configuração pnpm histórica, mas o Corepack da Hostinger segue quebrado até comprovada correção. Não assumir que rollback do código sozinho fará o pnpm funcionar no provedor.
 
-## 4. Deploy e rollback (não executados por esta mudança)
+**Owners:** lock/testes/compatibilidade e revisão do PR: Engenharia web + operador; instalação gerenciada: Hostinger; Founder: merge/publicação; Commerce/Quality: validação dos fluxos no escopo apropriado. Notion e Trello não atualizados por esta preparação.
 
-1. Confirmar teste local de Node standalone e instalação no provedor; conferir pin, branch e log de instalação.
-2. Registrar autorização do Founder específica para publicação do site; decisão sobre indexação é separada. `noindex` permanece enquanto não houver decisão específica.
-3. No hPanel, revisar campos acima e fazer Redeploy pelo canal de integração GitHub da Hostinger, **não GitHub Actions**. Registrar deployment ID e SHA servido.
-4. Conferir `/`, `/busca`, `/chaveiros`, `/produto/g-chv-blo-01`, `/carrinho`, `/politicas/privacidade`, imagens, HTTPS, versão mobile e link WhatsApp no domínio real. Não confundir abertura do WhatsApp com recebimento de pedido.
-5. Se algo falhar, retornar para release anterior conhecido pelo mecanismo comprovado no hPanel; verificar novamente. Não declarar PASS sem evidência.
-
-**Fontes técnicas:** documentação de Hostinger para [erro de compilação](https://www.hostinger.com/support/fix-failed-to-build-application-error-hostinger-node-js/), [deploy de app Node.js](https://www.hostinger.com/support/how-to-deploy-a-nodejs-website-in-hostinger/) e [redeploy](https://www.hostinger.com/support/how-to-redeploy-a-node-js-application/); [Vinext Node standalone](https://github.com/cloudflare/vinext). URLs são referências técnicas, não evidência de que o deploy desta Vektua tenha funcionado.
-
-**Pendências finais:** cache/Corepack do provedor (Infra/Hostinger), build e QA do SHA final (Engenharia web), autorização de publicação e indexação (Founder), smoke no domínio e rollback (Infra/QA), revisão comercial/risco das ofertas (responsáveis do runbook). **Notion e Trello não foram atualizados por este documento.**
+**Referências:** [Node.js Hostinger](https://www.hostinger.com/support/how-to-deploy-a-nodejs-website-in-hostinger/), [redeploy](https://www.hostinger.com/support/how-to-redeploy-a-node-js-application/), [erro de build](https://www.hostinger.com/support/fix-failed-to-build-application-error-hostinger-node-js/) e [Vinext](https://github.com/cloudflare/vinext). Referências externas não demonstram que o deploy Vektua passou.
