@@ -1,7 +1,7 @@
 import { products as legacyProducts, lines, type Line } from './catalog';
 import { optimizedSkuCopy } from './sku-copy';
 
-/** Snapshot: shortlist-sku, Página1 rows 5–32, 21/09/2026. Approval is an INTERNAL Founder decision, not proof of external rights, test, stock or price. */
+/** Snapshot: shortlist-sku, Página1 rows 5–34, 21/09/2026. Approval is an INTERNAL Founder decision, not proof of external rights, test, stock or price. */
 export type CommercialProduct = {
   id: string; slug: string; name: string; description: string; line: Line; collection: string;
   image?: string; gallery?: string[]; personalized: boolean; founderApproved: true;
@@ -37,6 +37,8 @@ const newKeyrings: Array<[string, string, string, string, boolean?]> = [
   ['G-CHV-FAN-03','Chaveiro Fantasma Clássico | Um Toque de Halloween','Fantasma temático para chaves ou mochila.','Halloween'],
   ['G-CHV-MAO-01','Chaveiro Mão Misteriosa | Acessório de Halloween','Mini mão temática para chaves ou mochila.','Halloween',true],
   ['G-CHV-ALI-01','Miniatura Alienígena | Colecionável de Ficção Científica','Miniatura de ficção científica; a fonte não confirma uma versão chaveiro ou ferragem.','Divertidos',true],
+  ['G-CHV-BLO-01','Chaveiro Bloco de Interrogação | Estilo Gamer Retrô','Chaveiro em formato de bloco com ponto de interrogação e estética gamer retrô. Licença indicada para uso pessoal e direitos de terceiros ainda não comprovados.','Games',true],
+  ['G-CHV-POL-01','Mini Polvinho Articulado | Colecionável Divertido','Miniatura articulada de polvinho; a versão como chaveiro e a licença comercial ainda precisam de confirmação.','Divertidos',true],
 ];
 const remixKeyringImages: Partial<Record<string, string>> = {
   "G-CHV-ABO-01": "/images/products/remix/G-CHV-ABO-01_REMIX.webp",
