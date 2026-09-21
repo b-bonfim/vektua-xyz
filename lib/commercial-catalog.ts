@@ -40,15 +40,24 @@ const newKeyrings: Array<[string, string, string, string, boolean?]> = [
 ];
 const remixKeyringImages: Partial<Record<string, string>> = {
   "G-CHV-ABO-01": "/images/products/remix/G-CHV-ABO-01_REMIX.webp",
+  "G-CHV-ALI-01": "/images/products/remix/G-CHV-ALI-01_REMIX.png",
+  "G-CHV-CAV-01": "/images/products/remix/G-CHV-CAV-01_REMIX.png",
   "G-CHV-CRA-01": "/images/products/remix/G-CHV-CRA-01_REMIX.webp",
   "G-CHV-ESQ-01": "/images/products/remix/G-CHV-ESQ-01_REMIX.webp",
   "G-CHV-ESQ-02": "/images/products/remix/G-CHV-ESQ-02_REMIX.webp",
   "G-CHV-FAN-01": "/images/products/remix/G-CHV-FAN-01_REMIX.webp",
   "G-CHV-FAN-02": "/images/products/remix/G-CHV-FAN-02_REMIX.webp",
   "G-CHV-FAN-03": "/images/products/remix/G-CHV-FAN-03_REMIX.webp",
+  "G-CHV-GAT-01": "/images/products/remix/G-CHV-GAT-01_REMIX.png",
   "G-CHV-LOB-01": "/images/products/remix/G-CHV-LOB-01_REMIX.webp",
+  "G-CHV-MAO-01": "/images/products/remix/G-CHV-MAO-01_REMIX.png",
+  "G-CHV-MAS-01": "/images/products/remix/G-CHV-MAS-01_REMIX.png",
+  "G-CHV-MAS-02": "/images/products/remix/G-CHV-MAS-02_REMIX.png",
   "G-CHV-MED-01": "/images/products/remix/G-CHV-MED-01_REMIX.webp",
-  "G-CHV-MUM-02": "/images/products/remix/G-CHV-MUM-02_REMIX.webp"
+  "G-CHV-MON-01": "/images/products/remix/G-CHV-MON-01_REMIX.png",
+  "G-CHV-MUM-01": "/images/products/remix/G-CHV-MUM-01_REMIX.png",
+  "G-CHV-MUM-02": "/images/products/remix/G-CHV-MUM-02_REMIX.webp",
+  "G-CHV-PAL-01": "/images/products/remix/G-CHV-PAL-01_REMIX.png"
 };
 
 export const commercialProducts: CommercialProduct[] = [
