@@ -1,3 +1,5 @@
+'use client';
+
 import Image, { type ImageLoader, type ImageProps } from 'next/image';
 import manifest from '@/lib/responsive-images.json';
 
@@ -7,6 +9,7 @@ type Entry = { sourceWidth: number; sourceSha256: string; variants: { src: strin
 const imageManifest = manifest as Record<string, Entry>;
 type Props = Omit<ImageProps, 'src' | 'loader' | 'unoptimized'> & { src: string };
 
+// The loader must be created on the client; server routes cannot serialize function props.
 export default function ResponsiveImage({ src, alt, sizes, width, ...props }: Props) {
   const entry = imageManifest[src];
   const numericWidth = Number(width || 0);
