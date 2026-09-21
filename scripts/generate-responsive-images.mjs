@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, statSync, rmSync } from 'node:fs';
-import { basename, join, resolve } from 'node:path';
+import { basename, join } from 'node:path';
 const require=createRequire(import.meta.url);
 assert.ok(process.env.SHARP_MODULE,'SHARP_MODULE must be the path to isolated sharp');
 const sharp=require(process.env.SHARP_MODULE);
