@@ -1,4 +1,18 @@
-# Vektua XYZ — protótipo de comércio (sem vendas)
+# Vektua XYZ — catálogo e pedidos pelo WhatsApp
+
+## Estado vigente — 21/09/2026
+
+A decisão expressa do Founder de 21/09/2026 aprovou internamente os SKUs cadastrados para produção e comercialização e solicitou carrinho com envio da solicitação pelo WhatsApp, sem pagamento no site. A implementação comercial da PR #16 substitui a navegação demonstrativa descrita no histórico abaixo.
+
+- Catálogo comercial em `lib/commercial-catalog.ts` e interface em `components/commerce-storefront.tsx`.
+- Carrinho com SKUs, opções e quantidades, persistido na sessão da aba; mensagem preparada para `+55 35 9 8444-5677`.
+- Dez imagens adicionais do pacote `vektua-remix-commercial-2026-09-21-ready.zip` vinculadas por SKU e conferidas por SHA-256. Imagens ausentes continuam identificadas como indisponíveis.
+- Lint, TypeScript, build e fluxo de navegador verificados localmente. Evidências e limites em [docs/qa-commercial-remix-20260921/README.md](docs/qa-commercial-remix-20260921/README.md).
+- GitHub Actions não é utilizado. Pagamento, confirmação automática de pedido, publicação em produção e liberação de indexação não são efetuados pela importação das imagens.
+
+## Histórico — baseline demonstrativo de 20/09/2026
+
+O conteúdo abaixo registra o estado anterior; suas restrições internas de oferta foram substituídas pela decisão e implementação de 21/09/2026. Não representa o estado comercial vigente.
 
 Site demonstrativo da marca Vektua XYZ. O baseline vigente indicado em `PRODUCT.md` e nos registros do repositório de 20/09/2026 é Opportunity Brief v2.0, Brand Positioning v2.0 e Brand Book v2.0. As versões v1 anexadas ao projeto permanecem históricas e demandam reconciliação administrativa sem apagamento.
 

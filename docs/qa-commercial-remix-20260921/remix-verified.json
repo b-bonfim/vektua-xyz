@@ -1,0 +1,62 @@
+[
+  {
+    "sku": "G-CHV-ABO-01",
+    "path": "public/images/products/remix/G-CHV-ABO-01_REMIX.webp",
+    "sha256": "3580500162422ef67ee2ba58b6ffa4942cfdc0f7c28dde6ce1243d1aeea40448",
+    "bytes": 103972
+  },
+  {
+    "sku": "G-CHV-CRA-01",
+    "path": "public/images/products/remix/G-CHV-CRA-01_REMIX.webp",
+    "sha256": "08672a9c8a2872c3a4209fdbfd3e69b835fc629ddd2b3e9f5e69b5817bd0dc6d",
+    "bytes": 93980
+  },
+  {
+    "sku": "G-CHV-ESQ-01",
+    "path": "public/images/products/remix/G-CHV-ESQ-01_REMIX.webp",
+    "sha256": "45d3aec4002e7a71242f700a7a3ba938cba1b8e1a5fa315e367adb2b161f5596",
+    "bytes": 76662
+  },
+  {
+    "sku": "G-CHV-ESQ-02",
+    "path": "public/images/products/remix/G-CHV-ESQ-02_REMIX.webp",
+    "sha256": "ce4a221ea57debb276863539a9b2af94e7347c0cb1fa238af38d19df297c6768",
+    "bytes": 90164
+  },
+  {
+    "sku": "G-CHV-FAN-01",
+    "path": "public/images/products/remix/G-CHV-FAN-01_REMIX.webp",
+    "sha256": "5fd3ce3a6ac49beb847114152041e0ed94e64ed39f0a9c3fdf1077c6ecc8f499",
+    "bytes": 104496
+  },
+  {
+    "sku": "G-CHV-FAN-02",
+    "path": "public/images/products/remix/G-CHV-FAN-02_REMIX.webp",
+    "sha256": "193ad578a48cc106fb8d43a63481d75959e4023e49fc2d21d7b7beb7866b5152",
+    "bytes": 131582
+  },
+  {
+    "sku": "G-CHV-FAN-03",
+    "path": "public/images/products/remix/G-CHV-FAN-03_REMIX.webp",
+    "sha256": "47fdf0609f5c290c2a487c8fc681e05705172fd6a69715878f4aaa81e1270b87",
+    "bytes": 110564
+  },
+  {
+    "sku": "G-CHV-LOB-01",
+    "path": "public/images/products/remix/G-CHV-LOB-01_REMIX.webp",
+    "sha256": "a9df116a958c65ddc84a2d723706e877f7ddf103898126e50e364bdeeb5b65a1",
+    "bytes": 166478
+  },
+  {
+    "sku": "G-CHV-MED-01",
+    "path": "public/images/products/remix/G-CHV-MED-01_REMIX.webp",
+    "sha256": "b1f7700c6f809e552c045ed54b1f33311feec78783236b026a9fbc958e35ecae",
+    "bytes": 99190
+  },
+  {
+    "sku": "G-CHV-MUM-02",
+    "path": "public/images/products/remix/G-CHV-MUM-02_REMIX.webp",
+    "sha256": "672d83839c1e745ca4f2ea9144d96765888f6e097dd7b77e797bc667bf812a2f",
+    "bytes": 124136
+  }
+]

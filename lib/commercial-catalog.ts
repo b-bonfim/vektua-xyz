@@ -38,10 +38,24 @@ const newKeyrings: Array<[string, string, string, string, boolean?]> = [
   ['G-CHV-MAO-01','Chaveiro Mão Misteriosa | Acessório de Halloween','Mini mão temática para chaves ou mochila.','Halloween',true],
   ['G-CHV-ALI-01','Miniatura Alienígena | Colecionável de Ficção Científica','Miniatura de ficção científica; a fonte não confirma uma versão chaveiro ou ferragem.','Divertidos',true],
 ];
+const remixKeyringImages: Partial<Record<string, string>> = {
+  "G-CHV-ABO-01": "/images/products/remix/G-CHV-ABO-01_REMIX.webp",
+  "G-CHV-CRA-01": "/images/products/remix/G-CHV-CRA-01_REMIX.webp",
+  "G-CHV-ESQ-01": "/images/products/remix/G-CHV-ESQ-01_REMIX.webp",
+  "G-CHV-ESQ-02": "/images/products/remix/G-CHV-ESQ-02_REMIX.webp",
+  "G-CHV-FAN-01": "/images/products/remix/G-CHV-FAN-01_REMIX.webp",
+  "G-CHV-FAN-02": "/images/products/remix/G-CHV-FAN-02_REMIX.webp",
+  "G-CHV-FAN-03": "/images/products/remix/G-CHV-FAN-03_REMIX.webp",
+  "G-CHV-LOB-01": "/images/products/remix/G-CHV-LOB-01_REMIX.webp",
+  "G-CHV-MED-01": "/images/products/remix/G-CHV-MED-01_REMIX.webp",
+  "G-CHV-MUM-02": "/images/products/remix/G-CHV-MUM-02_REMIX.webp"
+};
+
 export const commercialProducts: CommercialProduct[] = [
   ...existing,
   ...newKeyrings.map(([id,name,description,collection,rightsReview]) => ({
     id, slug:id.toLowerCase(), name, description, collection, line:'chaveiros' as const,
+    image:remixKeyringImages[id],
     personalized:false, founderApproved:true as const, rightsReview:!!rightsReview,
   })),
 ];
