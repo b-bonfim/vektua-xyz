@@ -8,6 +8,8 @@ const pages: Record<string, { title: string; description: string }> = {
   'datas-colecoes': { title: 'Datas & Coleções', description: 'Conheça coleções de ocasião e decoração temática da Vektua XYZ. Composição, disponibilidade e prazos sujeitos a validação.' },
   'datas-colecoes/pequenos-encantos': { title: 'Pequenos Encantos | Coleção conceitual', description: 'Explore a coleção conceitual Pequenos Encantos da Vektua XYZ. Esta vitrine não está disponível para compra.' },
   'feitos-para-voce': { title: 'Feitos para Você | Miniaturas estilizadas', description: 'Conheça as propostas de miniaturas estilizadas de pets e pessoas da Vektua XYZ. Processo e condições ainda em estudo.' },
+  'feitos-para-voce/pet': { title: 'Feitos para Você | Miniatura de pet', description: 'Simulador demonstrativo de miniatura estilizada de pet, sem pedido, upload, pagamento ou condições comerciais aprovadas.' },
+  'feitos-para-voce/pessoa': { title: 'Feitos para Você | Miniatura de pessoa', description: 'Simulador demonstrativo de miniatura estilizada de pessoa, sem pedido, upload, pagamento ou condições comerciais aprovadas.' },
   'chaveiros': { title: 'Chaveiros | Temáticos e articulados', description: 'Explore a linha independente de chaveiros da Vektua XYZ. Venda digital e possibilidade futura de seleção para negócios locais, sem pontos confirmados.' },
   'busca': { title: 'Buscar objetos e chaveiros', description: 'Busque por objetos, coleções, miniaturas estilizadas e chaveiros no catálogo demonstrativo Vektua XYZ.' },
   'carrinho': { title: 'Carrinho demonstrativo', description: 'Simule a seleção de objetos no carrinho Vektua XYZ. Pedidos e pagamentos estão desabilitados.' },
