@@ -12,7 +12,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
@@ -42,11 +42,9 @@ jobs:
       - name: Install dependencies
         id: install
         continue-on-error: true
-        shell: bash
         run: |
           set -euo pipefail
           corepack enable
-          corepack pnpm --version
           corepack pnpm install --frozen-lockfile
       - name: ESLint - exact commit
         id: lint
@@ -71,17 +69,23 @@ jobs:
         run: |
           set -euo pipefail
           npm install --prefix "$RUNNER_TEMP/browser-qa" --no-audit --no-fund playwright@1.56.0
-          "$RUNNER_TEMP/browser-qa/node_modules/.bin/playwright" install --with-deps chromium
-          corepack pnpm dev > "$RUNNER_TEMP/vektua-dev.log" 2>&1 &
+          "$RUNNER_TEMP/browser-qa/node_modules/.bin/playwright" install chromium
+          node scripts/run-framework.mjs dev --host 127.0.0.1 > "$RUNNER_TEMP/vektua-dev.log" 2>&1 &
           SERVER_PID=$!
           trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
           ready=0
-          for attempt in $(seq 1 60); do
-            if curl --fail --silent http://127.0.0.1:5173/ > /dev/null; then ready=1; break; fi
+          for attempt in $(seq 1 45); do
+            code=$(curl -sS --max-time 5 -o /dev/null -w '%{http_code}' http://127.0.0.1:5173/ || true)
+            if [ "$code" = 200 ]; then ready=1; break; fi
             if ! kill -0 "$SERVER_PID" 2>/dev/null; then break; fi
             sleep 2
           done
-          if [ "$ready" -ne 1 ]; then cat "$RUNNER_TEMP/vektua-dev.log"; exit 1; fi
+          if [ "$ready" -ne 1 ]; then
+            echo "Server readiness failure; last HTTP status: ${code:-none}"
+            cat "$RUNNER_TEMP/vektua-dev.log"
+            ss -ltn || true
+            exit 1
+          fi
           PLAYWRIGHT_MODULE="$RUNNER_TEMP/browser-qa/node_modules/playwright" \
             BASE_URL=http://127.0.0.1:5173 QA_OUTPUT=qa-artifacts \
             node scripts/tests/site-browser-smoke.mjs
