@@ -258,6 +258,36 @@ export type Database = {
           },
         ]
       }
+      site_settings: {
+        Row: {
+          created_at: string
+          is_critical: boolean
+          is_public: boolean
+          key: string
+          updated_at: string
+          value: Json
+          value_type: string
+        }
+        Insert: {
+          created_at?: string
+          is_critical?: boolean
+          is_public?: boolean
+          key: string
+          updated_at?: string
+          value: Json
+          value_type: string
+        }
+        Update: {
+          created_at?: string
+          is_critical?: boolean
+          is_public?: boolean
+          key?: string
+          updated_at?: string
+          value?: Json
+          value_type?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -383,10 +413,10 @@ export type CompositeTypes<
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never) = never,
-> = PublicCompositeTypeNameOrOptions extends {
+> = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
     ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
