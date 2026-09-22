@@ -41,6 +41,72 @@ export type Database = {
         }
         Relationships: []
       }
+      product_media: {
+        Row: {
+          alt_text: string | null
+          created_at: string
+          file_state: string
+          gallery_position: number | null
+          id: string
+          is_primary: boolean
+          is_public: boolean
+          media_type: string
+          origin_reference: string | null
+          product_id: string
+          source_media_id: string | null
+          storage_bucket: string
+          storage_path: string
+          updated_at: string
+        }
+        Insert: {
+          alt_text?: string | null
+          created_at?: string
+          file_state?: string
+          gallery_position?: number | null
+          id?: string
+          is_primary?: boolean
+          is_public?: boolean
+          media_type: string
+          origin_reference?: string | null
+          product_id: string
+          source_media_id?: string | null
+          storage_bucket: string
+          storage_path: string
+          updated_at?: string
+        }
+        Update: {
+          alt_text?: string | null
+          created_at?: string
+          file_state?: string
+          gallery_position?: number | null
+          id?: string
+          is_primary?: boolean
+          is_public?: boolean
+          media_type?: string
+          origin_reference?: string | null
+          product_id?: string
+          source_media_id?: string | null
+          storage_bucket?: string
+          storage_path?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_media_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "product_media_source_same_product_fk"
+            columns: ["source_media_id", "product_id"]
+            isOneToOne: false
+            referencedRelation: "product_media"
+            referencedColumns: ["id", "product_id"]
+          },
+        ]
+      }
       product_prices: {
         Row: {
           amount: number | null
@@ -253,7 +319,7 @@ export type TablesInsert<
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] extends {
       Insert: infer I
     }
     ? I
@@ -277,8 +343,8 @@ export type TablesUpdate<
     : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
-  }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] extends {
       Update: infer U
     }
     ? U
@@ -320,7 +386,7 @@ export type CompositeTypes<
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
     ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
