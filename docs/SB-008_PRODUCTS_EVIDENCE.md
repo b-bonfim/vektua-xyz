@@ -6,9 +6,9 @@
 **Base:** `main@f918b9013721dc15be48f37e2124a19446bcf59d`  
 **Projeto Supabase:** `tbffwwjqkusiupahjqux`  
 **Migration:** `20260922190558_sb_008_create_products`  
-**PR:** pendente nesta revisão inicial  
-**Merge commit:** pendente nesta revisão inicial  
-**Status:** SCHEMA REMOTO IMPLEMENTADO; integração GitHub em andamento.  
+**PR:** #31 — https://github.com/b-bonfim/vektua-xyz/pull/31  
+**Merge commit:** `86ca108488bab2a9bc559ded5ad866325f97ae67`  
+**Status:** CONCLUÍDO E INTEGRADO À `main`.  
 **GitHub Actions:** NÃO utilizado.
 
 ## Dependência SB-007
@@ -121,3 +121,18 @@ Tipos foram gerados diretamente do projeto Supabase após a migration e versiona
 - O storefront continua no catálogo estático; cutover não ocorreu.
 - Nenhuma alteração visual/UI foi feita; a Skill Impeccable é explicitamente não aplicável a este card backend-only.
 - Nenhuma credencial ou secret foi versionado.
+
+
+## Integração GitHub
+
+- PR #31 integrado à `main`.
+- Merge commit: `86ca108488bab2a9bc559ded5ad866325f97ae67`.
+- Diff do PR: 4 arquivos alterados, 316 linhas adicionadas, 0 removidas.
+- Arquivos: migration SQL, tipos TypeScript gerados, documentação do modelo e evidência.
+- Revisão de diff confirmou ausência de alterações fora do escopo do SB-008.
+- GitHub Actions não foi utilizado como mecanismo de teste, deploy ou validação.
+
+## Trello
+
+- Card: https://trello.com/c/1Q6Mqbn1/65-sb-008p0-modelar-products
+- A atualização para `Concluído` deve ocorrer somente após a confirmação do registro final de evidências.
