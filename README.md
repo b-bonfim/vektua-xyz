@@ -7,8 +7,10 @@ A decisão expressa do Founder de 21/09/2026 aprovou internamente os SKUs cadast
 - Catálogo comercial em `lib/commercial-catalog.ts` e interface em `components/commerce-storefront.tsx`.
 - Carrinho com SKUs, opções e quantidades, persistido na sessão da aba; mensagem preparada para `+55 35 9 8444-5677`.
 - Dez imagens adicionais do pacote `vektua-remix-commercial-2026-09-21-ready.zip` vinculadas por SKU e conferidas por SHA-256. Imagens ausentes continuam identificadas como indisponíveis.
-- Lint, TypeScript, build e fluxo de navegador verificados localmente. Evidências e limites em [docs/qa-commercial-remix-20260921/README.md](docs/qa-commercial-remix-20260921/README.md).
+- Lint, TypeScript, build e fluxo de navegador verificados localmente para a revisão comercial citada. Evidências e limites em [docs/qa-commercial-remix-20260921/README.md](docs/qa-commercial-remix-20260921/README.md); resultados históricos não validam a migração npm.
 - GitHub Actions não é utilizado. Pagamento, confirmação automática de pedido, publicação em produção e liberação de indexação não são efetuados pela importação das imagens.
+
+**Migração de gerenciador em andamento:** na branch da [PR #23](https://github.com/b-bonfim/vektua-xyz/pull/23), o Founder solicitou npm como contingência para falha anterior ao build da Hostinger. Esta branch **ainda tem `package-lock.json` desatualizado; `npm ci`, build e deploy não foram testados nesta revisão**. Não fazer merge ou apontar a Hostinger para esta branch antes de completar o [runbook de migração](docs/NPM_MIGRATION_HOSTINGER_2026-09-21.md). A `main` permanece com pnpm enquanto a PR não for integrada.
 
 ## Histórico — baseline demonstrativo de 20/09/2026
 
@@ -18,20 +20,20 @@ Site demonstrativo da marca Vektua XYZ. O baseline vigente indicado em `PRODUCT.
 
 **Estado comercial:** protótipo, sem autorização de publicação comercial, compra, recebimento de fotografias, confirmação de estoque, preço real ou pedido. Os nove itens selecionados para a demonstração não estabelecem mínimo ou teto para o lançamento. Uma marca e quatro linhas de navegação: **Objetos & Colecionáveis**, **Datas & Coleções**, **Feitos para Você** e **Chaveiros**. A linha Chaveiros é independente; as três linhas anteriores permanecem presentes.
 
-## Executar e validar
+## Executar e validar a branch npm (após regenerar o lockfile)
 
-Requisitos: Node.js 22.13+ e a versão de pnpm declarada em `package.json`.
+Requisitos: Node.js 22.13+ e npm 10.x. Durante a preparação, regenerar `package-lock.json` conforme o [runbook](docs/NPM_MIGRATION_HOSTINGER_2026-09-21.md); o `package-lock.json` antigo NÃO está pronto para `npm ci`.
 
 ```sh
-corepack enable
-pnpm install --frozen-lockfile
-pnpm dev
-pnpm lint
-pnpm exec tsc --noEmit
-pnpm build
+npm ci
+npm run check:npm-lock
+npm run dev
+npm run lint
+npm exec -- tsc --noEmit
+npm run build:hostinger
 ```
 
-`pnpm lint`, TypeScript e build **precisam ser executados na branch/commit que se pretende revisar**. Resultados históricos de 18/09 e da importação REMIX de 20/09 não validam automaticamente commits posteriores. Para matriz de reteste e pendências, consulte `docs/IMPECCABLE_REMEDIATION_2026-09-20.md`.
+`npm run lint`, TypeScript e build **precisam ser executados na branch/commit que se pretende revisar**. Resultados históricos de 18/09 e da importação REMIX de 20/09 não validam automaticamente commits posteriores. Para matriz de reteste e pendências, consulte `docs/IMPECCABLE_REMEDIATION_2026-09-20.md`. O build `npm run build` original visa a infraestrutura Cloudflare; o comando separado `npm run build:hostinger` solicita saída standalone Node. Nenhum dos dois é evidência de deploy público sem teste real.
 
 ## Experiência implementada
 

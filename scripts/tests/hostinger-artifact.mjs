@@ -2,8 +2,8 @@ import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 
 const packageJson = JSON.parse(readFileSync(resolve("package.json"), "utf8"));
-if (packageJson.packageManager !== "pnpm@11.25.0") {
-  console.error("[hostinger] pnpm pin changed: reconcile installer and lockfile before deploying.");
+if (packageJson.packageManager !== "npm@10.9.2") {
+  console.error("[hostinger] npm pin changed: reconcile installer and lockfile before deploying.");
   process.exit(1);
 }
 
