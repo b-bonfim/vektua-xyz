@@ -41,6 +41,101 @@ export type Database = {
         }
         Relationships: []
       }
+      product_prices: {
+        Row: {
+          amount: number | null
+          channel_code: string
+          created_at: string
+          currency_code: string
+          id: string
+          product_id: string
+          sale_unit: string
+          status: string
+          updated_at: string
+          variant_id: string | null
+        }
+        Insert: {
+          amount?: number | null
+          channel_code: string
+          created_at?: string
+          currency_code: string
+          id?: string
+          product_id: string
+          sale_unit: string
+          status?: string
+          updated_at?: string
+          variant_id?: string | null
+        }
+        Update: {
+          amount?: number | null
+          channel_code?: string
+          created_at?: string
+          currency_code?: string
+          id?: string
+          product_id?: string
+          sale_unit?: string
+          status?: string
+          updated_at?: string
+          variant_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_prices_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "product_prices_variant_product_fkey"
+            columns: ["variant_id", "product_id"]
+            isOneToOne: false
+            referencedRelation: "product_variants"
+            referencedColumns: ["id", "product_id"]
+          },
+        ]
+      }
+      product_variants: {
+        Row: {
+          created_at: string
+          id: string
+          label: string | null
+          options: Json
+          product_id: string
+          status: string
+          updated_at: string
+          variant_sku: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          label?: string | null
+          options: Json
+          product_id: string
+          status?: string
+          updated_at?: string
+          variant_sku: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          label?: string | null
+          options?: Json
+          product_id?: string
+          status?: string
+          updated_at?: string
+          variant_sku?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_variants_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       products: {
         Row: {
           category: string | null
@@ -75,7 +170,7 @@ export type Database = {
         Update: {
           category?: string | null
           collection?: string | null
-          created_at?: string
+          created_at?: string | null
           description?: string | null
           id?: string
           name?: string
@@ -226,8 +321,8 @@ export type CompositeTypes<
   schema: keyof DatabaseWithoutInternals
 }
   ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+  : DefaultSchemaTableNameOrOptions extends never
+    ? never
     : never
 
 export const Constants = {
