@@ -4,7 +4,10 @@
 **Card:** [SB-006][P0] Definir contrato da camada de repositórios  
 **Branch:** `feat/sb-006-catalog-repository-contract-20260922`  
 **Base:** `main@0a845d40363dcf70d20227b4f5d6b2aeb624fd7d`  
-**SHA validado:** `329f3999cdaccb9bd3d3c40e7ef9653577e9fc65`  
+**SHA validado:** `9c56bb654bc4dea7638d3fc95f42ff5a2a5380d1`  
+**PR:** #29 — `https://github.com/b-bonfim/vektua-xyz/pull/29`  
+**Merge commit:** `f5132b9ff3f186f3b1a7ecbe0c3297ff6cef58c3`  
+**Status:** CONCLUÍDO E INTEGRADO À `main`  
 **Restrição:** GitHub Actions não utilizado.
 
 ## Escopo implementado
@@ -124,6 +127,6 @@ Não foi executado build Next/Vinext nesta rodada porque os conectores disponív
 
 ## Resultado
 
-**SB-006 atende ao DoD definido para contrato de repositórios e está pronto para merge.**
+**SB-006 atende ao DoD definido para contrato de repositórios e foi integrado à `main` pelo PR #29.**
 
 Próxima etapa após merge: [SB-007][P0] Modelar `product_lines`.
