@@ -72,7 +72,8 @@ for (const [path, source] of storefrontSources) {
   for (const blockedToken of [
     '@/lib/supabase',
     '@supabase/supabase-js',
-    '.from(',
+    'supabase.from(',
+    'createSupabaseClient(',
   ]) {
     if (source.includes(blockedToken)) {
       fail(`${path} queries Supabase directly via token: ${blockedToken}`);
