@@ -41,6 +41,72 @@ export type Database = {
         }
         Relationships: []
       }
+      product_media: {
+        Row: {
+          alt_text: string | null
+          created_at: string
+          file_state: string
+          gallery_position: number | null
+          id: string
+          is_primary: boolean
+          is_public: boolean
+          media_type: string
+          origin_reference: string | null
+          product_id: string
+          source_media_id: string | null
+          storage_bucket: string
+          storage_path: string
+          updated_at: string
+        }
+        Insert: {
+          alt_text?: string | null
+          created_at?: string
+          file_state?: string
+          gallery_position?: number | null
+          id?: string
+          is_primary?: boolean
+          is_public?: boolean
+          media_type: string
+          origin_reference?: string | null
+          product_id: string
+          source_media_id?: string | null
+          storage_bucket: string
+          storage_path: string
+          updated_at?: string
+        }
+        Update: {
+          alt_text?: string | null
+          created_at?: string
+          file_state?: string
+          gallery_position?: number | null
+          id?: string
+          is_primary?: boolean
+          is_public?: boolean
+          media_type?: string
+          origin_reference?: string | null
+          product_id?: string
+          source_media_id?: string | null
+          storage_bucket?: string
+          storage_path?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_media_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "product_media_source_same_product_fk"
+            columns: ["source_media_id", "product_id"]
+            isOneToOne: false
+            referencedRelation: "product_media"
+            referencedColumns: ["id", "product_id"]
+          },
+        ]
+      }
       product_prices: {
         Row: {
           amount: number | null
@@ -63,7 +129,7 @@ export type Database = {
           product_id: string
           sale_unit: string
           status?: string
-          updated_at?: string
+          updated_at: string
           variant_id?: string | null
         }
         Update: {
@@ -276,9 +342,9 @@ export type TablesUpdate<
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] extends {
       Update: infer U
     }
     ? U
@@ -300,9 +366,7 @@ export type Enums<
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never) = never,
-> = DefaultSchemaEnumNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
+> = DefaultSchemaEnumNameOrOptions extends { schema: keyof DatabaseWithoutInternals }
   ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
     ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
