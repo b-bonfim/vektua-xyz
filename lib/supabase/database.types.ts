@@ -41,6 +41,62 @@ export type Database = {
         }
         Relationships: []
       }
+      products: {
+        Row: {
+          category: string | null
+          collection: string | null
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          personalized: boolean
+          product_line_id: string
+          sku: string
+          slug: string
+          status: string
+          updated_at: string
+          visibility: string
+        }
+        Insert: {
+          category?: string | null
+          collection?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          personalized?: boolean
+          product_line_id: string
+          sku: string
+          slug: string
+          status?: string
+          updated_at?: string
+          visibility?: string
+        }
+        Update: {
+          category?: string | null
+          collection?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          personalized?: boolean
+          product_line_id?: string
+          sku?: string
+          slug?: string
+          status?: string
+          updated_at?: string
+          visibility?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_product_line_id_fkey"
+            columns: ["product_line_id"]
+            isOneToOne: false
+            referencedRelation: "product_lines"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
