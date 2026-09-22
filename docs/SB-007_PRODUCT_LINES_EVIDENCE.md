@@ -6,7 +6,9 @@
 **Base:** `main@94ca5752e2cb777789b3789a8be120fc1d6d70c4`  
 **Projeto Supabase:** `tbffwwjqkusiupahjqux`  
 **Migration:** `20260922185539_sb_007_create_product_lines`  
-**Status desta evidência:** schema remoto concluído; PR/merge serão registrados após integração.  
+**PR:** #30 — https://github.com/b-bonfim/vektua-xyz/pull/30  
+**Merge commit:** `0b7d13fa7c874da41699b84f95c1c82a78d36d83`  
+**Status:** CONCLUÍDO E INTEGRADO À `main`.  
 **GitHub Actions:** NÃO utilizado.
 
 ## Evidência remota
@@ -83,3 +85,12 @@ Tipos foram gerados diretamente do projeto Supabase após a migration e versiona
 - Nenhuma policy pública foi criada; isso pertence ao SB-012.
 - O storefront continua no catálogo estático; cutover não ocorreu.
 - Nenhuma alteração visual/UI foi feita; Impeccable não se aplica ao escopo backend deste card.
+
+
+## Integração GitHub
+
+- PR #30 integrado à `main`.
+- Merge commit: `0b7d13fa7c874da41699b84f95c1c82a78d36d83`.
+- Diff do PR: 4 arquivos adicionados, 350 linhas adicionadas, 0 removidas.
+- Arquivos: migration SQL, tipos TypeScript gerados, documentação do modelo e evidência.
+- GitHub Actions não foi utilizado como mecanismo de teste, deploy ou validação.
