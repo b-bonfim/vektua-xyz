@@ -1,45 +1,42 @@
 # SB-013 — Evidências de conclusão do modelo de papéis administrativos
 
-**Data:** 2026-09-22 · **Escopo:** schema/modelo, não ativação do Portal Admin.  
-**Card:** https://trello.com/c/MZDjzn2C/70-sb-013p1-preparar-modelo-de-pap%C3%A9is-administrativos  
-**Projeto Supabase:** `tbffwwjqkusiupahjqux`  
-**Branch Git:** `sb-013-admin-role-foundation` · **base main:** `47434bc3cf79688b3898da3025be50f0a970fc92`  
-**Migration remota:** `20260922210907_sb_013_admin_role_foundation` (`Supabase.apply_migration`: `success:true`; `list_migrations`: versão e nome confirmados).  
-**Arquivo versionado:** `supabase/migrations/20260922210907_sb_013_admin_role_foundation.sql`.  
-**Contrato / ADR:** `docs/SB-013_ADMIN_ROLE_MODEL.md`.
+**Data:** 2026-09-22 · **Status:** CONCLUÍDO no escopo RBAC, sem ativar Portal Admin.  
+**Card:** https://trello.com/c/MZDjzn2C/70-sb-013p1-preparar-modelo-de-pap%C3%A9is-administrativos — movido para **Concluído**, confirmado por nova leitura do Trello em 22/09/2026.  
+**Projeto Supabase:** `tbffwwjqkusiupahjqux` · **Git branch:** `sb-013-admin-role-foundation` · **base SHA main:** `47434bc3cf79688b3898da3025be50f0a970fc92`.  
+**Migration aplicada:** `20260922210907_sb_013_admin_role_foundation` · **Arquivo:** `supabase/migrations/20260922210907_sb_013_admin_role_foundation.sql`.  
+**ADR:** `docs/SB-013_ADMIN_ROLE_MODEL.md`.  
+**PR #36:** https://github.com/b-bonfim/vektua-xyz/pull/36 · **MERGED via squash**, resposta `merged:true`, merge SHA `6ccd7dd3cfed99d0343c4b2703d3e599ab5eabcb`. Este próprio fechamento é um commit documental posterior ao merge.
 
-## Critérios de aceite — DoD do cartão
+## DoD do cartão, uma a uma
 
-| DoD | Evidência e resultado |
+| Critério | Resultado e evidência |
 |---|---|
-| Estratégia de papéis documentada | PASS no escopo documental: ADR define identidade Auth distinta de RBAC, privilégio mínimo, fail closed, aprovação manual futura, server-side/RLS e auditoria. |
-| `founder`, `admin`, `catalog_editor`, `operations`, `viewer` previstos | PASS: `admin_role_assignments_role_check` consultado no catálogo do PostgreSQL contém exatamente os cinco valores. Matriz de permissões FUTURAS no ADR. |
-| Autenticação não implica admin | PASS no schema: 0 atribuições, `is_active=false` default, `anon` e `authenticated` sem USAGE, SELECT, INSERT, UPDATE nem EXECUTE do verificador; os seis objetos públicos mantêm 0 grants de escrita ao browser. Login real fica em SB-014. |
-| Autorização server-side/RLS, não UI | PASS no escopo do modelo: duas tabelas privadas com RLS ON; verificador interno consulta `auth.uid()` e role table em `app_private`. Policies administrativas de acesso/escrita deliberadamente NÃO ativadas, a implementar e testar em card futuro. |
-| Allowlist/role table auditável | PASS estrutural: FK com `auth.users`, uma atribuição/usuário, referência da decisão obrigatória, trigger `admin_role_change_audit` habilitado, tabela de eventos privada. Execução de ciclo real INSERT/UPDATE/DELETE não testada sem conta real/autorização de provisionamento; não representa prova operacional de revogação/login. |
-| Sem usuário administrativo fictício | PASS: 0 rows em `admin_role_assignments` e 0 em `admin_role_audit` após aplicação; migration não contém INSERT/seed em `auth.users` nem em roles. |
+| Estratégia de papéis documentada | **PASS (documental):** ADR descreve autenticação separada de autorização, menor privilégio, fail closed, ciclo de aprovações, fronteiras server-side/RLS e auditoria. |
+| Papéis `founder`, `admin`, `catalog_editor`, `operations`, `viewer` | **PASS:** `pg_constraint` confirmou CHECK com exatamente os cinco papéis; ADR contém matriz de atribuições futuras. |
+| Autenticação não equivale a admin | **PASS (modelo):** nenhuma atribuição inicial; default `is_active=false`; `anon` e `authenticated` sem schema USAGE, sem grants CRUD/leitura de papéis ou EXECUTE do verificador. Login real é SB-014. |
+| Fonte de autorização server-side/RLS | **PASS (fundação):** tabelas privadas com RLS ON e função de verificação com `auth.uid()` consultando atribuição ativa; nenhuma policy administrativa ativa ou autorização baseada apenas em botões/UI. Integração efetiva futura não está coberta. |
+| Allowlist/tabela de papéis auditável | **PASS (estrutura):** FK `auth.users`, PK por usuário, referência não vazia, trigger de INSERT/UPDATE/DELETE habilitado e tabela audit privada. O ciclo operacional com usuário real não foi testado e não está sendo declarado. |
+| Não criar admin fictício | **PASS:** tabelas `admin_role_assignments` e `admin_role_audit` com zero registros após DDL. Migration não faz INSERT/seed em `auth.users` ou atribuições. |
 
-## Consultas realmente executadas e saídas
+## Evidências executadas no Supabase
 
-1. `Supabase.list_tables(project_id, schemas=['public','private'], verbose=true)` antes do DDL: seis tabelas públicas existentes, RLS ligado, sem tabela de papéis. `Supabase.list_migrations`: SB-007 a SB-012 existentes.
-2. `Supabase.execute_sql`: `SELECT nspname FROM pg_namespace WHERE nspname IN ('app_private','private')` → `[]` antes do DDL. O escopo original não foi sobrescrito.
-3. `Supabase.apply_migration` com SQL do SB-013 → `success:true`. `Supabase.list_migrations` em seguida → `20260922210907_sb_013_admin_role_foundation` presente.
-4. Consulta de inventário após DDL → `assignments=0`, `audit_events=0`, `public_rls_tables=6`, `private_rls_tables=2`.
-5. `has_schema_privilege`/`has_table_privilege`/`has_function_privilege` para `anon` e `authenticated` → em ambos: schema USAGE=false; roles SELECT/INSERT/UPDATE=false; audit SELECT=false; checker EXECUTE=false. `has_admin_role` invocada pelo usuário SQL do conector foi negada (`42501 permission denied`), consistentemente com grant fechado; a verificação foi refeita por catálogo de privilégios, sem afrouxar segurança.
-6. Consulta de grants de INSERT/UPDATE/DELETE nas seis tabelas `public` → `anon=0`, `authenticated=0` tabelas com escrita.
-7. Inspeção de `pg_proc`/`pg_trigger` → duas funções no schema privado (`SECURITY DEFINER`, `search_path=''`); `admin_role_change_audit` com `tgenabled='O'`.
-8. Inspeção `pg_constraint` → chave primária `user_id`, FK `auth.users(id) ON DELETE CASCADE`, CHECK dos cinco papéis e CHECK de `change_reference` não vazio.
-9. `Supabase.get_advisors(security)` → 2 INFO `rls_enabled_no_policy` nas duas tabelas PRIVADAS: **intencionais** (sem policy até projeto da autorização admin). Sem achado material reportado. Remediação de referência: https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy .
-10. `Supabase.get_advisors(performance)` → 5 INFO de índices sem uso em tabelas públicas preexistentes e vazias; não criados por SB-013. Referência: https://supabase.com/docs/guides/database/database-linter?lint=0005_unused_index .
+1. Inspeção inicial: seis tabelas `public` com RLS, migrations SB-007 a SB-012 presentes; busca de schema `app_private`/`private` retornou `[]`.
+2. `Supabase.apply_migration` → `success:true`; `Supabase.list_migrations` confirmou `20260922210907_sb_013_admin_role_foundation`.
+3. Inventário SQL pós-DDL → `assignments=0`, `audit_events=0`, `public_rls_tables=6`, `private_rls_tables=2`.
+4. Privilégios por `has_schema_privilege`, `has_table_privilege` e `has_function_privilege` para **ambos** `anon` e `authenticated` → `private_schema_usage=false`, `can_read_roles=false`, `can_assign_roles=false`, `can_change_roles=false`, `can_read_audit=false`, `can_execute_role_check=false`. Tentativa de executar o checker com o SQL role do conector recebeu `42501 permission denied`; não foi corrigido concedendo privilégio amplo.
+5. Inspeção grants nas tabelas `public` → `anon=0` e `authenticated=0` tabelas com INSERT, UPDATE ou DELETE; nenhuma abertura administrativa do SB-012.
+6. Inspeção `pg_proc`/`pg_trigger` → duas funções `SECURITY DEFINER`, ambas `search_path=''`; trigger `admin_role_change_audit` habilitado (`O`). `pg_constraint` → PK user_id, FK `auth.users(id) ON DELETE CASCADE`, CHECK dos cinco papéis e referência obrigatória.
+7. Security Advisors → **2 INFO** `rls_enabled_no_policy` nas tabelas PRIVADAS, deliberados enquanto browser/portal não tem permissão; sem finding material. Referência: https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy . Performance Advisors → **5 INFO** `unused_index` em índices públicos preexistentes, tabelas vazias; não atribuídos ao SB-013. Referência: https://supabase.com/docs/guides/database/database-linter?lint=0005_unused_index .
 
-## Limites e dependências
+## Evidência GitHub e Trello
 
-- Testes de login e logout reais, acesso à rota `/admin`, acesso HTTP, políticas CRUD admin, criação de primeira conta e teste end-to-end de trilha/revogação: **NÃO EXECUTADOS**, fora do SB-013; SB-014 e cards futuros. Nenhuma chave privada exposta. Nenhuma liberação de escrita, catálogo ou publicação.
-- CLI Supabase não instalada no ambiente; a migration remota foi aplicada excepcionalmente primeiro, e o arquivo foi criado na branch imediatamente após recuperar seu version remoto; paridade por rebuild local e teste byte a byte remoto não comprovados. Não editar migration aplicada: usar forward-fix versionado.
-- Nenhum GitHub Actions executado, nenhuma branch de banco paga, nenhuma despesa ou lançamento autorizado. `impeccable` é exclusivamente UI e não se aplica ao schema deste card.
+- Branch dedicada criada na `main` SHA base indicada, três arquivos revisados pelo diff de PR #36 (98 linhas SQL, ADR e evidências). PR foi confirmado `mergeable:true` e incorporado com SHA indicado. Não houve GitHub Actions.
+- Descrição do cartão SB-013 atualizada com seis DoD, IDs, links, Advisors, escopo e limites. A movimentação para a lista `Concluído` foi confirmada via `Trello.trelloReadCard`; não houve arquivamento nem publicação do site.
 
-## Rastreabilidade de encerramento
+## Limites e próximo passo
 
-O histórico remoto, arquivo versionado, ADR e consultas acima são evidências do **modelo preparado**. Commit/PR/merge e estado final Trello devem ser registrados somente após confirmação do GitHub/Trello; o presente documento não atesta antecipadamente esses atos.
+**Não executados e não inferidos:** provisionamento de usuário real, teste funcional do trigger com alterações de papel, testes login/logout, proteção dinâmica `/admin`, HTTP negativo, CRUD admin ou armazenamento privado. O acesso público do catálogo permanece somente leitura. SB-014 cobre Auth e rotas; futuras migrations terão de acrescentar grants/policies estritas com testes reais; nunca expor `service_role` no cliente. O DB owner pode contornar auditoria por trigger; registros de aprovações e logs adicionais serão necessários em operação real.
 
-**Próximo cartão:** SB-014 — definir e testar Auth e proteção de `/admin` sem expor credentials/`service_role` ou habilitar CRUD só por estar autenticado.
+A CLI Supabase não estava instalada: migration foi aplicada remotamente como exceção e o arquivo versionado foi imediatamente reconciliado com o número de versão retornado; rebuild local/paridade byte a byte não comprovados e devem ser checados antes do cutover. Para correções, usar migration nova de forward-fix; não editar o histórico aplicado. Nenhuma branch paga de banco, despesa ou lançamento foi autorizado. A Skill `impeccable` é específica de interfaces; não havia interface a implementar neste card.
+
+**Founder Gate:** nenhum novo gate de comercialização ou de usuário administrativo foi aprovado pelo SB-013. Primeiro provisionamento real exige decisão expressa do Founder e verificação apropriada na etapa subsequente.
