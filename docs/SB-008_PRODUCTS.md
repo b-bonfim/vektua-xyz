@@ -4,7 +4,7 @@
 **Card:** [SB-008][P0] Modelar `products`  
 **Projeto Supabase:** `tbffwwjqkusiupahjqux` — Vektua XYZ  
 **Migration remota:** `20260922190558_sb_008_create_products`  
-**Status:** IMPLEMENTADO NO SUPABASE; integração GitHub nesta branch.  
+**Status:** CONCLUÍDO E INTEGRADO À `main`.  
 **Restrição:** GitHub Actions não utilizado.
 
 ## Objetivo
