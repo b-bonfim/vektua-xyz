@@ -1,35 +1,39 @@
-# SB-014 — Evidências e estado de aceite (22/09/2026)
+# SB-014 — Evidências de correção e critérios de aceite
 
-**Status:** IMPLEMENTAÇÃO EM REVIEW; DoD GLOBAL NÃO COMPROVADO; Trello mantém L99.  
-**Card:** https://trello.com/c/ABBbRxhw  
-**PR draft #37:** https://github.com/b-bonfim/vektua-xyz/pull/37 · branch `sb-014-auth-admin-prep` · base SHA `a1c6afbfdc88732ffad02db0d9ab7d80d7529a49` · não merged/não deployado.  
-**Supabase:** `tbffwwjqkusiupahjqux`; migration aplicada `20260922212956_sb_014_admin_auth_admission` (`apply_migration: success:true`, `list_migrations` confirmou versão).
+**Data local:** 22/09/2026 · **Status:** HOLD, DoD GLOBAL ABERTO. **PR:** https://github.com/b-bonfim/vektua-xyz/pull/37 (draft, sem merge/deploy/Actions). **Card:** https://trello.com/c/ABBbRxhw (L99). **Origem:** `SB-014_relatorio_execucao.md` fornecido pelo Founder, 22/09, commit original 019637a42636c65c42211c0f476204193b1f4ec5. Testes deste relatório anterior são REPORTADOS, não feitos por esta correção.
 
-## Realizado e verificado
+## Antes da correção — relatório manual recebido
 
-- Função `public.can_access_admin()` via migration: checa `auth.uid()`, `auth.sessions` viva e `app_private.admin_role_assignments.is_active`. Inspection SQL: `checks_live_sessions=true`, `checks_active_role=true`; grants: `anon=false`, `PUBLIC=false`, `authenticated=true`. Owner `postgres` tem leitura nas duas tabelas privadas consultadas. Zero CRUD ou autorização admin de catálogo adicionada.
-- Inventário remoto: `auth.users=0`, atribuições admin `=0`, audit events `=0`. Nenhum usuário ou papel criado neste card; provisionamento exige decisão do Founder.
-- Arquivos novos no PR: `proxy.ts`, `lib/admin/{access-policy,access,current-user}.ts`, `/admin` e `/admin/login` páginas, `POST /admin/session`, `POST /admin/logout`, SQL migration, teste de pré-checagem e ADR. Código não modifica `lib/supabase/client.ts` nem intercepta caminhos públicos; cookie admin restrito `Path=/admin`, HttpOnly, sessão <= 1h e sem refresh token.
-- Teste local no ambiente isolado: `node --experimental-strip-types --test /mnt/data/sb014/scripts/tests/sb-014-auth-preflight.mjs` → **5 tests, 5 pass, 0 fail**. Este resultado é **pré-checagem de política e inspeção de arquivos**, NÃO build, TypeScript check ou teste HTTP Next/Vinext.
-- Advisors pós-DDL: Security 2 INFO `rls_enabled_no_policy` em tabelas privadas (herdadas do SB-013, intencional), **1 WARN** `authenticated_security_definer_function_executable` no RPC booleano de admissão; Performance 5 INFO `unused_index` em índices públicos preexistentes. Finding WARN requer revisão específica antes do gate. https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable .
-- Supabase CLI e repo completo/node_modules indisponíveis nesta sessão: migration remota aplicada excepcionalmente antes da escrita do SQL canônico, reconciliação da versão feita imediatamente; rebuild/paridade local não testada. Sem GitHub Actions.
+- `npm ci`, lock check, preflight 5/5, `build`, `build:hostinger` exit 0; testes HTTP dev localhost:5173 e standalone 127.0.0.1:5174; NÃO representa Hostinger.
+- A06 PARCIAL: login com papel inativo recusou painel mas gerou sessão Auth a mais; tentativa isolada após logout não completada. A07: revogação de papel bloqueou request, porém restaurar papel recuperava acesso com cookie antigo. A08: logout impediu acesso no browser e URL direta, mas sobrou uma sessão criada pela recusa. A09: no-store nas rotas observadas, sem capturar resposta positiva do login nem validar CDN.
+- Conta real e papel `admin` provisionados conforme autorização expressa narrada no relatório; papel final ATIVO; sem dados de conta nos arquivos. Inventário desta rodada (SQL): 1 papel ativo e 1 sessão Auth remanescente, ambas preexistentes.
 
-## Matriz DoD (não transformar preparação em aprovação)
+## Correções executadas nesta rodada (Engineering)
 
-| Critério | Situação nesta rodada |
+1. GitHub branch `sb-014-auth-admin-prep`: novo `lib/admin/revoke-session.ts` centraliza POST local-scope ao GoTrue, retorna sucesso SOMENTE após `response.ok`. `app/admin/session/route.ts` revoga o token recém-emitido quando a admissão falha, limpa cookie admin antigo e loga falha remota genericamente sem PII/segredo. `app/admin/logout/route.ts` usa helper e não disfarça erro remoto como revogação. `proxy.ts` expira cookie quando autorização falha. Nada publicado na main.
+2. Supabase `apply_migration` sucesso, `list_migrations` confirmou `20260923000434_sb_014_revoke_admin_sessions_on_role_change` (nova forward-fix versionada GitHub). RPC acrescenta `s.created_at > a.updated_at`; trigger auditado SB-013 renova timestamp em toda atualização de papel. Revogar papel bloqueia logo na nova consulta e reabilitar papel NÃO recupera sessão anterior. Não apaga sessão Auth geral nem JWT; é bloqueio administrativo e exige login novo.
+3. Consulta SQL após migração: clause epoch presente `true`; `anon EXECUTE=false`, `authenticated EXECUTE=true`; `auth.sessions=1` e `sessions rejetadas pela regra de epoch=1`; papel ativo=1. Não coletados ID/email/JWT. Migração anterior intacta. Aplicação remota antecedeu escrita do arquivo canônico porque CLI não disponível, versões reconciliadas; rebuild/paridade integral NÃO testados.
+4. Teste regressivo de GitHub `scripts/tests/sb-014-auth-regression.mjs` copiado no contêiner com SHA git blob idêntico `d4a3b5b5e2e489f3ddb4f12ad6facb129861cc3f`: `node --experimental-strip-types --test ...` → **8/8 PASS**, zero falhas. Inclui 4 testes do helper com transporte simulado e 4 inspeções estruturais/SQL (A06/A08/A09). Parser TypeScript global examinou quatro arquivos alterados: 0 erros sintáticos. **Não são testes HTTP reais**, nem full typecheck/build do HEAD.
+
+## Skill 08 Quality — parecer técnico com escopo, NÃO aprovação/certificação
+
+Parecer desta mesma sessão, baseado no código/DDL, introspecção SQL, Advisors e docs públicas. `public.can_access_admin`: `SECURITY DEFINER` owner postgres, SQL STABLE, `search_path=''`, sem argumentos; retorno booleano acerca do próprio `auth.uid()`, sessão presente e papel privado ativo + epoch; ACL apenas postgres/service_role/authenticated, sem anon/PUBLIC; tabelas `app_private` sem SELECT para anon/authenticated e RLS ligado. Justificativa técnica específica para leitura privativa, **não equivale a eliminar o WARN** `authenticated_security_definer_function_executable`; manter achado documentado, revisar alterações futuras e não expandir RPC para CRUD/dados. INFO privadas sem policies é isolamento intencional, não abrir SELECT como remediação.
+
+Segundo WARN detectado nesta rodada: `auth_leaked_password_protection` desativado. Projeto Supabase plano FREE; documento oficial informa recurso disponível Pro+. Não elevar plano nem gastar sem Founder Gate. Registrar aceitação explícita ou medidas compensatórias (senha forte gerada por gestor, MFA e proteção antiabuso/limite de tentativas, na configuração compatível), com evidência. Sem dados para afirmar MFA/compensações executadas.
+
+**Recomendação Quality: BLOCK RECOMMENDED para liberação comercial/de produção do painel,** por retestes HTTP e cache Hostinger pendentes, risco de sessão remota na falha de logout e WARN de senhas. Não representa auditoria independente de terceiro ou aceite formal pelo Founder.
+
+## Matriz DoD e pendências
+
+| Critério | Estado desta versão |
 |---|---|
-| Estratégia login | Documentada: Auth e-mail/senha, senha em POST mesmo domínio, autorização RBAC server-side, cookie restrito. Config real do provider pendente. |
-| Público sem Auth | Matcher `/admin/:path*` e teste da função PASS; requisição HTTP real pendente. |
-| Admin dinâmico/no-store | Proteções no proxy/página e headers implementados; build/CDN/HTTP pendentes. |
-| Logout invalida acesso | POST remove cookie e tenta revogar Auth; sem teste de conta real ou revogação remota. |
-| Redirect de não autorizado | Código redireciona 303 `/admin/login`; teste HTTP e usuário não autorizado pendentes. |
-| Sem bypass por URL de edição | Prefixo `/admin/*` guardado; teste HTTP de rota profunda e toda futura action pendentes. |
+| Login definido | Sim em arquitetura/código; conta real reportada; A06 reteste após correção ainda PENDENTE. |
+| Loja pública sem auth | PASS HTTP da versão antiga reportado; regressão do HEAD e produção PENDENTES. |
+| Admin dinâmico e sem cache compartilhado | Proteção e no-store em código; A09 real em login positivo, CDN e produção PENDENTES. |
+| Logout invalida acesso | Código helper/clear cookie e mocks PASS; A08 real, ausência sessão extra e revogação remota PENDENTES. |
+| Redirect de não autorizado | Versão antiga HTTP anônimo PASS; HEAD A06 papel inativo/limpeza sessão PENDENTE. |
+| URL direta de edição sem bypass | Versão antiga testada; reteste HEAD + endpoints futuros PENDENTES. |
 
-## Bloqueadores / owners
+**Owners:** Engineering = npm ci/lock, preflight, regressão, builds, HTTP A06/A08/A09 isolados, CLI rebuild, Hostinger cache/proxy; Quality = revisão de evidência pós-reteste e mitigação dois WARN; Founder = autorizar temporariamente alteração de papel/conta e quaisquer gastos/GO. Um teste com senha do titular deve ocorrer apenas no navegador local, sem compartilhá-la aqui. **Sem marcação Concluído, merge, deploy ou GitHub Actions.**
 
-1. **Founder:** confirmar configuração Email Auth, habilitar somente conta REAL após decisão de papel registrada; credenciais privadas. Projeto tem zero usuários, logo sem teste positivo possível.
-2. **Engineering:** rodar `npm ci`, check do lock, build Next/Vinext, HTTP público/anônimo/autorizado/negado/logout/cache, validar same-origin no host real; reproduzir migrations e revisar PR.
-3. **Quality + Engineering:** resolver ou justificar com validação específica o WARN SECURITY DEFINER, revisar CDN, RLS, dados e rota direta.
-4. **Founder + Engineering:** somente com seis DoD evidenciados promover PR/merge, registrar commit/deploy conforme escopo e mover card à lista Concluído com verificação posterior.
-
-**Resultado:** PR draft criado e DDL aplicado, mas **SEM aprovação de DoD, merge, deploy ou movimento de Trello**. Para roteiro de operador, usar arquivo de download `SB-014_ROTEIRO_MANUAL_FOUNDER_v1.0.md` entregue na conversa; não publicar senha/UUID em repositório. Em correção de DB, nova migration forward-fix (não editar migration remota aplicada).
+Referências: https://supabase.com/docs/guides/auth/signout ; https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable ; https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection .
