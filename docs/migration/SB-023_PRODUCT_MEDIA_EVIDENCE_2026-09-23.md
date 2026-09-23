@@ -5,11 +5,13 @@
 **Projeto Supabase:** `tbffwwjqkusiupahjqux`  
 **Repositório:** `b-bonfim/vektua-xyz`  
 **Branch:** `sb-023-product-media-provenance-20260923`  
+**PR:** #44 — MERGED em 23/09/2026  
+**Merge:** `24a59f4ac14bf0979b9138e235fdcb0809d0a524`  
 **GitHub Actions:** não utilizado.
 
 ## Resultado executivo
 
-**CONCLUÍDO NO ESCOPO DO SB-023**, condicionado apenas ao registro final do merge desta branch no próprio documento/Trello.
+**CONCLUÍDO NO ESCOPO DO SB-023.** O PR #44 foi confirmado como merged em `main`; o Trello deve ser atualizado somente após a verificação final do estado remoto.
 
 A migration remota `20260923140147_sb_023_seed_product_media_provenance` foi aplicada com sucesso e reconciliada contra os objetos reais do bucket `product-media`.
 
@@ -122,6 +124,8 @@ A execução deste card:
 - Migration: `supabase/migrations/20260923140147_sb_023_seed_product_media_provenance.sql`
 - Query de reconciliação: `docs/migration/SB-023_PRODUCT_MEDIA_RECONCILIATION_2026-09-23.sql`
 - Este relatório: `docs/migration/SB-023_PRODUCT_MEDIA_EVIDENCE_2026-09-23.md`
+- PR: https://github.com/b-bonfim/vektua-xyz/pull/44
+- Merge: `24a59f4ac14bf0979b9138e235fdcb0809d0a524`
 
 ## Próximo passo
 
