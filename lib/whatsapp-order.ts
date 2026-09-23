@@ -1,12 +1,16 @@
 import type { CartItem } from '@/components/cart-context';
-import { commercialProducts } from './commercial-catalog';
+import type { CatalogProduct } from './catalog-repository';
 
 const PHONE = '5535984445677';
 const clean = (value: string) => value.replace(/[\u0000-\u001F\u007F]/g, ' ').trim().slice(0, 300);
 /** Creates an editable WhatsApp draft. Neither opening the link nor sending a message creates a persisted/confirmed order. */
-export function buildWhatsAppOrderUrl(items: CartItem[], notes = ''): string | null {
+export function buildWhatsAppOrderUrl(
+  items: CartItem[],
+  products: readonly Pick<CatalogProduct, 'id' | 'name'>[],
+  notes = '',
+): string | null {
   const lines = items.flatMap(item => {
-    const product = commercialProducts.find(p => p.id === item.productId);
+    const product = products.find(p => p.id === item.productId);
     if (!product || !Number.isInteger(item.quantity) || item.quantity < 1 || item.quantity > 99) return [];
     return [`• ${product.name} (${product.id}) — ${item.quantity} un. — opção: ${clean(item.color) || 'A combinar'}`];
   });
