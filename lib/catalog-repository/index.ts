@@ -9,3 +9,7 @@ export {
   StaticCatalogRepository,
   staticCatalogRepository,
 } from './static-catalog-repository';
+export {
+  SupabaseCatalogRepository,
+  createSupabaseCatalogRepository,
+} from './supabase-catalog-repository';
