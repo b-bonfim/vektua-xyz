@@ -1,0 +1,1 @@
+-- SB-022 temporary transport support; removed by cleanup migration.\ncreate extension if not exists http with schema extensions;\n
