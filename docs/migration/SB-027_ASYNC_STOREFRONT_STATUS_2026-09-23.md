@@ -138,3 +138,11 @@ Os 30 produtos estão `draft/hidden`; alterar para `published/public` apenas par
 
 **Nenhum Founder Gate é solicitado para a refatoração de código.**  
 **O cutover permanece fora deste card** e continua sujeito aos cards de readiness/autorização posteriores.
+
+
+## 11. Registro de execução externa
+
+- **Draft PR:** #49 — https://github.com/b-bonfim/vektua-xyz/pull/49
+- **Trello:** cartão SB-027 atualizado e movido para **Em Andamento** em 23/09/2026.
+- **Merge em main:** não executado.
+- **Motivo:** DoD operacional ainda depende de smoke nos dois modos e do tratamento correto do dataset público de QA.
