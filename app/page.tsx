@@ -1,2 +1,2 @@
-import CommerceStorefront from '@/components/commerce-storefront';
-export default function HomePage(){return <CommerceStorefront/>;}
+import CommerceStorefrontLoader from '@/components/commerce-storefront-loader';
+export default function HomePage(){return <CommerceStorefrontLoader/>;}
