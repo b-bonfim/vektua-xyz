@@ -7,7 +7,8 @@
 **Branch:** `feat/sb-025-supabase-catalog-repository-20260923`  
 **Base:** `main@a236ef7967333a209118d793556aa162961de8c7`  
 **PR:** #46 — https://github.com/b-bonfim/vektua-xyz/pull/46  
-**Status desta evidência:** IMPLEMENTAÇÃO E DoD VALIDADOS NA BRANCH; merge registrado após integração  
+**Status desta evidência:** CONCLUÍDO E INTEGRADO À `main`  
+**Merge commit:** `b796e58607ad244de033b10e90d2989e6fe7a22b`  
 **GitHub Actions:** não utilizado.
 
 ## 1. Dependências
