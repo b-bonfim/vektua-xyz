@@ -109,4 +109,5 @@ O SB-020 mantém seu próprio histórico e critérios de aceite; esta entrega n�
 
 ## PR
 
-Será preenchido no card Trello após criação/merge do PR desta branch.
+- PR: https://github.com/b-bonfim/vektua-xyz/pull/42
+- Merge SHA: registrar no Trello após o merge, pois esse valor só existe depois da operação.
