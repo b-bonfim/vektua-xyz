@@ -5,14 +5,15 @@ import {
   type SupabaseClient,
 } from "@supabase/supabase-js";
 
+import type { Database } from "./database.types";
 import { getPublicSupabaseEnv } from "./env";
 
-let browserClient: SupabaseClient | undefined;
+let browserClient: SupabaseClient<Database> | undefined;
 
-export function createBrowserSupabaseClient(): SupabaseClient {
+export function createBrowserSupabaseClient(): SupabaseClient<Database> {
   if (!browserClient) {
     const { url, publishableKey } = getPublicSupabaseEnv();
-    browserClient = createSupabaseClient(url, publishableKey);
+    browserClient = createSupabaseClient<Database>(url, publishableKey);
   }
 
   return browserClient;
