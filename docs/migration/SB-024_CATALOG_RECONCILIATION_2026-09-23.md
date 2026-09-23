@@ -150,3 +150,15 @@ A reconciliação técnica do catálogo pode ser considerada concluída para o e
 
 Prosseguir para **SB-025 — Implementar `SupabaseCatalogRepository`**, mantendo o storefront ainda sem cutover até os gates de aplicação, segurança, build/smoke e rollback definidos no cronograma.
 
+
+
+## 9. Integração da evidência
+
+- PR: **#45 — SB-024: reconcile storefront catalog with Supabase**
+- URL: https://github.com/b-bonfim/vektua-xyz/pull/45
+- Estado: **MERGED**
+- Merge SHA: `dc2b657dfb3731bf09cdc0f6d5d31265aa4f95cd`
+- Arquivos integrados:
+  - `docs/migration/SB-024_CATALOG_RECONCILIATION_2026-09-23.md`
+  - `docs/migration/SB-024_CATALOG_RECONCILIATION_2026-09-23.sql`
+- GitHub Actions: **não utilizado**.
