@@ -137,4 +137,8 @@ Este card comprova a **cópia e integridade da mídia REMIX para Storage**. Não
 
 ## PR / merge
 
-PR e merge SHA devem ser preenchidos após a integração desta branch; o Trello deve receber os valores finais somente após confirmação do GitHub.
+- PR: https://github.com/b-bonfim/vektua-xyz/pull/43
+- Merge SHA: `0094cf76d2c288913912a6aa223fd7fd7aba0b08`
+- Arquivos alterados no PR: 6, todos restritos a `docs/migration/` e `supabase/migrations/`.
+- Assets em `public/images/products/remix/`: não alterados pelo PR.
+- GitHub Actions: não utilizado.
