@@ -1,0 +1,1 @@
+-- SB-022 temporary transport support; removed by cleanup migration.\ncreate extension if not exists pg_net with schema extensions;\n
