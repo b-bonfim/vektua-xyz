@@ -19,7 +19,5 @@ export {
   createCatalogRepository,
   getCatalogRepository,
   getCatalogSource,
-  isStaticCatalogRepository,
-  isSupabaseCatalogRepository,
 } from './catalog-source';
 export type { CatalogSource } from './catalog-source';
