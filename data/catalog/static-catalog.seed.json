@@ -1,0 +1,454 @@
+{
+  "schemaVersion": 1,
+  "source": "lib/commercial-catalog.ts",
+  "sourceSha256": "8c09b5df389a84b87c44d7919fe6159b0191fd7d35b471c58dc4e8bce4f7b019",
+  "lines": [
+    {
+      "id": "objetos",
+      "name": "Objetos & Colecionáveis",
+      "path": "/objetos-colecionaveis",
+      "verb": "Escolher",
+      "description": "Peças de catálogo para usar, exibir ou presentear — sem chaveiros nesta linha.",
+      "image": "/images/products/remix/G-ORG-RC-01_REMIX.webp"
+    },
+    {
+      "id": "datas",
+      "name": "Datas & Coleções",
+      "path": "/datas-colecoes",
+      "verb": "Celebrar",
+      "description": "Objetos e coleções para diferentes ocasiões, com composição e condições por produto.",
+      "image": "/images/products/remix/S-HAL-DEC-01_REMIX.webp"
+    },
+    {
+      "id": "feitos",
+      "name": "Feitos para Você",
+      "path": "/feitos-para-voce",
+      "verb": "Personalizar",
+      "description": "Miniaturas estilizadas com escopo e exemplos em validação.",
+      "image": "/images/pet.webp"
+    },
+    {
+      "id": "chaveiros",
+      "name": "Chaveiros",
+      "path": "/chaveiros",
+      "verb": "Descobrir",
+      "description": "Chaveiros diversos, articulados e temáticos. Proposta de curadoria para negócios locais, ainda sem pontos parceiros confirmados.",
+      "image": "/images/products/remix/G-CHV-JJ-01_REMIX.webp"
+    }
+  ],
+  "products": [
+    {
+      "sku": "G-ORG-RC-01",
+      "slug": "g-org-rc-01",
+      "line": "objetos",
+      "name": "Organizador de Controles Remotos | Mesa, Rack e Aparador",
+      "description": "Menos controles espalhados, mais praticidade no dia a dia. A proposta é reunir os controles da TV e de outros aparelhos em uma única peça para apoiar sobre o rack, a mesa ou o aparador — sem instalação na parede. Confira dimensões e compatibilidade com seus controles antes da compra.",
+      "collection": "Organização",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-ORG-RC-01_REMIX.webp",
+        "gallery": [
+          "/images/products/remix/G-ORG-RC-01_REMIX.webp"
+        ]
+      }
+    },
+    {
+      "sku": "S-HAL-DEC-01",
+      "slug": "s-hal-dec-01",
+      "line": "datas",
+      "name": "Abóbora Decorativa de Halloween | Clima de Festa na Mesa",
+      "description": "Entre no clima da data com uma peça temática que também pode compor a apresentação de doces embalados. Uma escolha para decorar mesas, montar um cantinho de Halloween ou complementar a ambientação da festa. Confira as medidas e as opções disponíveis antes de escolher.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/S-HAL-DEC-01_REMIX.webp",
+        "gallery": [
+          "/images/products/remix/S-HAL-DEC-01_REMIX.webp",
+          "/images/products/remix/S-HAL-DEC-01_REMIX_02.webp",
+          "/images/products/remix/S-HAL-DEC-01_REMIX_03.webp",
+          "/images/products/remix/S-HAL-DEC-01_REMIX_04.webp"
+        ]
+      }
+    },
+    {
+      "sku": "CAN-PET-001",
+      "slug": "can-pet-001",
+      "line": "feitos",
+      "name": "Miniatura Estilizada de Pet | Personalização por Fotos",
+      "description": "Uma forma especial de celebrar a personalidade do seu companheiro. A proposta é transformar fotos do seu pet em uma miniatura estilizada para decorar, presentear ou guardar como lembrança. Não se trata de reprodução fotográfica. Confira os estilos disponíveis, as referências exigidas, o escopo de ajustes e os prazos informados antes de fazer a encomenda.",
+      "collection": "Personalizados",
+      "personalized": true,
+      "media": {
+        "primary": null,
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-VAS-ESC-01",
+      "slug": "g-vas-esc-01",
+      "line": "objetos",
+      "name": "Cachepô Escultórico com Personagem | Decoração com Personalidade",
+      "description": "Dê personalidade à decoração com uma peça que combina a presença de um personagem estilizado com o visual de um cachepô. Uma opção para destacar uma composição com plantas ou criar um ponto de interesse na estante e na mesa. Consulte dimensões, abertura e condições de uso antes de escolher a planta ou o vaso interno.",
+      "collection": "Decoração",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-VAS-ESC-01_REMIX.webp",
+        "gallery": [
+          "/images/products/remix/G-VAS-ESC-01_REMIX.webp"
+        ]
+      }
+    },
+    {
+      "sku": "G-VAS-MIN-01",
+      "slug": "g-vas-min-01",
+      "line": "objetos",
+      "name": "Kit de Mini-Cachepôs Decorativos | Charme para Seu Cantinho",
+      "description": "Pequenos detalhes que dão vida à decoração. O conjunto de mini-cachepôs é uma opção para criar uma composição em mesas, prateleiras e outros cantinhos, com um visual coordenado e cheio de personalidade. Confira a quantidade de peças, as medidas e se plantas ou vasos internos estão incluídos antes de comprar.",
+      "collection": "Decoração",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-VAS-MIN-01_REMIX.webp",
+        "gallery": [
+          "/images/products/remix/G-VAS-MIN-01_REMIX.webp"
+        ]
+      }
+    },
+    {
+      "sku": "G-ORG-HS-01",
+      "slug": "g-org-hs-01",
+      "line": "objetos",
+      "name": "Suporte Minimalista para Headset | Setup Organizado",
+      "description": "Seu headset ganha um lugar próprio quando não está em uso. Com visual discreto, o suporte ajuda a organizar a mesa e a deixar o equipamento em destaque no setup de trabalho ou de jogos. Confira as dimensões e a compatibilidade com o seu modelo de headset antes de escolher.",
+      "collection": "Organização",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-ORG-HS-01_REMIX.webp",
+        "gallery": [
+          "/images/products/remix/G-ORG-HS-01_REMIX.webp",
+          "/images/products/remix/G-ORG-HS-01_REMIX_02.webp",
+          "/images/products/remix/G-ORG-HS-01_REMIX_03.webp"
+        ]
+      }
+    },
+    {
+      "sku": "G-CHV-JJ-01",
+      "slug": "g-chv-jj-01",
+      "line": "chaveiros",
+      "name": "Chaveiro Faixa de Jiu-Jítsu | Tatame no Dia a Dia",
+      "description": "Leve sua conexão com o tatame para o dia a dia. Inspirado na faixa de jiu-jítsu, este chaveiro é um detalhe temático para acompanhar suas chaves, compor a bolsa ou presentear quem vive o esporte. Confira o modelo, as cores e as dimensões disponíveis antes de escolher.",
+      "collection": "Chaveiros",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-JJ-01_REMIX.webp",
+        "gallery": [
+          "/images/products/remix/G-CHV-JJ-01_REMIX.webp",
+          "/images/products/remix/G-CHV-JJ-01_REMIX_02.webp",
+          "/images/products/remix/G-CHV-JJ-01_REMIX_03.webp"
+        ]
+      }
+    },
+    {
+      "sku": "S-NAT-PRE-01",
+      "slug": "s-nat-pre-01",
+      "line": "datas",
+      "name": "Presépio Minimalista de Natal | Tradição em Traços Delicados",
+      "description": "Celebre o Natal com uma representação da cena do nascimento em linguagem visual simples e delicada. A peça é uma opção para compor a decoração natalina, criar um cantinho especial ou presentear alguém que aprecia a tradição do presépio. Confira dimensões e itens incluídos no conjunto antes da compra.",
+      "collection": "Natal",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/S-NAT-PRE-01_REMIX.webp",
+        "gallery": [
+          "/images/products/remix/S-NAT-PRE-01_REMIX.webp",
+          "/images/products/remix/S-NAT-PRE-01_REMIX_02.webp",
+          "/images/products/remix/S-NAT-PRE-01_REMIX_03.webp"
+        ]
+      }
+    },
+    {
+      "sku": "CAN-PESSOA-001",
+      "slug": "can-pessoa-001",
+      "line": "feitos",
+      "name": "Miniatura Caricata de Pessoa | Personalização por Fotos",
+      "description": "Transforme uma referência pessoal em uma peça cheia de significado. A proposta é criar uma miniatura em estilo caricato a partir de fotos, para presentear, decorar ou guardar uma lembrança. A representação é estilizada, não uma réplica fotográfica. Antes do pedido, confira os estilos disponíveis, as fotos necessárias, os limites de personalização e as condições de aprovação e prazo.",
+      "collection": "Personalizados",
+      "personalized": true,
+      "media": {
+        "primary": null,
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-MUM-01",
+      "slug": "g-chv-mum-01",
+      "line": "chaveiros",
+      "name": "Chaveiro Múmia Articulada | Mini Personagem de Halloween",
+      "description": "Múmia temática de Halloween, com proposta articulada para chaves ou mochila.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-MUM-01_REMIX.png",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-PAL-01",
+      "slug": "g-chv-pal-01",
+      "line": "chaveiros",
+      "name": "Chaveiro Mini Palhaço de Terror | Coleção Halloween",
+      "description": "Mini palhaço temático de terror para uma coleção de Halloween.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-PAL-01_REMIX.png",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-GAT-01",
+      "slug": "g-chv-gat-01",
+      "line": "chaveiros",
+      "name": "Miniatura Gatinho Esqueleto | Decoração Fofa de Halloween",
+      "description": "Miniatura decorativa de gatinho com estética de esqueleto.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-GAT-01_REMIX.png",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-FAN-01",
+      "slug": "g-chv-fan-01",
+      "line": "chaveiros",
+      "name": "Chaveiro Fantasminha Boo | Halloween Divertido",
+      "description": "Fantasminha temático para chaves ou mochila.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-FAN-01_REMIX.webp",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-CRA-01",
+      "slug": "g-chv-cra-01",
+      "line": "chaveiros",
+      "name": "Chaveiro Caveira Demoníaca | Acessório de Halloween Sombrio",
+      "description": "Caveira temática em formato de chaveiro.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-CRA-01_REMIX.webp",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-MUM-02",
+      "slug": "g-chv-mum-02",
+      "line": "chaveiros",
+      "name": "Chaveiro Mini Múmia | Halloween Divertido para Chaves",
+      "description": "Mini múmia temática para chaves ou mochila.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-MUM-02_REMIX.webp",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-FAN-02",
+      "slug": "g-chv-fan-02",
+      "line": "chaveiros",
+      "name": "Chaveiro Fantasminha Fofo | Charme de Halloween",
+      "description": "Fantasminha temático para chaves ou mochila.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-FAN-02_REMIX.webp",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-MAS-01",
+      "slug": "g-chv-mas-01",
+      "line": "chaveiros",
+      "name": "Chaveiro Máscara de Terror | Estilo Halloween",
+      "description": "Mini máscara temática em formato de chaveiro.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-MAS-01_REMIX.png",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-MED-01",
+      "slug": "g-chv-med-01",
+      "line": "chaveiros",
+      "name": "Chaveiro Mini Médico da Peste | Estilo Gótico de Halloween",
+      "description": "Personagem de inspiração histórica em chaveiro temático.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-MED-01_REMIX.webp",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-LOB-01",
+      "slug": "g-chv-lob-01",
+      "line": "chaveiros",
+      "name": "Chaveiro Mini Lobisomem | Criaturas do Halloween",
+      "description": "Lobisomem temático em miniatura para chaves ou mochila.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-LOB-01_REMIX.webp",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-CAV-01",
+      "slug": "g-chv-cav-01",
+      "line": "chaveiros",
+      "name": "Chaveiro Caveira com Capuz Azul | Estilo Urbano",
+      "description": "Caveira com capuz azul em formato de chaveiro.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-CAV-01_REMIX.png",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-MON-01",
+      "slug": "g-chv-mon-01",
+      "line": "chaveiros",
+      "name": "Chaveiro Monstro Articulado | Mini Criatura de Halloween",
+      "description": "Mini criatura articulada para uma coleção temática.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-MON-01_REMIX.png",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-ESQ-01",
+      "slug": "g-chv-esq-01",
+      "line": "chaveiros",
+      "name": "Chaveiro Mini Esqueleto | Acessório de Halloween",
+      "description": "Mini esqueleto temático em chaveiro.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-ESQ-01_REMIX.webp",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-MAS-02",
+      "slug": "g-chv-mas-02",
+      "line": "chaveiros",
+      "name": "Chaveiro Figura Mascarada de Terror | Coleção Halloween",
+      "description": "Figura mascarada temática; configuração de fixação a confirmar.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-MAS-02_REMIX.png",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-ABO-01",
+      "slug": "g-chv-abo-01",
+      "line": "chaveiros",
+      "name": "Chaveiro Mini Abóbora de Halloween | Toque de Outono",
+      "description": "Mini abóbora de Halloween em formato de chaveiro.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-ABO-01_REMIX.webp",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-ESQ-02",
+      "slug": "g-chv-esq-02",
+      "line": "chaveiros",
+      "name": "Chaveiro Esqueletinho Fofo | Halloween Divertido",
+      "description": "Mini figura de esqueleto; configuração de fixação a confirmar.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-ESQ-02_REMIX.webp",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-FAN-03",
+      "slug": "g-chv-fan-03",
+      "line": "chaveiros",
+      "name": "Chaveiro Fantasma Clássico | Um Toque de Halloween",
+      "description": "Fantasma temático para chaves ou mochila.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-FAN-03_REMIX.webp",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-MAO-01",
+      "slug": "g-chv-mao-01",
+      "line": "chaveiros",
+      "name": "Chaveiro Mão Misteriosa | Acessório de Halloween",
+      "description": "Mini mão temática para chaves ou mochila.",
+      "collection": "Halloween",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-MAO-01_REMIX.png",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-ALI-01",
+      "slug": "g-chv-ali-01",
+      "line": "chaveiros",
+      "name": "Miniatura Alienígena | Colecionável de Ficção Científica",
+      "description": "Miniatura de ficção científica com visual alienígena.",
+      "collection": "Divertidos",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-ALI-01_REMIX.png",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-BLO-01",
+      "slug": "g-chv-blo-01",
+      "line": "chaveiros",
+      "name": "Chaveiro Bloco de Interrogação | Estilo Gamer Retrô",
+      "description": "Chaveiro em formato de bloco com ponto de interrogação e estética gamer retrô.",
+      "collection": "Games",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-BLO-01_REMIX.png",
+        "gallery": []
+      }
+    },
+    {
+      "sku": "G-CHV-POL-01",
+      "slug": "g-chv-pol-01",
+      "line": "chaveiros",
+      "name": "Mini Polvinho Articulado | Colecionável Divertido",
+      "description": "Miniatura articulada de polvinho; versão como chaveiro a confirmar no atendimento.",
+      "collection": "Divertidos",
+      "personalized": false,
+      "media": {
+        "primary": "/images/products/remix/G-CHV-POL-01_REMIX.png",
+        "gallery": []
+      }
+    }
+  ]
+}
