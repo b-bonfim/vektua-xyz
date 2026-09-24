@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "source": "lib/commercial-catalog.ts",
+  "sourceSha256": "8c09b5df389a84b87c44d7919fe6159b0191fd7d35b471c58dc4e8bce4f7b019",
+  "datasetSha256": "0ab2ed30a4b2398af92b3952eb10d4fe89d49134ae4dbf480240eeea66a1cf45",
+  "counts": {
+    "lines": 4,
+    "products": 30,
+    "mediaReferences": 48
+  },
+  "issues": [],
+  "valid": true,
+  "note": "Verifica catálogo e caminhos locais, NÃO direitos, fotos físicas, licenças, aprovação comercial ou Storage remoto."
+}
