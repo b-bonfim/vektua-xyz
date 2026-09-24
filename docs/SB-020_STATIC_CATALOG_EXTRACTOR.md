@@ -1,46 +1,65 @@
 # SB-020 — Extrator do catálogo estático
 
-**Data:** 22/09/2026 · **Prioridade:** P0 · **Owner:** Engineering · **Escopo:** dataset para migração, sem seed remoto.
+**Data de implementação:** 22/09/2026 · **Validação integral:** 24/09/2026 · **Prioridade:** P0 · **Owner:** Engineering · **Status:** CONCLUÍDO no escopo do extrator/dataset; seed remoto pertence ao SB-021.
 
 ## Origem correta
 
-`lib/commercial-catalog.ts` fornece `commercialProducts` e `commercialLines`. Consolida `lib/catalog.ts`, `lib/sku-copy.ts` e `lib/sku-names.ts`. No estado inspecionado em 22/09/2026, o catálogo comercial contém nove produtos de origem mais 21 chaveiros; extrair apenas `lib/catalog.ts` omite os novos SKUs. O adaptador atualmente utilizado pelo site é `lib/catalog-repository/static-catalog-repository.ts`.
+`lib/commercial-catalog.ts` fornece `commercialProducts` e `commercialLines`, consolidando `lib/catalog.ts`, `lib/sku-copy.ts` e `lib/sku-names.ts`. O catálogo validado contém **4 linhas**, **30 produtos** e **48 referências de mídia**. Extrair apenas `lib/catalog.ts` omitiria os SKUs adicionados posteriormente.
 
-## Contrato e artefatos
+## Artefatos
 
-- `scripts/catalog/extract-static-catalog.mjs`: processa os exports TypeScript reais em ambiente Node local com `typescript` já declarado nas devDependencies. Não consulta banco, redes, Drives ou APIs; não muda o catálogo nem a vitrine.
-- `scripts/tests/extract-static-catalog.test.mjs`: testes unitários isolados com fixtures de dados válidos, duplicados, inválidos e mídia ausente.
-- `data/catalog/static-catalog.seed.json`: **pendente de geração no checkout integral**. Deverá conter `schemaVersion`, fonte e hash SHA-256, linhas comerciais e registros `sku`, `slug`, `line`, `name`, `description`, `collection`, `personalized` e mídia `{primary,gallery}`. Campos textuais e ordem da galeria são preservados, inclusive repetição da capa quando a origem a contém.
-- `data/catalog/static-catalog.validation.json`: **pendente de geração no checkout integral**. Deverá conter hash do dataset, contagens, lista de inconsistências e `valid`.
+- `scripts/catalog/extract-static-catalog.mjs`: extrator determinístico, somente leitura sobre as fontes do catálogo.
+- `scripts/tests/extract-static-catalog.test.mjs`: suíte de testes do contrato.
+- `data/catalog/static-catalog.seed.json`: snapshot determinístico do catálogo validado.
+- `data/catalog/static-catalog.validation.json`: relatório de validação e hashes.
 
-A serialização tem ordenação estável e **não inclui timestamp**. O hash das fontes incorpora conteúdo e caminho dos quatro arquivos TypeScript. Reexecutar sobre o mesmo checkout deve produzir bytes idênticos. Em `--check`, o script compara os JSONs existentes com a extração recomputada e falha diante de qualquer drift.
+O dataset exporta `sku`, `slug`, `line`, `name`, `description`, `collection`, `personalized` e mídia `{primary,gallery}`. Preços demonstrativos, estados de gate e dados não pertencentes ao contrato não são importados.
 
-Os caminhos de imagem, inclusive imagens de linha, capa e toda a galeria, são conferidos contra `public/`: nomes exatos (até no Windows), existência de arquivo, ausência de travessia e impedimento de symlink para fora da pasta. Em caso de erro, o comando sai com status 1 e **não sobrescreve o dataset anterior**. O relatório de inconsistências é exibido no terminal.
+## Evidência executada
 
-**Proveniência e autorização:** caminhos REMIX são referências locais, não prova de origem, licença, fotografia física ou arquivo já armazenado no Supabase. Não inventar `origin_reference`, `file_state='verified'` ou `is_public=true`. Esses estados exigem evidências nas etapas SB-021/SB-016 e gates comerciais próprios. Produtos personalizados sem imagem permanecem sem imagem fictícia. Preços demonstrativos/`demo` de `lib/catalog.ts` ficam intencionalmente fora desta exportação; preço comercial é tratado separadamente.
+Execução manual realizada em checkout local atualizado da `main` no commit de origem `c14b7036da31e214bc6d51f7829c6306da2b8eff`, sem GitHub Actions.
 
-## Comandos manuais sem GitHub Actions
-
-Na raiz de checkout limpo e atualizado, com Node >=22.13 e dependências instaladas via `npm ci`:
-
-```bash
+```text
 node --test scripts/tests/extract-static-catalog.test.mjs
+=> 7 testes; 7 PASS; 0 FAIL
+
 node scripts/catalog/extract-static-catalog.mjs --write
+=> PASS; linhas=4, produtos=30, referências de mídia=48
+=> dataset sha256=0ab2ed30a4b2398af92b3952eb10d4fe89d49134ae4dbf480240eeea66a1cf45
+
 node scripts/catalog/extract-static-catalog.mjs --check
+=> PASS; mesmo hash
+
 node scripts/catalog/extract-static-catalog.mjs --check
+=> PASS; mesmo hash
 ```
 
-Depois, inspecionar os dois JSONs, registrar contagens, lista de problemas vazia, hash SHA-256, commit de origem e saída dos comandos. Versionar os JSONs em commit/PR próprio sem editar seus conteúdos manualmente. Se houver erro, corrigir fonte/caminho mediante revisão rastreável e reexecutar. Não marcar DoD de execução completa apenas com teste unitário.
+O arquivo `static-catalog.validation.json` versionado confirma:
 
-## Critérios de aceite e evidências
+- `valid: true`
+- `issues: []`
+- `lines: 4`
+- `products: 30`
+- `mediaReferences: 48`
+- `sourceSha256: 8c09b5df389a84b87c44d7919fe6159b0191fd7d35b471c58dc4e8bce4f7b019`
+- `datasetSha256: 0ab2ed30a4b2398af92b3952eb10d4fe89d49134ae4dbf480240eeea66a1cf45`
 
-| DoD | Evidência disponível neste estágio | Pendente |
-|---|---|---|
-| Lê fonte sem alterar dados | Revisão de código do script | Executar no checkout integral |
-| Exporta todos os campos e mídia | Projeção e teste unitário | Gerar dataset real versionado |
-| SKU duplicado e slug duplicado | Testes unitários isolados | Confrontar catálogo real |
-| Linha inválida | Teste unitário isolado | Confrontar catálogo real |
-| Imagem ausente | Teste unitário isolado | Varredura real dos assets |
-| Mesmo commit → mesmo resultado | Teste de bytes em fixture | Duas verificações `--check` sobre o checkout |
+O hash calculado pelo PowerShell para `static-catalog.seed.json` corresponde exatamente ao hash registrado no relatório. A exibição mojibake observada no terminal Windows não está presente no arquivo versionado: o JSON no GitHub está em UTF-8 correto.
 
-**Não executado neste card:** seed Supabase, criação de Storage, RLS/API, importação de imagens, preços, publicação comercial, deploy ou alterações de frontend. `SB-021` é o responsável pelo seed e reconciliação origem/destino. Impeccable não se aplica a tarefa exclusivamente backend. A conclusão do cartão depende dos dois JSONs reais e logs, e não pode ser inferida dos testes isolados.
+## DoD
+
+| Critério | Resultado |
+|---|---|
+| Extrator lê o catálogo vigente sem alterar seus dados | PASS — script somente leitura; snapshot gerado a partir da fonte vigente |
+| Exporta SKU, slug, linha, nome, descrição, coleção, personalização e mídia | PASS — dataset versionado |
+| Detecta SKU duplicado | PASS — teste automatizado + catálogo real válido |
+| Detecta slug duplicado | PASS — teste automatizado + catálogo real válido |
+| Detecta produto sem linha válida | PASS — teste automatizado + catálogo real válido |
+| Detecta caminho de imagem inexistente | PASS — teste automatizado + catálogo real sem issues |
+| Reexecução sobre o mesmo commit produz o mesmo resultado | PASS — duas execuções `--check` com hash idêntico |
+
+## Limites
+
+Este card **não** faz seed no Supabase, upload de Storage, alteração de RLS/API, publicação de SKU, verificação de licença, comprovação de fotografia física, preço comercial ou cutover do storefront. O relatório de validação confirma estrutura e caminhos locais do catálogo. O seed/reconciliação de origem e destino segue no **SB-021**.
+
+Nenhum GitHub Actions foi utilizado.
