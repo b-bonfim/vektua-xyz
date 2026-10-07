@@ -27,7 +27,7 @@ const paths = [
   '/politicas/privacidade', '/politicas/entrega',
   '/politicas/trocas-devolucoes', '/politicas/termos',
 ];
-const campaignImages = ['/images/campaigns/blind-rats/blind-rats.webp'];
+const campaignImages = ['/images/campaigns/blind-rats/blind-rats-badge.svg'];
 const output = { startedAt: new Date().toISOString(), baseURL: base.href, sha: process.env.RELEASE_SHA || null, checks: [], failures: 0 };
 async function check(label, path, isImage) {
   try {
@@ -36,22 +36,25 @@ async function check(label, path, isImage) {
     assert.equal(response.status, 200, `${url}: expected HTTP 200, got ${response.status}`);
     if (isImage) {
       const type = response.headers.get('content-type') || '';
-      const expected = path.toLowerCase().endsWith('.png') ? 'image/png' : 'image/webp';
+      const lower = path.toLowerCase();
+      const expected = lower.endsWith('.png') ? 'image/png' : lower.endsWith('.svg') ? 'image/svg+xml' : 'image/webp';
       assert.ok(type.toLowerCase().startsWith(expected), `${path}: MIME ${type}; expected ${expected}`);
       const reader = response.body?.getReader();
       assert.ok(reader, `${path}: image has no response body`);
       const bytes = [];
       let count = 0;
-      while (count < 12) {
+      while (count < 64) {
         const { done, value } = await reader.read();
         if (done) break;
         bytes.push(value); count += value.length;
       }
       await reader.cancel();
-      const start = Buffer.concat(bytes).subarray(0, 12);
+      const start = Buffer.concat(bytes).subarray(0, 64);
       const valid = expected === 'image/png'
         ? start.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))
-        : start.toString('ascii', 0, 4) === 'RIFF' && start.toString('ascii', 8, 12) === 'WEBP';
+        : expected === 'image/svg+xml'
+          ? start.toString('utf8').trimStart().startsWith('<svg')
+          : start.toString('ascii', 0, 4) === 'RIFF' && start.toString('ascii', 8, 12) === 'WEBP';
       assert.ok(valid, `${path}: invalid image signature`);
     } else {
       const type = response.headers.get('content-type') || '';
