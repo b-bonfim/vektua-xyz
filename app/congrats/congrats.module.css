@@ -21,43 +21,8 @@
   padding-bottom: 72px;
 }
 
-.heroWithBackground {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  border-radius: 3px;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(14, 14, 14, 0.86) 0%,
-      rgba(14, 14, 14, 0.72) 42%,
-      rgba(14, 14, 14, 0.52) 100%
-    ),
-    url('/images/campaigns/blind-rats/blind-rats-hero.webp');
-  background-size: cover;
-  background-position: center right;
-  background-repeat: no-repeat;
-}
-
-.heroWithBackground::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background:
-    linear-gradient(180deg, rgba(227, 6, 19, 0.12) 0%, rgba(0, 0, 0, 0) 28%),
-    linear-gradient(0deg, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0) 24%);
-  pointer-events: none;
-}
-
-.heroWithBackground > * {
-  position: relative;
-  z-index: 1;
-}
-
 .heroCopy {
   min-width: 0;
-  color: #ffffff;
 }
 
 .hero h1 {
@@ -80,7 +45,7 @@
 .lead {
   max-width: 57ch;
   margin: 28px 0 0;
-  color: rgba(255, 255, 255, 0.86);
+  color: #4f5a55;
   font-size: 17px;
   line-height: 1.72;
 }
@@ -141,30 +106,24 @@
   outline-offset: 4px;
 }
 
-.heroWithBackground .instagramButton:focus-visible,
-.heroWithBackground .secondaryLink:focus-visible {
-  outline-color: #ffffff;
-}
-
 .secondaryLink {
   min-height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 9px;
-  color: #ffffff;
+  color: var(--vx-graphite);
   font-size: 14px;
   font-weight: 650;
   line-height: 1.4;
   text-decoration: underline;
-  text-decoration-color: rgba(255, 255, 255, 0.45);
+  text-decoration-color: #aeb6b0;
   text-decoration-thickness: 1px;
   text-underline-offset: 6px;
 }
 
 .secondaryLink:hover {
-  color: #ffffff;
-  text-decoration-color: var(--br-red);
+  color: var(--vx-petrol);
 }
 
 .secondaryLink:hover svg {
@@ -175,8 +134,8 @@
   max-width: 59ch;
   margin: 30px 0 0;
   padding-top: 18px;
-  border-top: 1px solid rgba(255, 255, 255, 0.22);
-  color: rgba(255, 255, 255, 0.74);
+  border-top: 1px solid #d8dbd4;
+  color: #606b66;
   font-size: 12px;
   font-weight: 650;
   letter-spacing: 0.055em;
@@ -193,77 +152,89 @@
   vertical-align: 1px;
 }
 
-.logoStage {
+.heroArtwork {
   position: relative;
   isolation: isolate;
   width: 100%;
+  max-width: 520px;
   min-width: 0;
   margin: 0;
-  padding: clamp(24px, 7vw, 42px);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  gap: 22px;
+  justify-self: center;
   overflow: hidden;
   border-radius: 3px;
-  background: rgba(14, 14, 14, 0.88);
+  background: var(--br-black);
+  color: #ffffff;
 }
 
-.logoStage::before {
+.heroArtwork::before {
   content: '';
   position: absolute;
   inset: 0 auto 0 0;
-  z-index: 2;
+  z-index: 3;
   width: 5px;
   background: var(--br-red);
-}
-
-.logoStage::after {
-  content: '';
-  position: absolute;
-  inset: 14px;
-  z-index: 0;
-  border: 1px solid rgba(255, 255, 255, 0.12);
   pointer-events: none;
 }
 
-.logoStageInner {
+.heroArtworkFrame {
   position: relative;
-  z-index: 1;
-  min-height: 250px;
-  display: grid;
-  place-items: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--br-black);
 }
 
-.logoStage img {
-  width: min(100%, 560px);
-  height: auto;
+.heroArtworkFrame::after {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  pointer-events: none;
+}
+
+.heroArtworkFrame img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.heroBrand {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 14px 18px 16px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.heroBrandMark {
+  width: 56px;
+  height: 52px;
   display: block;
   object-fit: contain;
 }
 
-.logoStage figcaption {
-  position: relative;
-  z-index: 1;
-  width: 100%;
+.heroBrand > div {
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
-  color: #d9ddda;
-  font-size: 12px;
-  line-height: 1.5;
+  gap: 3px;
 }
 
-.logoStage figcaption strong {
+.heroBrand strong {
   color: #ffffff;
+  font-size: 13px;
   font-weight: 700;
+  line-height: 1.35;
 }
 
-.logoStage figcaption span {
+.heroBrand span {
   color: #aeb7b2;
+  font-size: 12px;
+  line-height: 1.45;
 }
 
 .impactSection {
@@ -420,12 +391,6 @@
     padding-inline: 4px;
   }
 
-  .logoStage figcaption {
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 18px;
-  }
-
   .impactInner {
     padding-top: 82px;
     padding-bottom: 84px;
@@ -455,13 +420,8 @@
     font-size: 18px;
   }
 
-  .logoStage {
-    min-height: 540px;
-    padding: clamp(32px, 4.3vw, 58px);
-  }
-
-  .logoStageInner {
-    min-height: 360px;
+  .heroArtwork {
+    justify-self: end;
   }
 
   .impactIntro {
@@ -543,16 +503,12 @@
     font-size: 16px;
   }
 
-  .logoStage {
-    padding: 26px 24px 24px;
+  .heroArtwork {
+    max-width: none;
   }
 
-  .logoStage::after {
+  .heroArtworkFrame::after {
     inset: 10px;
-  }
-
-  .logoStageInner {
-    min-height: 240px;
   }
 
   .impactInner {
@@ -568,10 +524,6 @@
 @media (max-width: 359px) {
   .hero h1 {
     font-size: 2.5rem;
-  }
-
-  .logoStage {
-    padding-inline: 18px;
   }
 
   .instagramButton {
