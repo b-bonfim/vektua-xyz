@@ -7,7 +7,7 @@ import styles from '../congrats.module.css';
 
 const campaign = {
   name: 'Blind Rats',
-  art: '/images/campaigns/blind-rats/blind-rats.webp',
+  art: '/images/campaigns/blind-rats/blind-rats-badge.svg',
   socialLinks: [] as Array<{ label: string; href: string }>,
 };
 
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Blind Rats — obrigado por apoiar a cena local',
     description: 'Você levou mais que um chaveiro: levou um pedaço da cena local com você.',
-    images: [{ url: campaign.art, width: 720, height: 656, alt: 'Arte da Blind Rats' }],
+    images: [{ url: campaign.art, width: 800, height: 800, alt: 'Arte da Blind Rats' }],
   },
 };
 
@@ -30,7 +30,7 @@ export default function BlindRatsCongratsPage() {
           <div className={styles.heroCopy}>
             <p className={styles.kicker}>
               <span aria-hidden="true" />
-              Blind Rats × Vektua XYZ
+              {campaign.name} × Vektua XYZ
             </p>
             <h1>
               Você não comprou só um chaveiro.
@@ -53,8 +53,8 @@ export default function BlindRatsCongratsPage() {
                 <ResponsiveImage
                   src={campaign.art}
                   alt="Arte da Blind Rats com um rato usando óculos e o nome da banda"
-                  width={720}
-                  height={656}
+                  width={800}
+                  height={800}
                   fetchPriority="high"
                 />
               </div>
