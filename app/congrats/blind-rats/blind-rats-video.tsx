@@ -4,8 +4,8 @@ import { useRef, useState } from 'react';
 import { Play } from 'lucide-react';
 import styles from '../congrats.module.css';
 
-const VIDEO_SRC = '/images/campaigns/blind-rats/blind-rats-message-720p.mp4';
-const POSTER_SRC = '/images/campaigns/blind-rats/blind-rats-message-poster.webp';
+const VIDEO_SRC = '/images/campaigns/blind-rats/blind-rats-message.mp4';
+const POSTER_SRC = '/images/campaigns/blind-rats/blind-rats-message-poster.jpg';
 
 export default function BlindRatsVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
