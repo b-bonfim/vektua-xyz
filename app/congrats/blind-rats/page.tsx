@@ -2,13 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, Heart, MapPin, Music2 } from 'lucide-react';
 import ResponsiveImage from '@/components/responsive-image';
+import BlindRatsVideo from './blind-rats-video';
 import { BrandFooter, BrandHeader } from '@/components/brand-shell-v2';
 import styles from '../congrats.module.css';
 
 const campaign = {
   name: 'Blind Rats',
   art: '/images/campaigns/blind-rats/blind-rats-badge.svg',
-  hero: '/images/campaigns/blind-rats/blind-rats-hero.webp',
   instagram: 'https://www.instagram.com/blindratsband?stkn=Y3I2Z3J2M2FtdHBs',
 };
 
@@ -52,26 +52,11 @@ export default function BlindRatsCongratsPage() {
               independente. Obrigado por levar esse som com você.
             </p>
 
-            <div className={styles.heroActions}>
-              <InstagramButton />
-              <Link className={styles.secondaryLink} href="/chaveiros">
-                Conhecer os chaveiros Vektua
-                <ArrowRight size={17} aria-hidden="true" />
-              </Link>
-            </div>
-
-            <p className={styles.signature}>Blind Rats × Vektua XYZ</p>
           </div>
 
           <figure className={styles.heroArtwork}>
             <div className={styles.heroArtworkFrame}>
-              <ResponsiveImage
-                src={campaign.hero}
-                alt="Arte grunge da campanha Blind Rats com o mascote da banda em uma composição preta, vermelha e marfim"
-                width={480}
-                height={270}
-                fetchPriority="high"
-              />
+              <BlindRatsVideo />
             </div>
             <figcaption className={styles.heroBrand}>
               <ResponsiveImage
@@ -88,6 +73,18 @@ export default function BlindRatsCongratsPage() {
               </div>
             </figcaption>
           </figure>
+
+          <div className={styles.heroAfter}>
+            <div className={styles.heroActions}>
+              <InstagramButton />
+              <Link className={styles.secondaryLink} href="/chaveiros">
+                Conhecer os chaveiros Vektua
+                <ArrowRight size={17} aria-hidden="true" />
+              </Link>
+            </div>
+
+            <p className={styles.signature}>Blind Rats × Vektua XYZ</p>
+          </div>
         </section>
 
         <section className={styles.impactSection} aria-labelledby="impact-title">
