@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, Heart, Instagram, MapPin, Music2 } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Heart, MapPin, Music2 } from 'lucide-react';
 import ResponsiveImage from '@/components/responsive-image';
 import { BrandFooter, BrandHeader } from '@/components/brand-shell-v2';
 import styles from '../congrats.module.css';
@@ -29,7 +29,6 @@ function InstagramButton({ compact = false }: { compact?: boolean }) {
       rel="noopener noreferrer"
       aria-label="Abrir o Instagram da Blind Rats em uma nova guia"
     >
-      <Instagram size={20} aria-hidden="true" />
       <span>Seguir @blindratsband</span>
       <ArrowUpRight size={18} aria-hidden="true" />
     </a>
