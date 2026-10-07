@@ -41,7 +41,10 @@ export default function BlindRatsCongratsPage() {
     <>
       <BrandHeader />
       <main id="conteudo" tabIndex={-1} className={styles.page}>
-        <section className={`container ${styles.hero}`} aria-labelledby="blind-rats-title">
+        <section
+          className={`container ${styles.hero} ${styles.heroWithBackground}`}
+          aria-labelledby="blind-rats-title"
+        >
           <div className={styles.heroCopy}>
             <h1 id="blind-rats-title">
               Você apoiou uma cena.
@@ -63,29 +66,20 @@ export default function BlindRatsCongratsPage() {
             <p className={styles.signature}>Blind Rats × Vektua XYZ</p>
           </div>
 
-          <figure className={styles.heroArtwork}>
-            <div className={styles.heroArtworkFrame}>
+          <figure className={styles.logoStage}>
+            <div className={styles.logoStageInner}>
               <ResponsiveImage
-                src={campaign.hero}
-                alt="Arte grunge da campanha Blind Rats com o mascote da banda em uma composição preta, vermelha e marfim"
-                width={480}
-                height={270}
+                src={campaign.art}
+                alt="Logo oficial da Blind Rats fornecido pela banda para esta campanha"
+                width={560}
+                height={510}
                 fetchPriority="high"
               />
             </div>
-            <figcaption className={styles.heroBrand}>
-              <ResponsiveImage
-                className={styles.heroBrandMark}
-                src={campaign.art}
-                alt=""
-                width={56}
-                height={52}
-                aria-hidden="true"
-              />
-              <div>
-                <strong>Blind Rats</strong>
-                <span>grunge local independente</span>
-              </div>
+
+            <figcaption>
+              <strong>Blind Rats</strong>
+              <span>grunge local independente</span>
             </figcaption>
           </figure>
         </section>
