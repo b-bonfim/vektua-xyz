@@ -67,8 +67,8 @@ export default function BlindRatsCongratsPage() {
             <ResponsiveImage
               src={campaign.art}
               alt="Logo oficial da Blind Rats fornecido pela banda para esta campanha"
-              width={320}
-              height={292}
+              width={560}
+              height={510}
               fetchPriority="high"
             />
             <figcaption>Blind Rats · grunge local independente</figcaption>
