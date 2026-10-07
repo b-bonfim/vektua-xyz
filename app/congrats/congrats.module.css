@@ -15,6 +15,10 @@
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'copy'
+    'artwork'
+    'after';
   gap: 38px;
   align-items: center;
   padding-top: 52px;
@@ -22,6 +26,12 @@
 }
 
 .heroCopy {
+  grid-area: copy;
+  min-width: 0;
+}
+
+.heroAfter {
+  grid-area: after;
   min-width: 0;
 }
 
@@ -55,7 +65,7 @@
   flex-direction: column;
   gap: 12px;
   align-items: stretch;
-  margin-top: 32px;
+  margin-top: 0;
 }
 
 .instagramButton {
@@ -153,6 +163,7 @@
 }
 
 .heroArtwork {
+  grid-area: artwork;
   position: relative;
   isolation: isolate;
   width: 100%;
@@ -197,6 +208,92 @@
   height: 100%;
   display: block;
   object-fit: cover;
+}
+
+
+.videoShell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--br-black);
+}
+
+.heroVideo {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  background: var(--br-black);
+}
+
+.videoPlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 18px 20px;
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.videoPrompt {
+  max-width: calc(100% - 4px);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 13px 10px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  background: rgba(14, 14, 14, 0.88);
+}
+
+.videoPlayIcon {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--br-red);
+  color: #ffffff;
+  transition:
+    background-color 180ms ease,
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.videoPromptText {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.videoPromptText strong {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.videoPromptText span {
+  color: #d7ddda;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.videoPlay:hover .videoPlayIcon {
+  background: var(--br-red-dark);
+  transform: scale(1.04);
+}
+
+.videoPlay:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -6px;
 }
 
 .heroBrand {
@@ -405,7 +502,12 @@
 @media (min-width: 900px) {
   .hero {
     grid-template-columns: minmax(0, 1.04fr) minmax(360px, 0.96fr);
-    gap: clamp(54px, 7vw, 106px);
+    grid-template-areas:
+      'copy artwork'
+      'after artwork';
+    column-gap: clamp(54px, 7vw, 106px);
+    row-gap: 30px;
+    align-items: start;
     padding-top: clamp(76px, 8vw, 116px);
     padding-bottom: clamp(82px, 9vw, 124px);
   }
@@ -421,6 +523,7 @@
   }
 
   .heroArtwork {
+    align-self: center;
     justify-self: end;
   }
 
@@ -535,14 +638,16 @@
 @media (prefers-reduced-motion: reduce) {
   .instagramButton,
   .externalIcon,
-  .secondaryLink svg {
+  .secondaryLink svg,
+  .videoPlayIcon {
     transition: none;
   }
 
   .instagramButton:hover,
   .instagramButton:active,
   .instagramButton:hover .externalIcon,
-  .secondaryLink:hover svg {
+  .secondaryLink:hover svg,
+  .videoPlay:hover .videoPlayIcon {
     transform: none;
   }
 }
