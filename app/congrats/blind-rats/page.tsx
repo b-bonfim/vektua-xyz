@@ -17,7 +17,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Blind Rats — obrigado por apoiar a cena local',
     description: 'Você levou mais que um chaveiro: levou um pedaço da cena local com você.',
-    images: [{ url: campaign.art, width: 800, height: 800, alt: 'Arte da Blind Rats' }],
   },
 };
 
