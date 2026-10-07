@@ -23,9 +23,11 @@ assert.equal(new Set(matches.map(match => match[1])).size, matches.length, 'Dupl
 const paths = [
   '/', '/busca', '/objetos-colecionaveis', '/datas-colecoes',
   '/feitos-para-voce', '/chaveiros', '/produto/g-chv-blo-01',
-  '/produto/g-org-rc-01', '/carrinho', '/politicas/privacidade',
-  '/politicas/entrega', '/politicas/trocas-devolucoes', '/politicas/termos',
+  '/produto/g-org-rc-01', '/carrinho', '/congrats/blind-rats',
+  '/politicas/privacidade', '/politicas/entrega',
+  '/politicas/trocas-devolucoes', '/politicas/termos',
 ];
+const campaignImages = ['/images/campaigns/blind-rats/blind-rats.webp'];
 const output = { startedAt: new Date().toISOString(), baseURL: base.href, sha: process.env.RELEASE_SHA || null, checks: [], failures: 0 };
 async function check(label, path, isImage) {
   try {
@@ -68,12 +70,14 @@ async function check(label, path, isImage) {
 }
 for (const path of paths) await check('route', path, false);
 for (const [, sku, path] of matches) await check(`remix:${sku}`, path, true);
+for (const path of campaignImages) await check('campaign-art', path, true);
 output.finishedAt = new Date().toISOString();
 if (process.env.QA_OUTPUT) {
   const file = resolve(process.env.QA_OUTPUT);
   mkdirSync(dirname(file), { recursive: true });
   writeFileSync(file, JSON.stringify(output, null, 2) + '\n');
 }
-console.log(`HOSTINGER_HTTP_SMOKE ${output.failures ? 'FAIL' : 'PASS'} routes=${paths.length} images=${matches.length} failures=${output.failures}`);
+const imageCount = matches.length + campaignImages.length;
+console.log(`HOSTINGER_HTTP_SMOKE ${output.failures ? 'FAIL' : 'PASS'} routes=${paths.length} images=${imageCount} failures=${output.failures}`);
 console.log('HTTP/MIME/signature checks do not replace Playwright, visual review, payment/WhatsApp acceptance or deploy evidence.');
 if (output.failures) process.exitCode = 1;
