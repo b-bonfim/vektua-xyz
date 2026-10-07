@@ -27,10 +27,10 @@ function InstagramButton({ compact = false }: { compact?: boolean }) {
       href={campaign.instagram}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Abrir o Instagram da Blind Rats em uma nova guia"
+      aria-label="Seguir @blindratsband no Instagram; abre em uma nova guia"
     >
       <span>Seguir @blindratsband</span>
-      <ArrowUpRight size={18} aria-hidden="true" />
+      <ArrowUpRight className={styles.externalIcon} size={18} aria-hidden="true" />
     </a>
   );
 }
@@ -40,9 +40,9 @@ export default function BlindRatsCongratsPage() {
     <>
       <BrandHeader />
       <main id="conteudo" tabIndex={-1} className={styles.page}>
-        <section className={`container ${styles.hero}`}>
+        <section className={`container ${styles.hero}`} aria-labelledby="blind-rats-title">
           <div className={styles.heroCopy}>
-            <h1>
+            <h1 id="blind-rats-title">
               Você apoiou uma cena.
               <span>Valeu por fazer parte dela.</span>
             </h1>
@@ -63,21 +63,26 @@ export default function BlindRatsCongratsPage() {
           </div>
 
           <figure className={styles.logoStage}>
-            <ResponsiveImage
-              src={campaign.art}
-              alt="Logo oficial da Blind Rats fornecido pela banda para esta campanha"
-              width={560}
-              height={510}
-              fetchPriority="high"
-            />
-            <figcaption>Blind Rats · grunge local independente</figcaption>
+            <div className={styles.logoStageInner}>
+              <ResponsiveImage
+                src={campaign.art}
+                alt="Logo oficial da Blind Rats fornecido pela banda para esta campanha"
+                width={560}
+                height={510}
+                fetchPriority="high"
+              />
+            </div>
+            <figcaption>
+              <strong>Blind Rats</strong>
+              <span>grunge local independente</span>
+            </figcaption>
           </figure>
         </section>
 
-        <section className={styles.impactSection}>
+        <section className={styles.impactSection} aria-labelledby="impact-title">
           <div className={`container ${styles.impactInner}`}>
             <div className={styles.impactIntro}>
-              <h2>Apoiar artista local faz a cena continuar em movimento.</h2>
+              <h2 id="impact-title">Apoiar artista local faz a cena continuar em movimento.</h2>
               <p>
                 Não é só sobre levar uma peça para casa. É sobre escolher quem cria perto de você e ajudar
                 essa história a seguir circulando.
@@ -110,9 +115,9 @@ export default function BlindRatsCongratsPage() {
           </div>
         </section>
 
-        <section className={`container ${styles.followSection}`}>
+        <section className={`container ${styles.followSection}`} aria-labelledby="follow-title">
           <div className={styles.followCopy}>
-            <h2>Agora, cola com a Blind Rats também no feed.</h2>
+            <h2 id="follow-title">Agora, cola com a Blind Rats também no feed.</h2>
             <p>
               Siga <strong>@blindratsband</strong> no Instagram e acompanhe de perto o que a banda publicar por lá.
             </p>

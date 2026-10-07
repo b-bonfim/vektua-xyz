@@ -43,11 +43,11 @@
 }
 
 .lead {
-  max-width: 59ch;
-  margin: 26px 0 0;
+  max-width: 57ch;
+  margin: 28px 0 0;
   color: #4f5a55;
   font-size: 17px;
-  line-height: 1.7;
+  line-height: 1.72;
 }
 
 .heroActions {
@@ -55,7 +55,7 @@
   flex-direction: column;
   gap: 12px;
   align-items: stretch;
-  margin-top: 30px;
+  margin-top: 32px;
 }
 
 .instagramButton {
@@ -63,7 +63,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 11px;
   padding: 14px 18px;
   border: 1px solid var(--br-red);
   border-radius: 4px;
@@ -73,13 +73,31 @@
   font-weight: 700;
   line-height: 1.35;
   text-decoration: none;
-  transition: background-color 160ms ease, border-color 160ms ease;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .instagramButton:hover {
   border-color: var(--br-red-dark);
   background: var(--br-red-dark);
   color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.instagramButton:active {
+  transform: translateY(0);
+}
+
+.externalIcon,
+.secondaryLink svg {
+  flex: 0 0 auto;
+  transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.instagramButton:hover .externalIcon {
+  transform: translate(2px, -2px);
 }
 
 .instagramButton:focus-visible,
@@ -88,22 +106,18 @@
   outline-offset: 4px;
 }
 
-.instagramButton svg:first-child,
-.instagramButton svg:last-child {
-  flex: 0 0 auto;
-}
-
 .secondaryLink {
   min-height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 9px;
   color: var(--vx-graphite);
   font-size: 14px;
   font-weight: 650;
   line-height: 1.4;
   text-decoration: underline;
+  text-decoration-color: #aeb6b0;
   text-decoration-thickness: 1px;
   text-underline-offset: 6px;
 }
@@ -112,29 +126,73 @@
   color: var(--vx-petrol);
 }
 
+.secondaryLink:hover svg {
+  transform: translateX(3px);
+}
+
 .signature {
   max-width: 59ch;
-  margin: 28px 0 0;
+  margin: 30px 0 0;
   padding-top: 18px;
   border-top: 1px solid #d8dbd4;
   color: #606b66;
   font-size: 12px;
   font-weight: 650;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.055em;
   text-transform: uppercase;
 }
 
+.signature::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 9px;
+  background: var(--br-red);
+  vertical-align: 1px;
+}
+
 .logoStage {
+  position: relative;
+  isolation: isolate;
   width: 100%;
   min-width: 0;
   margin: 0;
-  padding: clamp(22px, 7vw, 38px);
+  padding: clamp(24px, 7vw, 42px);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  gap: 18px;
+  gap: 22px;
+  overflow: hidden;
+  border-radius: 3px;
   background: var(--br-black);
+}
+
+.logoStage::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 2;
+  width: 5px;
+  background: var(--br-red);
+}
+
+.logoStage::after {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  z-index: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+
+.logoStageInner {
+  position: relative;
+  z-index: 1;
+  min-height: 250px;
+  display: grid;
+  place-items: center;
 }
 
 .logoStage img {
@@ -145,13 +203,30 @@
 }
 
 .logoStage figcaption {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
   color: #d9ddda;
   font-size: 12px;
   line-height: 1.5;
-  text-align: center;
+}
+
+.logoStage figcaption strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.logoStage figcaption span {
+  color: #aeb7b2;
 }
 
 .impactSection {
+  border-top: 4px solid var(--br-red);
   background: var(--vx-graphite);
   color: #ffffff;
 }
@@ -184,11 +259,11 @@
 }
 
 .impactIntro > p {
-  max-width: 56ch;
+  max-width: 54ch;
   margin: 0;
   color: #d7ddda;
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.72;
 }
 
 .impactGrid {
@@ -202,7 +277,7 @@
   grid-template-columns: 34px minmax(0, 1fr);
   gap: 18px;
   align-items: start;
-  padding: 28px 0;
+  padding: 30px 0;
 }
 
 .impactGrid article + article {
@@ -231,7 +306,7 @@
   margin: 0;
   color: #d7ddda;
   font-size: 14px;
-  line-height: 1.7;
+  line-height: 1.72;
 }
 
 .followSection {
@@ -250,11 +325,11 @@
 }
 
 .followCopy p {
-  max-width: 52ch;
-  margin: 22px 0 0;
+  max-width: 50ch;
+  margin: 24px 0 0;
   color: #4f5a55;
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.72;
 }
 
 .followCopy strong {
@@ -294,6 +369,7 @@
 
   .instagramButton {
     width: auto;
+    min-width: 236px;
     padding-inline: 22px;
   }
 
@@ -301,6 +377,12 @@
     width: auto;
     justify-content: flex-start;
     padding-inline: 4px;
+  }
+
+  .logoStage figcaption {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 18px;
   }
 
   .impactInner {
@@ -333,8 +415,12 @@
   }
 
   .logoStage {
-    min-height: 520px;
-    padding: clamp(30px, 4.3vw, 56px);
+    min-height: 540px;
+    padding: clamp(32px, 4.3vw, 58px);
+  }
+
+  .logoStageInner {
+    min-height: 360px;
   }
 
   .impactIntro {
@@ -354,7 +440,7 @@
 
   .impactGrid article {
     display: block;
-    padding: 38px 32px 0 0;
+    padding: 40px 32px 0 0;
   }
 
   .impactGrid article + article {
@@ -400,6 +486,44 @@
   }
 }
 
+@media (max-width: 639px) {
+  .hero {
+    gap: 32px;
+    padding-top: 40px;
+    padding-bottom: 62px;
+  }
+
+  .hero h1 {
+    max-width: 10.8ch;
+  }
+
+  .lead {
+    margin-top: 24px;
+    font-size: 16px;
+  }
+
+  .logoStage {
+    padding: 26px 24px 24px;
+  }
+
+  .logoStage::after {
+    inset: 10px;
+  }
+
+  .logoStageInner {
+    min-height: 240px;
+  }
+
+  .impactInner {
+    padding-top: 60px;
+    padding-bottom: 62px;
+  }
+
+  .followSection {
+    padding-top: 66px;
+  }
+}
+
 @media (max-width: 359px) {
   .hero h1 {
     font-size: 2.5rem;
@@ -410,12 +534,21 @@
   }
 
   .logoStage {
-    padding-inline: 16px;
+    padding-inline: 18px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .instagramButton {
+  .instagramButton,
+  .externalIcon,
+  .secondaryLink svg {
     transition: none;
+  }
+
+  .instagramButton:hover,
+  .instagramButton:active,
+  .instagramButton:hover .externalIcon,
+  .secondaryLink:hover svg {
+    transform: none;
   }
 }
