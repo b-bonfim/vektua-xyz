@@ -13,3 +13,11 @@ export {
   SupabaseCatalogRepository,
   createSupabaseCatalogRepository,
 } from './supabase-catalog-repository';
+export {
+  CATALOG_SOURCES,
+  DEFAULT_CATALOG_SOURCE,
+  createCatalogRepository,
+  getCatalogRepository,
+  getCatalogSource,
+} from './catalog-source';
+export type { CatalogSource } from './catalog-source';
