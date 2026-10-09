@@ -32,6 +32,7 @@ const campaignImages = [
   '/images/campaigns/orion-tattoo/orion-tattoo-hero-desktop.avif',
   '/images/campaigns/orion-tattoo/orion-tattoo-hero-mobile.avif',
   '/images/campaigns/orion-tattoo/orion-tattoo-icon.svg',
+  '/images/campaigns/orion-tattoo/orion-tattoo-round-header.webp',
 ];
 const output = { startedAt: new Date().toISOString(), baseURL: base.href, sha: process.env.RELEASE_SHA || null, checks: [], failures: 0 };
 async function check(label, path, isImage) {
@@ -77,6 +78,7 @@ async function check(label, path, isImage) {
         assert.match(html, /Obrigada de cora(?:ção|&#xE7;&#xE3;o|&#231;&#227;o)/i, 'Orion: personal thanks missing');
         assert.ok(!/artista\s+independente/i.test(html), 'Orion: old independent-artist copy still displayed');
         assert.ok(!/lucide-sparkles/i.test(html), 'Orion: unwanted sparkle icons found');
+        assert.ok(html.includes('orion-tattoo-round-header.webp'), 'Orion: header logo is missing');
         assert.ok(html.includes('instagram.com/oriontattoo.404/'), 'Orion: official Instagram profile link missing');
         assert.match(html, /@oriontattoo\.404/i, 'Orion: Instagram handle missing');
         assert.match(html, /Me acompanha no Instagram/i, 'Orion: first-person Instagram CTA missing');
