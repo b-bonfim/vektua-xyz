@@ -149,7 +149,7 @@ export default function OrionTattooCongratsPage() {
               <span>Me acompanha no Instagram</span>
               <ArrowUpRight size={18} aria-hidden="true" />
             </a>
-            <p className={styles.closingSignature}>Com carinho, <strong>Laura · Orion Tattoo</strong></p>
+            <p className={styles.closingSignature}>Com carinho, <strong>Laura · Orion Tattoo</strong> <span aria-hidden="true">🍃🍃</span></p>
           </div>
         </section>
       </main>
