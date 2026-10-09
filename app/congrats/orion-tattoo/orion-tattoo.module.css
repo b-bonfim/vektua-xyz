@@ -46,9 +46,9 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  min-height: 86px;
+  min-height: 104px;
   gap: 18px;
-  padding-block: 12px;
+  padding-block: 8px;
 }
 
 .hostLink,
@@ -86,23 +86,23 @@
 .headerSocial:hover svg:last-child { transform: translate(2px, -2px); }
 
 .studioMark {
-  position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  flex: 0 0 auto;
-  align-items: flex-start;
-  padding-right: 0;
+  display: grid;
+  place-items: center;
   justify-self: center;
-  color: var(--orion-ink);
-  font-size: 26px;
-  font-weight: 800;
-  line-height: .82;
-  letter-spacing: -.04em;
+  flex: 0 0 auto;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
   text-decoration: none;
 }
 
-.studioMark span + span { margin-top: 4px; }
-.studioMark:hover { color: var(--orion-blue); }
+.studioMark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: contain;
+}
 
 .footerOrion > span {
   display: inline-flex;
@@ -581,7 +581,7 @@
 
 @media (max-width: 720px) {
   .headerInner { min-height: 74px; gap: 10px; }
-  .studioMark { font-size: 21px; }
+  .studioMark { width: 68px; height: 68px; }
   .hostLink, .headerSocial { font-size: 11px; gap: 6px; letter-spacing: 0; }
   .socialHandle { display: none; }
   .socialMobile { display: inline; }
@@ -623,6 +623,7 @@
 @media (max-width: 430px) {
   .hostLink span { display: none; }
   .hostLink { min-width: 40px; }
+  .studioMark { width: 60px; height: 60px; }
   .headerSocial { font-size: 10px; }
   .hero h1 { font-size: clamp(2.45rem, 11vw, 3.15rem); }
   .artIntroduction h2 { font-size: 2.7rem; }
