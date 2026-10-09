@@ -66,6 +66,8 @@ export default function BlindRatsCongratsPage() {
         </div>
       </header>
 
+      <div className={styles.scrollProgress} aria-hidden="true" />
+
       <main id="conteudo" tabIndex={-1} className={styles.page}>
         <section className={styles.hero} aria-labelledby="blind-rats-title">
           <div className={`container ${styles.heroGrid}`}>
