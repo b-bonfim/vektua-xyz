@@ -27,7 +27,11 @@ const paths = [
   '/congrats/orion-tattoo', '/politicas/privacidade', '/politicas/entrega',
   '/politicas/trocas-devolucoes', '/politicas/termos',
 ];
-const campaignImages = ['/images/campaigns/blind-rats/blind-rats-badge.svg'];
+const campaignImages = [
+  '/images/campaigns/blind-rats/blind-rats-badge.svg',
+  '/images/campaigns/orion-tattoo/orion-tattoo-hero-desktop.avif',
+  '/images/campaigns/orion-tattoo/orion-tattoo-hero-mobile.avif',
+];
 const output = { startedAt: new Date().toISOString(), baseURL: base.href, sha: process.env.RELEASE_SHA || null, checks: [], failures: 0 };
 async function check(label, path, isImage) {
   try {
@@ -37,7 +41,7 @@ async function check(label, path, isImage) {
     if (isImage) {
       const type = response.headers.get('content-type') || '';
       const lower = path.toLowerCase();
-      const expected = lower.endsWith('.png') ? 'image/png' : lower.endsWith('.svg') ? 'image/svg+xml' : 'image/webp';
+      const expected = lower.endsWith('.png') ? 'image/png' : lower.endsWith('.svg') ? 'image/svg+xml' : lower.endsWith('.avif') ? 'image/avif' : 'image/webp';
       assert.ok(type.toLowerCase().startsWith(expected), `${path}: MIME ${type}; expected ${expected}`);
       const reader = response.body?.getReader();
       assert.ok(reader, `${path}: image has no response body`);
@@ -54,7 +58,9 @@ async function check(label, path, isImage) {
         ? start.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))
         : expected === 'image/svg+xml'
           ? start.toString('utf8').trimStart().startsWith('<svg')
-          : start.toString('ascii', 0, 4) === 'RIFF' && start.toString('ascii', 8, 12) === 'WEBP';
+          : expected === 'image/avif'
+            ? start.toString('ascii', 4, 12) === 'ftypavif'
+            : start.toString('ascii', 0, 4) === 'RIFF' && start.toString('ascii', 8, 12) === 'WEBP';
       assert.ok(valid, `${path}: invalid image signature`);
     } else {
       const type = response.headers.get('content-type') || '';
