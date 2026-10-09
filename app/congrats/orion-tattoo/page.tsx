@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowDown, ArrowLeft, ArrowUpRight } from 'lucide-react';
 import ResponsiveImage from '@/components/responsive-image';
 import styles from './orion-tattoo.module.css';
+import { OrionScrollMotion } from './orion-scroll-motion';
 
 const heroDesktop = '/images/campaigns/orion-tattoo/orion-tattoo-hero-desktop.avif';
 const heroMobile = '/images/campaigns/orion-tattoo/orion-tattoo-hero-mobile.avif';
@@ -48,7 +49,8 @@ export const metadata: Metadata = {
 
 export default function OrionTattooCongratsPage() {
   return (
-    <div className={styles.campaign}>
+    <div id="orion-campaign" className={styles.campaign}>
+      <OrionScrollMotion />
       <a className={styles.skipLink} href="#conteudo">Pular para a mensagem</a>
 
       <header className={styles.studioHeader}>
@@ -82,7 +84,7 @@ export default function OrionTattooCongratsPage() {
       </header>
 
       <main id="conteudo" tabIndex={-1}>
-        <section className={styles.hero} aria-labelledby="orion-hero-title">
+        <section className={styles.hero} data-orion-hero aria-labelledby="orion-hero-title">
 
           <div className={`container ${styles.heroInner}`}>
             <div className={styles.heroCopy}>
@@ -117,7 +119,7 @@ export default function OrionTattooCongratsPage() {
 
         <section id="arte-na-pele" className={styles.artSection} aria-labelledby="art-title">
           <div className={`container ${styles.artGrid}`}>
-            <div className={styles.artIntroduction}>
+            <div className={styles.artIntroduction} data-orion-reveal="ink">
               <h2 id="art-title">Eu acredito que cada pele <span>conta uma história.</span></h2>
             </div>
             <div className={styles.artStory}>
@@ -139,7 +141,7 @@ export default function OrionTattooCongratsPage() {
         <section className={styles.inkSection} aria-labelledby="ink-title">
           <div className={`container ${styles.inkInner}`}>
             <h2 id="ink-title">Cada tatuagem tem seu jeito. <span>E eu adoro isso.</span></h2>
-            <div className={styles.inkJourney}>
+            <div className={styles.inkJourney} data-orion-reveal="sequence">
               <article>
                 <h3>Eu escuto</h3>
                 <p>Quero entender a sua ideia, seja ela cheia de significado ou só uma vontade gostosa de se expressar.</p>
@@ -157,7 +159,7 @@ export default function OrionTattooCongratsPage() {
         </section>
 
         <section className={styles.thanksSection} aria-labelledby="thanks-title">
-          <div className={`container ${styles.thanksInner}`}>
+          <div className={`container ${styles.thanksInner}`} data-orion-reveal="closing">
             <h2 id="thanks-title">Obrigada por abrir espaço pra minha arte na sua vida.</h2>
             <p>
               Guarda esse ímã com carinho! Toda vez que olhar pra ele, espero
