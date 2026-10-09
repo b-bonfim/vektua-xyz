@@ -36,17 +36,7 @@ export default function OrionTattooCongratsPage() {
 
       <main id="conteudo" tabIndex={-1}>
         <section className={styles.hero} aria-labelledby="orion-hero-title">
-          <picture className={styles.heroArtwork}>
-            <source srcSet={heroMobile} media="(max-width: 1040px)" type="image/avif" />
-            <ResponsiveImage
-              src={heroDesktop}
-              alt="Musa ilustrada da Orion Tattoo com cabelos azuis esvoaçantes, estrelas douradas, uma lua e o nome do estúdio."
-              width={1440}
-              height={811}
-              fetchPriority="high"
-              loading="eager"
-            />
-          </picture>
+
           <div className={`container ${styles.heroInner}`}>
             <div className={styles.heroCopy}>
               <p className={styles.hello}>Oiee!</p>
@@ -63,6 +53,17 @@ export default function OrionTattooCongratsPage() {
               </a>
             </div>
           </div>
+          <picture className={styles.heroArtwork}>
+            <source srcSet={heroMobile} media="(max-width: 1040px)" type="image/avif" />
+            <ResponsiveImage
+              src={heroDesktop}
+              alt="Musa ilustrada da Orion Tattoo com cabelos azuis esvoaçantes, estrelas douradas, uma lua e o nome do estúdio."
+              width={1440}
+              height={811}
+              fetchPriority="high"
+              loading="eager"
+            />
+          </picture>
         </section>
 
         <section id="arte-na-pele" className={styles.artSection} aria-labelledby="art-title">
