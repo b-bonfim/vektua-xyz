@@ -58,8 +58,13 @@ export default function OrionTattooCongratsPage() {
             <span>Vektua XYZ</span>
           </Link>
           <a className={styles.studioMark} href="#conteudo" aria-label="Orion Tattoo — voltar ao início desta página">
-            <span>ORION</span>
-            <span>TATTOO</span>
+            <ResponsiveImage
+              src="/images/campaigns/orion-tattoo/orion-tattoo-round-header.webp"
+              alt="Orion Tattoo — arte circular com musa de cabelos azuis"
+              width={384}
+              height={384}
+              loading="eager"
+            />
           </a>
           <a
             className={styles.headerSocial}
