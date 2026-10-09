@@ -113,26 +113,20 @@ export default function BlindRatsCongratsPage() {
           <div className={`container ${styles.impactRows}`}>
             <article>
               <Music2 aria-hidden="true" />
-              <div>
-                <h3>A música continua circulando</h3>
-                <p>Seu apoio coloca mais energia em quem escolheu criar e compartilhar trabalho autoral.</p>
-              </div>
+              <h3>A música continua circulando</h3>
+              <p>Seu apoio coloca mais energia em quem escolheu criar e compartilhar trabalho autoral.</p>
             </article>
 
             <article>
               <MapPin aria-hidden="true" />
-              <div>
-                <h3>A cena fica mais próxima</h3>
-                <p>Valorizar quem está por perto ajuda a manter viva a conexão entre artista e comunidade.</p>
-              </div>
+              <h3>A cena fica mais próxima</h3>
+              <p>Valorizar quem está por perto ajuda a manter viva a conexão entre artista e comunidade.</p>
             </article>
 
             <article>
               <Heart aria-hidden="true" />
-              <div>
-                <h3>O gesto ganha significado</h3>
-                <p>O chaveiro vira uma lembrança física de um som, de uma escolha e de uma história local.</p>
-              </div>
+              <h3>O gesto ganha significado</h3>
+              <p>O chaveiro vira uma lembrança física de um som, de uma escolha e de uma história local.</p>
             </article>
           </div>
         </section>
