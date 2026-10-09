@@ -151,7 +151,16 @@ export default function BlindRatsCongratsPage() {
       <footer className={styles.campaignFooter}>
         <div className={`container ${styles.footerInner}`}>
           <div className={styles.footerIdentity}>
-            <ResponsiveImage src={campaign.art} alt="" width={48} height={44} aria-hidden="true" />
+            <ResponsiveImage
+              src={campaign.art}
+              alt=""
+              width={48}
+              height={44}
+              loading="lazy"
+              fetchPriority="low"
+              decoding="async"
+              aria-hidden="true"
+            />
             <span>Blind Rats × Vektua XYZ</span>
           </div>
 

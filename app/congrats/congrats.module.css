@@ -156,6 +156,7 @@
   letter-spacing: -0.04em;
   text-transform: uppercase;
   text-wrap: balance;
+  animation: br-headline-settle 640ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .hero h1 span {
@@ -170,6 +171,7 @@
   color: #d8d1c7;
   font-size: 17px;
   line-height: 1.74;
+  animation: br-copy-settle 620ms 80ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .heroActions {
@@ -177,6 +179,7 @@
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 34px;
+  animation: br-copy-settle 620ms 140ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .instagramButton {
@@ -232,12 +235,14 @@
   line-height: 1.5;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  animation: br-copy-settle 620ms 190ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .heroArtwork {
   min-width: 0;
   margin: 0;
   background: #050505;
+  animation: br-artwork-settle 700ms 70ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .heroArtworkFrame {
@@ -247,6 +252,18 @@
   border-top: 1px solid rgba(255, 255, 255, 0.18);
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   background: #050505;
+}
+
+.heroArtworkFrame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-right: 3px solid var(--br-red);
+  opacity: 0;
+  transform: translateX(-100%);
+  pointer-events: none;
+  animation: br-ink-scan 920ms 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .heroArtworkFrame::after {
@@ -360,8 +377,18 @@
   outline-offset: -7px;
 }
 
+.videoPlay:disabled {
+  cursor: progress;
+}
+
+.videoPlay:disabled .videoPlayIcon {
+  animation: br-loading-pulse 900ms ease-in-out infinite;
+}
+
 .manifestoSection {
   position: relative;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 980px;
   overflow: hidden;
   background: var(--br-paper);
   color: var(--br-black);
@@ -464,6 +491,8 @@
 }
 
 .followSection {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 520px;
   background: var(--br-red);
   color: #ffffff;
 }
@@ -530,6 +559,8 @@
 
 .campaignFooter {
   --br-black: #0d0d0d;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 112px;
   --br-paper: #f0eadf;
   background: var(--br-black);
   color: var(--br-paper);
@@ -562,6 +593,110 @@
   height: 44px;
   display: block;
   object-fit: contain;
+}
+
+
+@keyframes br-headline-settle {
+  from {
+    transform: translateY(16px) rotate(-0.35deg);
+  }
+
+  to {
+    transform: translateY(0) rotate(0);
+  }
+}
+
+@keyframes br-copy-settle {
+  from {
+    transform: translateY(10px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes br-artwork-settle {
+  from {
+    transform: translateX(16px) rotate(0.2deg);
+  }
+
+  to {
+    transform: translateX(0) rotate(0);
+  }
+}
+
+@keyframes br-ink-scan {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  12% {
+    opacity: 0.95;
+  }
+
+  82% {
+    opacity: 0.95;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+}
+
+@keyframes br-loading-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.9);
+  }
+}
+
+@keyframes br-manifesto-enter {
+  from {
+    opacity: 0.18;
+    transform: translateY(30px);
+    clip-path: inset(0 0 22% 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes br-row-enter {
+  from {
+    opacity: 0.24;
+    transform: translateX(-24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .manifestoHeader h2 {
+      animation: br-manifesto-enter linear both;
+      animation-timeline: view();
+      animation-range: entry 8% cover 32%;
+    }
+
+    .impactRows article {
+      animation: br-row-enter linear both;
+      animation-timeline: view();
+      animation-range: entry 4% cover 28%;
+    }
+  }
 }
 
 @media (max-width: 1080px) {
@@ -812,6 +947,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero h1,
+  .lead,
+  .heroActions,
+  .signature,
+  .heroArtwork,
+  .heroArtworkFrame::before,
+  .videoPlay:disabled .videoPlayIcon {
+    animation: none;
+  }
+
   .hostLink svg,
   .headerSocial svg,
   .vektuaLink svg,

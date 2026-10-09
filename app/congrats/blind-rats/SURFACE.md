@@ -26,3 +26,12 @@ The hero gives the short Blind Rats video strong prominence. Instagram is the pr
 ## Scope boundary
 
 This visual system is specific to `/congrats/blind-rats`. It does not replace `DESIGN.md`, does not redefine Vektua XYZ globally and must not leak into Orion Tattoo or storefront surfaces.
+
+
+## Motion and loading
+
+Motion is intentionally concentrated in one authored first-view sequence: the headline settles into place, the video frame receives a short red ink-scan gesture, and supporting hero copy follows with restrained timing. On capable browsers, the manifesto uses scroll-linked entry motion; unsupported browsers keep the content fully visible with no JavaScript dependency.
+
+The campaign MP4 is interaction-loaded: the browser receives the poster in the first viewport, but the video source is not attached or requested until the visitor presses play. Below-fold sections use `content-visibility: auto` with intrinsic-size reservations, and the footer logo is explicitly lazy-loaded. The header identity and hero poster remain eager because they are first-viewport assets.
+
+`prefers-reduced-motion` removes authored spatial movement and loading pulse while preserving controls and content.
