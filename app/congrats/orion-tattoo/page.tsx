@@ -1,12 +1,37 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowDown, ArrowLeft, ArrowUpRight, Instagram } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowUpRight } from 'lucide-react';
 import ResponsiveImage from '@/components/responsive-image';
 import styles from './orion-tattoo.module.css';
 
 const heroDesktop = '/images/campaigns/orion-tattoo/orion-tattoo-hero-desktop.avif';
 const heroMobile = '/images/campaigns/orion-tattoo/orion-tattoo-hero-mobile.avif';
 const instagramUrl = 'https://www.instagram.com/oriontattoo.404/';
+
+/**
+ * Instagram brand glyph, maintained locally. Newer lucide-react releases do
+ * not export brand icons, so importing Instagram breaks Vinext/Rolldown builds.
+ */
+function InstagramIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" stroke="none" fill="currentColor" />
+    </svg>
+  );
+}
 
 export const metadata: Metadata = {
   title: { absolute: 'Oiee! | Orion Tattoo — Arte, Pele e Liberdade' },
@@ -43,7 +68,7 @@ export default function OrionTattooCongratsPage() {
             rel="noopener noreferrer"
             aria-label="Abrir o Instagram @oriontattoo.404 em uma nova guia"
           >
-            <Instagram size={18} aria-hidden="true" />
+            <InstagramIcon size={18} aria-hidden="true" />
             <span className={styles.socialHandle}>@oriontattoo.404</span>
             <span className={styles.socialMobile}>Instagram</span>
             <ArrowUpRight size={16} aria-hidden="true" />
@@ -145,7 +170,7 @@ export default function OrionTattooCongratsPage() {
               rel="noopener noreferrer"
               aria-label="Me acompanhar no Instagram @oriontattoo.404; abre em uma nova guia"
             >
-              <Instagram size={19} aria-hidden="true" />
+              <InstagramIcon size={19} aria-hidden="true" />
               <span>Me acompanha no Instagram</span>
               <ArrowUpRight size={18} aria-hidden="true" />
             </a>
@@ -167,7 +192,7 @@ export default function OrionTattooCongratsPage() {
             rel="noopener noreferrer"
             aria-label="Seguir @oriontattoo.404 no Instagram; abre em uma nova guia"
           >
-            <Instagram size={21} aria-hidden="true" />
+            <InstagramIcon size={21} aria-hidden="true" />
             <span>Me acompanha no Instagram <strong>@oriontattoo.404</strong></span>
             <ArrowUpRight size={17} aria-hidden="true" />
           </a>
