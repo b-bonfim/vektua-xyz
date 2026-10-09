@@ -422,23 +422,25 @@
   pointer-events: none;
 }
 
-.manifestoHeader,
-.impactRows {
+.manifestoLayout {
   position: relative;
   z-index: 1;
-}
-
-.manifestoHeader {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
-  gap: clamp(48px, 8vw, 120px);
-  align-items: end;
-  padding-top: clamp(84px, 9vw, 132px);
-  padding-bottom: 56px;
+  grid-template-columns: minmax(320px, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(52px, 8vw, 132px);
+  align-items: start;
+  padding-top: clamp(88px, 9vw, 136px);
+  padding-bottom: clamp(88px, 9vw, 136px);
 }
 
-.manifestoHeader h2 {
-  max-width: 15ch;
+.manifestoSticky {
+  position: sticky;
+  top: 118px;
+  align-self: start;
+}
+
+.manifestoSticky h2 {
+  max-width: 12ch;
   margin: 0;
   color: var(--br-black);
   font-size: clamp(3rem, 5vw, 5rem);
@@ -448,12 +450,12 @@
   text-transform: uppercase;
 }
 
-.manifestoHeader h2 span {
+.manifestoSticky h2 span {
   color: var(--br-red);
 }
 
-.manifestoHeader > p {
-  max-width: 48ch;
+.manifestoSticky > p {
+  max-width: 42ch;
   margin: 0;
   color: #3c3834;
   font-size: 16px;
@@ -461,15 +463,20 @@
 }
 
 .impactRows {
-  padding-bottom: clamp(84px, 9vw, 126px);
+  min-width: 0;
 }
 
 .impactRows article {
+  min-height: min(64svh, 680px);
   display: grid;
-  grid-template-columns: 54px minmax(0, 0.78fr) minmax(300px, 0.72fr);
-  gap: 28px;
-  align-items: start;
-  padding: 32px 0;
+  grid-template-columns: 52px minmax(0, 1fr);
+  grid-template-areas:
+    'icon title'
+    '. copy';
+  column-gap: 24px;
+  row-gap: 22px;
+  align-content: center;
+  padding: clamp(48px, 6vw, 78px) 0;
   border-top: 1px solid var(--br-rule-dark);
 }
 
@@ -478,17 +485,20 @@
 }
 
 .impactRows svg {
-  width: 28px;
-  height: 28px;
-  margin-top: 3px;
+  grid-area: icon;
+  width: 34px;
+  height: 34px;
+  margin-top: 5px;
   color: var(--br-red);
   stroke-width: 1.8;
 }
 
 .impactRows h3 {
+  grid-area: title;
+  max-width: 11ch;
   margin: 0;
   color: var(--br-black);
-  font-size: clamp(1.45rem, 2.2vw, 2.1rem);
+  font-size: clamp(2.2rem, 4vw, 4.15rem);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.035em;
@@ -496,7 +506,8 @@
 }
 
 .impactRows p {
-  max-width: 46ch;
+  grid-area: copy;
+  max-width: 44ch;
   margin: 0;
   color: #4b4640;
   font-size: 14px;
@@ -686,13 +697,47 @@
 
 @keyframes br-row-enter {
   from {
-    opacity: 0.24;
-    transform: translateX(-24px);
+    opacity: 0.12;
+    transform: translate3d(18vw, 70px, 0) rotate(1.4deg) scale(0.88);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0) rotate(0) scale(1);
+  }
+}
+
+@keyframes br-row-enter-alt {
+  from {
+    opacity: 0.12;
+    transform: translate3d(-16vw, 70px, 0) rotate(-1.2deg) scale(0.88);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0) scale(1);
+  }
+}
+
+@keyframes br-follow-takeover {
+  from {
+    clip-path: inset(46% 0 46% 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes br-follow-content {
+  from {
+    opacity: 0.12;
+    transform: translateY(90px) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -707,24 +752,41 @@
 }
 
 @keyframes br-hero-copy-scroll {
-  from {
+  0%,
+  18% {
     opacity: 1;
-    transform: translateY(0);
+    filter: blur(0);
+    transform: translateY(0) scale(1);
   }
 
-  to {
-    opacity: 0.68;
-    transform: translateY(-52px);
+  100% {
+    opacity: 0.08;
+    filter: blur(4px);
+    transform: translateY(-18vh) scale(0.88);
   }
 }
 
 @keyframes br-hero-art-scroll {
-  from {
-    transform: translateY(0) scale(1);
+  0%,
+  12% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0);
   }
 
-  to {
-    transform: translateY(46px) scale(0.965);
+  100% {
+    transform: translate3d(-18vw, 4vh, 0) scale(1.42) rotate(-0.8deg);
+  }
+}
+
+@keyframes br-hero-caption-scroll {
+  0%,
+  28% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(18px);
   }
 }
 
@@ -742,6 +804,7 @@
   @media (prefers-reduced-motion: no-preference) {
     .scrollProgress {
       display: block;
+      height: 5px;
       animation: br-scroll-progress linear both;
       animation-timeline: scroll(root block);
     }
@@ -749,21 +812,47 @@
     .heroCopy {
       animation: br-hero-copy-scroll linear both;
       animation-timeline: scroll(root block);
-      animation-range: 0% 22%;
+      animation-range: 0% 24%;
+      transform-origin: left center;
     }
 
-    .heroArtworkFrame {
+    .heroArtwork {
+      position: relative;
+      z-index: 3;
       animation: br-hero-art-scroll linear both;
       animation-timeline: scroll(root block);
-      animation-range: 0% 22%;
+      animation-range: 0% 24%;
       transform-origin: center center;
+    }
+
+    .heroCaption {
+      animation: br-hero-caption-scroll linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0% 18%;
+    }
+  }
+}
+
+@media (min-width: 881px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .hero {
+      min-height: 170svh;
+      overflow: clip;
+    }
+
+    .heroGrid {
+      position: sticky;
+      top: 76px;
+      min-height: calc(100svh - 76px);
+      padding-top: clamp(42px, 5vw, 70px);
+      padding-bottom: clamp(42px, 5vw, 70px);
     }
   }
 }
 
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .manifestoHeader h2 {
+    .manifestoSticky h2 {
       animation: br-manifesto-enter linear both;
       animation-timeline: view();
       animation-range: entry 8% cover 32%;
@@ -772,13 +861,29 @@
     .impactRows article {
       animation: br-row-enter linear both;
       animation-timeline: view();
-      animation-range: entry 4% cover 28%;
+      animation-range: entry 4% cover 44%;
+    }
+
+    .impactRows article:nth-child(even) {
+      animation-name: br-row-enter-alt;
     }
 
     .manifestoSection::after {
       animation: br-watermark-drift linear both;
       animation-timeline: view();
       animation-range: entry 0% exit 100%;
+    }
+
+    .followSection {
+      animation: br-follow-takeover linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 48%;
+    }
+
+    .followInner {
+      animation: br-follow-content linear both;
+      animation-timeline: view();
+      animation-range: entry 14% cover 58%;
     }
   }
 }
@@ -793,7 +898,7 @@
     font-size: clamp(3.5rem, 6.6vw, 5rem);
   }
 
-  .manifestoHeader {
+  .manifestoLayout {
     gap: 50px;
   }
 }
@@ -824,24 +929,28 @@
     width: 100%;
   }
 
-  .manifestoHeader {
+  .manifestoLayout {
     grid-template-columns: 1fr;
-    gap: 26px;
-    padding-bottom: 42px;
+    gap: 12px;
+    padding-top: 74px;
+    padding-bottom: 72px;
   }
 
-  .manifestoHeader h2 {
+  .manifestoSticky {
+    position: relative;
+    top: auto;
+    padding-bottom: 34px;
+  }
+
+  .manifestoSticky h2 {
     max-width: 13ch;
   }
 
   .impactRows article {
+    min-height: 52svh;
     grid-template-columns: 44px minmax(0, 1fr);
-    gap: 22px;
-  }
-
-  .impactRows p {
-    grid-column: 2;
-    margin-top: -6px;
+    column-gap: 20px;
+    row-gap: 18px;
   }
 
   .followInner {
@@ -948,26 +1057,25 @@
     font-size: 7rem;
   }
 
-  .manifestoHeader {
+  .manifestoLayout {
     padding-top: 66px;
+    padding-bottom: 66px;
   }
 
-  .manifestoHeader h2 {
+  .manifestoSticky h2 {
     font-size: clamp(2.75rem, 13vw, 4rem);
   }
 
-  .manifestoHeader > p {
+  .manifestoSticky > p {
     font-size: 15px;
   }
 
-  .impactRows {
-    padding-bottom: 72px;
-  }
-
   .impactRows article {
+    min-height: 58svh;
     grid-template-columns: 38px minmax(0, 1fr);
-    gap: 17px;
-    padding: 26px 0;
+    column-gap: 17px;
+    row-gap: 16px;
+    padding: 34px 0;
   }
 
   .impactRows svg {
@@ -1036,8 +1144,13 @@
   }
 
   .heroCopy,
+  .heroArtwork,
+  .heroCaption,
   .heroArtworkFrame,
   .manifestoSection::after,
+  .impactRows article,
+  .followSection,
+  .followInner,
   .hero h1,
   .lead,
   .heroActions,
