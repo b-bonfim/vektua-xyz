@@ -35,20 +35,55 @@
 .skipLink:focus { top: 12px; color: #ffffff; }
 
 .studioHeader {
-  position: relative;
-  z-index: 5;
+  position: sticky;
+  top: 0;
+  z-index: 40;
   background: var(--orion-paper);
   border-bottom: 1px solid rgba(11, 11, 12, .15);
 }
 
 .headerInner {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
-  min-height: 91px;
+  min-height: 86px;
   gap: 18px;
-  padding-block: 14px;
+  padding-block: 12px;
 }
+
+.hostLink,
+.headerSocial {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  width: fit-content;
+  min-height: 44px;
+  color: var(--orion-ink);
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.4;
+  letter-spacing: .025em;
+  text-decoration: none;
+}
+
+.hostLink { justify-self: start; }
+.headerSocial {
+  justify-self: end;
+  color: var(--orion-deep-blue);
+  white-space: nowrap;
+}
+.socialMobile { display: none; }
+
+.hostLink svg,
+.headerSocial svg {
+  flex: 0 0 auto;
+  transition: transform 180ms ease;
+}
+
+.hostLink:hover,
+.headerSocial:hover { color: var(--orion-blue); }
+.hostLink:hover svg { transform: translateX(-2px); }
+.headerSocial:hover svg:last-child { transform: translate(2px, -2px); }
 
 .studioMark {
   position: relative;
@@ -57,6 +92,7 @@
   flex: 0 0 auto;
   align-items: flex-start;
   padding-right: 0;
+  justify-self: center;
   color: var(--orion-ink);
   font-size: 26px;
   font-weight: 800;
@@ -68,7 +104,6 @@
 .studioMark span + span { margin-top: 4px; }
 .studioMark:hover { color: var(--orion-blue); }
 
-.headerMotto,
 .footerOrion > span {
   display: inline-flex;
   flex-wrap: wrap;
@@ -82,7 +117,6 @@
   text-transform: uppercase;
 }
 
-.headerMotto i,
 .footerOrion i {
   display: inline-block;
   width: 4px;
@@ -357,6 +391,43 @@
   line-height: 1.85;
 }
 
+.instagramInvite {
+  max-width: 53ch;
+  margin-top: 18px !important;
+  color: #33302d;
+}
+
+.instagramButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  min-height: 54px;
+  margin-top: 26px;
+  padding: 14px 23px;
+  border: 1px solid var(--orion-deep-blue);
+  border-radius: 4px;
+  background: var(--orion-deep-blue);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.instagramButton svg { flex: 0 0 auto; }
+.instagramButton:hover {
+  background: var(--orion-blue);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.instagramButton:focus-visible {
+  outline: 3px solid var(--orion-ink);
+  outline-offset: 4px;
+}
+
 .thanksInner .closingSignature {
   margin-top: 40px;
   color: var(--orion-blue);
@@ -375,8 +446,8 @@
 }
 
 .footerInner {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: 24px;
   padding-top: 35px;
@@ -408,6 +479,8 @@
 .footerCredit {
   display: flex;
   flex-direction: column;
+  justify-self: end;
+  align-items: flex-start;
   gap: 4px;
   color: #c9c9c9;
   font-size: 11px;
@@ -428,17 +501,32 @@
 
 .footerCredit a:hover { color: #b9e7ff; }
 
-.backLink {
+.footerInstagram {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  color: #e6e6e6;
+  justify-self: center;
+  gap: 12px;
+  width: fit-content;
+  min-height: 54px;
+  padding: 12px 17px;
+  border: 1px solid rgba(255, 255, 255, .46);
+  border-radius: 4px;
+  color: #ffffff;
   font-size: 12px;
   font-weight: 650;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: background-color 180ms ease, border-color 180ms ease;
 }
 
-.backLink:hover { color: #b9e7ff; }
+.footerInstagram svg { flex: 0 0 auto; }
+.footerInstagram span { display: flex; flex-direction: column; gap: 2px; }
+.footerInstagram strong { color: #a7e7ff; font-size: 14px; font-weight: 790; }
+.footerInstagram:hover {
+  background: var(--orion-deep-blue);
+  border-color: #c9e8ff;
+  color: #ffffff;
+}
 
 .studioFooter a:focus-visible {
   outline-color: #ffffff;
@@ -492,9 +580,11 @@
 }
 
 @media (max-width: 720px) {
-  .headerInner { min-height: 74px; }
+  .headerInner { min-height: 74px; gap: 10px; }
   .studioMark { font-size: 21px; }
-  .headerMotto { max-width: 175px; justify-content: flex-end; gap: 7px; font-size: 9px; letter-spacing: .06em; text-align: right; }
+  .hostLink, .headerSocial { font-size: 11px; gap: 6px; letter-spacing: 0; }
+  .socialHandle { display: none; }
+  .socialMobile { display: inline; }
 
   .heroInner { padding-top: 42px; padding-bottom: 42px; }
   .hello { font-size: clamp(4rem, 17vw, 5.8rem); margin-bottom: 13px; }
@@ -519,21 +609,39 @@
   .thanksInner h2 { font-size: clamp(2.75rem, 9vw, 4rem); }
   .thanksInner > p { font-size: 15.5px; }
 
-  .footerInner { flex-wrap: wrap; justify-content: flex-start; gap: 25px 45px; }
-  .backLink { margin-left: auto; }
+  .footerInner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 26px 18px;
+  }
+  .footerInstagram { justify-self: end; }
+  .footerCredit {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
 }
 
 @media (max-width: 430px) {
-  .headerMotto { max-width: 145px; }
+  .hostLink span { display: none; }
+  .hostLink { min-width: 40px; }
+  .headerSocial { font-size: 10px; }
   .hero h1 { font-size: clamp(2.45rem, 11vw, 3.15rem); }
   .artIntroduction h2 { font-size: 2.7rem; }
   .inkInner h2 { font-size: 2.9rem; }
   .inkInner h2 span { white-space: normal; }
-  .footerInner { flex-direction: column; align-items: flex-start; gap: 20px; }
-  .backLink { margin-left: 0; }
+  .footerInner { grid-template-columns: 1fr; gap: 22px; }
+  .footerInstagram { justify-self: stretch; width: 100%; justify-content: center; }
+  .footerCredit { grid-column: 1; } 
+  .instagramButton { width: 100%; max-width: 370px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .heroExplore { transition: none; }
+  .heroExplore,
+  .hostLink svg,
+  .headerSocial svg,
+  .instagramButton,
+  .footerInstagram { transition: none; }
   .heroExplore:hover { gap: 14px; }
+  .hostLink:hover svg,
+  .headerSocial:hover svg:last-child { transform: none; }
+  .instagramButton:hover { transform: none; }
 }

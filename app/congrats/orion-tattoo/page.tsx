@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowDown, ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowUpRight, Instagram } from 'lucide-react';
 import ResponsiveImage from '@/components/responsive-image';
 import styles from './orion-tattoo.module.css';
 
 const heroDesktop = '/images/campaigns/orion-tattoo/orion-tattoo-hero-desktop.avif';
 const heroMobile = '/images/campaigns/orion-tattoo/orion-tattoo-hero-mobile.avif';
+const instagramUrl = 'https://www.instagram.com/oriontattoo.404/';
 
 export const metadata: Metadata = {
   title: { absolute: 'Oiee! | Orion Tattoo — Arte, Pele e Liberdade' },
@@ -27,11 +28,26 @@ export default function OrionTattooCongratsPage() {
 
       <header className={styles.studioHeader}>
         <div className={`container ${styles.headerInner}`}>
+          <Link className={styles.hostLink} href="/" aria-label="Voltar à Vektua XYZ">
+            <ArrowLeft size={17} aria-hidden="true" />
+            <span>Vektua XYZ</span>
+          </Link>
           <a className={styles.studioMark} href="#conteudo" aria-label="Orion Tattoo — voltar ao início desta página">
             <span>ORION</span>
             <span>TATTOO</span>
           </a>
-          <span className={styles.headerMotto}>Arte <i /> Pele <i /> Liberdade</span>
+          <a
+            className={styles.headerSocial}
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Abrir o Instagram @oriontattoo.404 em uma nova guia"
+          >
+            <Instagram size={18} aria-hidden="true" />
+            <span className={styles.socialHandle}>@oriontattoo.404</span>
+            <span className={styles.socialMobile}>Instagram</span>
+            <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
         </div>
       </header>
 
@@ -118,6 +134,21 @@ export default function OrionTattooCongratsPage() {
               que você lembre do quanto a arte pode ser pessoal e especial.
               Seu apoio e sua confiança significam muito pra mim.
             </p>
+            <p className={styles.instagramInvite}>
+              Se quiser acompanhar meus desenhos e o que estou criando por aqui,
+              vem me visitar no Instagram. Vou adorar te ver por lá!
+            </p>
+            <a
+              className={styles.instagramButton}
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Me acompanhar no Instagram @oriontattoo.404; abre em uma nova guia"
+            >
+              <Instagram size={19} aria-hidden="true" />
+              <span>Me acompanha no Instagram</span>
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </a>
             <p className={styles.closingSignature}>Com carinho, <strong>Laura · Orion Tattoo</strong></p>
           </div>
         </section>
@@ -129,15 +160,23 @@ export default function OrionTattooCongratsPage() {
             <strong>ORION TATTOO</strong>
             <span>Arte <i /> Pele <i /> Liberdade</span>
           </div>
+          <a
+            className={styles.footerInstagram}
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Seguir @oriontattoo.404 no Instagram; abre em uma nova guia"
+          >
+            <Instagram size={21} aria-hidden="true" />
+            <span>Me acompanha no Instagram <strong>@oriontattoo.404</strong></span>
+            <ArrowUpRight size={17} aria-hidden="true" />
+          </a>
           <div className={styles.footerCredit}>
             <span>Um presente produzido por</span>
             <Link href="/" aria-label="Conhecer a Vektua XYZ">
               Vektua XYZ <ArrowUpRight size={15} aria-hidden="true" />
             </Link>
           </div>
-          <Link className={styles.backLink} href="/">
-            <ArrowLeft size={16} aria-hidden="true" /> Voltar à Vektua
-          </Link>
         </div>
       </footer>
     </div>
