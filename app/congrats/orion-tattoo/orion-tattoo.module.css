@@ -325,74 +325,6 @@
   line-height: 1.76;
 }
 
-.lauraSection {
-  position: relative;
-  isolation: isolate;
-  background: var(--orion-blue);
-  color: #ffffff;
-}
-
-.lauraInner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(45px, 7vw, 114px);
-  padding-top: clamp(100px, 10vw, 156px);
-  padding-bottom: clamp(110px, 10vw, 154px);
-}
-
-.lauraPortrait {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  transform: rotate(-3deg);
-  color: #ffffff;
-  font-size: clamp(3.2rem, 7.1vw, 7rem);
-  font-weight: 800;
-  line-height: .95;
-  letter-spacing: -.04em;
-  text-shadow: 1px 1px 0 var(--orion-deep-blue);
-}
-
-.lauraPortrait span:nth-child(2) { color: #c7efff; }
-.lauraPortrait span:nth-child(3) { font-size: .56em; letter-spacing: -.025em; }
-.lauraText { max-width: 595px; }
-.lauraHello {
-  margin: 0 0 16px;
-  color: #d5f4ff;
-  font-size: 14px;
-  font-weight: 710;
-  letter-spacing: .02em;
-}
-
-.lauraText h2 {
-  max-width: 14ch;
-  margin: 0 0 32px;
-  color: #ffffff;
-  font-size: clamp(3rem, 5.2vw, 5.2rem);
-  font-weight: 750;
-  line-height: 1.05;
-  letter-spacing: -.04em;
-}
-
-.lauraText h2 strong {
-  color: #e5f6ff;
-  font-weight: 850;
-  text-decoration: underline;
-  text-decoration-color: var(--orion-gold);
-  text-decoration-thickness: 3px;
-  text-underline-offset: 9px;
-}
-
-.lauraText > p:not(.lauraHello) {
-  max-width: 50ch;
-  margin: 0 0 21px;
-  color: #f4fbff;
-  font-size: 16px;
-  line-height: 1.86;
-}
-
 .thanksSection {
   background: var(--orion-paper);
 }
@@ -583,11 +515,6 @@
   .inkJourney h3 { font-size: 1.65rem; }
   .inkJourney p { font-size: 15px; max-width: 54ch; }
 
-  .lauraInner { grid-template-columns: 1fr; gap: 73px; padding-top: 80px; padding-bottom: 87px; }
-  .lauraPortrait { font-size: clamp(4rem, 13vw, 6.2rem); }
-  .lauraText h2 { font-size: clamp(2.75rem, 9vw, 4rem); }
-  .lauraText > p:not(.lauraHello) { font-size: 15.5px; line-height: 1.82; }
-
   .thanksInner { padding-top: 90px; padding-bottom: 90px; }
   .thanksInner h2 { font-size: clamp(2.75rem, 9vw, 4rem); }
   .thanksInner > p { font-size: 15.5px; }
@@ -602,7 +529,6 @@
   .artIntroduction h2 { font-size: 2.7rem; }
   .inkInner h2 { font-size: 2.9rem; }
   .inkInner h2 span { white-space: normal; }
-  .lauraPortrait { font-size: clamp(3.55rem, 13.5vw, 4.4rem); }
   .footerInner { flex-direction: column; align-items: flex-start; gap: 20px; }
   .backLink { margin-left: 0; }
 }
