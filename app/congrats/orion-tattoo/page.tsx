@@ -84,7 +84,7 @@ export default function OrionTattooCongratsPage() {
       </header>
 
       <main id="conteudo" tabIndex={-1}>
-        <section className={styles.hero} data-orion-hero aria-labelledby="orion-hero-title">
+        <section className={styles.hero} data-orion-hero="true" aria-labelledby="orion-hero-title">
 
           <div className={`container ${styles.heroInner}`}>
             <div className={styles.heroCopy}>
