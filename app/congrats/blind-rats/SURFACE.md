@@ -42,3 +42,12 @@ The campaign MP4 is interaction-loaded: the browser receives the poster in the f
 The page uses a scroll-driven motion layer where supported: a thin Blind Rats red progress signal tracks page depth, the hero copy and video separate subtly in opposing directions to create poster-like depth, and the oversized Blind Rats watermark drifts laterally through the manifesto. These effects are tied directly to scroll position rather than timers, require no scroll event listener, and fall back to the static composition on unsupported browsers.
 
 The scroll layer is disabled under `prefers-reduced-motion`; content order, readability and interaction remain unchanged.
+
+
+## Scroll choreography v2
+
+The scroll experience is deliberately more theatrical. On capable browsers and when reduced motion is not requested, the desktop hero becomes a 170svh stage with a sticky viewport: copy recedes and softens while the Blind Rats video expands, shifts across the composition and becomes the dominant visual object.
+
+The manifesto is restructured as a two-column chapter system. Its statement stays sticky while each supporting point occupies a substantial portion of the viewport and enters from alternating directions with scale and rotation. On smaller viewports the layout returns to one column but preserves the stronger chapter entrances.
+
+The closing red section uses a view-linked clip-path takeover and content scale-in so the final Instagram CTA arrives as a distinct scene change rather than another static section. All choreography falls back to the readable static layout when scroll-driven animation is unsupported, and is removed under `prefers-reduced-motion`.

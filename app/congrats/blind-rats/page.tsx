@@ -102,34 +102,36 @@ export default function BlindRatsCongratsPage() {
         </section>
 
         <section className={styles.manifestoSection} aria-labelledby="impact-title">
-          <div className={`container ${styles.manifestoHeader}`}>
-            <h2 id="impact-title">
-              Apoiar artista local faz a cena continuar <span>em movimento.</span>
-            </h2>
-            <p>
-              Não é só sobre levar uma peça para casa. É sobre escolher quem cria perto de você e ajudar essa
-              história a seguir circulando.
-            </p>
-          </div>
+          <div className={`container ${styles.manifestoLayout}`}>
+            <div className={styles.manifestoSticky}>
+              <h2 id="impact-title">
+                Apoiar artista local faz a cena continuar <span>em movimento.</span>
+              </h2>
+              <p>
+                Não é só sobre levar uma peça para casa. É sobre escolher quem cria perto de você e ajudar essa
+                história a seguir circulando.
+              </p>
+            </div>
 
-          <div className={`container ${styles.impactRows}`}>
-            <article>
-              <Music2 aria-hidden="true" />
-              <h3>A música continua circulando</h3>
-              <p>Seu apoio coloca mais energia em quem escolheu criar e compartilhar trabalho autoral.</p>
-            </article>
+            <div className={styles.impactRows}>
+              <article>
+                <Music2 aria-hidden="true" />
+                <h3>A música continua circulando</h3>
+                <p>Seu apoio coloca mais energia em quem escolheu criar e compartilhar trabalho autoral.</p>
+              </article>
 
-            <article>
-              <MapPin aria-hidden="true" />
-              <h3>A cena fica mais próxima</h3>
-              <p>Valorizar quem está por perto ajuda a manter viva a conexão entre artista e comunidade.</p>
-            </article>
+              <article>
+                <MapPin aria-hidden="true" />
+                <h3>A cena fica mais próxima</h3>
+                <p>Valorizar quem está por perto ajuda a manter viva a conexão entre artista e comunidade.</p>
+              </article>
 
-            <article>
-              <Heart aria-hidden="true" />
-              <h3>O gesto ganha significado</h3>
-              <p>O chaveiro vira uma lembrança física de um som, de uma escolha e de uma história local.</p>
-            </article>
+              <article>
+                <Heart aria-hidden="true" />
+                <h3>O gesto ganha significado</h3>
+                <p>O chaveiro vira uma lembrança física de um som, de uma escolha e de uma história local.</p>
+              </article>
+            </div>
           </div>
         </section>
 
