@@ -110,30 +110,6 @@ export default function OrionTattooCongratsPage() {
           </div>
         </section>
 
-        <section className={styles.lauraSection} aria-labelledby="laura-title">
-          <div className={`container ${styles.lauraInner}`}>
-            <div className={styles.lauraPortrait} aria-hidden="true">
-              <span>ARTE</span>
-              <span>PELE</span>
-              <span>LIBERDADE</span>
-            </div>
-            <div className={styles.lauraText}>
-              <p className={styles.lauraHello}>Esse é o meu cantinho</p>
-              <h2 id="laura-title">Prazer, eu sou a <strong>Laura.</strong></h2>
-              <p>
-                Sou a pessoa por trás da Orion Tattoo. Esse espaço carrega meu jeito
-                de olhar para a arte: com personalidade, sensibilidade e liberdade
-                pra criar algo único junto com cada pessoa.
-              </p>
-              <p>
-                Eu sei que uma tatuagem não é só uma imagem bonita. Ela vai fazer
-                parte de você, e é por isso que cada desenho importa tanto pra mim.
-                Obrigada por me deixar participar de algo tão pessoal.
-              </p>
-            </div>
-          </div>
-        </section>
-
         <section className={styles.thanksSection} aria-labelledby="thanks-title">
           <div className={`container ${styles.thanksInner}`}>
             <h2 id="thanks-title">Obrigada por abrir espaço pra minha arte na sua vida.</h2>
