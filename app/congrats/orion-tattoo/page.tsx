@@ -8,10 +8,12 @@ const heroDesktop = '/images/campaigns/orion-tattoo/orion-tattoo-hero-desktop.av
 const heroMobile = '/images/campaigns/orion-tattoo/orion-tattoo-hero-mobile.avif';
 
 export const metadata: Metadata = {
-  title: 'Oiee! | Orion Tattoo — Arte, Pele e Liberdade',
+  title: { absolute: 'Oiee! | Orion Tattoo — Arte, Pele e Liberdade' },
   description:
     'Um carinho da Orion Tattoo para você. Conheça a mensagem da Laura e celebre a arte que nasce de uma ideia e ganha vida na pele.',
+  icons: { icon: [{ url: '/images/campaigns/orion-tattoo/orion-tattoo-icon.svg', type: 'image/svg+xml' }] },
   openGraph: {
+    siteName: 'Orion Tattoo',
     title: 'Oiee! Um carinho da Orion Tattoo',
     description:
       'Arte, pele e liberdade: uma mensagem especial da Orion Tattoo e da Laura para você.',
