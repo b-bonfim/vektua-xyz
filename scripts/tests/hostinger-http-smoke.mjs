@@ -71,7 +71,10 @@ async function check(label, path, isImage) {
       assert.ok(!html.includes('RSC prefetch setup error'), `${path}: known Vinext error in HTML`);
       if (path === '/congrats/orion-tattoo') {
         assert.match(html, /Oiee!/i, 'Orion: Laura greeting missing');
+        assert.match(html, /Eu sou a Laura/i, 'Orion: first-person greeting missing');
+        assert.match(html, /Obrigada de cora(?:ção|&#xE7;&#xE3;o|&#231;&#227;o)/i, 'Orion: personal thanks missing');
         assert.ok(!/artista\s+independente/i.test(html), 'Orion: old independent-artist copy still displayed');
+        assert.ok(!/lucide-sparkles/i.test(html), 'Orion: unwanted sparkle icons found');
       }
     }
     output.checks.push({ label, path, status: 'PASS' });
