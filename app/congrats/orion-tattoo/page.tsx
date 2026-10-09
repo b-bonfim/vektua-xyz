@@ -1,8 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import ResponsiveImage from '@/components/responsive-image';
 import { BrandFooter, BrandHeader } from '@/components/brand-shell-v2';
 import styles from './orion-tattoo.module.css';
+
+const heroDesktop = '/images/campaigns/orion-tattoo/orion-tattoo-hero-desktop.avif';
+const heroMobile = '/images/campaigns/orion-tattoo/orion-tattoo-hero-mobile.avif';
 
 export const metadata: Metadata = {
   title: 'Orion Tattoo — obrigado por apoiar arte local',
@@ -20,39 +24,33 @@ export default function OrionTattooCongratsPage() {
     <>
       <BrandHeader />
       <main id="conteudo" tabIndex={-1} className={styles.page}>
-        <section className={`container ${styles.hero}`} aria-labelledby="orion-title">
-          <div className={styles.heroCopy}>
-            <h1 id="orion-title">
-              Você ganhou um ímã.
-              <span>Mas o que ele celebra é bem maior.</span>
-            </h1>
-            <p className={styles.lead}>
-              Parabéns por apoiar uma artista local independente. Ao escolher a Orion Tattoo, você valoriza
-              trabalho autoral, fortalece a cena criativa da sua cidade e ajuda a manter viva a liberdade de
-              transformar ideias em arte na pele.
-            </p>
-            <div className={styles.heroMeta} aria-label="Campanha Orion Tattoo">
-              <strong>Orion Tattoo</strong>
-              <span>Laura · artista independente</span>
-            </div>
-          </div>
-
-          <div className={styles.studioPoster} aria-label="Orion Tattoo — arte, pele e liberdade">
-            <div className={styles.posterRibbons} aria-hidden="true">
-              <span />
-              <span />
-              <span />
-              <span />
-            </div>
-            <Sparkles className={styles.posterStarOne} size={42} strokeWidth={1.6} aria-hidden="true" />
-            <Sparkles className={styles.posterStarTwo} size={28} strokeWidth={1.6} aria-hidden="true" />
-            <div className={styles.posterContent}>
-              <p>arte na pele</p>
-              <div className={styles.posterWordmark} aria-hidden="true">
-                <strong>ORION</strong>
-                <strong>TATTOO</strong>
+        <section className={styles.hero} aria-labelledby="orion-title">
+          <picture className={styles.heroArtwork}>
+            <source srcSet={heroMobile} media="(max-width: 1040px)" type="image/avif" />
+            <ResponsiveImage
+              src={heroDesktop}
+              alt="Ilustração Orion Tattoo: musa de cabelos azuis, lua, estrelas douradas e a assinatura visual do estúdio."
+              width={1440}
+              height={811}
+              loading="eager"
+              fetchPriority="high"
+            />
+          </picture>
+          <div className={`container ${styles.heroInner}`}>
+            <div className={styles.heroCopy}>
+              <h1 id="orion-title">
+                Você faz a <span>arte continuar.</span>
+              </h1>
+              <p className={styles.lead}>
+                Parabéns por apoiar a Laura, artista independente à frente da Orion Tattoo.
+                Este ímã celebra muito mais que um presente: a liberdade de criar, de se
+                expressar e de transformar histórias em arte na pele.
+              </p>
+              <p className={styles.heroThanks}>Obrigada por fazer parte dessa história.</p>
+              <div className={styles.heroMeta} aria-label="Campanha Orion Tattoo">
+                <strong>Orion Tattoo</strong>
+                <span>Laura · artista independente</span>
               </div>
-              <span>ARTE · PELE · LIBERDADE</span>
             </div>
           </div>
         </section>
