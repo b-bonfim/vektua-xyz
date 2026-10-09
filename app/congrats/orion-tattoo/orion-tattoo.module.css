@@ -56,7 +56,7 @@
   flex-direction: column;
   flex: 0 0 auto;
   align-items: flex-start;
-  padding-right: 33px;
+  padding-right: 0;
   color: var(--orion-ink);
   font-size: 26px;
   font-weight: 800;
@@ -66,13 +66,6 @@
 }
 
 .studioMark span + span { margin-top: 4px; }
-.studioMark > svg {
-  position: absolute;
-  right: 0;
-  top: 1px;
-  color: var(--orion-gold);
-}
-
 .studioMark:hover { color: var(--orion-blue); }
 
 .headerMotto,
@@ -229,11 +222,6 @@
 
 .artIntroduction { min-width: 0; }
 
-.artSparkle {
-  margin-bottom: 29px;
-  color: var(--orion-gold);
-}
-
 .artIntroduction h2 {
   max-width: 14ch;
   margin: 0;
@@ -320,12 +308,6 @@
   border-top: 1px solid rgba(255,255,255,.35);
 }
 
-.journeyStar {
-  display: block;
-  margin-bottom: 28px;
-  color: var(--orion-gold);
-}
-
 .inkJourney h3 {
   margin: 0 0 10px;
   color: #ffffff;
@@ -375,14 +357,6 @@
 
 .lauraPortrait span:nth-child(2) { color: #c7efff; }
 .lauraPortrait span:nth-child(3) { font-size: .56em; letter-spacing: -.025em; }
-.lauraPortrait svg {
-  position: absolute;
-  right: 6%;
-  bottom: -60px;
-  color: var(--orion-gold);
-  transform: rotate(3deg);
-}
-
 .lauraText { max-width: 595px; }
 .lauraHello {
   margin: 0 0 16px;
@@ -432,8 +406,6 @@
   padding-bottom: clamp(94px, 10vw, 142px);
   text-align: center;
 }
-
-.thanksStar { color: var(--orion-gold); margin-bottom: 33px; }
 
 .thanksInner h2 {
   max-width: 16ch;
@@ -589,8 +561,7 @@
 
 @media (max-width: 720px) {
   .headerInner { min-height: 74px; }
-  .studioMark { font-size: 21px; padding-right: 28px; }
-  .studioMark > svg { width: 17px; height: 17px; }
+  .studioMark { font-size: 21px; }
   .headerMotto { max-width: 175px; justify-content: flex-end; gap: 7px; font-size: 9px; letter-spacing: .06em; text-align: right; }
 
   .heroInner { padding-top: 42px; padding-bottom: 42px; }
@@ -601,7 +572,6 @@
 
   .artGrid { grid-template-columns: 1fr; gap: 21px; padding-top: 72px; padding-bottom: 81px; }
   .artIntroduction h2 { max-width: 17ch; font-size: clamp(2.75rem, 9.7vw, 4.4rem); }
-  .artSparkle { margin-bottom: 21px; }
   .artStory { padding-top: 16px; }
   .artStory p { font-size: 15.5px; line-height: 1.84; }
   .artStory p:first-child { font-size: 1.5rem; }
@@ -610,13 +580,11 @@
   .inkInner h2 { margin-bottom: 50px; font-size: clamp(3rem, 11.2vw, 4.4rem); }
   .inkJourney { grid-template-columns: 1fr; gap: 26px; }
   .inkJourney article { padding-top: 21px; }
-  .journeyStar { margin-bottom: 15px; }
   .inkJourney h3 { font-size: 1.65rem; }
   .inkJourney p { font-size: 15px; max-width: 54ch; }
 
   .lauraInner { grid-template-columns: 1fr; gap: 73px; padding-top: 80px; padding-bottom: 87px; }
   .lauraPortrait { font-size: clamp(4rem, 13vw, 6.2rem); }
-  .lauraPortrait svg { right: 14%; bottom: -46px; width: 41px; height: 41px; }
   .lauraText h2 { font-size: clamp(2.75rem, 9vw, 4rem); }
   .lauraText > p:not(.lauraHello) { font-size: 15.5px; line-height: 1.82; }
 

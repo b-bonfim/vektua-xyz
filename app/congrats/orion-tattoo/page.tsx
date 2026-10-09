@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowDown, ArrowLeft, ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowUpRight } from 'lucide-react';
 import ResponsiveImage from '@/components/responsive-image';
 import styles from './orion-tattoo.module.css';
 
@@ -10,13 +10,13 @@ const heroMobile = '/images/campaigns/orion-tattoo/orion-tattoo-hero-mobile.avif
 export const metadata: Metadata = {
   title: { absolute: 'Oiee! | Orion Tattoo — Arte, Pele e Liberdade' },
   description:
-    'Um carinho da Orion Tattoo para você. Conheça a mensagem da Laura e celebre a arte que nasce de uma ideia e ganha vida na pele.',
+    'Oiee! Eu sou a Laura, da Orion Tattoo. Quero te agradecer por confiar na minha arte e fazer parte da minha história.',
   icons: { icon: [{ url: '/images/campaigns/orion-tattoo/orion-tattoo-icon.svg', type: 'image/svg+xml' }] },
   openGraph: {
     siteName: 'Orion Tattoo',
-    title: 'Oiee! Um carinho da Orion Tattoo',
+    title: 'Oiee! Um recadinho da Laura, da Orion Tattoo',
     description:
-      'Arte, pele e liberdade: uma mensagem especial da Orion Tattoo e da Laura para você.',
+      'Escrevi esse recadinho para agradecer por abrir espaço para a minha arte na sua história.',
   },
 };
 
@@ -30,7 +30,6 @@ export default function OrionTattooCongratsPage() {
           <a className={styles.studioMark} href="#conteudo" aria-label="Orion Tattoo — voltar ao início desta página">
             <span>ORION</span>
             <span>TATTOO</span>
-            <Sparkles size={19} strokeWidth={1.7} aria-hidden="true" />
           </a>
           <span className={styles.headerMotto}>Arte <i /> Pele <i /> Liberdade</span>
         </div>
@@ -43,14 +42,16 @@ export default function OrionTattooCongratsPage() {
             <div className={styles.heroCopy}>
               <p className={styles.hello}>Oiee!</p>
               <h1 id="orion-hero-title">
-                A arte fica mais bonita quando <em>encontra você.</em>
+                Que bom ter você <em>por aqui!</em>
               </h1>
               <p className={styles.heroLead}>
-                Parabéns por valorizar o trabalho da Laura e fazer parte da história da Orion Tattoo.
-                Este pequeno presente é nossa forma de dizer <strong>obrigada!</strong>
+                Eu sou a Laura, da Orion Tattoo. Quis deixar esse recadinho para
+                te agradecer por confiar no meu trabalho e abrir espaço para a arte
+                fazer parte da sua história. Esse ímã é um carinho meu pra você.
+                <strong> Obrigada de coração!</strong>
               </p>
               <a className={styles.heroExplore} href="#arte-na-pele">
-                Descubra o que ele celebra
+                Deixa eu te contar por quê
                 <ArrowDown size={19} aria-hidden="true" />
               </a>
             </div>
@@ -71,41 +72,39 @@ export default function OrionTattooCongratsPage() {
         <section id="arte-na-pele" className={styles.artSection} aria-labelledby="art-title">
           <div className={`container ${styles.artGrid}`}>
             <div className={styles.artIntroduction}>
-              <Sparkles className={styles.artSparkle} size={45} strokeWidth={1.4} aria-hidden="true" />
-              <h2 id="art-title">Uma ideia. Um desenho. <span>Uma parte de você.</span></h2>
+              <h2 id="art-title">Eu acredito que cada pele <span>conta uma história.</span></h2>
             </div>
             <div className={styles.artStory}>
               <p>
-                Existem obras de arte que a gente admira na parede. Outras, a gente escolhe levar na pele.
+                Tem obra de arte que mora na parede. Eu adoro a ideia de criar
+                desenhos que possam acompanhar você por onde for.
               </p>
               <p>
-                Cada tatuagem começa com algo que faz sentido para alguém: uma lembrança,
-                um sentimento, uma paixão ou simplesmente a liberdade de ser quem se é.
-                Com o desenho, essas ideias encontram forma; na pele, encontram um lugar só delas.
+                Às vezes tudo começa com uma lembrança, um símbolo, uma vontade de
+                mudar ou simplesmente algo que você acha lindo. Gosto de escutar
+                essas ideias e ajudar a transformá-las em traços com personalidade.
+                O resultado é uma obra que ganha vida na sua própria pele.
               </p>
-              <p className={styles.artAside}>Arte que acompanha você — do seu jeito.</p>
+              <p className={styles.artAside}>Pra mim, tatuar é criar algo que faz parte de você.</p>
             </div>
           </div>
         </section>
 
         <section className={styles.inkSection} aria-labelledby="ink-title">
           <div className={`container ${styles.inkInner}`}>
-            <h2 id="ink-title">Não é só tinta. <span>É expressão.</span></h2>
+            <h2 id="ink-title">Cada tatuagem tem seu jeito. <span>E eu adoro isso.</span></h2>
             <div className={styles.inkJourney}>
               <article>
-                <span className={styles.journeyStar} aria-hidden="true"><Sparkles size={21} strokeWidth={1.7} /></span>
-                <h3>A ideia</h3>
-                <p>Um detalhe, um símbolo ou uma história que merece ganhar forma.</p>
+                <h3>Eu escuto</h3>
+                <p>Quero entender a sua ideia, seja ela cheia de significado ou só uma vontade gostosa de se expressar.</p>
               </article>
               <article>
-                <span className={styles.journeyStar} aria-hidden="true"><Sparkles size={21} strokeWidth={1.7} /></span>
-                <h3>O traço</h3>
-                <p>O encontro entre imaginação, desenho e o olhar de quem cria.</p>
+                <h3>Eu desenho</h3>
+                <p>Gosto de dar forma a essas ideias com linhas, detalhes e um olhar artístico para cada composição.</p>
               </article>
               <article>
-                <span className={styles.journeyStar} aria-hidden="true"><Sparkles size={21} strokeWidth={1.7} /></span>
-                <h3>A pele</h3>
-                <p>Uma tela viva, única, que leva a obra e seu significado por onde você for.</p>
+                <h3>A arte acompanha você</h3>
+                <p>Quando o desenho encontra a pele, deixa o estúdio e segue vivendo a sua história junto com você.</p>
               </article>
             </div>
           </div>
@@ -117,19 +116,19 @@ export default function OrionTattooCongratsPage() {
               <span>ARTE</span>
               <span>PELE</span>
               <span>LIBERDADE</span>
-              <Sparkles size={58} strokeWidth={1.25} />
             </div>
             <div className={styles.lauraText}>
-              <p className={styles.lauraHello}>Por trás de cada traço</p>
-              <h2 id="laura-title">Tem o olhar da <strong>Laura.</strong></h2>
+              <p className={styles.lauraHello}>Esse é o meu cantinho</p>
+              <h2 id="laura-title">Prazer, eu sou a <strong>Laura.</strong></h2>
               <p>
-                A Orion Tattoo tem a personalidade de quem vive a arte de perto.
-                Laura dá forma a ideias e faz do desenho um encontro entre estética,
-                significado e a liberdade de cada pessoa se expressar.
+                Sou a pessoa por trás da Orion Tattoo. Esse espaço carrega meu jeito
+                de olhar para a arte: com personalidade, sensibilidade e liberdade
+                pra criar algo único junto com cada pessoa.
               </p>
               <p>
-                Seu carinho, sua confiança e cada projeto compartilhado fazem parte dessa história.
-                É isso que queremos celebrar com você hoje.
+                Eu sei que uma tatuagem não é só uma imagem bonita. Ela vai fazer
+                parte de você, e é por isso que cada desenho importa tanto pra mim.
+                Obrigada por me deixar participar de algo tão pessoal.
               </p>
             </div>
           </div>
@@ -137,14 +136,13 @@ export default function OrionTattooCongratsPage() {
 
         <section className={styles.thanksSection} aria-labelledby="thanks-title">
           <div className={`container ${styles.thanksInner}`}>
-            <Sparkles className={styles.thanksStar} size={37} strokeWidth={1.3} aria-hidden="true" />
-            <h2 id="thanks-title">Obrigada por deixar a arte fazer parte da sua história.</h2>
+            <h2 id="thanks-title">Obrigada por abrir espaço pra minha arte na sua vida.</h2>
             <p>
-              Que este ímã seja uma lembrança do que a Orion Tattoo mais ama:
-              transformar ideias em desenhos, desenhos em arte na pele
-              e pequenos momentos em algo especial.
+              Guarda esse ímã com carinho! Toda vez que olhar pra ele, espero
+              que você lembre do quanto a arte pode ser pessoal e especial.
+              Seu apoio e sua confiança significam muito pra mim.
             </p>
-            <p className={styles.closingSignature}>Com carinho, <strong>Orion Tattoo</strong></p>
+            <p className={styles.closingSignature}>Com carinho, <strong>Laura · Orion Tattoo</strong></p>
           </div>
         </section>
       </main>
