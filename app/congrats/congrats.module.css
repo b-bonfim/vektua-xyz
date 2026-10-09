@@ -1,9 +1,14 @@
 .page {
   --br-red: #e30613;
   --br-red-dark: #b9000d;
-  --br-black: #0e0e0e;
-  background: var(--vx-ivory);
-  color: var(--vx-graphite);
+  --br-black: #0d0d0d;
+  --br-paper: #f0eadf;
+  --br-paper-soft: #d9d1c5;
+  --br-rule-dark: rgba(15, 15, 15, 0.24);
+  --br-rule-light: rgba(255, 255, 255, 0.18);
+  min-height: 100vh;
+  background: var(--br-black);
+  color: var(--br-paper);
   overflow-x: clip;
 }
 
@@ -12,60 +17,163 @@
   color: #ffffff;
 }
 
-.hero {
+.skipLink {
+  position: fixed;
+  z-index: 100;
+  top: -100px;
+  left: 20px;
+  padding: 11px 16px;
+  border: 1px solid #ffffff;
+  background: var(--br-red);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.skipLink:focus {
+  top: 14px;
+}
+
+.campaignHeader {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(13, 13, 13, 0.97);
+  color: var(--br-paper);
+}
+
+.campaignHeaderInner {
+  min-height: 76px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-areas:
-    'copy'
-    'artwork'
-    'after';
-  gap: 38px;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  padding-top: 52px;
-  padding-bottom: 72px;
+  gap: 24px;
+}
+
+.hostLink,
+.headerSocial,
+.vektuaLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  width: fit-content;
+  color: var(--br-paper);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.hostLink {
+  justify-self: start;
+}
+
+.headerSocial {
+  justify-self: end;
+}
+
+.hostLink svg,
+.headerSocial svg,
+.vektuaLink svg {
+  flex: 0 0 auto;
+  transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hostLink:hover,
+.headerSocial:hover,
+.vektuaLink:hover {
+  color: #ffffff;
+}
+
+.hostLink:hover svg {
+  transform: translateX(-3px);
+}
+
+.headerSocial:hover svg,
+.vektuaLink:hover svg {
+  transform: translateX(3px);
+}
+
+.hostLink:focus-visible,
+.headerSocial:focus-visible,
+.campaignBrand:focus-visible,
+.instagramButton:focus-visible,
+.vektuaLink:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 5px;
+}
+
+.campaignBrand {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 58px;
+  justify-self: center;
+  overflow: hidden;
+}
+
+.campaignBrand img {
+  width: 72px;
+  height: 66px;
+  display: block;
+  object-fit: contain;
+}
+
+.hero {
+  position: relative;
+  background: var(--br-black);
+}
+
+.heroGrid {
+  min-height: min(850px, calc(100svh - 76px));
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(460px, 1.18fr);
+  gap: clamp(48px, 7vw, 108px);
+  align-items: center;
+  padding-top: clamp(64px, 7vw, 104px);
+  padding-bottom: clamp(72px, 8vw, 118px);
 }
 
 .heroCopy {
-  grid-area: copy;
   min-width: 0;
-}
-
-.heroAfter {
-  grid-area: after;
-  min-width: 0;
+  align-self: center;
 }
 
 .hero h1 {
-  max-width: 11.5ch;
+  max-width: 9.8ch;
   margin: 0;
-  font-size: clamp(2.65rem, 12vw, 4.2rem);
-  font-weight: 550;
-  line-height: 0.98;
+  color: var(--br-paper);
+  font-size: clamp(3.8rem, 6.5vw, 6rem);
+  font-weight: 800;
+  line-height: 0.92;
   letter-spacing: -0.04em;
+  text-transform: uppercase;
   text-wrap: balance;
 }
 
 .hero h1 span {
   display: block;
-  margin-top: 0.08em;
+  margin-top: 0.12em;
   color: var(--br-red);
-  font-weight: 700;
 }
 
 .lead {
-  max-width: 57ch;
-  margin: 28px 0 0;
-  color: #4f5a55;
+  max-width: 54ch;
+  margin: 32px 0 0;
+  color: #d8d1c7;
   font-size: 17px;
-  line-height: 1.72;
+  line-height: 1.74;
 }
 
 .heroActions {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 12px;
-  align-items: stretch;
-  margin-top: 0;
+  margin-top: 34px;
 }
 
 .instagramButton {
@@ -74,15 +182,17 @@
   align-items: center;
   justify-content: center;
   gap: 11px;
-  padding: 14px 18px;
+  padding: 14px 20px;
   border: 1px solid var(--br-red);
-  border-radius: 4px;
+  border-radius: 3px;
   background: var(--br-red);
   color: #ffffff;
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 800;
   line-height: 1.35;
   text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
   transition:
     background-color 180ms ease,
     border-color 180ms ease,
@@ -90,8 +200,8 @@
 }
 
 .instagramButton:hover {
-  border-color: var(--br-red-dark);
-  background: var(--br-red-dark);
+  border-color: #ff2633;
+  background: #ff2633;
   color: #ffffff;
   transform: translateY(-2px);
 }
@@ -100,8 +210,7 @@
   transform: translateY(0);
 }
 
-.externalIcon,
-.secondaryLink svg {
+.externalIcon {
   flex: 0 0 auto;
   transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -110,112 +219,64 @@
   transform: translate(2px, -2px);
 }
 
-.instagramButton:focus-visible,
-.secondaryLink:focus-visible {
-  outline: 2px solid var(--vx-graphite);
-  outline-offset: 4px;
-}
-
-.secondaryLink {
-  min-height: 48px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  color: var(--vx-graphite);
-  font-size: 14px;
-  font-weight: 650;
-  line-height: 1.4;
-  text-decoration: underline;
-  text-decoration-color: #aeb6b0;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 6px;
-}
-
-.secondaryLink:hover {
-  color: var(--vx-petrol);
-}
-
-.secondaryLink:hover svg {
-  transform: translateX(3px);
-}
-
 .signature {
-  max-width: 59ch;
-  margin: 30px 0 0;
+  margin: 34px 0 0;
   padding-top: 18px;
-  border-top: 1px solid #d8dbd4;
-  color: #606b66;
-  font-size: 12px;
-  font-weight: 650;
-  letter-spacing: 0.055em;
+  border-top: 1px solid var(--br-rule-light);
+  color: #9e978f;
+  font-size: 11px;
+  font-weight: 750;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.signature::before {
-  content: '';
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  margin-right: 9px;
-  background: var(--br-red);
-  vertical-align: 1px;
-}
-
 .heroArtwork {
-  grid-area: artwork;
-  position: relative;
-  isolation: isolate;
-  width: 100%;
-  max-width: 520px;
   min-width: 0;
   margin: 0;
-  justify-self: center;
-  overflow: hidden;
-  border-radius: 3px;
-  background: var(--br-black);
-  color: #ffffff;
-}
-
-.heroArtwork::before {
-  content: '';
-  position: absolute;
-  inset: 0 auto 0 0;
-  z-index: 3;
-  width: 5px;
-  background: var(--br-red);
-  pointer-events: none;
+  background: #050505;
 }
 
 .heroArtworkFrame {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: var(--br-black);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  background: #050505;
 }
 
 .heroArtworkFrame::after {
   content: '';
   position: absolute;
-  inset: 12px;
-  z-index: 2;
+  inset: 14px;
+  z-index: 3;
   border: 1px solid rgba(255, 255, 255, 0.14);
   pointer-events: none;
 }
 
-.heroArtworkFrame img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
+.heroCaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px 2px 0;
+  color: #aaa39a;
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
 }
 
+.heroCaption strong {
+  color: var(--br-paper);
+  font-weight: 800;
+}
 
 .videoShell {
   position: relative;
   width: 100%;
   height: 100%;
-  background: var(--br-black);
+  background: #050505;
 }
 
 .heroVideo {
@@ -223,7 +284,7 @@
   height: 100%;
   display: block;
   object-fit: cover;
-  background: var(--br-black);
+  background: #050505;
 }
 
 .videoPlay {
@@ -233,29 +294,29 @@
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
-  padding: 18px 20px;
+  padding: 20px;
   border: 0;
-  background: transparent;
+  background: linear-gradient(to top, rgba(5, 5, 5, 0.72), rgba(5, 5, 5, 0) 56%);
   color: #ffffff;
   text-align: left;
   cursor: pointer;
 }
 
 .videoPrompt {
-  max-width: calc(100% - 4px);
+  max-width: calc(100% - 2px);
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 13px 10px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-  background: rgba(14, 14, 14, 0.88);
+  padding: 10px 14px 10px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 3px;
+  background: rgba(5, 5, 5, 0.92);
 }
 
 .videoPlayIcon {
-  width: 46px;
-  height: 46px;
-  flex: 0 0 46px;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -276,377 +337,491 @@
 .videoPromptText strong {
   color: #ffffff;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.35;
 }
 
 .videoPromptText span {
-  color: #d7ddda;
+  color: #d4cec6;
   font-size: 11px;
   line-height: 1.45;
 }
 
 .videoPlay:hover .videoPlayIcon {
-  background: var(--br-red-dark);
-  transform: scale(1.04);
+  background: #ff2633;
+  transform: scale(1.05);
 }
 
 .videoPlay:focus-visible {
   outline: 2px solid #ffffff;
-  outline-offset: -6px;
+  outline-offset: -7px;
 }
 
-.heroBrand {
+.manifestoSection {
+  position: relative;
+  overflow: hidden;
+  background: var(--br-paper);
+  color: var(--br-black);
+}
+
+.manifestoSection::after {
+  content: 'BLIND RATS';
+  position: absolute;
+  right: -0.04em;
+  top: -0.2em;
+  z-index: 0;
+  color: rgba(227, 6, 19, 0.055);
+  font-size: clamp(7rem, 18vw, 18rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.manifestoHeader,
+.impactRows {
   position: relative;
   z-index: 1;
+}
+
+.manifestoHeader {
   display: grid;
-  grid-template-columns: 56px minmax(0, 1fr);
-  gap: 14px;
-  align-items: center;
-  padding: 14px 18px 16px 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+  gap: clamp(48px, 8vw, 120px);
+  align-items: end;
+  padding-top: clamp(84px, 9vw, 132px);
+  padding-bottom: 56px;
 }
 
-.heroBrandMark {
-  width: 56px;
-  height: 52px;
-  display: block;
-  object-fit: contain;
-}
-
-.heroBrand > div {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.heroBrand strong {
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.35;
-}
-
-.heroBrand span {
-  color: #aeb7b2;
-  font-size: 12px;
-  line-height: 1.45;
-}
-
-.impactSection {
-  border-top: 4px solid var(--br-red);
-  background: var(--vx-graphite);
-  color: #ffffff;
-}
-
-.impactInner {
-  padding-top: 68px;
-  padding-bottom: 70px;
-}
-
-.impactIntro {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 18px;
-  padding-bottom: 38px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.impactIntro h2,
-.followCopy h2 {
+.manifestoHeader h2 {
+  max-width: 15ch;
   margin: 0;
-  font-weight: 550;
+  color: var(--br-black);
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 800;
+  line-height: 0.98;
   letter-spacing: -0.04em;
-  text-wrap: balance;
+  text-transform: uppercase;
 }
 
-.impactIntro h2 {
-  max-width: 18ch;
-  font-size: clamp(2.05rem, 8.5vw, 3.5rem);
-  line-height: 1.04;
+.manifestoHeader h2 span {
+  color: var(--br-red);
 }
 
-.impactIntro > p {
-  max-width: 54ch;
+.manifestoHeader > p {
+  max-width: 48ch;
   margin: 0;
-  color: #d7ddda;
+  color: #3c3834;
   font-size: 16px;
-  line-height: 1.72;
+  line-height: 1.75;
 }
 
-.impactGrid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
+.impactRows {
+  padding-bottom: clamp(84px, 9vw, 126px);
 }
 
-.impactGrid article {
-  min-width: 0;
+.impactRows article {
   display: grid;
-  grid-template-columns: 34px minmax(0, 1fr);
-  gap: 18px;
+  grid-template-columns: 54px minmax(0, 0.78fr) minmax(300px, 0.72fr);
+  gap: 28px;
   align-items: start;
-  padding: 30px 0;
+  padding: 32px 0;
+  border-top: 1px solid var(--br-rule-dark);
 }
 
-.impactGrid article + article {
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
+.impactRows article:last-child {
+  border-bottom: 1px solid var(--br-rule-dark);
 }
 
-.impactGrid svg {
-  width: 26px;
-  height: 26px;
-  margin-top: 2px;
-  color: #ff7178;
-  stroke-width: 1.7;
+.impactRows svg {
+  width: 28px;
+  height: 28px;
+  margin-top: 3px;
+  color: var(--br-red);
+  stroke-width: 1.8;
 }
 
-.impactGrid h3 {
-  margin: 0 0 9px;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 650;
-  line-height: 1.3;
-  letter-spacing: -0.02em;
-}
-
-.impactGrid p {
-  max-width: 42ch;
+.impactRows h3 {
   margin: 0;
-  color: #d7ddda;
+  color: var(--br-black);
+  font-size: clamp(1.45rem, 2.2vw, 2.1rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+.impactRows p {
+  max-width: 46ch;
+  margin: 0;
+  color: #4b4640;
   font-size: 14px;
-  line-height: 1.72;
+  line-height: 1.75;
 }
 
 .followSection {
+  background: var(--br-red);
+  color: #ffffff;
+}
+
+.followInner {
+  min-height: 520px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 30px;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+  gap: clamp(48px, 9vw, 132px);
   align-items: end;
-  padding-top: 74px;
-  padding-bottom: max(86px, calc(74px + env(safe-area-inset-bottom)));
+  padding-top: clamp(78px, 9vw, 124px);
+  padding-bottom: clamp(82px, 9vw, 128px);
 }
 
 .followCopy h2 {
-  max-width: 15ch;
-  font-size: clamp(2.25rem, 9vw, 3.8rem);
-  line-height: 1.02;
+  max-width: 13ch;
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(3.3rem, 6vw, 6rem);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
 }
 
 .followCopy p {
-  max-width: 50ch;
-  margin: 24px 0 0;
-  color: #4f5a55;
+  max-width: 47ch;
+  margin: 28px 0 0;
+  color: #ffffff;
   font-size: 16px;
   line-height: 1.72;
 }
 
 .followCopy strong {
-  color: var(--vx-graphite);
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .followAction {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  align-items: stretch;
+  align-items: flex-start;
+  gap: 11px;
+  padding-bottom: 6px;
 }
 
 .followAction > span {
-  color: #606b66;
-  font-size: 12px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 11px;
   line-height: 1.5;
-  text-align: center;
 }
 
 .instagramButtonCompact {
-  width: 100%;
+  min-width: 290px;
+  border-color: #ffffff;
+  background: #ffffff;
+  color: var(--br-black);
 }
 
-@media (min-width: 640px) {
-  .hero {
-    padding-top: 68px;
-    padding-bottom: 88px;
-  }
-
-  .heroActions {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .instagramButton {
-    width: auto;
-    min-width: 236px;
-    padding-inline: 22px;
-  }
-
-  .secondaryLink {
-    width: auto;
-    justify-content: flex-start;
-    padding-inline: 4px;
-  }
-
-  .impactInner {
-    padding-top: 82px;
-    padding-bottom: 84px;
-  }
-
-  .followSection {
-    padding-top: 90px;
-    padding-bottom: max(102px, calc(92px + env(safe-area-inset-bottom)));
-  }
+.instagramButtonCompact:hover {
+  border-color: var(--br-black);
+  background: var(--br-black);
+  color: #ffffff;
 }
 
-@media (min-width: 900px) {
-  .hero {
-    grid-template-columns: minmax(0, 1.04fr) minmax(360px, 0.96fr);
-    grid-template-areas:
-      'copy artwork'
-      'after artwork';
-    column-gap: clamp(54px, 7vw, 106px);
-    row-gap: 30px;
-    align-items: start;
-    padding-top: clamp(76px, 8vw, 116px);
-    padding-bottom: clamp(82px, 9vw, 124px);
+.campaignFooter {
+  background: var(--br-black);
+  color: var(--br-paper);
+}
+
+.footerInner {
+  min-height: 112px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+
+.footerIdentity {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #aaa39a;
+  font-size: 11px;
+  font-weight: 750;
+  line-height: 1.5;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.footerIdentity img {
+  width: 48px;
+  height: 44px;
+  display: block;
+  object-fit: contain;
+}
+
+@media (max-width: 1080px) {
+  .heroGrid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(400px, 1.1fr);
+    gap: 42px;
   }
 
   .hero h1 {
-    max-width: 10.5ch;
-    font-size: clamp(4.2rem, 5.7vw, 5.75rem);
+    font-size: clamp(3.5rem, 6.6vw, 5rem);
   }
 
-  .lead {
-    margin-top: 32px;
-    font-size: 18px;
+  .manifestoHeader {
+    gap: 50px;
+  }
+}
+
+@media (max-width: 880px) {
+  .campaignHeaderInner {
+    min-height: 70px;
+  }
+
+  .heroGrid {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 42px;
+    padding-top: 58px;
+    padding-bottom: 72px;
+  }
+
+  .heroCopy {
+    max-width: 720px;
+  }
+
+  .hero h1 {
+    max-width: 10.2ch;
+    font-size: clamp(3.5rem, 10vw, 5.4rem);
   }
 
   .heroArtwork {
-    align-self: center;
-    justify-self: end;
+    width: 100%;
   }
 
-  .impactIntro {
-    grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
-    gap: clamp(40px, 7vw, 104px);
-    align-items: end;
-    padding-bottom: 48px;
+  .manifestoHeader {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding-bottom: 42px;
   }
 
-  .impactIntro h2 {
-    font-size: clamp(2.8rem, 4.3vw, 4.1rem);
+  .manifestoHeader h2 {
+    max-width: 13ch;
   }
 
-  .impactGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .impactRows article {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 22px;
   }
 
-  .impactGrid article {
-    display: block;
-    padding: 40px 32px 0 0;
+  .impactRows p {
+    grid-column: 2;
+    margin-top: -6px;
   }
 
-  .impactGrid article + article {
-    padding-left: 32px;
-    border-top: 0;
-    border-left: 1px solid rgba(255, 255, 255, 0.16);
-  }
-
-  .impactGrid svg {
-    margin: 0 0 24px;
-  }
-
-  .followSection {
-    grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
-    gap: clamp(44px, 8vw, 120px);
-    padding-top: 112px;
-    padding-bottom: 122px;
-  }
-
-  .followCopy h2 {
-    font-size: clamp(3.1rem, 4.2vw, 4.7rem);
+  .followInner {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    gap: 42px;
   }
 
   .followAction {
-    align-items: flex-start;
-    padding-bottom: 4px;
-  }
-
-  .instagramButtonCompact {
-    width: auto;
-    min-width: 290px;
-  }
-
-  .followAction > span {
-    text-align: left;
+    padding-bottom: 0;
   }
 }
 
-@media (pointer: coarse) {
-  .instagramButton,
-  .secondaryLink {
-    min-height: 56px;
+@media (max-width: 640px) {
+  .campaignHeaderInner {
+    min-height: 64px;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 10px;
   }
-}
 
-@media (max-width: 639px) {
-  .hero {
-    gap: 32px;
-    padding-top: 40px;
-    padding-bottom: 62px;
+  .campaignBrand {
+    width: 58px;
+    height: 50px;
+  }
+
+  .campaignBrand img {
+    width: 58px;
+    height: 53px;
+  }
+
+  .hostLink,
+  .headerSocial {
+    font-size: 11px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .headerSocial span {
+    display: none;
+  }
+
+  .hostLink span {
+    max-width: 74px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .heroGrid {
+    gap: 34px;
+    padding-top: 44px;
+    padding-bottom: 58px;
   }
 
   .hero h1 {
-    max-width: 10.8ch;
+    font-size: clamp(3rem, 15vw, 4.4rem);
   }
 
   .lead {
     margin-top: 24px;
-    font-size: 16px;
+    font-size: 15px;
   }
 
-  .heroArtwork {
-    max-width: none;
-  }
-
-  .heroArtworkFrame::after {
-    inset: 10px;
-  }
-
-  .impactInner {
-    padding-top: 60px;
-    padding-bottom: 62px;
-  }
-
-  .followSection {
-    padding-top: 66px;
-  }
-}
-
-@media (max-width: 359px) {
-  .hero h1 {
-    font-size: 2.5rem;
+  .heroActions {
+    margin-top: 28px;
   }
 
   .instagramButton {
-    font-size: 14px;
+    width: 100%;
+    min-height: 56px;
   }
 
+  .signature {
+    margin-top: 28px;
+  }
+
+  .heroArtworkFrame::after {
+    inset: 9px;
+  }
+
+  .videoPlay {
+    padding: 12px;
+  }
+
+  .videoPrompt {
+    width: 100%;
+    padding-right: 11px;
+  }
+
+  .videoPlayIcon {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+
+  .heroCaption {
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 11px;
+  }
+
+  .manifestoSection::after {
+    top: 0.04em;
+    font-size: 7rem;
+  }
+
+  .manifestoHeader {
+    padding-top: 66px;
+  }
+
+  .manifestoHeader h2 {
+    font-size: clamp(2.75rem, 13vw, 4rem);
+  }
+
+  .manifestoHeader > p {
+    font-size: 15px;
+  }
+
+  .impactRows {
+    padding-bottom: 72px;
+  }
+
+  .impactRows article {
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 17px;
+    padding: 26px 0;
+  }
+
+  .impactRows svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .impactRows h3 {
+    font-size: 1.5rem;
+  }
+
+  .impactRows p {
+    font-size: 13px;
+  }
+
+  .followInner {
+    gap: 36px;
+    padding-top: 68px;
+    padding-bottom: 74px;
+  }
+
+  .followCopy h2 {
+    font-size: clamp(3rem, 14vw, 4.5rem);
+  }
+
+  .followCopy p {
+    font-size: 15px;
+  }
+
+  .followAction {
+    align-items: stretch;
+  }
+
+  .instagramButtonCompact {
+    min-width: 0;
+  }
+
+  .followAction > span {
+    text-align: center;
+  }
+
+  .footerInner {
+    min-height: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 30px;
+    padding-bottom: 32px;
+  }
+
+  .vektuaLink {
+    font-size: 11px;
+  }
+}
+
+@media (pointer: coarse) {
+  .hostLink,
+  .headerSocial,
+  .vektuaLink {
+    min-height: 44px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hostLink svg,
+  .headerSocial svg,
+  .vektuaLink svg,
   .instagramButton,
   .externalIcon,
-  .secondaryLink svg,
   .videoPlayIcon {
     transition: none;
   }
 
+  .hostLink:hover svg,
+  .headerSocial:hover svg,
+  .vektuaLink:hover svg,
   .instagramButton:hover,
   .instagramButton:active,
   .instagramButton:hover .externalIcon,
-  .secondaryLink:hover svg,
   .videoPlay:hover .videoPlayIcon {
     transform: none;
   }
