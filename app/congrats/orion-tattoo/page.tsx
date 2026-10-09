@@ -1,133 +1,171 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowUpRight, Sparkles } from 'lucide-react';
 import ResponsiveImage from '@/components/responsive-image';
-import { BrandFooter, BrandHeader } from '@/components/brand-shell-v2';
 import styles from './orion-tattoo.module.css';
 
 const heroDesktop = '/images/campaigns/orion-tattoo/orion-tattoo-hero-desktop.avif';
 const heroMobile = '/images/campaigns/orion-tattoo/orion-tattoo-hero-mobile.avif';
 
 export const metadata: Metadata = {
-  title: 'Orion Tattoo — obrigado por apoiar arte local',
+  title: { absolute: 'Oiee! | Orion Tattoo — Arte, Pele e Liberdade' },
   description:
-    'Uma mensagem da Orion Tattoo, da artista Laura e da Vektua XYZ para quem escolhe apoiar arte local independente.',
+    'Um carinho da Orion Tattoo para você. Conheça a mensagem da Laura e celebre a arte que nasce de uma ideia e ganha vida na pele.',
+  icons: { icon: [{ url: '/images/campaigns/orion-tattoo/orion-tattoo-icon.svg', type: 'image/svg+xml' }] },
   openGraph: {
-    title: 'Orion Tattoo — arte na pele, liberdade no traço',
+    siteName: 'Orion Tattoo',
+    title: 'Oiee! Um carinho da Orion Tattoo',
     description:
-      'Parabéns por apoiar uma artista local independente e ajudar a manter a arte autoral em movimento.',
+      'Arte, pele e liberdade: uma mensagem especial da Orion Tattoo e da Laura para você.',
   },
 };
 
 export default function OrionTattooCongratsPage() {
   return (
-    <>
-      <BrandHeader />
-      <main id="conteudo" tabIndex={-1} className={styles.page}>
-        <section className={styles.hero} aria-labelledby="orion-title">
+    <div className={styles.campaign}>
+      <a className={styles.skipLink} href="#conteudo">Pular para a mensagem</a>
+
+      <header className={styles.studioHeader}>
+        <div className={`container ${styles.headerInner}`}>
+          <a className={styles.studioMark} href="#conteudo" aria-label="Orion Tattoo — voltar ao início desta página">
+            <span>ORION</span>
+            <span>TATTOO</span>
+            <Sparkles size={19} strokeWidth={1.7} aria-hidden="true" />
+          </a>
+          <span className={styles.headerMotto}>Arte <i /> Pele <i /> Liberdade</span>
+        </div>
+      </header>
+
+      <main id="conteudo" tabIndex={-1}>
+        <section className={styles.hero} aria-labelledby="orion-hero-title">
+
+          <div className={`container ${styles.heroInner}`}>
+            <div className={styles.heroCopy}>
+              <p className={styles.hello}>Oiee!</p>
+              <h1 id="orion-hero-title">
+                A arte fica mais bonita quando <em>encontra você.</em>
+              </h1>
+              <p className={styles.heroLead}>
+                Parabéns por valorizar o trabalho da Laura e fazer parte da história da Orion Tattoo.
+                Este pequeno presente é nossa forma de dizer <strong>obrigada!</strong>
+              </p>
+              <a className={styles.heroExplore} href="#arte-na-pele">
+                Descubra o que ele celebra
+                <ArrowDown size={19} aria-hidden="true" />
+              </a>
+            </div>
+          </div>
           <picture className={styles.heroArtwork}>
             <source srcSet={heroMobile} media="(max-width: 1040px)" type="image/avif" />
             <ResponsiveImage
               src={heroDesktop}
-              alt="Ilustração Orion Tattoo: musa de cabelos azuis, lua, estrelas douradas e a assinatura visual do estúdio."
+              alt="Musa ilustrada da Orion Tattoo com cabelos azuis esvoaçantes, estrelas douradas, uma lua e o nome do estúdio."
               width={1440}
               height={811}
-              loading="eager"
               fetchPriority="high"
+              loading="eager"
             />
           </picture>
-          <div className={`container ${styles.heroInner}`}>
-            <div className={styles.heroCopy}>
-              <h1 id="orion-title">
-                Você faz a <span>arte continuar.</span>
-              </h1>
-              <p className={styles.lead}>
-                Parabéns por apoiar a Laura, artista independente à frente da Orion Tattoo.
-                Este ímã celebra muito mais que um presente: a liberdade de criar, de se
-                expressar e de transformar histórias em arte na pele.
-              </p>
-              <p className={styles.heroThanks}>Obrigada por fazer parte dessa história.</p>
-              <div className={styles.heroMeta} aria-label="Campanha Orion Tattoo">
-                <strong>Orion Tattoo</strong>
-                <span>Laura · artista independente</span>
-              </div>
-            </div>
-          </div>
         </section>
 
-        <section className={styles.supportSection} aria-labelledby="support-title">
-          <div className={`container ${styles.supportInner}`}>
-            <div className={styles.supportLead}>
-              <h2 id="support-title">Parabéns por escolher arte independente.</h2>
+        <section id="arte-na-pele" className={styles.artSection} aria-labelledby="art-title">
+          <div className={`container ${styles.artGrid}`}>
+            <div className={styles.artIntroduction}>
+              <Sparkles className={styles.artSparkle} size={45} strokeWidth={1.4} aria-hidden="true" />
+              <h2 id="art-title">Uma ideia. Um desenho. <span>Uma parte de você.</span></h2>
+            </div>
+            <div className={styles.artStory}>
               <p>
-                Seu brinde de fim de ano é um pequeno lembrete de uma escolha grande: colocar valor em quem cria,
-                estuda, desenha e atende de perto — sem transformar arte em produto genérico.
+                Existem obras de arte que a gente admira na parede. Outras, a gente escolhe levar na pele.
+              </p>
+              <p>
+                Cada tatuagem começa com algo que faz sentido para alguém: uma lembrança,
+                um sentimento, uma paixão ou simplesmente a liberdade de ser quem se é.
+                Com o desenho, essas ideias encontram forma; na pele, encontram um lugar só delas.
+              </p>
+              <p className={styles.artAside}>Arte que acompanha você — do seu jeito.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.inkSection} aria-labelledby="ink-title">
+          <div className={`container ${styles.inkInner}`}>
+            <h2 id="ink-title">Não é só tinta. <span>É expressão.</span></h2>
+            <div className={styles.inkJourney}>
+              <article>
+                <span className={styles.journeyStar} aria-hidden="true"><Sparkles size={21} strokeWidth={1.7} /></span>
+                <h3>A ideia</h3>
+                <p>Um detalhe, um símbolo ou uma história que merece ganhar forma.</p>
+              </article>
+              <article>
+                <span className={styles.journeyStar} aria-hidden="true"><Sparkles size={21} strokeWidth={1.7} /></span>
+                <h3>O traço</h3>
+                <p>O encontro entre imaginação, desenho e o olhar de quem cria.</p>
+              </article>
+              <article>
+                <span className={styles.journeyStar} aria-hidden="true"><Sparkles size={21} strokeWidth={1.7} /></span>
+                <h3>A pele</h3>
+                <p>Uma tela viva, única, que leva a obra e seu significado por onde você for.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.lauraSection} aria-labelledby="laura-title">
+          <div className={`container ${styles.lauraInner}`}>
+            <div className={styles.lauraPortrait} aria-hidden="true">
+              <span>ARTE</span>
+              <span>PELE</span>
+              <span>LIBERDADE</span>
+              <Sparkles size={58} strokeWidth={1.25} />
+            </div>
+            <div className={styles.lauraText}>
+              <p className={styles.lauraHello}>Por trás de cada traço</p>
+              <h2 id="laura-title">Tem o olhar da <strong>Laura.</strong></h2>
+              <p>
+                A Orion Tattoo tem a personalidade de quem vive a arte de perto.
+                Laura dá forma a ideias e faz do desenho um encontro entre estética,
+                significado e a liberdade de cada pessoa se expressar.
+              </p>
+              <p>
+                Seu carinho, sua confiança e cada projeto compartilhado fazem parte dessa história.
+                É isso que queremos celebrar com você hoje.
               </p>
             </div>
-
-            <div className={styles.reasons}>
-              <article>
-                <h3>Arte que vira parte de alguém</h3>
-                <p>
-                  Uma tattoo não termina no desenho. Ela encontra uma história, ocupa a pele e passa a caminhar
-                  junto com quem escolheu carregá-la.
-                </p>
-              </article>
-              <article>
-                <h3>Liberdade para continuar criando</h3>
-                <p>
-                  Apoiar trabalho independente dá espaço para pesquisa, repertório, técnica e novas ideias
-                  continuarem existindo fora do óbvio.
-                </p>
-              </article>
-              <article>
-                <h3>Uma cena local mais viva</h3>
-                <p>
-                  Quando artistas da sua cidade encontram público, o talento permanece por perto, cria conexões
-                  e faz a cultura local circular.
-                </p>
-              </article>
-            </div>
           </div>
         </section>
 
-        <section className={`container ${styles.lauraSection}`} aria-labelledby="laura-title">
-          <div className={styles.lauraName} aria-hidden="true">LAURA</div>
-          <div className={styles.lauraCopy}>
-            <Sparkles size={30} strokeWidth={1.7} aria-hidden="true" />
-            <h2 id="laura-title">Por trás da Orion, existe uma artista.</h2>
+        <section className={styles.thanksSection} aria-labelledby="thanks-title">
+          <div className={`container ${styles.thanksInner}`}>
+            <Sparkles className={styles.thanksStar} size={37} strokeWidth={1.3} aria-hidden="true" />
+            <h2 id="thanks-title">Obrigada por deixar a arte fazer parte da sua história.</h2>
             <p>
-              Laura transforma referência, conversa e intenção em desenho — e desenho em uma marca que passa a
-              fazer parte de outra pessoa. Cada trabalho carrega tempo, escolha estética, técnica e presença.
+              Que este ímã seja uma lembrança do que a Orion Tattoo mais ama:
+              transformar ideias em desenhos, desenhos em arte na pele
+              e pequenos momentos em algo especial.
             </p>
-            <p>
-              Quando você confia esse processo a uma artista independente, não está apenas contratando uma sessão.
-              Está dizendo que trabalho autoral importa — e que liberdade criativa também merece espaço.
-            </p>
-          </div>
-        </section>
-
-        <section className={styles.closingSection} aria-labelledby="closing-title">
-          <div className={`container ${styles.closingInner}`}>
-            <h2 id="closing-title">A arte não termina quando a sessão acaba.</h2>
-            <p>
-              Ela continua na pele, na memória e no espaço que a gente abre para artistas independentes seguirem
-              criando. Que este ímã te lembre disso toda vez que passar por ele.
-            </p>
-            <div className={styles.closingFooter}>
-              <div>
-                <strong>Obrigada por fazer parte dessa história.</strong>
-                <span>Orion Tattoo × Vektua XYZ</span>
-              </div>
-              <Link className={styles.vektuaLink} href="/">
-                Conhecer a Vektua XYZ
-                <ArrowRight size={18} aria-hidden="true" />
-              </Link>
-            </div>
+            <p className={styles.closingSignature}>Com carinho, <strong>Orion Tattoo</strong></p>
           </div>
         </section>
       </main>
-      <BrandFooter />
-    </>
+
+      <footer className={styles.studioFooter}>
+        <div className={`container ${styles.footerInner}`}>
+          <div className={styles.footerOrion}>
+            <strong>ORION TATTOO</strong>
+            <span>Arte <i /> Pele <i /> Liberdade</span>
+          </div>
+          <div className={styles.footerCredit}>
+            <span>Um presente produzido por</span>
+            <Link href="/" aria-label="Conhecer a Vektua XYZ">
+              Vektua XYZ <ArrowUpRight size={15} aria-hidden="true" />
+            </Link>
+          </div>
+          <Link className={styles.backLink} href="/">
+            <ArrowLeft size={16} aria-hidden="true" /> Voltar à Vektua
+          </Link>
+        </div>
+      </footer>
+    </div>
   );
 }

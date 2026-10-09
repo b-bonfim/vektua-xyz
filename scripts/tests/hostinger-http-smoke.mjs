@@ -31,6 +31,7 @@ const campaignImages = [
   '/images/campaigns/blind-rats/blind-rats-badge.svg',
   '/images/campaigns/orion-tattoo/orion-tattoo-hero-desktop.avif',
   '/images/campaigns/orion-tattoo/orion-tattoo-hero-mobile.avif',
+  '/images/campaigns/orion-tattoo/orion-tattoo-icon.svg',
 ];
 const output = { startedAt: new Date().toISOString(), baseURL: base.href, sha: process.env.RELEASE_SHA || null, checks: [], failures: 0 };
 async function check(label, path, isImage) {
@@ -68,6 +69,10 @@ async function check(label, path, isImage) {
       const html = await response.text();
       assert.match(html, /Vektua XYZ/i, `${path}: missing site identity`);
       assert.ok(!html.includes('RSC prefetch setup error'), `${path}: known Vinext error in HTML`);
+      if (path === '/congrats/orion-tattoo') {
+        assert.match(html, /Oiee!/i, 'Orion: Laura greeting missing');
+        assert.ok(!/artista\s+independente/i.test(html), 'Orion: old independent-artist copy still displayed');
+      }
     }
     output.checks.push({ label, path, status: 'PASS' });
     console.log(`PASS ${label} ${path}`);
