@@ -227,6 +227,8 @@
   padding-bottom: clamp(106px, 9vw, 154px);
 }
 
+.artIntroduction { min-width: 0; }
+
 .artSparkle {
   margin-bottom: 29px;
   color: var(--orion-gold);
