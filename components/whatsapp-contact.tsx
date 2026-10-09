@@ -1,7 +1,17 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
 import { MessageCircle } from 'lucide-react';
 import { WHATSAPP_URL } from '@/lib/whatsapp';
 
 export function WhatsAppContact() {
+  const pathname = usePathname();
+
+  // Client-led campaign microsurface: don't overlay a Vektua commerce CTA on Orion artwork.
+  if (pathname === '/congrats/orion-tattoo' || pathname === '/congrats/orion-tattoo/') {
+    return null;
+  }
+
   return (
     <a
       className="whatsapp-contact"
