@@ -450,11 +450,10 @@
   }
 
   .lauraName {
-    font-size: clamp(7.2rem, 13.5vw, 12rem);
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    justify-self: center;
-    line-height: 0.8;
+    font-size: clamp(7rem, 9.5vw, 9.5rem);
+    justify-self: start;
+    line-height: 0.78;
+    white-space: nowrap;
   }
 
   .lauraCopy h2 {
