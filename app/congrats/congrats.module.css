@@ -24,7 +24,7 @@
   left: 20px;
   padding: 11px 16px;
   border: 1px solid #ffffff;
-  background: var(--br-red);
+  background: #e30613;
   color: #ffffff;
   font-size: 13px;
   font-weight: 750;
@@ -36,6 +36,9 @@
 }
 
 .campaignHeader {
+  --br-red: #e30613;
+  --br-black: #0d0d0d;
+  --br-paper: #f0eadf;
   position: sticky;
   top: 0;
   z-index: 40;
@@ -526,6 +529,8 @@
 }
 
 .campaignFooter {
+  --br-black: #0d0d0d;
+  --br-paper: #f0eadf;
   background: var(--br-black);
   color: var(--br-paper);
 }
