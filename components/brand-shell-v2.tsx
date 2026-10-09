@@ -14,6 +14,11 @@ export function BrandLogo({ light = false }: { light?: boolean }) {
 export function BrandHeader() {
   const path = usePathname() || '/';
   const isCampaign = path.startsWith('/congrats/');
+  const campaignLabel = path.startsWith('/congrats/blind-rats')
+    ? 'Blind Rats · agradecimento especial'
+    : path.startsWith('/congrats/orion-tattoo')
+      ? 'Orion Tattoo · arte na pele e liberdade'
+      : 'Agradecimento especial';
   const { items } = useCart();
   const quantity = items.reduce((sum, item) => sum + item.quantity, 0);
   const menuRef = useRef<HTMLDetailsElement>(null);
@@ -35,7 +40,7 @@ export function BrandHeader() {
     <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <div className="demo-strip">
       <span>Vektua XYZ · Objetos com personalidade</span>
-      <span>{isCampaign ? 'Blind Rats · agradecimento especial' : 'Carrinho ativo · pedidos pelo WhatsApp · sem pagamento no site'}</span>
+      <span>{isCampaign ? campaignLabel : 'Carrinho ativo · pedidos pelo WhatsApp · sem pagamento no site'}</span>
     </div>
     <header className="site-header">
       <div className="header-inner">
