@@ -646,3 +646,173 @@
   .headerSocial:hover svg:last-child { transform: none; }
   .instagramButton:hover { transform: none; }
 }
+
+
+/* Orion motion grammar: an ink stroke, progressive scroll storytelling and a
+   narrow reading-progress line. Nothing is hidden unless JS has initialized. */
+.studioHeader::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 2px;
+  z-index: 1;
+  background: var(--orion-blue);
+  transform: scaleX(var(--orion-scroll-progress, 0));
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.hello {
+  position: relative;
+}
+
+.hello::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 12%;
+  right: 5%;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--orion-gold);
+  transform-origin: left center;
+  transform: rotate(-2deg);
+  pointer-events: none;
+}
+
+.studioMark img {
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.studioMark:hover img,
+.studioMark:focus-visible img {
+  transform: scale(1.035);
+}
+
+.instagramButton svg:last-child,
+.footerInstagram svg:last-child {
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.instagramButton:hover svg:last-child,
+.instagramButton:focus-visible svg:last-child,
+.footerInstagram:hover svg:last-child,
+.footerInstagram:focus-visible svg:last-child {
+  transform: translate3d(2px, -2px, 0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hello {
+    animation: orion-hello-arrival 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .hello::after {
+    animation: orion-ink-stroke 780ms cubic-bezier(0.16, 1, 0.3, 1) 170ms both;
+  }
+
+  /* Ink emerges from the paper rather than repeating the same card fade. */
+  .campaign[data-orion-motion="ready"] [data-orion-reveal="ink"] {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: translate3d(0, 0, 0);
+    transition:
+      opacity 680ms cubic-bezier(0.16, 1, 0.3, 1),
+      clip-path 740ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 740ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .campaign[data-orion-motion="ready"] [data-orion-reveal="ink"]:not([data-orion-visible="true"]) {
+    opacity: 0.16;
+    clip-path: inset(0 0 22% 0);
+    transform: translate3d(0, 18px, 0);
+  }
+
+  /* The three tattoo-making steps enter as one deliberate sequence. */
+  .campaign[data-orion-motion="ready"] [data-orion-reveal="sequence"] article {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition:
+      opacity 560ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 560ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .campaign[data-orion-motion="ready"] [data-orion-reveal="sequence"] article:nth-child(2) {
+    transition-delay: 85ms;
+  }
+
+  .campaign[data-orion-motion="ready"] [data-orion-reveal="sequence"] article:nth-child(3) {
+    transition-delay: 170ms;
+  }
+
+  .campaign[data-orion-motion="ready"] [data-orion-reveal="sequence"]:not([data-orion-visible="true"]) article {
+    opacity: 0.08;
+    transform: translate3d(0, 15px, 0);
+  }
+
+  /* The thank-you letter arrives gently; the Instagram link remains accessible. */
+  .campaign[data-orion-motion="ready"] [data-orion-reveal="closing"] {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition:
+      opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .campaign[data-orion-motion="ready"] [data-orion-reveal="closing"]:not([data-orion-visible="true"]) {
+    opacity: 0.05;
+    transform: translate3d(0, 12px, 0);
+  }
+}
+
+@media (min-width: 1041px) and (prefers-reduced-motion: no-preference) {
+  .heroArtwork img {
+    transform: translate3d(0, var(--orion-hero-shift, 0px), 0) scale(1.07);
+  }
+}
+
+@keyframes orion-hello-arrival {
+  from {
+    opacity: 0.25;
+    transform: translate3d(0, 10px, 0) rotate(-6deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(-5deg);
+  }
+}
+
+@keyframes orion-ink-stroke {
+  from { transform: rotate(-2deg) scaleX(0); }
+  to { transform: rotate(-2deg) scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .studioMark img,
+  .instagramButton svg:last-child,
+  .footerInstagram svg:last-child {
+    transition: none;
+  }
+
+  .studioMark:hover img,
+  .studioMark:focus-visible img,
+  .instagramButton:hover svg:last-child,
+  .instagramButton:focus-visible svg:last-child,
+  .footerInstagram:hover svg:last-child,
+  .footerInstagram:focus-visible svg:last-child {
+    transform: none;
+  }
+
+  .heroArtwork img { transform: none; }
+}
+
+@media print {
+  .campaign [data-orion-reveal] {
+    opacity: 1 !important;
+    clip-path: none !important;
+    transform: none !important;
+  }
+
+  .studioHeader::after { display: none; }
+  .heroArtwork img { transform: none !important; }
+}

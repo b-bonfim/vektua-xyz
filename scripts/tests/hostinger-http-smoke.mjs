@@ -79,6 +79,10 @@ async function check(label, path, isImage) {
         assert.ok(!/artista\s+independente/i.test(html), 'Orion: old independent-artist copy still displayed');
         assert.ok(!/lucide-sparkles/i.test(html), 'Orion: unwanted sparkle icons found');
         assert.ok(html.includes('orion-tattoo-round-header.webp'), 'Orion: header logo is missing');
+        assert.match(html, /id="orion-campaign"/, 'Orion: motion scope is missing');
+        assert.match(html, /data-orion-reveal="ink"/, 'Orion: artwork reveal marker is missing');
+        assert.match(html, /data-orion-reveal="sequence"/, 'Orion: storytelling sequence marker is missing');
+        assert.match(html, /data-orion-reveal="closing"/, 'Orion: closing reveal marker is missing');
         assert.ok(html.includes('instagram.com/oriontattoo.404/'), 'Orion: official Instagram profile link missing');
         assert.match(html, /@oriontattoo\.404/i, 'Orion: Instagram handle missing');
         assert.match(html, /Me acompanha no Instagram/i, 'Orion: first-person Instagram CTA missing');
