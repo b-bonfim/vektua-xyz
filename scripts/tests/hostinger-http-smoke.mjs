@@ -24,7 +24,7 @@ const paths = [
   '/', '/busca', '/objetos-colecionaveis', '/datas-colecoes',
   '/feitos-para-voce', '/chaveiros', '/produto/g-chv-blo-01',
   '/produto/g-org-rc-01', '/carrinho', '/congrats/blind-rats',
-  '/politicas/privacidade', '/politicas/entrega',
+  '/congrats/orion-tattoo', '/politicas/privacidade', '/politicas/entrega',
   '/politicas/trocas-devolucoes', '/politicas/termos',
 ];
 const campaignImages = ['/images/campaigns/blind-rats/blind-rats-badge.svg'];
