@@ -938,6 +938,41 @@
   to { transform: rotate(-2deg) scaleX(1); }
 }
 
+/* On phones each scroll chapter becomes a distinct cobalt ink panel. */
+@media (max-width: 720px) {
+  .inkJourney { gap: 22px; }
+
+  .inkJourney article {
+    position: relative;
+    isolation: isolate;
+    min-height: 210px;
+    padding: 34px 24px 30px;
+    overflow: hidden;
+    border-top: 2px solid rgba(255,255,255,.54);
+    background: #102c47;
+  }
+
+  .inkJourney article:nth-child(2) { background: #0b3f76; }
+  .inkJourney article:nth-child(3) { background: var(--orion-blue); }
+
+  .inkJourney article::before {
+    position: absolute;
+    top: 0;
+    right: 12px;
+    z-index: -1;
+    color: rgba(255,255,255,.12);
+    font-size: clamp(6rem, 20vw, 8rem);
+    font-weight: 800;
+    letter-spacing: -.04em;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .inkJourney article:nth-child(1)::before { content: '01'; }
+  .inkJourney article:nth-child(2)::before { content: '02'; }
+  .inkJourney article:nth-child(3)::before { content: '03'; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .studioMark img,
   .instagramButton svg:last-child,
