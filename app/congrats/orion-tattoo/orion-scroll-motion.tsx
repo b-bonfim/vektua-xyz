@@ -69,18 +69,18 @@ export function OrionScrollMotion() {
       }
 
       if (stage && pinned.matches) {
-        root.dataset.orionStage = 'pinned';
+        if (root.dataset.orionStage !== 'pinned') root.dataset.orionStage = 'pinned';
         const rect = stage.getBoundingClientRect();
         const header = root.querySelector<HTMLElement>('header');
         const top = header?.getBoundingClientRect().height ?? 104;
         const scrollLength = Math.max(1, rect.height - window.innerHeight);
         const progress = clamp((top - rect.top) / scrollLength);
         const step = progress < 1 / 3 ? 0 : progress < 2 / 3 ? 1 : 2;
-        stage.dataset.orionStep = String(step);
+        if (stage.dataset.orionStep !== String(step)) stage.dataset.orionStep = String(step);
         stage.style.setProperty('--orion-stage-progress', progress.toFixed(4));
       } else {
-        root.removeAttribute('data-orion-stage');
-        stage?.removeAttribute('data-orion-step');
+        if (root.hasAttribute('data-orion-stage')) root.removeAttribute('data-orion-stage');
+        if (stage?.hasAttribute('data-orion-step')) stage.removeAttribute('data-orion-step');
         stage?.style.removeProperty('--orion-stage-progress');
       }
     };
