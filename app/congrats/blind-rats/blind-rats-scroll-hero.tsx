@@ -70,6 +70,8 @@ export default function BlindRatsScrollHero({ instagram }: { instagram: string }
         return;
       }
 
+      if (Math.abs(video.currentTime - next) < 0.01) return;
+
       seekBusy = true;
       try {
         video.currentTime = next;
@@ -190,8 +192,14 @@ export default function BlindRatsScrollHero({ instagram }: { instagram: string }
       if (scrubOn) return;
       scrubOn = true;
       setScrubEnabled(true);
-      updateBands(heroProgress());
-      void loadHeroOnce();
+      const progress = heroProgress();
+      updateBands(progress);
+      if (video.readyState >= 1 && Number.isFinite(video.duration) && video.duration > 0) {
+        setVideoReady(true);
+        requestSeek(progress * video.duration);
+      } else {
+        void loadHeroOnce();
+      }
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
     };
