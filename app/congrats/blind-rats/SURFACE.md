@@ -51,3 +51,16 @@ The scroll experience is deliberately more theatrical. On capable browsers and w
 The manifesto is restructured as a two-column chapter system. Its statement stays sticky while each supporting point occupies a substantial portion of the viewport and enters from alternating directions with scale and rotation. On smaller viewports the layout returns to one column but preserves the stronger chapter entrances.
 
 The closing red section uses a view-linked clip-path takeover and content scale-in so the final Instagram CTA arrives as a distinct scene change rather than another static section. All choreography falls back to the readable static layout when scroll-driven animation is unsupported, and is removed under `prefers-reduced-motion`.
+
+
+## Cinematic scrub implementation
+
+The founder requested the supplied Site de 10K scroll-scrub method as the new interaction reference. This route keeps the existing Next.js architecture, but adopts the proven scrub pipeline rather than converting the campaign into standalone HTML.
+
+The first scene is now a long scroll stage. On capable landscape desktop screens, the existing Blind Rats campaign MP4 is fetched as a Blob and assigned through an object URL, so seeking does not depend on HTTP Range support. Scroll progress maps to video time through a frame-rate-normalized requestAnimationFrame loop. Seeks are locked so only one seek can be in flight, with one coalesced follow-up target.
+
+Four caption bands own explicit progress ranges and are updated only when their opacity or transform values change. The first band starts settled. The final band remains settled at the end of the journey.
+
+The five static gates match the Site de 10K reference in CSS and JavaScript: narrow phones, portrait tablets, portrait coarse pointers, short landscape coarse-pointer screens and reduced motion. These visitors receive a designed static Blind Rats hero and the scrub video is not requested. The page also stays complete if the video fetch fails.
+
+The source MP4 already in the repository is reused for this first implementation and is muted in the scrub because the scrub layer is decorative. The same source remains available below the hero as the explicit user-triggered message with audio.

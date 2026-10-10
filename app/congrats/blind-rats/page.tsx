@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Heart, MapPin, Music2 } from 'lucide-react';
 import ResponsiveImage from '@/components/responsive-image';
+import BlindRatsScrollHero from './blind-rats-scroll-hero';
 import BlindRatsVideo from './blind-rats-video';
 import styles from '../congrats.module.css';
 
@@ -12,10 +13,10 @@ const campaign = {
 };
 
 export const metadata: Metadata = {
-  title: 'Blind Rats — obrigado por apoiar a cena local',
+  title: 'Blind Rats | obrigado por apoiar a cena local',
   description: 'Uma mensagem da Blind Rats e da Vektua XYZ para quem escolheu apoiar uma banda local independente.',
   openGraph: {
-    title: 'Blind Rats — obrigado por apoiar a cena local',
+    title: 'Blind Rats | obrigado por apoiar a cena local',
     description: 'Você levou mais que um chaveiro: levou um pedaço da cena local com você.',
   },
 };
@@ -49,7 +50,7 @@ export default function BlindRatsCongratsPage() {
             <span>Vektua XYZ</span>
           </Link>
 
-          <Link className={styles.campaignBrand} href="#conteudo" aria-label="Blind Rats — início da página">
+          <Link className={styles.campaignBrand} href="#conteudo" aria-label="Blind Rats, início da página">
             <ResponsiveImage src={campaign.art} alt="Blind Rats" width={72} height={66} fetchPriority="high" />
           </Link>
 
@@ -69,34 +70,21 @@ export default function BlindRatsCongratsPage() {
       <div className={styles.scrollProgress} aria-hidden="true" />
 
       <main id="conteudo" tabIndex={-1} className={styles.page}>
-        <section className={styles.hero} aria-labelledby="blind-rats-title">
-          <div className={`container ${styles.heroGrid}`}>
-            <div className={styles.heroCopy}>
-              <h1 id="blind-rats-title">
-                Você apoiou uma cena.
-                <span>Valeu por fazer parte dela.</span>
-              </h1>
+        <BlindRatsScrollHero instagram={campaign.instagram} />
 
-              <p className={styles.lead}>
-                Este chaveiro da Blind Rats é uma peça pequena com um gesto grande: apoiar uma banda local
-                independente. Obrigado por levar esse som com você.
+        <section className={styles.messageSection} aria-labelledby="message-title">
+          <div className={`container ${styles.messageGrid}`}>
+            <div className={styles.messageCopy}>
+              <span className={styles.messageEyebrow}>Recado da banda</span>
+              <h2 id="message-title">Agora dá o play.</h2>
+              <p>
+                O scroll conta a história sem som. Aqui, o recado da Blind Rats continua com áudio quando você pedir.
               </p>
-
-              <div className={styles.heroActions}>
-                <InstagramButton />
-              </div>
-
-              <p className={styles.signature}>Blind Rats × Vektua XYZ</p>
             </div>
 
-            <figure className={styles.heroArtwork}>
-              <div className={styles.heroArtworkFrame}>
-                <BlindRatsVideo />
-              </div>
-              <figcaption className={styles.heroCaption}>
-                <strong>Recado da Blind Rats</strong>
-                <span>10 segundos · com áudio</span>
-              </figcaption>
+            <figure className={styles.messageVideo}>
+              <BlindRatsVideo />
+              <figcaption>10 segundos · com áudio</figcaption>
             </figure>
           </div>
         </section>
@@ -108,8 +96,8 @@ export default function BlindRatsCongratsPage() {
                 Apoiar artista local faz a cena continuar <span>em movimento.</span>
               </h2>
               <p>
-                Não é só sobre levar uma peça para casa. É sobre escolher quem cria perto de você e ajudar essa
-                história a seguir circulando.
+                Escolher quem cria perto de você ajuda essa história a seguir circulando. O chaveiro vira uma lembrança
+                física desse gesto.
               </p>
             </div>
 
