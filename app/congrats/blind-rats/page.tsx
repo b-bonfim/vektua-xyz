@@ -77,9 +77,6 @@ export default function BlindRatsCongratsPage() {
             <div className={styles.messageCopy}>
               <span className={styles.messageEyebrow}>Recado da banda</span>
               <h2 id="message-title">Agora dá o play.</h2>
-              <p>
-                O scroll conta a história sem som. Aqui, o recado da Blind Rats continua com áudio quando você pedir.
-              </p>
             </div>
 
             <figure className={styles.messageVideo}>

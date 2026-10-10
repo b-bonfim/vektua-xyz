@@ -1630,14 +1630,6 @@
   text-transform: uppercase;
 }
 
-.messageCopy p {
-  max-width: 42ch;
-  margin: 26px 0 0;
-  color: #bdb5aa;
-  font-size: 15px;
-  line-height: 1.72;
-}
-
 .messageVideo {
   margin: 0;
 }
