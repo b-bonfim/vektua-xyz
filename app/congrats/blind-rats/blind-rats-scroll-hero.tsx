@@ -169,7 +169,10 @@ export default function BlindRatsScrollHero({ instagram }: { instagram: string }
         const response = await fetch(VIDEO_SRC, { signal: controller.signal });
         if (!response.ok) throw new Error('video fetch failed');
         const blob = await response.blob();
-        if (disposed || !scrubOn) return;
+        if (disposed || !scrubOn) {
+          loadStarted = false;
+          return;
+        }
 
         objectUrl = URL.createObjectURL(blob);
         video.src = objectUrl;
@@ -195,12 +198,12 @@ export default function BlindRatsScrollHero({ instagram }: { instagram: string }
 
     const disableScrub = () => {
       if (!scrubOn) {
-        setScrubEnabled(false);
+        if (!disposed) setScrubEnabled(false);
         return;
       }
 
       scrubOn = false;
-      setScrubEnabled(false);
+      if (!disposed) setScrubEnabled(false);
       window.removeEventListener('scroll', onScroll);
       controller?.abort();
       if (rafId !== null) {
