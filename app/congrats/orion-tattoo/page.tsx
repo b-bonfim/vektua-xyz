@@ -104,7 +104,7 @@ export default function OrionTattooCongratsPage() {
               </a>
             </div>
           </div>
-          <picture className={styles.heroArtwork}>
+          <picture className={styles.heroArtwork} data-orion-reveal="hero-art">
             <source srcSet={heroMobile} media="(max-width: 1040px)" type="image/avif" />
             <ResponsiveImage
               src={heroDesktop}
@@ -122,7 +122,7 @@ export default function OrionTattooCongratsPage() {
             <div className={styles.artIntroduction} data-orion-reveal="ink">
               <h2 id="art-title">Eu acredito que cada pele <span>conta uma história.</span></h2>
             </div>
-            <div className={styles.artStory}>
+            <div className={styles.artStory} data-orion-reveal="story">
               <p>
                 Tem obra de arte que mora na parede. Eu adoro a ideia de criar
                 desenhos que possam acompanhar você por onde for.
@@ -138,23 +138,24 @@ export default function OrionTattooCongratsPage() {
           </div>
         </section>
 
-        <section className={styles.inkSection} aria-labelledby="ink-title">
+        <section className={styles.inkSection} data-orion-stage="true" aria-labelledby="ink-title">
           <div className={`container ${styles.inkInner}`}>
             <h2 id="ink-title">Cada tatuagem tem seu jeito. <span>E eu adoro isso.</span></h2>
             <div className={styles.inkJourney} data-orion-reveal="sequence">
-              <article>
+              <article data-orion-reveal="chapter">
                 <h3>Eu escuto</h3>
                 <p>Quero entender a sua ideia, seja ela cheia de significado ou só uma vontade gostosa de se expressar.</p>
               </article>
-              <article>
+              <article data-orion-reveal="chapter">
                 <h3>Eu desenho</h3>
                 <p>Gosto de dar forma a essas ideias com linhas, detalhes e um olhar artístico para cada composição.</p>
               </article>
-              <article>
+              <article data-orion-reveal="chapter">
                 <h3>A arte acompanha você</h3>
                 <p>Quando o desenho encontra a pele, deixa o estúdio e segue vivendo a sua história junto com você.</p>
               </article>
             </div>
+            <p className={styles.scrollHint}>Continue rolando para acompanhar cada etapa</p>
           </div>
         </section>
 
