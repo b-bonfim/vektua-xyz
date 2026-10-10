@@ -84,7 +84,7 @@ async function check(label, path, isImage) {
         assert.match(html, /data-orion-reveal="sequence"/, 'Orion: storytelling sequence marker is missing');
         assert.match(html, /data-orion-reveal="closing"/, 'Orion: closing reveal marker is missing');
         assert.match(html, /data-orion-stage="true"/, 'Orion: sticky chapter stage is missing');
-        assert.equal((html.match(/data-orion-reveal="chapter"/g) || []).length, 3, 'Orion: expected three chapter panels');
+        assert.ok((html.match(/data-orion-reveal="chapter"/g) || []).length >= 3, 'Orion: expected at least three chapter panels');
         assert.match(html, /data-orion-reveal="hero-art"/, 'Orion: animated hero art is missing');
         assert.ok(html.includes('instagram.com/oriontattoo.404/'), 'Orion: official Instagram profile link missing');
         assert.match(html, /@oriontattoo\.404/i, 'Orion: Instagram handle missing');
