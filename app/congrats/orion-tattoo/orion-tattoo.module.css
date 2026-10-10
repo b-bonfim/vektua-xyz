@@ -648,23 +648,22 @@
 }
 
 
-/* Orion motion grammar: an ink stroke, progressive scroll storytelling and a
-   narrow reading-progress line. Nothing is hidden unless JS has initialized. */
+/* The chapter sequence is intentionally dramatic. The rest of the page
+   remains quiet, in the Orion ink/paper palette. No new illustration or stars. */
+
 .studioHeader::after {
   content: '';
   position: absolute;
   inset: auto 0 -1px;
-  height: 2px;
   z-index: 1;
+  height: 4px;
   background: var(--orion-blue);
   transform: scaleX(var(--orion-scroll-progress, 0));
   transform-origin: left center;
   pointer-events: none;
 }
 
-.hello {
-  position: relative;
-}
+.hello { position: relative; }
 
 .hello::after {
   content: '';
@@ -686,7 +685,7 @@
 
 .studioMark:hover img,
 .studioMark:focus-visible img {
-  transform: scale(1.035);
+  transform: scale(1.045);
 }
 
 .instagramButton svg:last-child,
@@ -701,6 +700,8 @@
   transform: translate3d(2px, -2px, 0);
 }
 
+.scrollHint { display: none; }
+
 @media (prefers-reduced-motion: no-preference) {
   .hello {
     animation: orion-hello-arrival 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -710,76 +711,226 @@
     animation: orion-ink-stroke 780ms cubic-bezier(0.16, 1, 0.3, 1) 170ms both;
   }
 
-  /* Ink emerges from the paper rather than repeating the same card fade. */
-  .campaign[data-orion-motion="ready"] [data-orion-reveal="ink"] {
+  /* The illustration is a sheet of tattoo art sliding into view on phones. */
+  .campaign[data-orion-motion="ready"] [data-orion-reveal="hero-art"] {
     opacity: 1;
     clip-path: inset(0 0 0 0);
+    transition:
+      opacity 840ms cubic-bezier(0.16, 1, 0.3, 1),
+      clip-path 1040ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .campaign[data-orion-motion="ready"] [data-orion-reveal="hero-art"]:not([data-orion-visible="true"]) {
+    opacity: 0.3;
+    clip-path: inset(17% 0 0 0);
+  }
+
+  /* The tattoo idea is uncovered from opposing sides of the paper. */
+  .campaign[data-orion-motion="ready"] [data-orion-reveal="ink"],
+  .campaign[data-orion-motion="ready"] [data-orion-reveal="story"] {
+    opacity: 1;
+    clip-path: inset(0);
     transform: translate3d(0, 0, 0);
     transition:
-      opacity 680ms cubic-bezier(0.16, 1, 0.3, 1),
-      clip-path 740ms cubic-bezier(0.16, 1, 0.3, 1),
-      transform 740ms cubic-bezier(0.16, 1, 0.3, 1);
+      opacity 760ms cubic-bezier(0.16, 1, 0.3, 1),
+      clip-path 860ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 860ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .campaign[data-orion-motion="ready"] [data-orion-reveal="ink"]:not([data-orion-visible="true"]) {
-    opacity: 0.16;
-    clip-path: inset(0 0 22% 0);
-    transform: translate3d(0, 18px, 0);
+    opacity: 0.12;
+    clip-path: inset(0 18% 0 0);
+    transform: translate3d(-78px, 0, 0);
   }
 
-  /* The three tattoo-making steps enter as one deliberate sequence. */
-  .campaign[data-orion-motion="ready"] [data-orion-reveal="sequence"] article {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-    transition:
-      opacity 560ms cubic-bezier(0.16, 1, 0.3, 1),
-      transform 560ms cubic-bezier(0.16, 1, 0.3, 1);
+  .campaign[data-orion-motion="ready"] [data-orion-reveal="story"]:not([data-orion-visible="true"]) {
+    opacity: 0.12;
+    clip-path: inset(0 0 0 15%);
+    transform: translate3d(64px, 0, 0);
   }
 
-  .campaign[data-orion-motion="ready"] [data-orion-reveal="sequence"] article:nth-child(2) {
-    transition-delay: 85ms;
-  }
-
-  .campaign[data-orion-motion="ready"] [data-orion-reveal="sequence"] article:nth-child(3) {
-    transition-delay: 170ms;
-  }
-
-  .campaign[data-orion-motion="ready"] [data-orion-reveal="sequence"]:not([data-orion-visible="true"]) article {
-    opacity: 0.08;
-    transform: translate3d(0, 15px, 0);
-  }
-
-  /* The thank-you letter arrives gently; the Instagram link remains accessible. */
+  /* The personal note is unveiled like the final sheet of artwork. */
   .campaign[data-orion-motion="ready"] [data-orion-reveal="closing"] {
     opacity: 1;
+    filter: blur(0);
     transform: translate3d(0, 0, 0);
     transition:
-      opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
-      transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+      opacity 840ms cubic-bezier(0.16, 1, 0.3, 1),
+      filter 840ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 840ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .campaign[data-orion-motion="ready"] [data-orion-reveal="closing"]:not([data-orion-visible="true"]) {
-    opacity: 0.05;
-    transform: translate3d(0, 12px, 0);
+    opacity: 0.12;
+    filter: blur(3px);
+    transform: translate3d(0, 62px, 0);
+  }
+
+  .campaign[data-orion-motion="ready"]:not([data-orion-stage="pinned"]) .inkJourney article {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition:
+      opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .campaign[data-orion-motion="ready"]:not([data-orion-stage="pinned"]) .inkJourney article:not([data-orion-visible="true"]) {
+    opacity: 0.12;
+    transform: translate3d(68px, 0, 0);
+  }
+
+  .campaign[data-orion-motion="ready"]:not([data-orion-stage="pinned"]) .inkJourney article:nth-child(2):not([data-orion-visible="true"]) {
+    transform: translate3d(-68px, 0, 0);
+  }
+}
+
+/* A scroll-pinned three-scene editorial sequence replaces the static cards.
+   The stage is activated only by the client on a sufficiently large viewport. */
+@media (min-width: 900px) and (min-height: 650px) and (prefers-reduced-motion: no-preference) {
+  .campaign[data-orion-stage="pinned"] .inkSection {
+    position: relative;
+    height: 310svh;
+    min-height: 2200px;
+  }
+
+  .campaign[data-orion-stage="pinned"] .inkInner {
+    position: sticky;
+    top: 104px;
+    height: calc(100vh - 104px);
+    height: calc(100svh - 104px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 24px;
+    padding-bottom: 54px;
+  }
+
+  .campaign[data-orion-stage="pinned"] .inkInner h2 {
+    position: relative;
+    z-index: 1;
+    max-width: 21ch;
+    margin-bottom: clamp(18px, 4vh, 48px);
+    font-size: clamp(2.5rem, 4.8vw, 4.5rem);
+  }
+
+  .campaign[data-orion-stage="pinned"] .inkJourney {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: clamp(230px, 34vh, 350px);
+    flex: 0 0 auto;
+  }
+
+  .campaign[data-orion-stage="pinned"] .inkJourney article {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    padding: 32px 0 16px;
+    border-top: 2px solid rgba(255,255,255,.4);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(23vw, 34px, 0) rotate(2deg) scale(.94);
+    transition:
+      opacity 340ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 530ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .campaign[data-orion-stage="pinned"] .inkJourney article::before {
+    position: absolute;
+    right: 2%;
+    top: 50%;
+    color: rgba(105,207,255,.11);
+    font-size: clamp(9rem, 23vw, 20rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -.04em;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .campaign[data-orion-stage="pinned"] .inkJourney article:nth-child(1)::before { content: '01'; }
+  .campaign[data-orion-stage="pinned"] .inkJourney article:nth-child(2)::before { content: '02'; }
+  .campaign[data-orion-stage="pinned"] .inkJourney article:nth-child(3)::before { content: '03'; }
+
+  .campaign[data-orion-stage="pinned"] .inkJourney h3 {
+    position: relative;
+    z-index: 1;
+    max-width: 19ch;
+    margin-bottom: 16px;
+    font-size: clamp(3rem, 6vw, 5.2rem);
+    line-height: 1.04;
+  }
+
+  .campaign[data-orion-stage="pinned"] .inkJourney p {
+    position: relative;
+    z-index: 1;
+    max-width: 46ch;
+    color: #e6f0f6;
+    font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+    line-height: 1.6;
+  }
+
+  .campaign[data-orion-stage="pinned"] .inkSection[data-orion-step="0"] article:nth-child(1),
+  .campaign[data-orion-stage="pinned"] .inkSection[data-orion-step="1"] article:nth-child(2),
+  .campaign[data-orion-stage="pinned"] .inkSection[data-orion-step="2"] article:nth-child(3) {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0) rotate(0) scale(1);
+  }
+
+  .campaign[data-orion-stage="pinned"] .inkSection[data-orion-step="1"] article:nth-child(1),
+  .campaign[data-orion-stage="pinned"] .inkSection[data-orion-step="2"] article:nth-child(-n+2) {
+    transform: translate3d(-23vw, -18px, 0) rotate(-2deg) scale(.94);
+  }
+
+  .campaign[data-orion-stage="pinned"] .inkInner::after {
+    content: '';
+    position: absolute;
+    bottom: 28px;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--orion-cyan);
+    transform: scaleX(var(--orion-stage-progress, 0));
+    transform-origin: left center;
+    pointer-events: none;
+  }
+
+  .campaign[data-orion-stage="pinned"] .scrollHint {
+    display: block;
+    margin: 0;
+    color: #d2e8f2;
+    font-size: 12px;
+    font-weight: 650;
+    letter-spacing: .04em;
+  }
+
+  .campaign[data-orion-stage="pinned"] .scrollHint::before {
+    content: '↓';
+    display: inline-block;
+    margin-right: 12px;
+    color: var(--orion-gold);
+    font-size: 17px;
   }
 }
 
 @media (min-width: 1041px) and (prefers-reduced-motion: no-preference) {
   .heroArtwork img {
-    transform: translate3d(0, var(--orion-hero-shift, 0px), 0) scale(1.07);
+    transform: translate3d(0, calc(-1 * var(--orion-hero-shift, 0px)), 0) scale(1.24);
+  }
+
+  .campaign[data-orion-motion="ready"] .heroCopy {
+    transform: translate3d(0, var(--orion-copy-shift, 0px), 0);
   }
 }
 
 @keyframes orion-hello-arrival {
-  from {
-    opacity: 0.25;
-    transform: translate3d(0, 10px, 0) rotate(-6deg);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) rotate(-5deg);
-  }
+  from { opacity: .25; transform: translate3d(0, 12px, 0) rotate(-6deg); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) rotate(-5deg); }
 }
 
 @keyframes orion-ink-stroke {
@@ -790,20 +941,18 @@
 @media (prefers-reduced-motion: reduce) {
   .studioMark img,
   .instagramButton svg:last-child,
-  .footerInstagram svg:last-child {
-    transition: none;
-  }
+  .footerInstagram svg:last-child { transition: none; }
 
   .studioMark:hover img,
   .studioMark:focus-visible img,
   .instagramButton:hover svg:last-child,
   .instagramButton:focus-visible svg:last-child,
   .footerInstagram:hover svg:last-child,
-  .footerInstagram:focus-visible svg:last-child {
-    transform: none;
-  }
+  .footerInstagram:focus-visible svg:last-child,
+  .heroArtwork img,
+  .heroCopy { transform: none; }
 
-  .heroArtwork img { transform: none; }
+  .hello, .hello::after { animation: none; }
 }
 
 @media print {
@@ -811,8 +960,9 @@
     opacity: 1 !important;
     clip-path: none !important;
     transform: none !important;
+    filter: none !important;
   }
 
-  .studioHeader::after { display: none; }
-  .heroArtwork img { transform: none !important; }
+  .studioHeader::after, .inkInner::after { display: none; }
+  .heroArtwork img, .heroCopy { transform: none !important; }
 }
