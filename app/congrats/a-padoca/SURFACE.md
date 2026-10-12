@@ -51,3 +51,13 @@ O ZIP sugere um **MP4 exclusivo controlado pela rolagem**. Como não foi forneci
 - O arquivo original Full HD do Google Flow foi preservado fora do deploy. A cópia otimizada tem menor resolução para limitar os bytes no QR móvel.
 - **Inspeção estática e diff não substituem build Hostinger, teste visual em navegador nem verificação de publicação.**
 - Não executar GitHub Actions.
+
+## Ajuste de experiência mobile — 12/10/2026 (v3)
+- Solicitado pelo Founder: animações mais fortes e carregamento sob demanda nas telas pequenas.
+- Para celulares/telas baixas: fotografia do chaveiro entra com escala e rotação acentuadas; flores e tipografia fazem uma abertura coreografada; scroll movimenta foto, sol e copy; três mensagens alternam conforme a progressão.
+- Nas seções seguintes, título, motivos de apoiar o comércio local, fotos e chamada final entram ao se aproximar da área visível (IntersectionObserver), com movimento reversível apenas no hero.
+- Toda a cópia continua visível por padrão; animação de seção só oculta algo após observador ativo. Foco por teclado força revelação, e reduced-motion deixa conteúdo inteiramente estático.
+- Imagem principal do chaveiro segue eager/high para proteger o LCP; três imagens de galeria usam native loading=lazy, decoding=async e fetchPriority=low; galeria fora da tela usa content-visibility:auto somente nos dispositivos pequenos.
+- MP4 e poster não são buscados em telas pequenas: poster é `data-padoca-poster` no HTML e só vira atributo `poster` no cliente elegível a vídeo desktop. Save-Data também impede animação avançada e vídeo.
+- Fonte de alterações: `app/congrats/a-padoca`; nenhuma alteração nas outras campanhas; sem GitHub Actions ou gastos pagos.
+- Aceite pendente: build da Hostinger, revisão em Android/iOS, escopo de requisições na aba Network (sem MP4/poster no mobile), testes de responsividade e acessibilidade.

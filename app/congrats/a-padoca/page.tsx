@@ -77,7 +77,7 @@ export default function PadocaCongratsPage() {
                 data-padoca-video="true"
                 className={styles.cinematicVideo}
                 preload="none"
-                poster="/images/campaigns/a-padoca/a-padoca-scroll-poster.webp"
+                data-padoca-poster="/images/campaigns/a-padoca/a-padoca-scroll-poster.webp"
                 muted
                 playsInline
                 tabIndex={-1}
@@ -135,11 +135,11 @@ export default function PadocaCongratsPage() {
 
         <section className={styles.letterSection} id="mensagem" aria-labelledby="letter-title">
           <div className={styles.letterInner}>
-            <div className={styles.letterTitle}>
+            <div className={styles.letterTitle} data-padoca-reveal="heading">
               <span className={styles.sketchHeart} aria-hidden="true">♡</span>
               <h2 id="letter-title">Tem carinho que cabe <em>na palma da mão.</em></h2>
             </div>
-            <div className={styles.letterBody}>
+            <div className={styles.letterBody} data-padoca-reveal="copy">
               <p>
                 Que alegria ter você aqui! Esse chaveirinho foi pensado para acompanhar os seus dias
                 e deixar um sorriso pelo caminho.
@@ -155,22 +155,22 @@ export default function PadocaCongratsPage() {
 
         <section className={styles.localSection} aria-labelledby="local-title">
           <div className={styles.localInner}>
-            <div className={styles.localHeading}>
+            <div className={styles.localHeading} data-padoca-reveal="heading">
               <h2 id="local-title">Quando você escolhe um negócio local, <em>a cidade floresce.</em></h2>
               <p>Seu gesto faz diferença para quem cria, trabalha e compartilha seu talento bem pertinho de você.</p>
             </div>
             <div className={styles.reasons}>
-              <article>
+              <article data-padoca-reveal="step">
                 <Heart size={30} aria-hidden="true" strokeWidth={1.8} />
                 <h3>Você valoriza quem faz</h3>
                 <p>Por trás de cada pequeno negócio existem pessoas, escolhas e muito trabalho de verdade.</p>
               </article>
-              <article>
+              <article data-padoca-reveal="step">
                 <MapPin size={30} aria-hidden="true" strokeWidth={1.8} />
                 <h3>Você fortalece o bairro</h3>
                 <p>Comprar de quem está por perto ajuda a manter o comércio e os encontros da nossa comunidade vivos.</p>
               </article>
-              <article>
+              <article data-padoca-reveal="step">
                 <Sparkles size={30} aria-hidden="true" strokeWidth={1.8} />
                 <h3>Você leva algo com história</h3>
                 <p>O artesanal tem o toque de quem pensou, preparou e cuidou de cada etapa.</p>
@@ -181,28 +181,28 @@ export default function PadocaCongratsPage() {
         </section>
 
         <section className={styles.gallerySection} aria-labelledby="gallery-title">
-          <div className={styles.galleryHeading}>
+          <div className={styles.galleryHeading} data-padoca-reveal="heading">
             <h2 id="gallery-title">Pequenos achados. <em>Grandes sorrisos.</em></h2>
             <p>Um pouquinho da coleção de chaveiros que ganhou vida nessa parceria.</p>
           </div>
           <div className={styles.galleryGrid}>
-            <figure className={styles.galleryTall}>
-              <ResponsiveImage src={asset + 'strawberry-pie.webp'} alt="Chaveiro de tortinha com morangos, sobre uma superfície de madeira" width={1000} height={750} loading="lazy" />
+            <figure className={styles.galleryTall} data-padoca-reveal="photo">
+              <ResponsiveImage src={asset + 'strawberry-pie.webp'} alt="Chaveiro de tortinha com morangos, sobre uma superfície de madeira" width={1000} height={750} loading="lazy" decoding="async" fetchPriority="low" sizes="(max-width: 640px) 85vw, (max-width: 1000px) 47vw, 34vw" />
               <figcaption>Um docinho para carregar por aí</figcaption>
             </figure>
-            <figure className={styles.gallerySmall}>
-              <ResponsiveImage src={asset + 'croissant.webp'} alt="Chaveiro em formato de croissant sobre uma mesa" width={1000} height={750} loading="lazy" />
+            <figure className={styles.gallerySmall} data-padoca-reveal="photo">
+              <ResponsiveImage src={asset + 'croissant.webp'} alt="Chaveiro em formato de croissant sobre uma mesa" width={1000} height={750} loading="lazy" decoding="async" fetchPriority="low" sizes="(max-width: 640px) 85vw, (max-width: 1000px) 47vw, 34vw" />
               <figcaption>Detalhes cheios de charme</figcaption>
             </figure>
             <figure className={styles.gallerySmall}>
-              <ResponsiveImage src={asset + 'cookie.webp'} alt="Chaveiro em formato de biscoito" width={1000} height={750} loading="lazy" />
+              <ResponsiveImage src={asset + 'cookie.webp'} alt="Chaveiro em formato de biscoito" width={1000} height={750} loading="lazy" decoding="async" fetchPriority="low" sizes="(max-width: 640px) 85vw, (max-width: 1000px) 47vw, 34vw" />
               <figcaption>Um mimo com personalidade</figcaption>
             </figure>
           </div>
         </section>
 
         <section className={styles.finalSection} aria-labelledby="final-title">
-          <div className={styles.finalInner}>
+          <div className={styles.finalInner} data-padoca-reveal="finale">
             <Flower className={styles.finalFlower} />
             <p className={styles.finalPrelude}>O próximo encontro pode ser ainda mais gostoso.</p>
             <h2 id="final-title">A gente se vê <em>na Padoca!</em></h2>

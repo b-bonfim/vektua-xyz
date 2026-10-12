@@ -26,6 +26,14 @@ export default function PadocaMotion() {
     ];
     const dataSaver =
       (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true;
+    const mobileQuery = window.matchMedia(
+      '(max-width: 879px), (max-height: 599px), (orientation: portrait) and (pointer: coarse)',
+    );
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const revealTargets = Array.from(root.querySelectorAll<HTMLElement>('[data-padoca-reveal]'));
+    let mobileActive = false;
+    let mobileFrame = 0;
+    let mobileObserver: IntersectionObserver | null = null;
 
     let enabled = false;
     let nearScene = false;
@@ -128,6 +136,8 @@ export default function PadocaMotion() {
         const blob = await response.blob();
         if (!enabled || disposed) return;
         objectUrl = URL.createObjectURL(blob);
+        // Only eligible desktop visitors request the cinematic poster.
+        video.poster = video.dataset.padocaPoster || '';
         video.src = objectUrl;
         video.load();
       } catch {
@@ -144,6 +154,7 @@ export default function PadocaMotion() {
       requestController?.abort();
       if (objectUrl) {
         video.removeAttribute('src');
+        video.removeAttribute('poster');
         video.load();
         URL.revokeObjectURL(objectUrl);
         objectUrl = null;
@@ -158,8 +169,85 @@ export default function PadocaMotion() {
       resetToStatic();
     };
 
+
+    // Mobile animation is made of already-visible illustrations; it never requests an MP4.
+    const markVisible = (element: HTMLElement) => {
+      element.dataset.padocaVisible = 'true';
+      mobileObserver?.unobserve(element);
+    };
+
+    const updateMobile = () => {
+      mobileFrame = 0;
+      if (!mobileActive) return;
+      const rect = scene.getBoundingClientRect();
+      if (rect.top > window.innerHeight + 120 || rect.bottom < -120) return;
+      const position = clamp(-rect.top / Math.max(1, rect.height - window.innerHeight));
+      root.style.setProperty('--padoca-mobile-shift', `${(-position * 84).toFixed(1)}px`);
+      root.style.setProperty('--padoca-mobile-angle', `${(-7 + position * 16).toFixed(1)}deg`);
+      root.style.setProperty('--padoca-mobile-zoom', (1 + position * 0.22).toFixed(3));
+      root.style.setProperty('--padoca-mobile-sun', `${(position * 105).toFixed(1)}px`);
+      root.style.setProperty('--padoca-mobile-copy', `${(-position * 40).toFixed(1)}px`);
+      const chapter = position < 0.34 ? '0' : position < 0.68 ? '1' : '2';
+      if (root.dataset.padocaChapter !== chapter) root.dataset.padocaChapter = chapter;
+    };
+
+    const queueMobile = () => {
+      if (mobileActive && !mobileFrame) mobileFrame = window.requestAnimationFrame(updateMobile);
+    };
+
+    const onMobileFocus = (event: FocusEvent) => {
+      if (!(event.target instanceof Element)) return;
+      const target = event.target.closest<HTMLElement>('[data-padoca-reveal]');
+      if (target && root.contains(target)) markVisible(target);
+    };
+
+    const enableMobile = () => {
+      if (mobileActive) return;
+      mobileActive = true;
+      if ('IntersectionObserver' in window) {
+        // Avoid hiding anything that is currently visible or above restored scroll position.
+        revealTargets.forEach((element) => {
+          if (element.getBoundingClientRect().top <= window.innerHeight * 0.93) markVisible(element);
+        });
+        mobileObserver = new IntersectionObserver((entries) => {
+          for (const entry of entries) if (entry.isIntersecting) markVisible(entry.target as HTMLElement);
+        }, { rootMargin: '0px 0px -7% 0px', threshold: 0.04 });
+        revealTargets.forEach((element) => {
+          if (element.dataset.padocaVisible !== 'true') mobileObserver?.observe(element);
+        });
+        root.dataset.padocaMobileReveals = 'true';
+      }
+      root.dataset.padocaMobileMotion = 'true';
+      window.addEventListener('scroll', queueMobile, { passive: true });
+      window.addEventListener('resize', queueMobile);
+      root.addEventListener('focusin', onMobileFocus);
+      queueMobile();
+    };
+
+    const disableMobile = () => {
+      if (!mobileActive) return;
+      mobileActive = false;
+      if (mobileFrame) window.cancelAnimationFrame(mobileFrame);
+      mobileFrame = 0;
+      mobileObserver?.disconnect();
+      mobileObserver = null;
+      delete root.dataset.padocaMobileMotion;
+      delete root.dataset.padocaMobileReveals;
+      delete root.dataset.padocaChapter;
+      ['--padoca-mobile-shift', '--padoca-mobile-angle', '--padoca-mobile-zoom',
+        '--padoca-mobile-sun', '--padoca-mobile-copy'].forEach((property) => {
+        root.style.removeProperty(property);
+      });
+      window.removeEventListener('scroll', queueMobile);
+      window.removeEventListener('resize', queueMobile);
+      root.removeEventListener('focusin', onMobileFocus);
+    };
+
     const checkMode = () => {
       const canScrub = !dataSaver && !queries.some((query) => query.matches);
+      const canMobileAnimate = mobileQuery.matches && !dataSaver && !reducedMotion.matches;
+      if (canMobileAnimate) enableMobile();
+      else disableMobile();
       if (!canScrub) {
         if (enabled) disable();
         return;
@@ -193,15 +281,18 @@ export default function PadocaMotion() {
     window.addEventListener('scroll', queue, { passive: true });
     window.addEventListener('resize', checkMode);
     queries.forEach((query) => query.addEventListener('change', checkMode));
+    mobileQuery.addEventListener('change', checkMode);
     checkMode();
 
     return () => {
       disposed = true;
       disable();
+      disableMobile();
       observer?.disconnect();
       window.removeEventListener('scroll', queue);
       window.removeEventListener('resize', checkMode);
       queries.forEach((query) => query.removeEventListener('change', checkMode));
+      mobileQuery.removeEventListener('change', checkMode);
       video.removeEventListener('loadeddata', onLoadedData);
       video.removeEventListener('seeked', onSeeked);
       video.removeEventListener('error', onVideoError);

@@ -335,7 +335,7 @@
   inset: 0;
   object-fit: cover;
   object-position: 54% 50%;
-  background: url('/images/campaigns/a-padoca/a-padoca-scroll-poster.webp') center / cover no-repeat;
+  background-color: #164eac; /* Desktop-only poster assigned on request in JS. */
 }
 .cinematicLayer::after {
   content: '';
@@ -351,4 +351,128 @@
 @media (max-width: 879px), (max-height: 599px), (prefers-reduced-motion: reduce) {
   .cinematicLayer { display: none !important; }
   .sceneSky, .heroVisual { opacity: 1 !important; visibility: visible !important; }
+}
+
+
+/* Mobile: bold editorial entrance and scroll depth using the existing artwork.
+   No background video download, no new image generation or animation dependency. */
+@media (max-width: 879px), (max-height: 599px), (orientation: portrait) and (pointer: coarse) {
+  .world[data-padoca-mobile-motion="true"] .sceneSky { overflow: hidden; }
+  .world[data-padoca-mobile-motion="true"] .heroVisual {
+    transform: translate3d(0, var(--padoca-mobile-shift, 0px), 0)
+      rotate(var(--padoca-mobile-angle, -7deg))
+      scale(var(--padoca-mobile-zoom, 1));
+    transform-origin: center;
+  }
+  .world[data-padoca-mobile-motion="true"] .heroCopy {
+    transform: translate3d(0, var(--padoca-mobile-copy, 0px), 0);
+  }
+  .world[data-padoca-mobile-motion="true"] .sun {
+    transform: translate3d(0, var(--padoca-mobile-sun, 0px), 0) scale(1.1);
+  }
+  .world[data-padoca-mobile-motion="true"] .heroCopy h1 {
+    animation: padoca-m-headline .76s cubic-bezier(.16,1,.3,1) both;
+    transform-origin: 50% 90%;
+  }
+  .world[data-padoca-mobile-motion="true"] .cheers {
+    animation: padoca-m-cheer .62s cubic-bezier(.16,1,.3,1) both;
+  }
+  .world[data-padoca-mobile-motion="true"] .intro,
+  .world[data-padoca-mobile-motion="true"] .scrollPrompt {
+    animation: padoca-m-copy .64s cubic-bezier(.16,1,.3,1) .15s both;
+  }
+  .world[data-padoca-mobile-motion="true"] .photoOrbit {
+    animation: padoca-m-photo .95s cubic-bezier(.16,1,.3,1) both;
+  }
+  .world[data-padoca-mobile-motion="true"] .orbitStamp {
+    animation: padoca-m-stamp .8s cubic-bezier(.16,1,.3,1) .26s both;
+  }
+  .world[data-padoca-mobile-motion="true"] .flowerLeft {
+    animation: padoca-m-bloom-left .85s cubic-bezier(.16,1,.3,1) both;
+  }
+  .world[data-padoca-mobile-motion="true"] .flowerRight {
+    animation: padoca-m-bloom-right .85s cubic-bezier(.16,1,.3,1) .12s both;
+  }
+  .world[data-padoca-mobile-motion="true"] .storyCaptions {
+    height: 76px;
+    position: relative;
+    isolation: isolate;
+  }
+  .world[data-padoca-mobile-motion="true"] .storyCaption {
+    position: absolute;
+    inset: 0 16px;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    transform: translate3d(0, 32px, 0) scale(.92);
+    transition: opacity .3s ease-out, transform .55s cubic-bezier(.16,1,.3,1);
+  }
+  .world[data-padoca-mobile-motion="true"][data-padoca-chapter="0"] .storyCaption[data-padoca-caption="0"],
+  .world[data-padoca-mobile-motion="true"][data-padoca-chapter="1"] .storyCaption[data-padoca-caption="1"],
+  .world[data-padoca-mobile-motion="true"][data-padoca-chapter="2"] .storyCaption[data-padoca-caption="2"],
+  .world[data-padoca-mobile-motion="true"]:not([data-padoca-chapter]) .storyCaption[data-padoca-caption="0"] {
+    opacity: 1;
+    transform: translate3d(0,0,0) scale(1);
+  }
+  /* Never hide offscreen content until IntersectionObserver is active. */
+  .world[data-padoca-mobile-reveals="true"] [data-padoca-reveal] {
+    transition: opacity .64s cubic-bezier(.16,1,.3,1),
+      transform .85s cubic-bezier(.16,1,.3,1),
+      clip-path .85s cubic-bezier(.16,1,.3,1);
+  }
+  .world[data-padoca-mobile-reveals="true"] [data-padoca-reveal="heading"]:not([data-padoca-visible]),
+  .world[data-padoca-mobile-reveals="true"] [data-padoca-reveal="copy"]:not([data-padoca-visible]) {
+    opacity: 0;
+    transform: translate3d(0, 57px, 0);
+    clip-path: inset(0 0 72% 0);
+  }
+  .world[data-padoca-mobile-reveals="true"] [data-padoca-reveal="step"]:not([data-padoca-visible]) {
+    opacity: 0;
+    transform: translate3d(-54px, 26px, 0) rotate(-4deg) scale(.9);
+  }
+  .world[data-padoca-mobile-reveals="true"] [data-padoca-reveal="photo"]:not([data-padoca-visible]) {
+    opacity: 0;
+    transform: translate3d(0, 88px, 0) rotate(-15deg) scale(.79);
+  }
+  .world[data-padoca-mobile-reveals="true"] [data-padoca-reveal="finale"]:not([data-padoca-visible]) {
+    opacity: 0;
+    transform: translate3d(0, 95px, 0) scale(.83);
+    clip-path: inset(0 0 46% 0);
+  }
+  .world[data-padoca-mobile-reveals="true"] .reasons [data-padoca-reveal="step"]:nth-child(2) { transition-delay: 75ms; }
+  .world[data-padoca-mobile-reveals="true"] .reasons [data-padoca-reveal="step"]:nth-child(3) { transition-delay: 125ms; }
+  /* Reserve gallery size while the browser defers offscreen rendering. */
+  .gallerySection { content-visibility: auto; contain-intrinsic-size: auto 860px; }
+}
+@keyframes padoca-m-headline {
+  from { opacity: .25; transform: translate3d(0, 52px, 0) rotate(-4deg) scale(.80); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes padoca-m-cheer {
+  from { opacity: .25; transform: translate3d(-105px, -28px, 0) rotate(-24deg) scale(.65); }
+  to { opacity: 1; transform: rotate(-5deg); }
+}
+@keyframes padoca-m-copy {
+  from { opacity: 0; transform: translate3d(0, 26px, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes padoca-m-photo {
+  from { opacity: .4; transform: translate3d(0, 90px, 0) rotate(-18deg) scale(.68); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes padoca-m-stamp {
+  from { opacity: .3; transform: translate3d(65px, 75px, 0) rotate(80deg) scale(.35); }
+  to { opacity: 1; transform: rotate(14deg); }
+}
+@keyframes padoca-m-bloom-left {
+  from { opacity: 0; transform: translate3d(-85px,-50px,0) rotate(-85deg) scale(.58); }
+  to { opacity: .7; transform: rotate(-19deg); }
+}
+@keyframes padoca-m-bloom-right {
+  from { opacity: 0; transform: translate3d(95px,45px,0) rotate(88deg) scale(.58); }
+  to { opacity: .8; transform: rotate(15deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .world [data-padoca-reveal] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+  .world .gallerySection { content-visibility: visible; }
 }
