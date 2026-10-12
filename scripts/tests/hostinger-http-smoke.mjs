@@ -92,7 +92,14 @@ async function check(label, path, isImage) {
       if (path === '/congrats/a-padoca') {
         assert.match(html, /Esse pedacinho/i, 'Padoca: greeting missing');
         assert.ok(html.includes('data-padoca-video'), 'Padoca: decorative video layer missing');
-        assert.ok(html.includes('a-padoca-scroll-poster.webp'), 'Padoca: video poster missing');
+        assert.ok(html.includes('data-padoca-poster='), 'Padoca: deferred poster hint missing');
+        assert.ok(!html.includes('poster="/images/campaigns/a-padoca/a-padoca-scroll-poster.webp"'),
+          'Padoca: MP4 poster must not eagerly load on small screens');
+        assert.ok((html.match(/data-padoca-reveal=/g) || []).length >= 10,
+          'Padoca: mobile lazy-reveal landmarks are missing');
+        assert.ok((html.match(/fetchPriority="low"/g) || []).length >= 3 ||
+          (html.match(/fetchpriority="low"/g) || []).length >= 3,
+          'Padoca: mobile gallery images should have low fetch priority');
         assert.ok(html.includes('instagram.com/apadocasrs/'), 'Padoca: Instagram CTA missing');
       }
       if (path === '/congrats/orion-tattoo') {
