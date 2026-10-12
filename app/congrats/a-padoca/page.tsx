@@ -104,7 +104,7 @@ export default function PadocaCongratsPage() {
                       width={1000} height={750} loading="eager" fetchPriority="high"
                     />
                   </div>
-                  <span className={styles.orbitStamp}>UM MIMO DA PAD OCA <b>♥</b></span>
+                  <span className={styles.orbitStamp}>UM MIMO DA PADOCA <b>♥</b></span>
                 </div>
                 <svg className={styles.flightLine} viewBox="0 0 640 210" fill="none" aria-hidden="true">
                   <path d="M12 170 C92 22 196 212 312 91 C417 -22 516 60 626 28" stroke="currentColor" strokeWidth="4" strokeDasharray="9 15" strokeLinecap="round"/>
