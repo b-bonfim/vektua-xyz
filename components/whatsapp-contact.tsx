@@ -8,7 +8,7 @@ export function WhatsAppContact() {
   const pathname = usePathname();
 
   // Client-led campaign microsurface: don't overlay a Vektua commerce CTA on Orion artwork.
-  if (pathname === '/congrats/orion-tattoo' || pathname === '/congrats/orion-tattoo/') {
+  if (/^\/congrats\/(orion-tattoo|a-padoca)\/?$/.test(pathname)) {
     return null;
   }
 
