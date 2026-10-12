@@ -7,7 +7,7 @@ import { WHATSAPP_URL } from '@/lib/whatsapp';
 export function WhatsAppContact() {
   const pathname = usePathname();
 
-  // Client-led campaign microsurface: don't overlay a Vektua commerce CTA on Orion artwork.
+  // Campaign microsurfaces: leave partner artwork free of Vektua commerce overlays.
   if (/^\/congrats\/(orion-tattoo|a-padoca)\/?$/.test(pathname)) {
     return null;
   }
