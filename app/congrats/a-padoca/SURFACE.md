@@ -37,3 +37,17 @@ O ZIP sugere um **MP4 exclusivo controlado pela rolagem**. Como não foi forneci
 - 200 dos quatro arquivos em /images/campaigns/a-padoca/.
 - Foco por teclado, links externos seguros, modo reduced-motion, ausência de scroll horizontal.
 - Build Hostinger com npm: **não usar GitHub Actions**.
+
+
+## Integração cinematográfica — 12/10/2026 (v2)
+- Vídeo gerado no Google Flow pelo Founder, 8 segundos, sem cortes identificados.
+- Arquivo distribuído pelo próprio repositório como \`public/images/campaigns/a-padoca/a-padoca-scroll-web.mp4\`, H.264 1280×720, aproximadamente 2,76 MB, sem áudio, keyframes a cada 0,5 segundo, faststart.
+- Poster WebP 1600×900 em \`public/images/campaigns/a-padoca/a-padoca-scroll-poster.webp\`.
+- Desktop paisagem e altura >=600px: cena original evolui para vídeo de aproximação ao prédio, cujo tempo responde ao progresso do scroll em ambas as direções.
+- O arquivo é buscado uma vez por aproximação da cena e transformado em Blob para que scrubbing não dependa de HTTP Range do servidor Hostinger. Seek em voo serializado, último destino coalescido e progressão suavizada com RAF.
+- Layout móvel, telas baixas, preferência por movimento reduzido ou Save-Data não fazem download do MP4 e mantêm a arte estática original.
+- O vídeo é decorativo, mudo e inacessível pelo teclado. Conteúdo textual e link do Instagram permanecem HTML em ambos os modos.
+- Em falha de fetch/decode ou sem JS, a página permanece completa e estática.
+- O arquivo original Full HD do Google Flow foi preservado fora do deploy. A cópia otimizada tem menor resolução para limitar os bytes no QR móvel.
+- **Inspeção estática e diff não substituem build Hostinger, teste visual em navegador nem verificação de publicação.**
+- Não executar GitHub Actions.

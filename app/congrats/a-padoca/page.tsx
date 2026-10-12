@@ -72,6 +72,17 @@ export default function PadocaCongratsPage() {
       <main>
         <section className={styles.scrollScene} data-padoca-scene aria-labelledby="padoca-title">
           <div className={styles.sceneSticky}>
+            <div className={styles.cinematicLayer} aria-hidden="true">
+              <video
+                data-padoca-video="true"
+                className={styles.cinematicVideo}
+                preload="none"
+                poster="/images/campaigns/a-padoca/a-padoca-scroll-poster.webp"
+                muted
+                playsInline
+                tabIndex={-1}
+              />
+            </div>
             <div className={styles.sceneSky} aria-hidden="true">
               <div className={styles.sun} />
               <div className={styles.sunEcho} />
