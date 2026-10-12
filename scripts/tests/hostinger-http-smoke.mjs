@@ -93,7 +93,7 @@ async function check(label, path, isImage) {
         assert.match(html, /Esse pedacinho/i, 'Padoca: greeting missing');
         assert.ok(html.includes('data-padoca-video'), 'Padoca: decorative video layer missing');
         assert.ok(html.includes('data-padoca-poster='), 'Padoca: deferred poster hint missing');
-        assert.ok(!/\\sposter="\\/images\\/campaigns\\/a-padoca\\/a-padoca-scroll-poster\\.webp"/.test(html),
+        assert.ok(!/\sposter="\/images\/campaigns\/a-padoca\/a-padoca-scroll-poster\.webp"/.test(html),
           'Padoca: MP4 poster must not eagerly load on small screens');
         assert.ok((html.match(/data-padoca-reveal=/g) || []).length >= 10,
           'Padoca: mobile lazy-reveal landmarks are missing');
