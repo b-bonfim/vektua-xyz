@@ -34,6 +34,7 @@ const campaignImages = [
   '/images/campaigns/orion-tattoo/orion-tattoo-icon.svg',
   '/images/campaigns/orion-tattoo/orion-tattoo-round-header.webp',
   '/images/campaigns/a-padoca/a-padoca-scroll-poster.webp',
+  '/images/campaigns/a-padoca/a-padoca-logo-official.svg',
   '/images/campaigns/a-padoca/baguette.webp',
   '/images/campaigns/a-padoca/croissant.webp',
   '/images/campaigns/a-padoca/strawberry-pie.webp',
@@ -91,6 +92,8 @@ async function check(label, path, isImage) {
       assert.ok(!html.includes('RSC prefetch setup error'), `${path}: known Vinext error in HTML`);
       if (path === '/congrats/a-padoca') {
         assert.match(html, /Esse pedacinho/i, 'Padoca: greeting missing');
+        assert.ok(html.includes('a-padoca-logo-official.svg'), 'Padoca: official logo missing');
+        assert.ok(!html.includes('<small>PADARIA</small>'), 'Padoca: generic tagline still visible');
         assert.ok(html.includes('data-padoca-video'), 'Padoca: decorative video layer missing');
         assert.ok(html.includes('data-padoca-poster='), 'Padoca: deferred poster hint missing');
         assert.ok(!/\sposter="\/images\/campaigns\/a-padoca\/a-padoca-scroll-poster\.webp"/.test(html),
