@@ -61,3 +61,11 @@ O ZIP sugere um **MP4 exclusivo controlado pela rolagem**. Como não foi forneci
 - MP4 e poster não são buscados em telas pequenas: poster é `data-padoca-poster` no HTML e só vira atributo `poster` no cliente elegível a vídeo desktop. Save-Data também impede animação avançada e vídeo.
 - Fonte de alterações: `app/congrats/a-padoca`; nenhuma alteração nas outras campanhas; sem GitHub Actions ou gastos pagos.
 - Aceite pendente: build da Hostinger, revisão em Android/iOS, escopo de requisições na aba Network (sem MP4/poster no mobile), testes de responsividade e acessibilidade.
+
+## Logotipo oficial — 13/10/2026 (v4)
+- Fonte: SVG oficial `A_PADOCA_logo_transparente.svg` enviado pelo Founder.
+- Vetores originais preservados integralmente; apenas a caixa de enquadramento (viewBox) foi reduzida para remover transparência periférica.
+- Cabeçalho `/congrats/a-padoca` usa `a-padoca-logo-official.svg` em vez de tipografia simulada.
+- A legenda HTML extra `<small>PADARIA</small>` foi removida. O logotipo oficial inclui a inscrição no próprio desenho, preservada por fidelidade ao ativo fornecido.
+- Ajustada responsividade do cabeçalho e adicionado teste HTTP para o novo SVG e remoção da legenda duplicada.
+- Pendente: build e revisão mobile/desktop pós-deploy Hostinger; não executar GitHub Actions.

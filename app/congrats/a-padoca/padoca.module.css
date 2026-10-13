@@ -46,14 +46,12 @@
 .host:hover, .instagramSmall:hover { transform: translateY(-2px); }
 .instagramSmall { justify-self: end; }
 .padocaMark {
-  position: relative; display: block; text-decoration: none;
-  font-family: 'Fraunces', Georgia, serif; font-size: clamp(1.25rem, 2vw, 1.85rem);
-  font-weight: 700; white-space: nowrap; line-height: 1; letter-spacing: -.025em;
+  display: flex; align-items: center; justify-content: center;
+  width: clamp(180px, 18vw, 240px); text-decoration: none;
+  min-width: 0;
 }
-.padocaMark span { font-style: italic; }
-.padocaMark small {
-  position: absolute; display: block; text-align: center; width: 100%;
-  font: 600 .48rem 'DM Sans',sans-serif; letter-spacing: .58em; padding-top: 7px;
+.padocaMark img {
+  display: block; width: 100%; height: auto; object-fit: contain;
 }
 
 .scrollScene { position: relative; height: 265svh; }
@@ -240,10 +238,10 @@
   .orbitStamp { right: -3%; }
 }
 @media (max-width: 879px), (max-height: 599px) {
-  .header { grid-template-columns: 1fr 1fr; min-height:90px; }
-  .padocaMark { grid-column: 1 / -1; grid-row:1; justify-self:center; }
+  .header { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); min-height:90px; }
+  .padocaMark { grid-column:2; grid-row:1; justify-self:center; width:clamp(140px, 40vw, 220px); }
   .host { grid-column:1; grid-row:1; }
-  .instagramSmall { grid-column:2; grid-row:1; }
+  .instagramSmall { grid-column:3; grid-row:1; }
   .scrollScene { height:auto; }
   .sceneSticky { position:relative; height:auto; min-height: 0; padding-bottom: 80px; }
   .sceneGrid { grid-template-columns: 1fr; gap:26px; padding: 155px 24px 50px; }
@@ -268,7 +266,7 @@
   .header { gap: 7px; padding:20px 18px; }
   .host span { display:none; }
   .instagramSmall span { font-size:.72rem; }
-  .padocaMark { font-size:1.55rem; }
+  .padocaMark { width:clamp(140px, 40vw, 190px); }
   .sceneGrid { padding-top:151px; }
   .heroCopy h1 { font-size: clamp(3.35rem, 12vw, 5.2rem); }
   .cheers { margin-bottom: 14px !important; font-size:2rem; }
@@ -475,4 +473,9 @@
 @media (prefers-reduced-motion: reduce) {
   .world [data-padoca-reveal] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
   .world .gallerySection { content-visibility: visible; }
+}
+
+/* Preserve the official mark at narrow widths without overlap with social navigation. */
+@media (max-width: 390px) {
+  .instagramSmall span { display: none; }
 }

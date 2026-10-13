@@ -63,8 +63,14 @@ export default function PadocaCongratsPage() {
           <ArrowLeft size={17} aria-hidden="true" />
           <span>Vektua XYZ</span>
         </Link>
-        <a href="#mensagem" className={styles.padocaMark} aria-label="A Padoca, início da campanha">
-          A <span>Padoca</span><small>PADARIA</small>
+        <a href="#mensagem" className={styles.padocaMark} aria-label="A Padoca — ir para a mensagem">
+          <ResponsiveImage
+            src={asset + 'a-padoca-logo-official.svg'}
+            alt="A Padoca — logotipo oficial"
+            width={869}
+            height={463}
+            loading="eager"
+          />
         </a>
         <InstagramLink small />
       </header>
