@@ -69,3 +69,10 @@ O ZIP sugere um **MP4 exclusivo controlado pela rolagem**. Como não foi forneci
 - A legenda HTML extra `<small>PADARIA</small>` foi removida. O logotipo oficial inclui a inscrição no próprio desenho, preservada por fidelidade ao ativo fornecido.
 - Ajustada responsividade do cabeçalho e adicionado teste HTTP para o novo SVG e remoção da legenda duplicada.
 - Pendente: build e revisão mobile/desktop pós-deploy Hostinger; não executar GitHub Actions.
+
+## Galeria — hover com profundidade (13/10/2026)
+- Autorização: solicitação do Founder para animar as três imagens em "Pequenos achados. Grandes sorrisos." quando houver mouse.
+- Escopo: `app/congrats/a-padoca/padoca.module.css`. Nenhum JS novo; hover aciona lift/escala/rotação suave da fotografia, sombra de profundidade e transição amarela das legendas; o movimento reverte ao remover o mouse.
+- Gate de dispositivo: efeito apenas com `hover:hover` + `pointer:fine` e sem preferência por movimento reduzido. Dispositivos touch mantêm a experiência de rolagem existente.
+- Não altera fotografias, links, ordem, textos, lazy loading ou vídeos. A galeria continua exclusivamente expositiva, sem sugerir que as fotos são clicáveis.
+- QA pendente: build e revisão visual mouse/trackpad, touch, e reduced motion na hospedagem. Não executar GitHub Actions.
