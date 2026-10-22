@@ -34,7 +34,7 @@
 .brand svg { position: absolute; width: 11px; height: 29px; left: 46%; top: -3px; color: var(--ap-gold); transform: rotate(17deg); }
 .brand small { display: block; font-size: 11px; font-style: italic; letter-spacing: .18em; margin-top: 6px; }
 
-.hero { position: relative; height: 300svh; background: #08090a; --ap-progress: 0; }
+.hero { position: relative; height: 550svh; background: #08090a; --ap-progress: 0; }
 .stickyScene { position: sticky; top: 0; height: 100svh; min-height: 540px; overflow: hidden; background: #0d090c; }
 .stageVisual { position: absolute; inset: 0; background:
   radial-gradient(ellipse 48% 47% at 50% 49%, rgba(178,0,41,.36), transparent 81%),
@@ -275,4 +275,47 @@
 }
 @media (prefers-reduced-motion:reduce){
   .messagePlayIcon {transition:none;}
+}
+
+/* Cinematic scroll film. The poster is the first paint, reduced-motion and
+   offline/error fallback; the real MP4 only loads on capable landscape screens. */
+.cinematicPoster {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(4,4,5,.36), transparent 72%),
+    url('/images/campaigns/algodao-pesado/audience-tribute-poster.jpg') center center / cover no-repeat;
+}
+.cinematicShade {
+  position: absolute;
+  z-index: 7;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(3,3,5,.72), rgba(3,3,5,.35) 37%, rgba(3,3,5,.04) 76%),
+    linear-gradient(0deg, rgba(0,0,0,.58), transparent 34% 75%, rgba(0,0,0,.28));
+}
+.hero[data-ap-mode="static"] {
+  height: auto;
+  min-height: 100svh;
+}
+.hero[data-ap-mode="static"] .stickyScene {
+  position: relative;
+  height: 100svh;
+  min-height: 580px;
+}
+.hero[data-ap-mode="static"] .scrubVideo {
+  display: none;
+}
+.hero[data-ap-mode="static"] .chapter:not(:first-child) {
+  display: none;
+}
+@media (max-height: 560px) {
+  .heroBottom { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero[data-ap-mode="static"] .cinematicPoster,
+  .hero[data-ap-mode="static"] .cinematicShade { transition: none; }
 }
