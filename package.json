@@ -8,6 +8,7 @@
   "scripts": {
     "install:ci": "npm ci",
     "check:npm-lock": "node scripts/tests/npm-lock-consistency.mjs",
+    "check:algodao-ui": "node scripts/tests/algodao-pesado-ui-contract.mjs",
     "dev": "node scripts/assemble-algodao-scrub.mjs && node scripts/run-framework.mjs dev",
     "build": "node scripts/assemble-algodao-scrub.mjs && node scripts/run-framework.mjs build",
     "build:hostinger": "node scripts/assemble-algodao-scrub.mjs && node scripts/run-framework.mjs build-hostinger && node scripts/prepare-hostinger-runtime.mjs && node scripts/tests/hostinger-artifact.mjs",
