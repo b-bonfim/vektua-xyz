@@ -1,9 +1,22 @@
 # Algodão Pesado × Vektua XYZ — Creative direction v2: two separate films
 
 **Date:** 2026-10-22  
-**State:** Revised founder creative direction; audiovisual deliverables not yet generated or approved.  
+**State:** Film A supplied by Founder and integrated into the site source on 2026-10-22; Film B remains pending. Live deployment is not verified.  
 **Route:** `/congrats/algodao-pesado` (canonical), `/congrats/agodao-pesado` (compatibility redirect).  
 **Domain owner:** 07 Commerce & Brand Experience; implementation through existing Next/Vinext/Hostinger architecture; Founder approves final media and publication.
+
+## Film A media integration evidence (22 Oct 2026)
+
+- **Input received:** `video-scroll-site.mp4`, 10.000 s, H.264 1920×1080 at 24 fps with AAC audio, 10,658,793 bytes. Visual frames were reviewed at 0, 2, 4, 6, 8 and 9.8 seconds: continuous backward movement toward the backstage while the crowd remains the subject. No mascot is present.
+- **Optimized site artifact:** 1280×720 H.264, 24 fps, 10.000 s, no audio stream, 3,187,285 bytes, short GOP (-g 8), MP4 faststart.
+- **SHA-256 of assembled MP4:** `b951df7d2becdb03cf1c9aff7e6d0b7f99942745011bf6182221122ef4dfb208`.
+- **Binary source in Git:** `media-src/algodao-pesado/scrub-00.part` through `scrub-09.part` (ten ordered binary Git blobs). The runtime never fetches these parts individually.
+- **Build:** `scripts/assemble-algodao-scrub.mjs` concatenates and validates the parts before writing the playable MP4 under `public/images/campaigns/algodao-pesado/audience-tribute-scrub.mp4`. It is invoked by `npm run dev`, `npm run build` and `npm run build:hostinger`. The generated public MP4 is Git-ignored. This workflow does not require GitHub Actions or LFS.
+- **Poster:** `public/images/campaigns/algodao-pesado/audience-tribute-poster.jpg`, 1600×900, rendered as the initial frame / fallback.
+- **Confirmed local test:** Reassembled ten parts with Node, validated SHA-256 and byte count, and probed the resulting MP4 with ffprobe (H.264, 1280×720, 24 fps, 10 seconds).
+- **Site playback design:** desktop landscape uses Blob URL for Range-independent scroll scrubbing, rAF with refresh-rate-normalized smoothing, lock/coalesce seeks, dynamic display of HTML text chapters. Other screens, motion-reduced devices and video failures keep the poster.
+- **Not verified:** a full Next/Vinext/Hostinger build, production HTTP Range/asset delivery, screenshots on actual desktop/mobile devices, live Hostinger deployment. These remain QA tasks, not PASS claims.
+- **Second Film B:** speaking mascot video remains a separate user-triggered component, still pending video and poster delivery and review.
 
 ## Executive creative premise
 
@@ -37,7 +50,7 @@ This concept replaces the v1 storyline "you entered our backstage" and the v1 Fi
 
 **Approval checks:** stage-to-audience perspective is correct; visible hands form recognizable devil horns; no mascot or performer; no malformed anatomy, hallucinated logos or AI lettering; smooth camera and end hold; overlay text remains readable.
 
-**Delivery path:** `public/images/campaigns/algodao-pesado/audience-tribute-scrub.mp4`. The route currently keeps `VIDEO_ENABLED = false` in `rock-stage.tsx` until real media and mobile poster are delivered and tested. First frame/still may provide the mobile and reduced-motion experience without loading the video.
+**Delivery path:** `public/images/campaigns/algodao-pesado/audience-tribute-scrub.mp4`. Film A is now enabled in `rock-stage.tsx`. Its 10-second approved-to-integrate source was converted to a 1280×720, 24 fps, video-only H.264 asset (3,187,285 bytes). The static poster is stored at `public/images/campaigns/algodao-pesado/audience-tribute-poster.jpg`. The MP4 is assembled from ten binary parts by `scripts/assemble-algodao-scrub.mjs` before npm dev/build/Hostinger build and served at the same delivery path. Responsive gates prevent video requests on mobile, portrait layouts and reduced-motion mode.
 
 ## Film B — talking mascot, ending on-click video
 
