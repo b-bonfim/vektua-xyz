@@ -5,8 +5,8 @@ import { Play } from 'lucide-react';
 import styles from './algodao-pesado.module.css';
 
 // The mascot video is a SEPARATE asset from the silent hero scroll film.
-// Enable only after approved media + poster + captions are committed and verified.
-const VIDEO_AVAILABLE = false;
+// Media and poster are committed in this campaign update. No autoplay: the visitor requests the dialogue.
+const VIDEO_AVAILABLE = true;
 const VIDEO_SRC = '/images/campaigns/algodao-pesado/diego-mascot-thank-you.mp4';
 const POSTER_SRC = '/images/campaigns/algodao-pesado/diego-mascot-thank-you-poster.webp';
 
@@ -57,7 +57,7 @@ export default function ThankYouMessage() {
         controls={started}
         onPlay={() => { setStarted(true); setFailed(false); setLoading(false); }}
         onError={() => { setStarted(false); setFailed(true); setLoading(false); }}
-        aria-label="Agradecimento do mascote Algodão Pesado em nome de Diego"
+        aria-label="Mensagem de agradecimento do mascote da Algodão Pesado em nome do Diego"
       >
         Seu navegador não consegue reproduzir este vídeo.
       </video>
