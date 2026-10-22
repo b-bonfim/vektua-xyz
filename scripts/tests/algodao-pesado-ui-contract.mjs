@@ -29,6 +29,14 @@ assert.match(page, /algodao-pesado-rockwear-logo\.svg/, 'Partner logo missing');
 assert.match(stage, /audience-tribute-scrub\.mp4/, 'Scroll-scrub film missing');
 assert.match(stage, /STATIC_GATES/, 'Static mobile/reduced-motion gates missing');
 assert.match(stage, /muted playsInline preload="none"/, 'Scrub must remain muted and deferred');
+assert.match(stage, /const SCRUB_FPS = 24/, 'Scrub frame rate not declared');
+assert.match(stage, /const SEEK_INTERVAL_MS = 40/, 'Scrub seek backpressure missing');
+assert.match(stage, /Math\.round\(clamp\(value\) \* lastFrame \* SCRUB_FPS\)/, 'Seek frame quantization missing');
+assert.match(stage, /desiredSeek = frameTime\(value\)/, 'Latest-scroll seek queue missing');
+assert.match(stage, /seekBusy = true/, 'Seek concurrency guard missing');
+assert.match(stage, /if \(seekFrame !== null\) cancelAnimationFrame\(seekFrame\)/, 'Seek cleanup missing');
+assert.doesNotMatch(stage, /section!\.style\.setProperty/, 'Redundant per-frame style invalidation');
+
 assert.match(video, /VIDEO_AVAILABLE = true/, 'Mascot video player not enabled');
 assert.match(video, /diego-mascot-thank-you\.mp4/, 'Mascot film missing');
 assert.match(video, /diego-mascot-thank-you-poster\.webp/, 'Mascot poster missing');
