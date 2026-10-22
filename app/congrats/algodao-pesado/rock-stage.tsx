@@ -115,10 +115,11 @@ export default function RockStage({ children }: { children: ReactNode }) {
     async function loadVideoOnce() {
       if (!videoActive || fetchStarted || blobUrl || unmounted) return;
       fetchStarted = true;
-      abort = new AbortController();
+      const requestController = new AbortController();
+      abort = requestController;
       section!.dataset.apVideo = 'loading';
       try {
-        const response = await fetch(VIDEO_SRC, { signal: abort.signal });
+        const response = await fetch(VIDEO_SRC, { signal: requestController.signal });
         if (!response.ok) throw new Error('Scroll video unavailable: HTTP ' + response.status);
         const media = await response.blob(); // blob seeking does not rely on HTTP Range support.
         if (media.type.includes('html') || media.size < 1000) throw new Error('Invalid video response');
@@ -128,8 +129,9 @@ export default function RockStage({ children }: { children: ReactNode }) {
         video!.load();
       } catch {
         if (unmounted) return;
-        if (abort.signal.aborted) {
+        if (requestController.signal.aborted) {
           fetchStarted = false;
+          if (videoActive) void loadVideoOnce();
           return;
         }
         onError();
@@ -158,6 +160,7 @@ export default function RockStage({ children }: { children: ReactNode }) {
       current = target = progress();
       paint(current);
       if (blobUrl && readyToSeek) {
+        setVideoReady(true);
         requestSeek(current * video!.duration);
       } else {
         void loadVideoOnce();
