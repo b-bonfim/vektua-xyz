@@ -40,8 +40,14 @@ const campaignImages = [
   '/images/campaigns/a-padoca/strawberry-pie.webp',
   '/images/campaigns/a-padoca/cookie.webp',
   '/images/campaigns/algodao-pesado/audience-tribute-poster.jpg',
+  '/images/campaigns/algodao-pesado/algodao-pesado-rockwear-logo.svg',
+  '/images/campaigns/algodao-pesado/diego-mascot-thank-you-poster.webp',
 ];
-const campaignVideos = ['/images/campaigns/a-padoca/a-padoca-scroll-web.mp4', '/images/campaigns/algodao-pesado/audience-tribute-scrub.mp4'];
+const campaignVideos = [
+  '/images/campaigns/a-padoca/a-padoca-scroll-web.mp4',
+  '/images/campaigns/algodao-pesado/audience-tribute-scrub.mp4',
+  '/images/campaigns/algodao-pesado/diego-mascot-thank-you.mp4',
+];
 const output = { startedAt: new Date().toISOString(), baseURL: base.href, sha: process.env.RELEASE_SHA || null, checks: [], failures: 0 };
 async function check(label, path, isImage) {
   try {
@@ -100,6 +106,8 @@ async function check(label, path, isImage) {
         assert.ok(html.includes('data-ap-video=') || html.includes('data-ap-video="idle"'), 'Algodão Pesado scroll stage is missing');
         assert.match(html, /HOJE O PALCO/i, 'Algodão Pesado audience tribute narrative missing');
         assert.ok(html.includes('thank-you') || html.includes('UM RECADO'), 'Algodão Pesado second video section missing');
+        assert.ok(html.includes('video-agradecimento'), 'Algodão Pesado direct video navigation anchor missing');
+        assert.ok(html.includes('diego-mascot-thank-you-poster.webp'), 'Algodão Pesado mascot video poster missing');
         assert.ok(html.includes('algodaopesado.oficial'), 'Algodão Pesado official profile missing');
       }
       if (path === '/congrats/a-padoca') {
