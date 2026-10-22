@@ -84,3 +84,12 @@ This concept replaces the v1 storyline "you entered our backstage" and the v1 Fi
 7. Do not claim production tests, actual publication, client approval or media readiness without evidence.
 
 **Founder gate:** Approval of the final campaign copy and both audiovisual assets is pending. No marketing claim, music rights, public launch or deployment is implied by a documentation or code merge.
+
+## Official partner logo integration (2026-10-22)
+
+- **Founder-supplied source:** `algodao_pesado_rockwear_logo_vetorizado(1).svg` (1774 × 887 viewBox; original marfim `#FDFBF4` and preto `#080808` paths). The supplied source was copied without modifying its paths, colors, proportions, or registered-symbol artwork.
+- **Repository asset:** `public/images/campaigns/algodao-pesado/algodao-pesado-rockwear-logo.svg`.
+- **Where used:** campaign header (link back to beginning) and campaign footer (link to client's Instagram), replacing prior stylized text replicas; campaign stylesheet sizes the source responsively, without rotation or recoloring.
+- **Scope:** applies solely to this Algodão Pesado congrats route. Video scroll, final mascot video placeholder, host brand and storefront design are unchanged.
+- **Validation:** file readback matched the supplied SVG text; responsive CSS class references and page paths are checked. Browser screenshots, full build and live Hostinger publication remain unverified.
+- **Rights statement:** source furnished for this campaign by the Founder; displaying a reproduced ® as part of supplied art does not independently establish registration, licensing, trademark ownership or external client approval.

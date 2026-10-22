@@ -28,11 +28,9 @@
 .back,.headerSocial { display: inline-flex; align-items: center; gap: 11px; font-size: 11px; letter-spacing: .15em; font-weight: 800; }
 .back { justify-self: start; } .headerSocial { justify-self: end; }
 .back:hover,.headerSocial:hover { color: var(--ap-gold); }
-.brand { display: grid; justify-items: center; width: fit-content; color: #f3e9d7; transform: rotate(-3deg); line-height: .76; text-shadow: 2px 4px 0 #111; font-family: Impact, "Arial Black", sans-serif; }
-.brand>span,.brand>strong { display: block; font-size: clamp(19px, 2.2vw, 34px); font-weight: 950; letter-spacing: -.055em; }
-.brand strong { position: relative; font-size: clamp(25px, 2.9vw, 45px); }
-.brand svg { position: absolute; width: 11px; height: 29px; left: 46%; top: -3px; color: var(--ap-gold); transform: rotate(17deg); }
-.brand small { display: block; font-size: 11px; font-style: italic; letter-spacing: .18em; margin-top: 6px; }
+.brand { display: block; justify-self: center; width: clamp(146px, 15vw, 212px); line-height: 1; }
+.officialLogo { display: block; width: 100%; height: auto; object-fit: contain; }
+.brand:hover .officialLogo { filter: drop-shadow(0 0 12px rgba(242, 5, 69, .22)); }
 
 .hero { position: relative; height: 550svh; background: #08090a; --ap-progress: 0; }
 .stickyScene { position: sticky; top: 0; height: 100svh; min-height: 540px; overflow: hidden; background: #0d090c; }
@@ -128,8 +126,8 @@
 .finalLightning svg:nth-child(2) {left:auto;right:4%;top:50%;transform:rotate(23deg); }
 .finalLightning svg:nth-child(3) {left:43%;top:-100px;transform:rotate(-50deg); }
 .footer {background:#090909;color:#aaa29b;min-height:110px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px clamp(20px,5vw,80px);font-size:11px;font-weight:900;letter-spacing:.07em;}
-.footerClient {color:var(--ap-cream) !important;display:flex;flex-direction:column;font-family:Impact,"Arial Black",sans-serif;font-size:24px;letter-spacing:-.02em;line-height:.9;}
-.footerClient span {font-size:11px;font-style:italic;margin-top:5px;letter-spacing:.08em;}
+.footerClient {display:block;width:clamp(160px,19vw,220px);flex:0 0 auto;}
+.footerLogo {display:block;width:100%;height:auto;object-fit:contain;}
 .footer>span {display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
 .footer>span a {display:inline-flex;align-items:center;gap:5px;color:var(--ap-cream);}
 .footer>span a:hover {color:var(--ap-gold);}
@@ -142,7 +140,7 @@
 }
 @media(max-width:850px) {
   .header {min-height:79px;padding:15px 22px;}
-  .brand>span {font-size:18px;}.brand>strong {font-size:27px;}.brand small {font-size:9px;}
+  .brand {width:clamp(126px, 28vw, 167px);}
   .headerSocial {font-size:0;gap:0;} .headerSocial svg {width:22px;height:22px;}
   .hero {height:auto;min-height:96svh;}
   .stickyScene {position:relative; height:96svh;min-height:590px; }
@@ -167,6 +165,7 @@
 }
 @media(max-width:520px) {
   .back span{display:none;}.back svg{width:22px;height:22px;}
+  .brand {width:clamp(124px, 34vw, 155px);}
   .chapter>strong {font-size:clamp(3.15rem,14.5vw,5rem);}
   .mascot {left:59%;bottom:18%;height:min(55svh,450px);}
   .heroBorder{inset:10px;}
