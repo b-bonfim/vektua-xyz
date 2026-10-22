@@ -8,6 +8,7 @@ const root = 'app/congrats/algodao-pesado/';
 const read = (file) => readFileSync(file, 'utf8');
 const css = read(root + 'algodao-pesado.module.css');
 const page = read(root + 'page.tsx');
+const motion = read(root + 'campaign-motion.tsx');
 const stage = read(root + 'rock-stage.tsx');
 const video = read(root + 'thank-you-message.tsx');
 const smoke = read('scripts/tests/hostinger-http-smoke.mjs');
@@ -25,6 +26,22 @@ assert.match(page, /href="#video-agradecimento"/, 'Direct video shortcut missing
 assert.match(page, /id="video-agradecimento"/, 'Video destination anchor missing');
 assert.match(page, /algodaopesado\.oficial/, 'Partner Instagram missing');
 assert.match(page, /algodao-pesado-rockwear-logo\.svg/, 'Partner logo missing');
+
+assert.match(page, /<CampaignMotion\s*\/>/, 'Motion director not mounted');
+assert.match(motion, /IntersectionObserver/, 'IntersectionObserver reveal support missing');
+assert.match(motion, /prefers-reduced-motion: reduce/, 'Reduced-motion preference not respected');
+assert.match(motion, /element\.getBoundingClientRect\(\)\.top/, 'Already-visible elements must not be hidden');
+assert.match(motion, /root\.addEventListener\('focusin'/, 'Keyboard focus fallback missing');
+assert.match(motion, /revealObserver\.disconnect\(\)/, 'Observer cleanup missing');
+assert.match(motion, /delete element\.dataset\.apMotion/, 'Strict Mode cleanup missing');
+assert.equal((page.match(/data-ap-spotlight=/g) || []).length, 3, 'Three animated section atmosphere cues expected');
+for (const role of ['label', 'headline', 'copy', 'sign', 'stamp', 'rule', 'media', 'action', 'logo']) {
+  assert.ok(page.includes('data-ap-reveal="' + role + '"'), 'Missing authored reveal target: ' + role);
+  assert.ok(css.includes('data-ap-reveal="' + role + '"'), 'Missing CSS reveal treatment: ' + role);
+}
+assert.match(css, /@media \(prefers-reduced-motion: reduce\)/, 'Reduced motion media fallback missing');
+assert.match(css, /\.motionMediaFrame/, 'Mascot video frame container missing');
+assert.doesNotMatch(stage, /data-ap-reveal/, 'The scroll-scrub hero must not be reveal-animated');
 
 assert.match(stage, /audience-tribute-scrub\.mp4/, 'Scroll-scrub film missing');
 assert.match(stage, /STATIC_GATES/, 'Static mobile/reduced-motion gates missing');

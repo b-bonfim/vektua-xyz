@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Headphones, Music2, HandMetal } from 'lucide-react';
 import RockStage from './rock-stage';
 import ThankYouMessage from './thank-you-message';
+import CampaignMotion from './campaign-motion';
 import ResponsiveImage from '@/components/responsive-image';
 import styles from './algodao-pesado.module.css';
 
@@ -25,13 +26,14 @@ function Bolt({ className = '' }: { className?: string }) {
 }
 
 function SocialLink({ label = 'COLA COM A GENTE NO INSTAGRAM' }: { label?: string }) {
-  return <a className={styles.socialButton} href={INSTAGRAM} target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram da Algodão Pesado em uma nova guia">
+  return <a data-ap-reveal="action" data-ap-delay="2" className={styles.socialButton} href={INSTAGRAM} target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram da Algodão Pesado em uma nova guia">
     <span>{label}</span><ArrowUpRight aria-hidden="true" size={20} />
   </a>;
 }
 
 export default function AlgodaoPesadoCongratsPage() {
   return <div className={styles.world} id="algodao-pesado">
+    <CampaignMotion />
     <a className={styles.skipLink} href="#recado">Pular para o recado</a>
     <header className={styles.header}>
       <Link href="/" className={styles.back}><ArrowLeft size={16} aria-hidden="true" /> <span>VEKTUA XYZ</span></Link>
@@ -63,49 +65,51 @@ export default function AlgodaoPesadoCongratsPage() {
       </RockStage>
 
       <section className={styles.letter} id="recado" aria-labelledby="recado-title">
-        <div className={styles.letterNumber}>01 / O RECADO</div>
+        <div className={styles.letterNumber} data-ap-reveal="label">01 / O RECADO</div>
         <div className={styles.letterCopy}>
-          <p className={styles.tag}>EI, VOCÊ AÍ! <Bolt /></p>
-          <h1 id="recado-title">ESSA VAI <span>PRA VOCÊ!</span></h1>
-          <p>Sabe quando uma banda termina aquela música que arrepia e a plateia inteira levanta as mãos em reverência?</p>
-          <p>Hoje quem está no palco é você. E quem ergue as mãos é a <strong>Algodão Pesado</strong>.</p>
-          <p>O Diego escolheu esse chaveiro como um jeito de agradecer sua amizade, seu apoio e sua presença nessa história. Pequeno no tamanho, gigante no significado.</p>
-          <p><strong>Valeu por fortalecer o rock com a gente!</strong> 🤘</p>
-          <p className={styles.signature}>NÓS É DO BREJO, MAS NÓS É ROCK'N'ROLL!</p>
+          <p className={styles.tag} data-ap-reveal="label" data-ap-delay="1">EI, VOCÊ AÍ! <Bolt /></p>
+          <h1 id="recado-title" data-ap-reveal="headline" data-ap-delay="1">ESSA VAI <span>PRA VOCÊ!</span></h1>
+          <div className={styles.letterProse} data-ap-reveal="copy" data-ap-delay="2">
+            <p>Sabe quando uma banda termina aquela música que arrepia e a plateia inteira levanta as mãos em reverência?</p>
+            <p>Hoje quem está no palco é você. E quem ergue as mãos é a <strong>Algodão Pesado</strong>.</p>
+            <p>O Diego escolheu esse chaveiro como um jeito de agradecer sua amizade, seu apoio e sua presença nessa história. Pequeno no tamanho, gigante no significado.</p>
+            <p><strong>Valeu por fortalecer o rock com a gente!</strong> 🤘</p>
+          </div>
+          <p className={styles.signature} data-ap-reveal="sign" data-ap-delay="3">NÓS É DO BREJO, MAS NÓS É ROCK'N'ROLL!</p>
         </div>
-        <div className={styles.letterArt} aria-hidden="true"><span>100%</span><strong>ROCK<br/>N' ROLL</strong><Bolt/></div>
+        <div className={styles.letterArt} data-ap-reveal="stamp" data-ap-delay="2" aria-hidden="true"><span>100%</span><strong>ROCK<br/>N' ROLL</strong><Bolt/></div>
       </section>
 
-      <section className={styles.manifesto} aria-labelledby="manifesto-title">
-        <div className={styles.manifestoTop}><span>02 / O CÓDIGO</span><Music2 size={25} aria-hidden="true"/></div>
-        <h2 id="manifesto-title">O SOM É PESADO.<br/><em>A ATITUDE TAMBÉM.</em></h2>
-        <div className={styles.rule}/>
+      <section className={styles.manifesto} data-ap-spotlight="manifesto" aria-labelledby="manifesto-title">
+        <div className={styles.manifestoTop} data-ap-reveal="label"><span>02 / O CÓDIGO</span><Music2 size={25} aria-hidden="true"/></div>
+        <h2 id="manifesto-title" data-ap-reveal="headline" data-ap-delay="1">O SOM É PESADO.<br/><em>A ATITUDE TAMBÉM.</em></h2>
+        <div className={styles.rule} data-ap-reveal="rule" data-ap-delay="1" aria-hidden="true"/>
         <div className={styles.manifestoGrid}>
-          <p>Do metal ao grunge, do clássico ao som pesado: toda história precisa de gente que vibra junto. Hoje, os aplausos são nossos, mas são pra você.</p>
-          <div><Headphones aria-hidden="true" size={28}/><strong>AUMENTA O VOLUME.</strong><span>Amizade e apoio são o que mantêm o som vivo mesmo depois do último acorde.</span></div>
+          <p data-ap-reveal="copy" data-ap-delay="2">Do metal ao grunge, do clássico ao som pesado: toda história precisa de gente que vibra junto. Hoje, os aplausos são nossos, mas são pra você.</p>
+          <div data-ap-reveal="copy" data-ap-delay="3"><Headphones aria-hidden="true" size={28}/><strong>AUMENTA O VOLUME.</strong><span>Amizade e apoio são o que mantêm o som vivo mesmo depois do último acorde.</span></div>
         </div>
       </section>
 
-      <section className={styles.videoMessageSection} id="video-agradecimento" aria-labelledby="video-message-title">
+      <section className={styles.videoMessageSection} data-ap-spotlight="video" id="video-agradecimento" aria-labelledby="video-message-title">
         <div className={styles.videoMessageHeading}>
-          <span>03 / A VOZ DA ALGODÃO PESADO</span>
-          <h2 id="video-message-title">UM RECADO<br/><em>DE CORAÇÃO.</em></h2>
-          <p>Para fechar esse show do jeito certo, um agradecimento especial em nome do Diego e da Algodão Pesado.</p>
+          <span data-ap-reveal="label">03 / A VOZ DA ALGODÃO PESADO</span>
+          <h2 id="video-message-title" data-ap-reveal="headline" data-ap-delay="1">UM RECADO<br/><em>DE CORAÇÃO.</em></h2>
+          <p data-ap-reveal="copy" data-ap-delay="2">Para fechar esse show do jeito certo, um agradecimento especial em nome do Diego e da Algodão Pesado.</p>
         </div>
-        <ThankYouMessage />
+        <div className={styles.motionMediaFrame} data-ap-reveal="media" data-ap-delay="1"><ThankYouMessage /></div>
       </section>
 
-      <section className={styles.final} aria-labelledby="final-title">
+      <section className={styles.final} data-ap-spotlight="final" aria-labelledby="final-title">
         <div className={styles.finalLightning}><Bolt/><Bolt/><Bolt/></div>
-        <span>04 / O ROCK CONTINUA</span>
-        <h2 id="final-title">NOSSA REVERÊNCIA<br/><em>É PRA VOCÊ.</em></h2>
-        <p>O show continua, os amigos permanecem. Cola com a Algodão Pesado no Instagram e segue fortalecendo essa história.</p>
+        <span data-ap-reveal="label">04 / O ROCK CONTINUA</span>
+        <h2 id="final-title" data-ap-reveal="headline" data-ap-delay="1">NOSSA REVERÊNCIA<br/><em>É PRA VOCÊ.</em></h2>
+        <p data-ap-reveal="copy" data-ap-delay="2">O show continua, os amigos permanecem. Cola com a Algodão Pesado no Instagram e segue fortalecendo essa história.</p>
         <SocialLink/>
         <small>@algodaopesado.oficial • O perfil abre em outra guia.</small>
       </section>
     </main>
     <footer className={styles.footer}>
-      <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className={styles.footerClient} aria-label="Algodão Pesado Rockwear, visitar Instagram em nova guia"><ResponsiveImage className={styles.footerLogo} src="/images/campaigns/algodao-pesado/algodao-pesado-rockwear-logo.svg" alt="Algodão Pesado Rockwear" width={1774} height={887} loading="lazy" /></a>
+      <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className={styles.footerClient} data-ap-reveal="logo" aria-label="Algodão Pesado Rockwear, visitar Instagram em nova guia"><ResponsiveImage className={styles.footerLogo} src="/images/campaigns/algodao-pesado/algodao-pesado-rockwear-logo.svg" alt="Algodão Pesado Rockwear" width={1774} height={887} loading="lazy" /></a>
       <span>CHAVEIRO COM ATITUDE. FEITO POR <Link href="/">VEKTUA XYZ <ArrowRight aria-hidden="true" size={15}/></Link></span>
     </footer>
   </div>;
