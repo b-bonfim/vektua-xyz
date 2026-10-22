@@ -31,6 +31,7 @@ assert.match(stage, /STATIC_GATES/, 'Static mobile/reduced-motion gates missing'
 assert.match(stage, /muted playsInline preload="none"/, 'Scrub must remain muted and deferred');
 assert.match(stage, /const SCRUB_FPS = 24/, 'Scrub frame rate not declared');
 assert.match(stage, /const SEEK_INTERVAL_MS = 40/, 'Scrub seek backpressure missing');
+assert.match(stage, /video!\\.readyState < 2/, 'Poster should remain visible until first decoded frame');
 assert.match(stage, /Math\.round\(clamp\(value\) \* lastFrame \* SCRUB_FPS\)/, 'Seek frame quantization missing');
 assert.match(stage, /desiredSeek = frameTime\(value\)/, 'Latest-scroll seek queue missing');
 assert.match(stage, /seekBusy = true/, 'Seek concurrency guard missing');
