@@ -24,7 +24,7 @@ const paths = [
   '/', '/busca', '/objetos-colecionaveis', '/datas-colecoes',
   '/feitos-para-voce', '/chaveiros', '/produto/g-chv-blo-01',
   '/produto/g-org-rc-01', '/carrinho', '/congrats/blind-rats',
-  '/congrats/orion-tattoo', '/congrats/a-padoca', '/politicas/privacidade', '/politicas/entrega',
+  '/congrats/orion-tattoo', '/congrats/a-padoca', '/congrats/algodao-pesado', '/congrats/agodao-pesado', '/politicas/privacidade', '/politicas/entrega',
   '/politicas/trocas-devolucoes', '/politicas/termos',
 ];
 const campaignImages = [
@@ -39,8 +39,9 @@ const campaignImages = [
   '/images/campaigns/a-padoca/croissant.webp',
   '/images/campaigns/a-padoca/strawberry-pie.webp',
   '/images/campaigns/a-padoca/cookie.webp',
+  '/images/campaigns/algodao-pesado/audience-tribute-poster.jpg',
 ];
-const campaignVideos = ['/images/campaigns/a-padoca/a-padoca-scroll-web.mp4'];
+const campaignVideos = ['/images/campaigns/a-padoca/a-padoca-scroll-web.mp4', '/images/campaigns/algodao-pesado/audience-tribute-scrub.mp4'];
 const output = { startedAt: new Date().toISOString(), baseURL: base.href, sha: process.env.RELEASE_SHA || null, checks: [], failures: 0 };
 async function check(label, path, isImage) {
   try {
@@ -50,7 +51,7 @@ async function check(label, path, isImage) {
     if (isImage) {
       const type = response.headers.get('content-type') || '';
       const lower = path.toLowerCase();
-      const expected = lower.endsWith('.png') ? 'image/png' : lower.endsWith('.svg') ? 'image/svg+xml' : lower.endsWith('.avif') ? 'image/avif' : 'image/webp';
+      const expected = lower.endsWith('.png') ? 'image/png' : lower.endsWith('.jpg') || lower.endsWith('.jpeg') ? 'image/jpeg' : lower.endsWith('.svg') ? 'image/svg+xml' : lower.endsWith('.avif') ? 'image/avif' : 'image/webp';
       assert.ok(type.toLowerCase().startsWith(expected), `${path}: MIME ${type}; expected ${expected}`);
       const reader = response.body?.getReader();
       assert.ok(reader, `${path}: image has no response body`);
@@ -65,6 +66,8 @@ async function check(label, path, isImage) {
       const start = Buffer.concat(bytes).subarray(0, 64);
       const valid = expected === 'image/png'
         ? start.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))
+        : expected === 'image/jpeg'
+          ? start[0] === 0xff && start[1] === 0xd8 && start[2] === 0xff
         : expected === 'image/svg+xml'
           ? start.toString('utf8').trimStart().startsWith('<svg')
           : expected === 'image/avif'
@@ -90,6 +93,15 @@ async function check(label, path, isImage) {
       const html = await response.text();
       assert.match(html, /Vektua XYZ/i, `${path}: missing site identity`);
       assert.ok(!html.includes('RSC prefetch setup error'), `${path}: known Vinext error in HTML`);
+      if (path === '/congrats/agodao-pesado') {
+        assert.equal(new URL(response.url).pathname, '/congrats/algodao-pesado', 'Algodão Pesado legacy slug must redirect to canonical route');
+      }
+      if (path === '/congrats/algodao-pesado') {
+        assert.ok(html.includes('data-ap-video=') || html.includes('data-ap-video="idle"'), 'Algodão Pesado scroll stage is missing');
+        assert.match(html, /HOJE O PALCO/i, 'Algodão Pesado audience tribute narrative missing');
+        assert.ok(html.includes('thank-you') || html.includes('UM RECADO'), 'Algodão Pesado second video section missing');
+        assert.ok(html.includes('algodaopesado.oficial'), 'Algodão Pesado official profile missing');
+      }
       if (path === '/congrats/a-padoca') {
         assert.match(html, /Esse pedacinho/i, 'Padoca: greeting missing');
         assert.ok(html.includes('a-padoca-logo-official.svg'), 'Padoca: official logo missing');
