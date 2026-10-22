@@ -32,18 +32,28 @@ export default function RockStage({ children }: { children: ReactNode }) {
 
     const queries = STATIC_GATES.map((query) => window.matchMedia(query));
     let frame: number | null = null;
+    let seekFrame: number | null = null;
     let lastTick = 0;
+    let lastSeekAt = -Infinity;
     let current = 0;
     let target = 0;
     let videoActive = false;
     let readyToSeek = false;
     let visible = true;
     let seekBusy = false;
-    let pendingSeek: number | null = null;
+    let desiredSeek: number | null = null;
+    let firstFrameVisible = false;
     let fetchStarted = false;
     let blobUrl: string | null = null;
     let abort: AbortController | null = null;
     let unmounted = false;
+
+    // The approved scroll film is 24 fps. Seeking on every 60/120 Hz
+    // animation frame floods H.264 decoders without adding visible frames.
+    const SCRUB_FPS = 24;
+    const SEEK_INTERVAL_MS = 40; // Cap seek pressure to ~25 requests/s.
+    const SEEK_EPSILON = 0.5 / SCRUB_FPS;
+    const SCROLL_RESPONSE_MS = 70;
 
     function progress() {
       const rect = section!.getBoundingClientRect();
@@ -51,20 +61,55 @@ export default function RockStage({ children }: { children: ReactNode }) {
       return clamp(-rect.top / range);
     }
 
-    function requestSeek(time: number) {
-      if (!readyToSeek || !Number.isFinite(video!.duration) || video!.duration <= 0) return;
-      const next = clamp(time / video!.duration) * Math.max(0, video!.duration - .016);
-      if (seekBusy) { pendingSeek = next; return; }
-      if (Math.abs(video!.currentTime - next) < .01) return;
+    function frameTime(value: number) {
+      const duration = video!.duration;
+      if (!Number.isFinite(duration) || duration <= 0) return 0;
+      const lastFrame = Math.max(0, duration - 1 / SCRUB_FPS);
+      return Math.min(lastFrame, Math.round(clamp(value) * lastFrame * SCRUB_FPS) / SCRUB_FPS);
+    }
+
+    function revealIfSynchronized() {
+      if (unmounted || !videoActive || firstFrameVisible || !readyToSeek) return;
+      // The poster stays up until a decoded frame is reasonably close to
+      // the current scroll position; never reveal a stale first frame.
+      if (Math.abs(video!.currentTime - frameTime(target)) <= 2 / SCRUB_FPS) {
+        firstFrameVisible = true;
+        setVideoReady(true);
+      }
+    }
+
+    function flushSeek(now: number) {
+      seekFrame = null;
+      if (!videoActive || !visible || !readyToSeek || seekBusy || desiredSeek === null) return;
+      if (now - lastSeekAt < SEEK_INTERVAL_MS) {
+        seekFrame = requestAnimationFrame(flushSeek);
+        return;
+      }
+      const next = desiredSeek;
+      desiredSeek = null;
+      if (Math.abs(video!.currentTime - next) < SEEK_EPSILON) {
+        revealIfSynchronized();
+        return;
+      }
       seekBusy = true;
-      try { video!.currentTime = next; } catch { seekBusy = false; }
+      lastSeekAt = now;
+      try { video!.currentTime = next; } catch { seekBusy = false; onError(); }
+    }
+
+    function queueSeek(value: number) {
+      if (!readyToSeek || !videoActive) return;
+      // Always keep only the newest frame. Intermediate seek targets become
+      // obsolete while a previous keyframe is being decoded.
+      desiredSeek = frameTime(value);
+      if (!seekBusy && visible && seekFrame === null) seekFrame = requestAnimationFrame(flushSeek);
     }
 
     function paint(value: number) {
       const chapter = Math.min(3, Math.floor(clamp(value) * 4));
       if (section!.dataset.chapter !== String(chapter)) section!.dataset.chapter = String(chapter);
-      section!.style.setProperty('--ap-progress', value.toFixed(4));
-      if (videoActive) requestSeek(value * video!.duration);
+      // The original --ap-progress write invalidated styles on every frame.
+      // The scroll hero does not render the old .mascot layer using it.
+      if (videoActive) queueSeek(value);
     }
 
     function tick(now: number) {
@@ -72,7 +117,7 @@ export default function RockStage({ children }: { children: ReactNode }) {
       if (!videoActive || !visible) { lastTick = 0; return; }
       const elapsed = Math.min(100, now - (lastTick || now));
       lastTick = now;
-      current += (target - current) * (1 - Math.pow(.84, elapsed / 16.667));
+      current += (target - current) * (1 - Math.exp(-elapsed / SCROLL_RESPONSE_MS));
       if (Math.abs(target - current) < .0005) current = target;
       paint(current);
       if (current !== target) frame = requestAnimationFrame(tick);
@@ -87,31 +132,27 @@ export default function RockStage({ children }: { children: ReactNode }) {
 
     function onSeeked() {
       seekBusy = false;
-      if (pendingSeek !== null) {
-        const next = pendingSeek;
-        pendingSeek = null;
-        requestSeek(next);
-        return;
+      revealIfSynchronized();
+      if (desiredSeek !== null && visible && videoActive && seekFrame === null) {
+        seekFrame = requestAnimationFrame(flushSeek);
       }
-      if (!unmounted && videoActive) setVideoReady(true);
     }
 
     function onMetadata() {
       readyToSeek = true;
-      requestSeek(progress() * video!.duration);
+      queueSeek(progress());
     }
 
     function onFirstFrame() {
-      if (!unmounted && videoActive && readyToSeek &&
-        Math.abs(video!.currentTime - progress() * video!.duration) < .12) {
-        setVideoReady(true);
-      }
+      revealIfSynchronized();
     }
 
     function onError() {
       seekBusy = false;
-      pendingSeek = null;
+      desiredSeek = null;
       readyToSeek = false;
+      if (seekFrame !== null) cancelAnimationFrame(seekFrame);
+      seekFrame = null;
       if (!unmounted) setVideoReady(false);
       section!.dataset.apVideo = 'failed';
     }
@@ -125,7 +166,7 @@ export default function RockStage({ children }: { children: ReactNode }) {
       try {
         const response = await fetch(VIDEO_SRC, { signal: requestController.signal });
         if (!response.ok) throw new Error('Scroll video unavailable: HTTP ' + response.status);
-        const media = await response.blob(); // blob seeking does not rely on HTTP Range support.
+        const media = await response.blob(); // Blob seeking works without HTTP Range support.
         if (media.type.includes('html') || media.size < 1000) throw new Error('Invalid video response');
         if (unmounted || !videoActive) { fetchStarted = false; return; }
         blobUrl = URL.createObjectURL(media);
@@ -147,8 +188,12 @@ export default function RockStage({ children }: { children: ReactNode }) {
       if (!next && videoActive) {
         videoActive = false;
         if (frame !== null) cancelAnimationFrame(frame);
-        frame = null;
+        if (seekFrame !== null) cancelAnimationFrame(seekFrame);
+        frame = seekFrame = null;
+        desiredSeek = null;
         lastTick = 0;
+        lastSeekAt = -Infinity;
+        firstFrameVisible = false;
         abort?.abort();
         section!.dataset.apMode = 'static';
         section!.dataset.chapter = '0';
@@ -164,8 +209,8 @@ export default function RockStage({ children }: { children: ReactNode }) {
       current = target = progress();
       paint(current);
       if (blobUrl && readyToSeek) {
-        setVideoReady(true);
-        requestSeek(current * video!.duration);
+        queueSeek(current);
+        revealIfSynchronized();
       } else {
         void loadVideoOnce();
       }
@@ -174,10 +219,15 @@ export default function RockStage({ children }: { children: ReactNode }) {
 
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
-      if (visible) onScroll();
-      else if (frame !== null) {
-        cancelAnimationFrame(frame);
-        frame = null;
+      if (visible) {
+        if (desiredSeek !== null && !seekBusy && seekFrame === null) {
+          seekFrame = requestAnimationFrame(flushSeek);
+        }
+        onScroll();
+      } else {
+        if (frame !== null) cancelAnimationFrame(frame);
+        if (seekFrame !== null) cancelAnimationFrame(seekFrame);
+        frame = seekFrame = null;
         lastTick = 0;
       }
     }, { rootMargin: '45% 0px' });
@@ -204,6 +254,7 @@ export default function RockStage({ children }: { children: ReactNode }) {
       video.removeEventListener('error', onError);
       abort?.abort();
       if (frame !== null) cancelAnimationFrame(frame);
+      if (seekFrame !== null) cancelAnimationFrame(seekFrame);
       if (blobUrl) URL.revokeObjectURL(blobUrl);
     };
   }, []);
