@@ -3,11 +3,13 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import styles from './algodao-pesado.module.css';
 
-// Activate after the Founder delivers the Google Flow file and its web encode is committed.
-// Never fetch an asset that has not been uploaded to the repository.
-const VIDEO_ENABLED = false;
+// Assembled with SHA-256 verification before local/Hostinger builds.
 const VIDEO_SRC = '/images/campaigns/algodao-pesado/audience-tribute-scrub.mp4';
-const DESKTOP_GATES = [
+
+// Match the corresponding static gates in algodao-pesado.module.css.
+// Phones, portrait tablets, short coarse-pointer landscapes and reduced-motion
+// users get the designed static poster without downloading the video.
+const STATIC_GATES = [
   '(max-width: 850px)',
   '(orientation: portrait) and (max-width: 1100px)',
   '(orientation: portrait) and (pointer: coarse)',
@@ -15,156 +17,200 @@ const DESKTOP_GATES = [
   '(prefers-reduced-motion: reduce)',
 ] as const;
 
-const clamp = (n: number) => Math.max(0, Math.min(1, n));
+const clamp = (value: number) => Math.max(0, Math.min(1, value));
 
-/** Decorative, reversible scroll progression. Fully readable without media or JavaScript. */
+/** The visual film is decorative; the page's headings remain HTML for accessibility. */
 export default function RockStage({ children }: { children: ReactNode }) {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
 
   useEffect(() => {
     const section = sectionRef.current;
     const video = videoRef.current;
     if (!section || !video) return;
-    const queries = DESKTOP_GATES.map((query) => window.matchMedia(query));
-    let raf = 0;
-    let visible = true;
-    let enabled = false;
-    let displayed = 0;
+
+    const queries = STATIC_GATES.map((query) => window.matchMedia(query));
+    let frame: number | null = null;
+    let lastTick = 0;
+    let current = 0;
     let target = 0;
+    let videoActive = false;
+    let readyToSeek = false;
+    let visible = true;
     let seekBusy = false;
-    let mediaReady = false;
-    let pending: number | null = null;
-    let lastChapter = -1;
-    let disposed = false;
-    let started = false;
-    let objectUrl: string | null = null;
-    let controller: AbortController | null = null;
+    let pendingSeek: number | null = null;
+    let fetchStarted = false;
+    let blobUrl: string | null = null;
+    let abort: AbortController | null = null;
+    let unmounted = false;
 
-    const progress = () => {
-      const rect = section.getBoundingClientRect();
-      return clamp(-rect.top / Math.max(1, section.offsetHeight - window.innerHeight));
-    };
+    function progress() {
+      const rect = section!.getBoundingClientRect();
+      const range = Math.max(1, section!.offsetHeight - window.innerHeight);
+      return clamp(-rect.top / range);
+    }
 
-    const seek = (time: number) => {
-      if (!Number.isFinite(video.duration) || video.duration <= 0) return;
-      const next = Math.max(0, Math.min(time, video.duration - 0.01));
-      if (seekBusy) { pending = next; return; }
-      if (Math.abs(video.currentTime - next) < 0.012) return;
+    function requestSeek(time: number) {
+      if (!readyToSeek || !Number.isFinite(video!.duration) || video!.duration <= 0) return;
+      const next = clamp(time / video!.duration) * Math.max(0, video!.duration - .016);
+      if (seekBusy) { pendingSeek = next; return; }
+      if (Math.abs(video!.currentTime - next) < .01) return;
       seekBusy = true;
-      try { video.currentTime = next; } catch { seekBusy = false; }
-    };
+      try { video!.currentTime = next; } catch { seekBusy = false; }
+    }
 
-    const paint = (p: number) => {
-      const chapter = p < .25 ? 0 : p < .5 ? 1 : p < .75 ? 2 : 3;
-      if (chapter !== lastChapter) {
-        lastChapter = chapter;
-        section.dataset.chapter = String(chapter);
-      }
-      section.style.setProperty('--ap-progress', p.toFixed(4));
-      if (mediaReady && enabled) seek(p * video.duration);
-    };
+    function paint(value: number) {
+      const chapter = Math.min(3, Math.floor(clamp(value) * 4));
+      if (section!.dataset.chapter !== String(chapter)) section!.dataset.chapter = String(chapter);
+      section!.style.setProperty('--ap-progress', value.toFixed(4));
+      if (videoActive) requestSeek(value * video!.duration);
+    }
 
-    const tick = () => {
-      raf = 0;
-      if (!enabled || !visible) return;
-      displayed += (target - displayed) * .19;
-      if (Math.abs(target - displayed) < .001) displayed = target;
-      paint(displayed);
-      if (displayed !== target) raf = requestAnimationFrame(tick);
-    };
+    function tick(now: number) {
+      frame = null;
+      if (!videoActive || !visible) { lastTick = 0; return; }
+      const elapsed = Math.min(100, now - (lastTick || now));
+      lastTick = now;
+      current += (target - current) * (1 - Math.pow(.84, elapsed / 16.667));
+      if (Math.abs(target - current) < .0005) current = target;
+      paint(current);
+      if (current !== target) frame = requestAnimationFrame(tick);
+      else lastTick = 0;
+    }
 
-    const onScroll = () => {
+    function onScroll() {
+      if (!videoActive) return;
       target = progress();
-      if (!raf && enabled && visible) raf = requestAnimationFrame(tick);
-    };
+      if (visible && frame === null) frame = requestAnimationFrame(tick);
+    }
 
-    const onSeeked = () => {
+    function onSeeked() {
       seekBusy = false;
-      if (pending !== null) { const time = pending; pending = null; seek(time); }
-    };
+      if (pendingSeek !== null) {
+        const next = pendingSeek;
+        pendingSeek = null;
+        requestSeek(next);
+      }
+      if (!unmounted && videoActive) setVideoReady(true);
+    }
 
-    const onLoaded = () => {
-      if (disposed) return;
-      mediaReady = true;
-      setVideoReady(true);
-      seek(progress() * video.duration);
-    };
+    function onMetadata() {
+      readyToSeek = true;
+      requestSeek(progress() * video!.duration);
+    }
 
-    const onError = () => {
-      mediaReady = false;
-      if (!disposed) { setVideoReady(false); setVideoFailed(true); }
-    };
+    function onFirstFrame() {
+      if (!unmounted && videoActive) setVideoReady(true);
+    }
 
-    const loadMedia = async () => {
-      if (!VIDEO_ENABLED || started || !enabled) return;
-      started = true;
-      controller = new AbortController();
+    function onError() {
+      seekBusy = false;
+      pendingSeek = null;
+      readyToSeek = false;
+      if (!unmounted) setVideoReady(false);
+      section!.dataset.apVideo = 'failed';
+    }
+
+    async function loadVideoOnce() {
+      if (!videoActive || fetchStarted || blobUrl || unmounted) return;
+      fetchStarted = true;
+      abort = new AbortController();
+      section!.dataset.apVideo = 'loading';
       try {
-        const response = await fetch(VIDEO_SRC, { signal: controller.signal });
-        if (!response.ok) throw new Error('Asset unavailable');
-        const blob = await response.blob();
-        if (disposed || !enabled) return;
-        objectUrl = URL.createObjectURL(blob);
-        video.src = objectUrl;
-        video.load();
+        const response = await fetch(VIDEO_SRC, { signal: abort.signal });
+        if (!response.ok) throw new Error('Scroll video unavailable: HTTP ' + response.status);
+        const media = await response.blob(); // blob seeking does not rely on HTTP Range support.
+        if (media.type.includes('html') || media.size < 1000) throw new Error('Invalid video response');
+        if (unmounted || !videoActive) { fetchStarted = false; return; }
+        blobUrl = URL.createObjectURL(media);
+        video!.src = blobUrl;
+        video!.load();
       } catch {
-        if (!controller?.signal.aborted && !disposed) onError();
+        if (unmounted) return;
+        if (abort.signal.aborted) {
+          fetchStarted = false;
+          return;
+        }
+        onError();
       }
-    };
+    }
 
-    const applyMode = () => {
-      enabled = !queries.some(q => q.matches);
-      section.dataset.apMode = enabled ? 'scroll' : 'static';
-      if (enabled) {
-        displayed = progress();
-        target = displayed;
-        paint(displayed);
-        void loadMedia();
-      } else {
-        if (raf) cancelAnimationFrame(raf);
-        raf = 0;
-        section.dataset.chapter = '0';
-        section.style.setProperty('--ap-progress', '0');
+    function applyMode() {
+      const next = !queries.some((query) => query.matches);
+      if (!next && videoActive) {
+        videoActive = false;
+        if (frame !== null) cancelAnimationFrame(frame);
+        frame = null;
+        lastTick = 0;
+        abort?.abort();
+        section!.dataset.apMode = 'static';
+        section!.dataset.chapter = '0';
+        setVideoReady(false);
+        return;
       }
-    };
+      if (!next) {
+        section!.dataset.apMode = 'static';
+        return;
+      }
+      videoActive = true;
+      section!.dataset.apMode = 'scroll';
+      current = target = progress();
+      paint(current);
+      if (blobUrl && readyToSeek) {
+        requestSeek(current * video!.duration);
+      } else {
+        void loadVideoOnce();
+      }
+      onScroll();
+    }
 
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       if (visible) onScroll();
-      else if (raf) { cancelAnimationFrame(raf); raf = 0; }
-    }, { rootMargin: '30% 0px' });
+      else if (frame !== null) {
+        cancelAnimationFrame(frame);
+        frame = null;
+        lastTick = 0;
+      }
+    }, { rootMargin: '45% 0px' });
 
     observer.observe(section);
+    video.addEventListener('loadedmetadata', onMetadata);
+    video.addEventListener('loadeddata', onFirstFrame);
     video.addEventListener('seeked', onSeeked);
-    video.addEventListener('loadedmetadata', onLoaded);
     video.addEventListener('error', onError);
-    queries.forEach(q => q.addEventListener('change', applyMode));
+    queries.forEach((query) => query.addEventListener('change', applyMode));
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
     applyMode();
+
     return () => {
-      disposed = true;
+      unmounted = true;
       observer.disconnect();
-      queries.forEach(q => q.removeEventListener('change', applyMode));
+      queries.forEach((query) => query.removeEventListener('change', applyMode));
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
+      video.removeEventListener('loadedmetadata', onMetadata);
+      video.removeEventListener('loadeddata', onFirstFrame);
       video.removeEventListener('seeked', onSeeked);
-      video.removeEventListener('loadedmetadata', onLoaded);
       video.removeEventListener('error', onError);
-      if (raf) cancelAnimationFrame(raf);
-      controller?.abort();
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
+      abort?.abort();
+      if (frame !== null) cancelAnimationFrame(frame);
+      if (blobUrl) URL.revokeObjectURL(blobUrl);
     };
   }, []);
 
-  return <section ref={sectionRef} className={styles.hero} data-chapter="0" data-ap-mode="static" aria-label="Experiência cinematográfica da Algodão Pesado">
-    <div className={styles.stickyScene}>
-      {children}
-      <video ref={videoRef} muted playsInline preload="none" tabIndex={-1} aria-hidden="true"
-        className={styles.scrubVideo} data-ready={videoReady && !videoFailed ? 'true' : 'false'} />
-    </div>
-  </section>;
+  return (
+    <section ref={sectionRef} className={styles.hero} data-chapter="0" data-ap-mode="static" data-ap-video="idle"
+      aria-label="Reverência da plateia aos amigos e apoiadores da Algodão Pesado">
+      <div className={styles.stickyScene}>
+        {children}
+        <div className={styles.cinematicPoster} aria-hidden="true" />
+        <video ref={videoRef} muted playsInline preload="none" tabIndex={-1} aria-hidden="true"
+          className={styles.scrubVideo} data-ready={videoReady ? 'true' : 'false'} />
+        <div className={styles.cinematicShade} aria-hidden="true" />
+      </div>
+    </section>
+  );
 }
