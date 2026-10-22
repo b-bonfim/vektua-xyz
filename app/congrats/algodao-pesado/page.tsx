@@ -59,7 +59,7 @@ export default function AlgodaoPesadoCongratsPage() {
           <div data-ap-chapter="3" className={styles.chapter}><span>DO DIEGO E DA ALGODÃO PESADO</span><strong>ESSA VAI<br/><em>PRA VOCÊ! 🤘</em></strong></div>
         </div>
         <div className={styles.heroBorder} aria-hidden="true"/>
-        <div className={styles.heroBottom}><span>UMA EXPERIÊNCIA ALGODÃO PESADO × VEKTUA XYZ</span><a href="#recado">CONTINUE A DESCIDA <ArrowDown size={17} aria-hidden="true"/></a></div>
+        <div className={styles.heroBottom}><span>UMA EXPERIÊNCIA ALGODÃO PESADO × VEKTUA XYZ</span><nav className={styles.heroNav} aria-label="Atalhos da homenagem"><a href="#recado">CONTINUE A DESCIDA <ArrowDown size={17} aria-hidden="true"/></a><a href="#video-agradecimento">OUÇA O RECADO <ArrowDown size={17} aria-hidden="true"/></a></nav></div>
       </RockStage>
 
       <section className={styles.letter} id="recado" aria-labelledby="recado-title">
@@ -86,7 +86,7 @@ export default function AlgodaoPesadoCongratsPage() {
         </div>
       </section>
 
-      <section className={styles.videoMessageSection} aria-labelledby="video-message-title">
+      <section className={styles.videoMessageSection} id="video-agradecimento" aria-labelledby="video-message-title">
         <div className={styles.videoMessageHeading}>
           <span>03 / A VOZ DA ALGODÃO PESADO</span>
           <h2 id="video-message-title">UM RECADO<br/><em>DE CORAÇÃO.</em></h2>
