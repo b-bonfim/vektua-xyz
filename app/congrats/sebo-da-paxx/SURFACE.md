@@ -40,3 +40,16 @@
 ## Publicação e segurança
 
 A escrita em GitHub pode ser confirmada por commit e leitura posterior do caminho. Merge/commit não comprova deploy automático na Hostinger. Não registrar como publicado ao público sem HTTP 200 e HTML de campanha no domínio final.
+
+
+## Refinamento de movimento — 22/10/2026
+
+**Escopo autorizado pelo Founder:** animações mais evidentes em seções, textos e imagens, sem alterar o vídeo principal, a mensagem da homenagem, a URL ou as demais páginas.
+
+- Arquivo `paxx-reveals.tsx`: IntersectionObserver para entrada escalonada de carta, parágrafos, títulos, ilustração, brincadeira da estrela e CTA. Usa `requestAnimationFrame` com scroll passivo para parallax limitado da imagem emoldurada; retira listeners e observador no unmount.
+- `paxx.module.css`: coreografias de entrada com tradução e escala, contorno artesanal de destaque, aparição da moldura, animação da estrela, sublinhados progressivos nos títulos, partículas lentas e interação em botões. A chegada do vídeo e a ligação reversível ao scroll permanecem intactas.
+- **Progressive enhancement:** conteúdo nasce visível no HTML; somente após hidratação, e quando o movimento é permitido, é ativado `data-paxx-motion`. Preferência `prefers-reduced-motion` e `saveData` preservam a leitura estática. Foco por teclado também revela elementos observados.
+- Seletores e estilos são exclusivos da rota `/congrats/sebo-da-paxx`; não foram alteradas a home, outras páginas de parceiros ou a configuração de deploy.
+- Performance: entrada animada uma vez por elemento, transforms/opacidade, evento de scroll passivo e rAF deduplicado. O vídeo existente não é solicitado adicionalmente pelo novo componente.
+
+**Verificações pendentes fora do conector GitHub:** `npm ci`, `npm run build:hostinger`, testes visuais desktop/mobile, reversibilidade e carga do vídeo, navegação por teclado, reduced motion, Save-Data, resposta HTTP do site na Hostinger. Commit/merge no GitHub não equivale a deploy verificado.
