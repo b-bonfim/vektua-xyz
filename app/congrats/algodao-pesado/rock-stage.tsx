@@ -91,6 +91,7 @@ export default function RockStage({ children }: { children: ReactNode }) {
         const next = pendingSeek;
         pendingSeek = null;
         requestSeek(next);
+        return;
       }
       if (!unmounted && videoActive) setVideoReady(true);
     }
@@ -101,7 +102,10 @@ export default function RockStage({ children }: { children: ReactNode }) {
     }
 
     function onFirstFrame() {
-      if (!unmounted && videoActive) setVideoReady(true);
+      if (!unmounted && videoActive && readyToSeek &&
+        Math.abs(video!.currentTime - progress() * video!.duration) < .12) {
+        setVideoReady(true);
+      }
     }
 
     function onError() {
