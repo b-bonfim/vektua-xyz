@@ -1,7 +1,7 @@
 # Algodão Pesado × Vektua XYZ — Creative direction v2: two separate films
 
 **Date:** 2026-10-22  
-**State:** Film A supplied by Founder and integrated into the site source on 2026-10-22; Film B remains pending. Live deployment is not verified.  
+**State:** Film A supplied and integrated; Film B supplied by Founder, encoded and integrated into the site source on 2026-10-22. Production build, client approval, captions and live deployment are not yet verified.  
 **Route:** `/congrats/algodao-pesado` (canonical), `/congrats/agodao-pesado` (compatibility redirect).  
 **Domain owner:** 07 Commerce & Brand Experience; implementation through existing Next/Vinext/Hostinger architecture; Founder approves final media and publication.
 
@@ -71,7 +71,7 @@ This concept replaces the v1 storyline "you entered our backstage" and the v1 Fi
 - `public/images/campaigns/algodao-pesado/diego-mascot-thank-you-poster.webp`
 - Optional caption track `diego-mascot-thank-you.vtt` after transcription verification.
 
-**Page behavior:** The end section uses `thank-you-message.tsx`, following the established Blind Rats request-to-play UX. It has sound and native playback controls after the visitor presses play. The current `VIDEO_AVAILABLE = false` displays a static, accessible thank-you message rather than a broken or fake play button. Enable only when the actual assets and transcript have been supplied and validated.
+**Page behavior:** The end section uses `thank-you-message.tsx`, following the established Blind Rats request-to-play UX. The submitted video is now included in the repository and `VIDEO_AVAILABLE = true`. The visitor must press play to load the file and hear the message; native playback controls are shown after playback starts. The separate muted hero scrub is not modified. No automatic audio playback.
 
 ## Operational QA and authorization
 
@@ -93,3 +93,14 @@ This concept replaces the v1 storyline "you entered our backstage" and the v1 Fi
 - **Scope:** applies solely to this Algodão Pesado congrats route. Video scroll, final mascot video placeholder, host brand and storefront design are unchanged.
 - **Validation:** file readback matched the supplied SVG text; responsive CSS class references and page paths are checked. Browser screenshots, full build and live Hostinger publication remain unverified.
 - **Rights statement:** source furnished for this campaign by the Founder; displaying a reproduced ® as part of supplied art does not independently establish registration, licensing, trademark ownership or external client approval.
+
+## Film B delivered and incorporated (2026-10-22)
+
+- **Founder upload:** `video-mascote-agradecimento.mp4`, 10.000 s, H.264 1920×1080 24 fps with AAC audio, 4,972,717 bytes.
+- **Frames checked:** 0.5, 5 and 9.5 seconds; the Algodão Pesado cotton mascot remains foregrounded in the rock-stage environment and ends with the horns gesture. No external voice transcription or client signoff was performed.
+- **Web derivative:** H.264 1280×720 (24 fps), AAC stereo 112 kbit/s, `+faststart`, 10.005 seconds, **1,540,043 bytes**; audio volume analysis mean -18.2 dB, peak -1.2 dB. SHA-256: `e5be91c69adf948ed2d21497b87aab1cf576e4c14bac6425ce7a66aec896424a`.
+- **Thumbnail poster:** 1280×720 WebP, 50,078 bytes, extracted at 2.1 seconds. SHA-256: `369bea85983eb86bf7c08f10643798f4dd585e7514a8cb34c8d49e92970debb8`.
+- **Repo assets:** `public/images/campaigns/algodao-pesado/diego-mascot-thank-you.mp4` and `diego-mascot-thank-you-poster.webp` stored as binary Git objects. Their Git blob SHA-1 values were independently checked against the local files: `995a89fca543592c2fb93985e881d15a52819509` and `662bd88039f07782f1824299e2ac3b0a3b19c363`, respectively.
+- **Frontend:** The existing invitation `03 / A VOZ DA ALGODÃO PESADO` now has a functioning click-to-play MP4 player with poster, sound, native controls and load/error feedback. The Film A scroll-scrub remains isolated and muted.
+- **Still outstanding:** verify the *actual* spoken words from the final recording and create a synchronized, reviewed `.vtt` caption track; build `npm run build:hostinger`, check 200/Content-Type/media range in deployed server, test desktop/mobile accessibility and correct production deployment. No verified live publication is asserted by this commit.
+
