@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowDown, ArrowLeft, ArrowUpRight, BookOpenText, Heart, Sparkles } from 'lucide-react';
 import PaxxMotion from './paxx-motion';
+import PaxxReveals from './paxx-reveals';
 import PaxxWish from './paxx-wish';
 import styles from './paxx.module.css';
 
@@ -36,6 +37,7 @@ export default function SeboDaPaxxCongratsPage() {
   return (
     <div className={styles.world} id="paxx-world" data-paxx-chapter="0">
       <PaxxMotion />
+      <PaxxReveals />
       <a className={styles.skip} href="#recado">Ir direto ao agradecimento</a>
       <header className={styles.header}>
         <Link href="/" className={styles.back} aria-label="Voltar para o site Vektua XYZ">
