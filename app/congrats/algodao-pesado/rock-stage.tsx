@@ -220,10 +220,11 @@ export default function RockStage({ children }: { children: ReactNode }) {
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       if (visible) {
+        // Schedule scroll sampling before draining a stale offscreen seek.
+        onScroll();
         if (desiredSeek !== null && !seekBusy && seekFrame === null) {
           seekFrame = requestAnimationFrame(flushSeek);
         }
-        onScroll();
       } else {
         if (frame !== null) cancelAnimationFrame(frame);
         if (seekFrame !== null) cancelAnimationFrame(seekFrame);
