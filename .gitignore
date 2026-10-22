@@ -57,3 +57,6 @@ next-env.d.ts
 /perf-baseline/
 /perf-post/
 /qa-artifacts/
+
+# Generated from verified binary chunks at build time, not committed.
+/public/images/campaigns/algodao-pesado/audience-tribute-scrub.mp4
