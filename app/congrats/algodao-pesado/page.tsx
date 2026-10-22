@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Headphones, Music2, HandMetal } from 'lucide-react';
 import RockStage from './rock-stage';
 import ThankYouMessage from './thank-you-message';
+import ResponsiveImage from '@/components/responsive-image';
 import styles from './algodao-pesado.module.css';
 
 const INSTAGRAM = 'https://www.instagram.com/algodaopesado.oficial/';
@@ -34,7 +35,7 @@ export default function AlgodaoPesadoCongratsPage() {
     <a className={styles.skipLink} href="#recado">Pular para o recado</a>
     <header className={styles.header}>
       <Link href="/" className={styles.back}><ArrowLeft size={16} aria-hidden="true" /> <span>VEKTUA XYZ</span></Link>
-      <a className={styles.brand} href="#inicio" aria-label="Algodão Pesado Rockwear, início da campanha"><span>ALGODÃO</span><strong>PESADO<Bolt /></strong><small>ROCKWEAR</small></a>
+      <a className={styles.brand} href="#inicio" aria-label="Algodão Pesado Rockwear, voltar ao início da campanha"><ResponsiveImage className={styles.officialLogo} src="/images/campaigns/algodao-pesado/algodao-pesado-rockwear-logo.svg" alt="Algodão Pesado Rockwear" width={1774} height={887} loading="eager" /></a>
       <a className={styles.headerSocial} href={INSTAGRAM} target="_blank" rel="noopener noreferrer">INSTAGRAM <ArrowUpRight size={16} aria-hidden="true" /></a>
     </header>
     <main id="inicio">
@@ -104,7 +105,7 @@ export default function AlgodaoPesadoCongratsPage() {
       </section>
     </main>
     <footer className={styles.footer}>
-      <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className={styles.footerClient}>ALGODÃO PESADO <span>ROCKWEAR</span></a>
+      <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className={styles.footerClient} aria-label="Algodão Pesado Rockwear, visitar Instagram em nova guia"><ResponsiveImage className={styles.footerLogo} src="/images/campaigns/algodao-pesado/algodao-pesado-rockwear-logo.svg" alt="Algodão Pesado Rockwear" width={1774} height={887} loading="lazy" /></a>
       <span>CHAVEIRO COM ATITUDE. FEITO POR <Link href="/">VEKTUA XYZ <ArrowRight aria-hidden="true" size={15}/></Link></span>
     </footer>
   </div>;
