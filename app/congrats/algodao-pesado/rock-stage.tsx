@@ -69,7 +69,7 @@ export default function RockStage({ children }: { children: ReactNode }) {
     }
 
     function revealIfSynchronized() {
-      if (unmounted || !videoActive || firstFrameVisible || !readyToSeek) return;
+      if (unmounted || !videoActive || firstFrameVisible || !readyToSeek || video!.readyState < 2) return;
       // The poster stays up until a decoded frame is reasonably close to
       // the current scroll position; never reveal a stale first frame.
       if (Math.abs(video!.currentTime - frameTime(target)) <= 2 / SCRUB_FPS) {
