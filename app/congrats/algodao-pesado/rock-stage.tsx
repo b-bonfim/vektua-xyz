@@ -35,6 +35,7 @@ export default function RockStage({ children }: { children: ReactNode }) {
     let displayed = 0;
     let target = 0;
     let seekBusy = false;
+    let mediaReady = false;
     let pending: number | null = null;
     let lastChapter = -1;
     let disposed = false;
@@ -63,7 +64,7 @@ export default function RockStage({ children }: { children: ReactNode }) {
         section.dataset.chapter = String(chapter);
       }
       section.style.setProperty('--ap-progress', p.toFixed(4));
-      if (videoReady && enabled) seek(p * video.duration);
+      if (mediaReady && enabled) seek(p * video.duration);
     };
 
     const tick = () => {
@@ -87,11 +88,13 @@ export default function RockStage({ children }: { children: ReactNode }) {
 
     const onLoaded = () => {
       if (disposed) return;
+      mediaReady = true;
       setVideoReady(true);
       seek(progress() * video.duration);
     };
 
     const onError = () => {
+      mediaReady = false;
       if (!disposed) { setVideoReady(false); setVideoFailed(true); }
     };
 
@@ -155,7 +158,7 @@ export default function RockStage({ children }: { children: ReactNode }) {
       controller?.abort();
       if (objectUrl) URL.revokeObjectURL(objectUrl);
     };
-  }, [videoReady]);
+  }, []);
 
   return <section ref={sectionRef} className={styles.hero} data-chapter="0" data-ap-mode="static" aria-label="Experiência cinematográfica da Algodão Pesado">
     <div className={styles.stickyScene}>
