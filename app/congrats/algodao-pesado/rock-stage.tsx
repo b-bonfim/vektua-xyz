@@ -6,7 +6,7 @@ import styles from './algodao-pesado.module.css';
 // Activate after the Founder delivers the Google Flow file and its web encode is committed.
 // Never fetch an asset that has not been uploaded to the repository.
 const VIDEO_ENABLED = false;
-const VIDEO_SRC = '/images/campaigns/algodao-pesado/backstage-scrub.mp4';
+const VIDEO_SRC = '/images/campaigns/algodao-pesado/audience-tribute-scrub.mp4';
 const DESKTOP_GATES = [
   '(max-width: 850px)',
   '(orientation: portrait) and (max-width: 1100px)',

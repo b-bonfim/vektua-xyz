@@ -1,74 +1,73 @@
-# Algodão Pesado × Vektua XYZ | Cinematic campaign production brief
+# Algodão Pesado × Vektua XYZ — Creative direction v2: two separate films
 
 **Date:** 2026-10-22  
-**Canonical route:** `/congrats/algodao-pesado`  
-**Compatible typo:** `/congrats/agodao-pesado` redirects to the canonical route.  
-**Source:** Algodão Pesado Instagram screenshots, logo and mascot provided by Founder, printed packaging concept, Site de 10K reference ZIP (Google Drive).  
-**Implementation scope:** campaign micro-world only. No changes to the main Vektua storefront design system.
+**State:** Revised founder creative direction; audiovisual deliverables not yet generated or approved.  
+**Route:** `/congrats/algodao-pesado` (canonical), `/congrats/agodao-pesado` (compatibility redirect).  
+**Domain owner:** 07 Commerce & Brand Experience; implementation through existing Next/Vinext/Hostinger architecture; Founder approves final media and publication.
 
-## Current implementation
+## Executive creative premise
 
-- Full campaign copy and brand-specific rock visual language in `page.tsx`.
-- Standalone dark rock concert design, stage lights, decorative mascot fallback, title choreography and story sections.
-- Desktop landscape sticky 300svh scroll stage with four chapter titles, progressive scroll-driven display, deterministic CSS fallback.
-- Mobile/portrait/reduced-motion static scene (no request for scrub MP4).
-- Instagram is the sole prominent campaign action; Vektua XYZ appears as host/back attribution only.
-- Campaign excluded from the global Vektua WhatsApp floating action.
-- SEO metadata, canonical URL, accessible skip link and focus states.
-- A **temporary illustrative SVG** stands in for approved Algodão Pesado photo/mascot assets. It must not be represented as the official mascot artwork.
-- **Video is not yet integrated:** `VIDEO_ENABLED = false` in `rock-stage.tsx`, until a real approved media file has been supplied.
+The friend/supporter who receives the keyring is the **artist on stage** in a heavy metal concert metaphor. The Algodão Pesado brand and its founder Diego are the **crowd**, raising devil horns to honor and thank the supporter for being part of their story.
 
-## Final asset contract (Founder / Commerce)
+**Do not place the Algodão Pesado mascot in Film A, the scroll-controlled hero.** Its first and only intended audiovisual appearance is at the **end of the page in Film B**, a separate spoken message thanking the visitor on Diego's behalf. The two films may be produced, tested and approved independently. The final film plays only on deliberate user action, with audible dialogue and video controls. It is NOT synchronized to scroll.
 
-1. Approved high-resolution Algodão Pesado logo file, transparent PNG/WebP or vector, with permission to reproduce it in the campaign.
-2. Approved mascot master art, ideally with transparent background, without screenshots/UI chrome, to replace the temporary illustrative SVG.
-3. Final Google Flow 16:9 video, preferably 8 seconds, as MP4 (H.264), without text or baked-in CTA.
-4. Approved poster or first frame (1920×1080; alternatively 1280×720), for mobile/reduced-motion and video failure.
-5. Final client signoff on copy/branding and permission to use their identity and character in published campaign.
-6. QR code on the printed packaging must target `https://vektua.xyz/congrats/algodao-pesado`. Reconfirm live route after deployment before printing.
+This concept replaces the v1 storyline "you entered our backstage" and the v1 Film A prompt featuring the mascot. The previous mascot start frame for the scrub is invalid for this concept; never use it as the first frame of Film A.
 
-## Suggested Google Flow generation
+## Narrative map
 
-**Workflow:** Frames to Video, start image from a clean landscape 16:9 reference featuring the exact mascot. Add the user's original mascot reference as source material for consistency. Do not use a screenshot containing Instagram controls as a video start frame. A cinematic title-free frame avoids AI lettering artifacts.
+| Scene | UX treatment | Narrative | Hero title |
+|---|---|---|---|
+| 1 | Film A, muted scrub 0–25% | Point of view from center stage, concert light and the crowd in darkness | HOJE O PALCO É TODO SEU |
+| 2 | Film A, muted scrub 25–50% | Last note reverberates; silhouettes raise devil horns | E A PLATEIA SE LEVANTA |
+| 3 | Film A, muted scrub 50–75% | More hands rise, cheering and respect | AS MÃOS SE ERGUEM POR VOCÊ |
+| 4 | Film A, muted scrub 75–100% | The audience holds horns in still reverence; end frame settles | ESSA VAI PRA VOCÊ! |
+| 5 | Static copy and message | The friend/supporter is thanked for standing by Diego and the store | ESSA VAI PRA VOCÊ |
+| 6 | Film B, separate click-to-play (with sound) | Mascot speaks to camera **in Diego's name** | UM RECADO DE CORAÇÃO |
+| 7 | Final Instagram CTA | Optional invitation to follow the store | NOSSA REVERÊNCIA É PRA VOCÊ |
 
-**English master prompt:**
+## Film A — Google Flow, silent scroll-scrub, NO MASCOT
 
-> One continuous cinematic tracking shot, 8 seconds, 16:9 horizontal, photorealistic stylized advertising film for a Brazilian rockwear store. In a dark intimate rock concert backstage, a distinctive friendly mascot made of cream-white cotton tufts stands at center-right. The mascot must retain exactly the reference identity: cloud-like tufted cotton head and body, thick expressive brows, glossy black sunglasses, matte black over-ear headphones, woven brown rope-like arms and legs, black high-top canvas sneakers with pale rubber toe caps and white laces, one hand showing rock horns. Keep anatomy and accessories consistent across every frame. The camera makes a smooth single forward push toward the mascot at a constant slow speed as red and warm amber stage spots slowly illuminate a wall of vintage guitar amps and drifting fine stage haze. Subtle practical light flickers, calm dust, gentle soft smoke movement, shallow cinematic depth of field, film grain, weathered grunge rock poster atmosphere, realistic tactile materials. The mascot shows restrained natural movement and a confident welcoming rock-horns gesture, never speaking or changing its face. Keep the upper-left region calm, with dark concert atmosphere suitable for website headline overlays, while maintaining a continuous full-bleed scene across the frame. End in a fully settled hero shot with mascot at center-right and warm rim-light, holding still for the final second. No cuts, no whip pans, no text, no captions, no typographic signs, no logos, no lettering anywhere, no extra fingers, no additional arms or legs, no sunglasses deformation, no face morphing, no sudden scene changes, no flashy zooms.
+**Suggested settings:** Generate 16:9 landscape, ~8 seconds, single uninterrupted shot. Keep the video silent for deterministic scroll-scrubbing. The opening image must show the **perspective from the stage facing the audience**; it cannot feature a mascot, a lead singer or the band.
 
-**Timing / chapter alignment:**
+**English prompt:**
 
-| Scroll band | Progress | Screen caption (HTML, not part of video) | Narrative moment |
-| --- | --- | --- | --- |
-| 1 | 0–25% | VOCÊ ACABA DE ENTRAR PRO BACKSTAGE! | backstage establishes |
-| 2 | 25–50% | ESSE CHAVEIRO TEM ATITUDE. | lights reveal accessories |
-| 3 | 50–75% | O ROCK VAI COM VOCÊ. | camera pushes toward the mascot |
-| 4 | 75–100% | VOCÊ FAZ PARTE DA NOSSA TURMA. | end frame settles |
+> One continuous 8-second cinematic concert shot, widescreen 16:9, filmed entirely from the exact point of view of someone standing on a large rock and heavy metal stage after the final thunderous chord of their favorite song. The camera looks OUT from the stage over the edge toward the audience. The viewer is the performer being honored, NEVER one of the people in the audience. The crowded audience starts as dramatic silhouettes under deep scarlet and warm amber stage lighting. Slow, smooth, gentle forward dolly movement with very stable framing, designed for smooth video seeking based on page scroll. As the last chord fades, the people in the first rows slowly raise their hands, making the unmistakable classic heavy metal devil horns gesture in tribute and appreciation to the viewer on stage. More and more hands and arms rise toward the lights. The gesture feels genuine and emotionally powerful rather than exaggerated or aggressive. Fine concert haze, warm backlit atmospheric particles, beams of burgundy-red and amber light, subtle film grain, dramatic authentic rock concert photography, premium cinematic detail and physical human proportions. Preserve a composition with dark, readable negative space in the upper-left/mid-left region for later website titles applied separately by HTML. During the final second the motion comes to complete rest on a powerful tableau of raised horns and grateful fans. The film must remain one continuous exact concert environment, without any cut, jump, logo or graphic overlay. **ABSOLUTELY NO mascot, no cotton character, no cartoon character, no band member, no performer visible on stage, no text, no readable banners or logos, no letterforms, no surreal fingers, no extra fingers, no melted hands, no flicker, no whip-pan, no zoom jump, no voice, no music.** Leave the center stage foreground open so the camera viewpoint unmistakably belongs to the honored recipient.
 
-**Flow configuration proposed:** 16:9, 1080p if available, ~8 s, image-to-video/frames-to-video, no embedded titles, preserve original mascot identity. Provider presets and exact capabilities may differ; confirm them at time of generation. Silent clip is preferred for scroll playback. Do not include music requiring separate licensing.
+**Ideal initial frame:** 16:9 view from the concert stage toward a dark, smoke-filled crowd, a few near hands lowered and many silhouettes visible; rich deep reds/amber and a large low-contrast upper-left area. **No mascot.** The composition may be supplied as the Flow start-frame still.
 
-**Evaluation gate (Founder / Commerce):** Reject if any face/limb/shoe mutates, cotton turns into hair/food, headset disappears, brand logos are hallucinated, text appears, video flickers/jumps, mascot is too dark, subject is behind the caption zone, or the end fails to settle.
+**Approval checks:** stage-to-audience perspective is correct; visible hands form recognizable devil horns; no mascot or performer; no malformed anatomy, hallucinated logos or AI lettering; smooth camera and end hold; overlay text remains readable.
 
-## Integration after the Flow file is approved
+**Delivery path:** `public/images/campaigns/algodao-pesado/audience-tribute-scrub.mp4`. The route currently keeps `VIDEO_ENABLED = false` in `rock-stage.tsx` until real media and mobile poster are delivered and tested. First frame/still may provide the mobile and reduced-motion experience without loading the video.
 
-1. Place the final H.264 web-optimized MP4 at `public/images/campaigns/algodao-pesado/backstage-scrub.mp4`; keep the production source outside of served public files.
-2. Make a clean, approved landscape poster available for mobile/static presentation and replace the CSS SVG fallback with the approved mascot or poster.
-3. Change `const VIDEO_ENABLED = false` to `true` in `rock-stage.tsx`, with a fresh QA pass.
-4. For scroll seeking, prefer short keyframe interval (GOP ~6–12 frames). Example:
-   ```bash
-   ffmpeg -i flow-master.mp4 -an -vf "scale=1920:-2,fps=30,format=yuv420p" -c:v libx264 -preset slow -crf 22 -g 9 -keyint_min 9 -sc_threshold 0 -movflags +faststart public/images/campaigns/algodao-pesado/backstage-scrub.mp4
-   ```
-   Measure the result, tune for delivery size and verify desktop seek quality; do not assume target size or FPS until the master is inspected.
-5. Verify local build with `npm ci`, `npm run build:hostinger` and HTTP smoke tests for both canonical and typo routes.
-6. Manually inspect in Chrome desktop 1366px and mobile 390px, iOS/Android, portrait/landscape and reduced-motion mode.
-7. Confirm real Hostinger deployment and live URLs separately; a merged PR is not verified deployment.
+## Film B — talking mascot, ending on-click video
 
-## Operational verification
+**Only here** should the mascot appear. The mascot represents Algodão Pesado and conveys Diego's gratitude. Use its exact client-approved reference identity, without reinterpreting the cotton head, sunglasses, headphones, rope-like limbs, black high-top sneakers or hand gesture. Camera is frontal or very light three-quarter, with the mascot speaking naturally and looking directly toward the viewer. The animation can contain small gestures and a concluding devil horns sign, but no dancing, morphing or costume changes.
 
-- Server-rendered copy remains visible without the client JS/video.
-- Static view on mobile and `prefers-reduced-motion` does not fetch video.
-- Alt text and accessible CTA label convey the destination; social opens securely in a new tab.
-- No misleading claim that the temporary illustration is official campaign art.
-- No auto-payments, checkout changes or third-party tracking added.
-- Date of live deployment, screenshots, browser tests and performance measures: **not verified in this document**.
+**Suggested speech draft (requires Founder/Diego approval):**
 
-**Founder gate:** Approve the final clip, use of official client artwork, final copy and release after visual/functional checks. This document is a delivery brief, not recorded media approval or client authorization.
+> "Essa vai pra você! Aqui é a Algodão Pesado, e o Diego mandou um recado: obrigado de coração por estar com a gente e fortalecer nossa história. Tamo junto! Rock'n'roll!"
+
+**English video prompt (Portuguese dialogue retained verbatim):**
+
+> A single warm cinematic 16:9 medium shot of the exact client-supplied Algodão Pesado Rockwear cotton mascot, standing in an intimate rock backstage with soft red-and-amber practical concert lights. Faithfully preserve the cotton tuft texture, cream-white cotton cloud face/body, glossy black sunglasses, prominent black over-ear headphones, dark brows, woven brown rope arms and legs, and black canvas high-top sneakers. The mascot looks into the camera as if addressing one valued friend. It speaks in friendly natural Brazilian Portuguese on behalf of Diego, with warm gratitude and playful rock attitude, saying only the provided approved Portuguese voiceover script. Keep the little mouth moving in sync with spoken sounds; subtle shoulders and hand gesture; end by raising one devil-horns hand clearly and holding it. No changes in character silhouette or outfit, no additional arms, no fake logos, no subtitles baked into frames, no cuts, no aggressive performance, no extra characters. Natural even voice level with clear pronunciation, no copyrighted music. This is a personal thank-you, not a sales advertisement.
+
+**Technical note:** A spoken script longer than one generation may need multiple approved clips and edit/voice postproduction, depending on the generator's duration, audio support and natural speaking rate. Do not compress the dialogue unnaturally. Use an original synthetic mascot voice or user-authorized recording, not an unapproved impersonation of Diego. Produce an accessible transcript/captions based on the **final** recording.
+
+**Delivery paths:**
+- `public/images/campaigns/algodao-pesado/diego-mascot-thank-you.mp4`
+- `public/images/campaigns/algodao-pesado/diego-mascot-thank-you-poster.webp`
+- Optional caption track `diego-mascot-thank-you.vtt` after transcription verification.
+
+**Page behavior:** The end section uses `thank-you-message.tsx`, following the established Blind Rats request-to-play UX. It has sound and native playback controls after the visitor presses play. The current `VIDEO_AVAILABLE = false` displays a static, accessible thank-you message rather than a broken or fake play button. Enable only when the actual assets and transcript have been supplied and validated.
+
+## Operational QA and authorization
+
+1. Confirm the Algodão Pesado logo and original mascot rights/permission with client/Founder before live use.
+2. Inspect and approve both videos **separately** (visual identity, perspective, anatomy, copy, audio).
+3. Keep Film A silent, seeking via scroll only on supported landscape desktop; static fallback on mobile, portrait, reduced motion and media failure.
+4. Keep Film B outside the scrub lifecycle, with explicit start, audio controls, correct pause behavior and accessible transcript/captions.
+5. Verify build `npm run build:hostinger`, route smoke checks, privacy of media assets and mobile/desktop layouts.
+6. Validate both /congrats paths, live Hostinger deployment and QR code scanning before printing.
+7. Do not claim production tests, actual publication, client approval or media readiness without evidence.
+
+**Founder gate:** Approval of the final campaign copy and both audiovisual assets is pending. No marketing claim, music rights, public launch or deployment is implied by a documentation or code merge.
