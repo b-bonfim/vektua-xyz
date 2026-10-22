@@ -75,7 +75,7 @@ async function check(label, path, isImage) {
         : expected === 'image/jpeg'
           ? start[0] === 0xff && start[1] === 0xd8 && start[2] === 0xff
         : expected === 'image/svg+xml'
-          ? start.toString('utf8').trimStart().startsWith('<svg')
+          ? /^(?:<\\?xml[^>]*\\?>\\s*)?<svg\\b/i.test(start.toString('utf8').trimStart())
           : expected === 'image/avif'
             ? start.toString('ascii', 4, 12) === 'ftypavif'
             : start.toString('ascii', 0, 4) === 'RIFF' && start.toString('ascii', 8, 12) === 'WEBP';
