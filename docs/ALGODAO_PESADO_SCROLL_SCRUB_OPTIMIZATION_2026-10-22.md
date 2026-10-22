@@ -32,3 +32,19 @@ Teste de contrato estendido: `npm run check:algodao-ui`. Verificações estátic
 Se ainda houver engasgos no hardware/browser de destino, testar transcodificação de **uma derivação nova de Film A** com keyframes mais frequentes (ex.: GOP 1–6) e comparar tamanho de arquivo, buffering e visual. Como o MP4 atual é empacotado com hash fixo em 10 partes, qualquer recodificação requer novos chunks, novo SHA/tamanho no assembler, comparação visual e aceitação explícita. **Não alterado nesta revisão**.
 
 **Founder Gate:** aprovação após validação no browser e decisão posterior de merge/deploy. Não atualizar estado de produção por inferência.
+
+## Verificação dinâmica isolada — 2026-10-22
+
+Foi executada uma simulação **no runtime JavaScript isolado**, extraindo e interpretando o corpo do `useEffect` do arquivo atual do PR e substituindo DOM, eventos de mídia, `requestAnimationFrame`, `IntersectionObserver` e `fetch` por implementações simuladas. Isso exercita o algoritmo real; **não executa React, Vinext, compilação TypeScript, navegador, decodificação H.264 nem Hostinger**.
+
+A primeira simulação revelou um defeito no início em `progress=0`: o pôster era ocultado quando o player tinha somente metadados (`readyState=1`), antes de um quadro decodificado. A correção bloqueia a revelação até `video.readyState >= 2` (HAVE_CURRENT_DATA). O contrato estático foi atualizado para exigir a guarda.
+
+**Resultados após a correção:**
+- Carregamento no início com atraso na disponibilização do primeiro frame: **simulação PASS**, nenhum pôster ocultado com `readyState < 2`.
+- Quatro inversões rápidas de direção: **simulação PASS**, 7 seeks, último tempo 3,5833 s igual ao quadro de destino calculado.
+- Progressão contínua simulada em 120 eventos de scroll a 60 Hz: **simulação PASS**, 44 seeks e quadro final em 9,9583 s.
+- Preferência de movimento reduzido: **simulação PASS**, 0 seeks e nenhum vídeo carregado.
+
+As quantidades de seeks e os tempos são **resultados do modelo de teste**, não medições de rede ou do FPS de um navegador real.
+
+**Bloqueio de release:** tentativas de obter checkout do GitHub nesta sessão falharam por indisponibilidade de DNS/rede do contêiner (sem repositório local nem cache de dependências). Não foi possível rodar `npm ci`, `npm run build:hostinger`, smoke HTTP, inspeção visual desktop/mobile ou pipeline Hostinger. Consequentemente, **não declarar build PASS, UX aprovada, PR liberado ou deploy concluído**.
