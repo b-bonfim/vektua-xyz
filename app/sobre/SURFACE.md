@@ -40,4 +40,15 @@ Copiar para o repositório, preservando os nomes:
 4. Conferir /sobre, MP4 e poster ao vivo na Hostinger após deploy e verificação de versão.
 5. A aprovação final de conteúdo e qualidade de movimento cabe ao Founder.
 
-**Limite:** commit / merge no GitHub não é prova de publicação na Hostinger. 
+**Limite:** commit / merge no GitHub não é prova de publicação na Hostinger.
+
+
+## Refinamento de movimento institucional — 24/10/2026 (v2)
+**Pedido do Founder:** tornar mais evidentes as animações das seções, textos e imagens, preservando a narrativa, o master cinematográfico e a experiência Site 10K.
+
+- Novo `app/sobre/sobre-motion.tsx`: controlador específico da página com IntersectionObserver para revelações únicas; RAF apenas em rolagem ativa para o diagrama XYZ e parallax muito limitado nas artes de campanha; mudança de preferência de movimento tratada no cliente.
+- O manifesto recebe máscara/revelação tipográfica; o nome/XYZ desloca a geometria tridimensional conforme a rolagem; as quatro linhas ganham chegada sequencial e sublinhado; as três histórias são descobertas por uma cortina editorial e imagens com profundidade; encerramento aproxima sua assinatura.
+- CSS de ativação explícita: conteúdo é legível **por padrão sem JavaScript**; animações só ocultam temporariamente alvos com `data-about-motion="on"` e `IntersectionObserver` disponível. Sempre expõem elementos que já estejam visíveis ao navegar/restaurar scroll.
+- Respeito a `prefers-reduced-motion` inclusive mudanças durante a sessão; nesse caso textos, imagens, navegação e conteúdo permanecem visíveis, sem deslocamento ou animação não essencial.
+- Sem nova dependência, sem alteração de copy, claims, URL, política de robots, imagens, vídeo, autenticação, pagamento ou outras rotas.
+- **Critérios de aceite ainda pendentes:** abrir `/sobre` em navegador desktop e Android, validar scroll em ambas direções, navegação por teclado, foco, movimento reduzido, FPS e compatibilidade com o filme; executar `npm run build:hostinger` e verificação HTTPS após deploy. Alteração de repositório não equivale a publicação verificada.

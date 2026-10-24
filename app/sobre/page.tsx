@@ -4,6 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { BrandFooter } from '@/components/brand-shell-v2';
 import ResponsiveImage from '@/components/responsive-image';
 import SobreScroll from './sobre-scroll';
+import SobreMotion from './sobre-motion';
 import './sobre.css';
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ const stories = [
 
 export default function SobrePage(){
 return <div className="about-page">
+  <SobreMotion/>
   <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
   <header className="about-topnav">
     <Link href="/" className="about-topnav-brand" aria-label="Vektua XYZ — voltar ao início">
