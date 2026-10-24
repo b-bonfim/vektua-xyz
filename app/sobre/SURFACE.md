@@ -3,10 +3,10 @@
 **Data:** 24/10/2026  
 **Owner:** 07 Commerce / Brand Experience, com implementação frontend.  
 **Direção criativa:** aprovada pelo Founder na conversa; publicação solicitada expressamente em /sobre.  
-**Status deste commit:** interface e mecanismo de vídeo scrub implementados no código; **upload do MP4/poster, build, QA em navegador e publicação pública requerem verificação separada**.
+**Status em 24/10/2026:** interface, cabeçalho institucional, manifesto, scrub, poster e oito segmentos do MP4 **commitados e lidos de volta na main**, com Git blob SHA de cada segmento conferido byte a byte contra o arquivo aprovado. **Build, QA em navegador, disponibilidade HTTPS e publicação na Hostinger permanecem não verificados.**
 
 ## Conteúdo e identidade
-- Página institucional original (não vitrine simples de produtos).
+- Página institucional original (não vitrine simples de produtos), com navegação overlay independente da faixa comercial do catálogo e retorno para a loja.
 - Propósito oficial: ajudar pessoas a encontrar objetos que combinem com gostos, ocasiões, histórias e contextos de descoberta.
 - Assinaturas: Objetos com personalidade; Do achado à peça só sua.
 - Quatro linhas e seus verbos: Objetos & Colecionáveis (Escolher), Datas & Coleções (Celebrar), Feitos para Você (Personalizar), Chaveiros (Descobrir).
