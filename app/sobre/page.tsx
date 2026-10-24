@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { BrandHeader, BrandFooter } from '@/components/brand-shell-v2';
+import { BrandFooter } from '@/components/brand-shell-v2';
 import ResponsiveImage from '@/components/responsive-image';
 import SobreScroll from './sobre-scroll';
 import './sobre.css';
@@ -26,7 +26,17 @@ const stories = [
 
 export default function SobrePage(){
 return <div className="about-page">
-  <BrandHeader/>
+  <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header className="about-topnav">
+    <Link href="/" className="about-topnav-brand" aria-label="Vektua XYZ — voltar ao início">
+      <ResponsiveImage src="/brand/vektua-wordmark-negative.svg" alt="Vektua XYZ" width={190} height={48} fetchPriority="high"/>
+    </Link>
+    <nav aria-label="Navegação institucional">
+      <Link href="#manifesto">Nosso propósito</Link>
+      <Link href="#historias">Nossas histórias</Link>
+      <Link href="/" className="about-topnav-home">Explorar a Vektua <ArrowUpRight size={16} aria-hidden="true"/></Link>
+    </nav>
+  </header>
   <main id="conteudo">
     <SobreScroll/>
     <section className="about-belief" id="manifesto" aria-labelledby="about-belief-heading">
@@ -57,7 +67,7 @@ return <div className="about-page">
         <div><strong>{line.verb}</strong><small>{line.name}</small></div><p>{line.desc}</p><ArrowUpRight aria-hidden="true" size={25}/>
       </Link>)}</div>
     </section>
-    <section className="about-stories" aria-labelledby="about-stories-heading">
+    <section id="historias" className="about-stories" aria-labelledby="about-stories-heading">
       <div className="about-stories-intro">
         <div><div className="about-tag"><span/> O QUE GANHA FORMA</div><h2 id="about-stories-heading">Histórias que se tornam <em>tangíveis.</em></h2></div>
         <p>Não existe um único jeito de ter personalidade. Cada criação pede escuta, repertório e uma linguagem própria. É nesse encontro que gostamos de trabalhar.</p>
