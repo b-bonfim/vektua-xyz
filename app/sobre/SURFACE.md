@@ -28,12 +28,13 @@ Fonte: pasta "Skill Site 10k" e arquivo sitede10k-skill.zip, com SKILL.md, pipel
 
 ## Arquivos binários **necessários para ativar a experiência**
 Copiar para o repositório, preservando os nomes:
-- `public/images/brand/cosmogonia/master-scroll-720.mp4` — arquivo-fonte local: `VEKTUA_COSMOGONIA_MASTER_SCROLL_v2_720p.mp4`, 20s, 1280×720, sem áudio, GOP 8.
-- `public/images/brand/cosmogonia/poster-final.jpg` — arquivo-fonte local: `VEKTUA_COSMOGONIA_POSTER_FINAL_v2.jpg`.
-O componente verifica MIME e HTTP 200; se não estiverem presentes, preserva uma experiência estática intencional, **mas o scrub não funciona**. A presença desses ativos é um requisito para declarar a experiência cinematográfica publicada.
+- `public/images/brand/cosmogonia/segment-00.bin` até `segment-07.bin`: oito segmentos BIN do **mesmo master aprovado**, sem recodificação adicional, recuperados no browser e concatenados em um único Blob `video/mp4` para escrutínio bidirecional via `currentTime`. Tamanhos [900000 ×7, 839128], total **7.139.128 bytes**; SHA-256 da concatenação `b8408cb1808df1256cb0daaad72718158072e17ba719b950471caf79777b25de`. MP4 original 20 segundos, 1280×720, H.264, 24fps, sem áudio, GOP 8.
+- `public/images/brand/cosmogonia/poster-final.jpg`: 100.197 bytes, poster conceitual aprovado.
+- Os oito segmentos foram necessários para respeitar o limite de corpo de requisição na integração de upload; carregamento `Promise.all` e armazenamento em cache são limitados a desktop elegível.
+- Se algum dos nove recursos retornar erro, a experiência retorna para uma apresentação estática, sem afirmar que o vídeo funciona. O scrub só está validado após teste de navegador.
 
 ## Próximas verificações obrigatórias
-1. Acrescentar os ativos binários, conferir SHA/bytes/MIME e que estão efetivamente servidos via HTTPS.
+1. Verificar os nove ativos binários já commitados na main: HTTP 200, bytes e SHA-256 reconstruído em navegador; não presumir disponibilização só pelo commit.
 2. Executar `npm ci`, TypeScript, lint e `npm run build:hostinger` na HEAD resultante; não executar GitHub Actions.
 3. Validar localmente /sobre em desktop (rolagem normal e reversa), mobile e reduced-motion, incluindo scroll rápido e carregamento lento.
 4. Conferir /sobre, MP4 e poster ao vivo na Hostinger após deploy e verificação de versão.
