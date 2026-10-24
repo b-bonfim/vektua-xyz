@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 
-const VIDEO = '/images/brand/cosmogonia/master-scroll-720.mp4';
+const VIDEO_PARTS = Array.from({ length: 8 }, (_, i) => `/images/brand/cosmogonia/segment-${String(i).padStart(2, '0')}.bin`);
 const POSTER = '/images/brand/cosmogonia/poster-final.jpg';
 const chapters = [
   { text:'Tudo começa como possibilidade.', end:0.148 },
@@ -82,9 +82,14 @@ export default function SobreScroll(){
       if(!enabled||!near||loading||disposed)return;
       loading=true;controller=new AbortController();
       try{
-        const response=await fetch(VIDEO,{signal:controller.signal,cache:'force-cache'});
-        if(!response.ok||!(response.headers.get('content-type')||'').includes('video'))throw new Error('unavailable');
-        const blob=await response.blob();
+        // Store the original MP4 as Git-backed byte segments to respect connector upload limits.
+        // They are reassembled byte-for-byte into a single seekable MP4 Blob on eligible desktops.
+        const parts=await Promise.all(VIDEO_PARTS.map(async (path)=>{
+          const response=await fetch(path,{signal:controller?.signal,cache:'force-cache'});
+          if(!response.ok)throw new Error('cinematic video segment unavailable');
+          return await response.arrayBuffer();
+        }));
+        const blob=new Blob(parts,{type:'video/mp4'});
         if(disposed||!enabled)return;
         url=URL.createObjectURL(blob);
         video.src=url;
