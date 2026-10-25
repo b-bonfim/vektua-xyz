@@ -52,3 +52,14 @@ Copiar para o repositório, preservando os nomes:
 - Respeito a `prefers-reduced-motion` inclusive mudanças durante a sessão; nesse caso textos, imagens, navegação e conteúdo permanecem visíveis, sem deslocamento ou animação não essencial.
 - Sem nova dependência, sem alteração de copy, claims, URL, política de robots, imagens, vídeo, autenticação, pagamento ou outras rotas.
 - **Critérios de aceite ainda pendentes:** abrir `/sobre` em navegador desktop e Android, validar scroll em ambas direções, navegação por teclado, foco, movimento reduzido, FPS e compatibilidade com o filme; executar `npm run build:hostinger` e verificação HTTPS após deploy. Alteração de repositório não equivale a publicação verificada.
+
+## Fotografias dos projetos — 25/10/2026 (v3)
+**Solicitação expressa do Founder:** substituir as três artes de campanha da seção “Histórias que se tornam tangíveis” por fotografias reais dos produtos fornecidas na conversa.
+- Blind Rats: `public/images/projects/blind-rats-real.webp` — miniaturas do mascote com jaquetas vermelhas.
+- A Padoca: `public/images/projects/a-padoca-real.webp` — chaveiros e peças em temática de panificação.
+- Algodão Pesado: `public/images/projects/algodao-pesado-real.webp` — chaveiro do mascote com óculos, fones e tênis.
+- Fontes: três arquivos WebP de foto dos produtos enviados pelo Founder em 25/10/2026; versões de exibição derivadas em WebP 768×768, qualidade 74. Originais preservados na conversa.
+- Texto alternativo descritivo individual, selo editorial “FOTO REAL DO PRODUTO”, recorte por item com `object-position` e efeito de revelação/parallax v2 preservado.
+- Alteração restrita à página `/sobre` e seus três arquivos de mídia; campanhas e outras rotas intocadas.
+- Direitos de terceiros e autorização para divulgação comercial não são inferidos das fotos; prevalecem as decisões e verificações aplicáveis.
+- **QA ainda necessário:** build, inspeção visual desktop/mobile, verificação HTTP dos três novos arquivos após deploy e aprovação final de apresentação. Commit no GitHub não confirma deploy na Hostinger.

@@ -20,9 +20,9 @@ const lines = [
   {verb:'Descobrir', name:'Chaveiros', desc:'Pequenos achados no contexto certo.', href:'/chaveiros'},
 ] as const;
 const stories = [
-  {name:'Blind Rats', description:'Uma identidade que saiu da ideia, passou pela modelagem e encontrou a cena grunge local.', art:'/images/campaigns/blind-rats/blind-rats-hero.webp', link:'/congrats/blind-rats'},
-  {name:'A Padoca', description:'A energia de uma micro padaria artesanal traduzida em um objeto para levar consigo.', art:'/images/campaigns/a-padoca/a-padoca-scroll-poster.webp', link:'/congrats/a-padoca'},
-  {name:'Algodão Pesado', description:'Um encontro entre cultura rock, comunidade e criação personalizada.', art:'/images/campaigns/algodao-pesado/audience-tribute-poster.jpg', link:'/congrats/algodao-pesado'},
+  {name:'Blind Rats', description:'Uma identidade que saiu da ideia, passou pela modelagem e encontrou a cena grunge local.', art:'/images/projects/blind-rats-real.webp', alt:'Miniaturas impressas em 3D do mascote da banda Blind Rats, com jaquetas vermelhas e óculos escuros, dispostas sobre uma mesa.', position:'center 46%', link:'/congrats/blind-rats'},
+  {name:'A Padoca', description:'A energia de uma micro padaria artesanal traduzida em um objeto para levar consigo.', art:'/images/projects/a-padoca-real.webp', alt:'Chaveiros impressos em 3D para A Padoca, incluindo peças em formato de pão e biscoito, e medalhões com a marca.', position:'center 52%', link:'/congrats/a-padoca'},
+  {name:'Algodão Pesado', description:'Um encontro entre cultura rock, comunidade e criação personalizada.', art:'/images/projects/algodao-pesado-real.webp', alt:'Chaveiro personalizado Algodão Pesado com mascote branco, óculos escuros, fones de ouvido, bigode e tênis.', position:'center 48%', link:'/congrats/algodao-pesado'},
 ] as const;
 
 export default function SobrePage(){
@@ -75,7 +75,7 @@ return <div className="about-page">
         <p>Não existe um único jeito de ter personalidade. Cada criação pede escuta, repertório e uma linguagem própria. É nesse encontro que gostamos de trabalhar.</p>
       </div>
       <div className="about-story-grid">{stories.map((story,i)=><Link href={story.link} className="about-story" key={story.name}>
-        <div className="about-story-photo"><ResponsiveImage src={story.art} alt={`Arte de campanha do projeto ${story.name}; imagem ilustrativa, não foto de produto`} width={800} height={900} loading="lazy" decoding="async" fetchPriority="low"/><small>ARTE DE CAMPANHA · NÃO É FOTO DE PRODUTO</small></div>
+        <div className="about-story-photo"><ResponsiveImage src={story.art} alt={story.alt} style={{ objectPosition: story.position }} width={800} height={900} loading="lazy" decoding="async" fetchPriority="low"/><small>FOTO REAL DO PRODUTO</small></div>
         <div className="about-story-meta"><span>{String(i+1).padStart(2,'0')} / projeto</span><ArrowUpRight size={18} aria-hidden="true"/></div><h3>{story.name}</h3><p>{story.description}</p>
       </Link>)}</div>
     </section>
