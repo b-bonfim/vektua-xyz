@@ -63,3 +63,20 @@ Copiar para o repositório, preservando os nomes:
 - Alteração restrita à página `/sobre` e seus três arquivos de mídia; campanhas e outras rotas intocadas.
 - Direitos de terceiros e autorização para divulgação comercial não são inferidos das fotos; prevalecem as decisões e verificações aplicáveis.
 - **QA ainda necessário:** build, inspeção visual desktop/mobile, verificação HTTP dos três novos arquivos após deploy e aprovação final de apresentação. Commit no GitHub não confirma deploy na Hostinger.
+
+
+## Hotfix: revelação resiliente do manifesto — 26/10/2026
+
+**Evidência de entrada:** captura enviada pelo Founder mostrando o rótulo "O QUE NOS MOVE" e a coluna de texto à direita, mas o título institucional ausente na esquerda.
+
+**Diagnóstico por inspeção de código:** o CSS da animação `manifesto` definia `opacity:0` e `clip-path:inset(0 0 100% 0)` para o elemento `h2` inteiro, dependente de `IntersectionObserver` e da classe `is-revealed`. Isso criava a possibilidade de um título permanentemente oculto caso a revelação não fosse aplicada. Não foi feita reprodução instrumentada do ambiente do usuário; esta é a causa provável sustentada pelo CSS e pela captura.
+
+**Correção aplicada:** 
+- Conteúdo do `h2#about-belief-heading` preservado, dividido em dois `span.about-manifesto-line` independentes para controlar o ritmo das frases.
+- O `h2` passa a ser sempre visível; não fica mais oculto aguardando eventos de scroll. O CSS de correção tem precedência sobre a regra genérica anterior, também no breakpoint mobile.
+- Apenas os spans recebem animação por `@keyframes` depois que `is-revealed` é aplicado; primeiro a declaração em grafite, depois a expressão de propósito em verde-petróleo.
+- Pequeno traço terracota que se desenha como assinatura da seção; marca visual é estática na ausência de JS.
+- `prefers-reduced-motion` mantém título, linhas e traço totalmente visíveis sem animação.
+- O fluxo Site 10K, as fotos reais, as histórias, links e demais seções permanecem inalterados.
+
+**Verificação necessária após deploy:** validar cabeçalho visível antes e depois da rolagem, scroll reverso, chegada direta pela âncora `#manifesto`, modo sem JS, reduced-motion e visual mobile/desktop. Build, inspeção visual em navegador de produção e publicação Hostinger não são inferidos a partir do commit.

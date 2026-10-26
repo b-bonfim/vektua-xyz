@@ -44,7 +44,7 @@ return <div className="about-page">
     <section className="about-belief" id="manifesto" aria-labelledby="about-belief-heading">
       <div className="about-tag"><span/> O QUE NOS MOVE</div>
       <div className="about-belief-grid">
-        <h2 id="about-belief-heading">Não é sobre imprimir qualquer coisa.<br/><em>É sobre dar forma ao que faz sentido.</em></h2>
+        <h2 id="about-belief-heading"><span className="about-manifesto-line">Não é sobre imprimir qualquer coisa.</span>{' '}<span className="about-manifesto-line about-manifesto-line--purpose"><em>É sobre dar forma ao que faz sentido.</em></span></h2>
         <div className="about-belief-copy">
           <p>A Vektua XYZ nasceu de uma convicção: <strong>um objeto pode valer a escolha pelo design, pelo momento, por quem representa ou pelo lugar em que faz sentido.</strong></p>
           <p>Às vezes, é uma peça que chama a atenção. Às vezes, é uma lembrança, um símbolo de pertencimento ou uma ideia que ainda existe só na imaginação. Nosso trabalho é transformar essas possibilidades em algo que se possa ver, tocar e levar para a vida.</p>

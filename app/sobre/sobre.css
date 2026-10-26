@@ -259,3 +259,68 @@
   }
   .about-page .about-line::after{transform:scaleX(0)!important;transition:none!important}
 }
+
+/* /sobre manifesto v3 — fail-open reveal.
+   The headline itself is NEVER hidden waiting for IntersectionObserver.
+   Only its visible child lines animate after the observer confirms entry. */
+.about-belief h2 .about-manifesto-line{
+  display:block;
+  text-wrap:balance;
+  opacity:1;
+  transform:none;
+  clip-path:none;
+}
+.about-belief h2::after{
+  content:"";
+  display:block;
+  height:2px;
+  width:74px;
+  margin-top:clamp(25px,3vw,43px);
+  background:#c45c3b;
+  transform-origin:left;
+}
+.about-page[data-about-motion="on"] .about-belief h2.about-motion-target{
+  opacity:1;
+  transform:none;
+  clip-path:none;
+  filter:none;
+  transition:none;
+}
+/* A staged reveal: graphite conviction, then the petrol-green purpose. */
+.about-page[data-about-motion="on"] .about-belief h2.is-revealed .about-manifesto-line{
+  animation:about-manifesto-unveil 940ms cubic-bezier(.16,1,.3,1) both;
+  animation-delay:80ms;
+}
+.about-page[data-about-motion="on"] .about-belief h2.is-revealed .about-manifesto-line--purpose{
+  animation-duration:1040ms;
+  animation-delay:260ms;
+}
+.about-page[data-about-motion="on"] .about-belief h2.is-revealed::after{
+  animation:about-manifesto-stroke 680ms cubic-bezier(.16,1,.3,1) both;
+  animation-delay:690ms;
+}
+@keyframes about-manifesto-unveil{
+  from{opacity:0;transform:translate3d(0,44px,0);clip-path:inset(100% 0 0 0)}
+  to{opacity:1;transform:translate3d(0,0,0);clip-path:inset(0 0 0 0)}
+}
+@keyframes about-manifesto-stroke{
+  from{opacity:0;transform:scaleX(0)}
+  to{opacity:1;transform:scaleX(1)}
+}
+@media(max-width:767px){
+  .about-page[data-about-motion="on"] .about-belief h2.is-revealed .about-manifesto-line--purpose{
+    animation-delay:180ms;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .about-page .about-belief h2,
+  .about-page .about-belief h2 .about-manifesto-line,
+  .about-page .about-belief h2::after{
+    opacity:1!important;
+    transform:none!important;
+    clip-path:none!important;
+    filter:none!important;
+    animation:none!important;
+    transition:none!important;
+  }
+}
