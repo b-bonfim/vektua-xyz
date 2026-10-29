@@ -8,7 +8,7 @@ export function WhatsAppContact() {
   const pathname = usePathname();
 
   // Campaign microsurfaces: leave partner artwork free of Vektua commerce overlays.
-  if (/^\/congrats\/(orion-tattoo|a-padoca|algodao-pesado|agodao-pesado)\/?$/.test(pathname)) {
+  if (/^\/congrats\/(orion-tattoo|a-padoca|algodao-pesado|agodao-pesado)\/?$/.test(pathname) || /^\/links\/[a-z0-9-]+\/?$/.test(pathname)) {
     return null;
   }
 
