@@ -67,7 +67,7 @@ export default async function ClientLinksPage({ params }: Props) {
         <header className={styles.hero}>
           <div className={styles.topline}>
             <span className={styles.liveDot} aria-hidden="true" />
-            <span>VOCÊ CHEGOU NA TEM DE TUDO</span>
+            <span>VOCÊ CHEGOU NA {client.name.toUpperCase()}</span>
             <Sparkles size={15} aria-hidden="true" />
           </div>
 
