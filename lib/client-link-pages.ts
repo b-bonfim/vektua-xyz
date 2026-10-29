@@ -60,7 +60,20 @@ export const clientLinkPages: Record<string, ClientLinkPage> = {
         href: 'https://www.instagram.com/tem_de_tudo_srs/',
         kind: 'instagram',
       },
-      // WhatsApp, endereço e outros canais: adicionar somente após confirmação do cliente.
+      {
+        id: 'whatsapp',
+        label: 'Fale com a gente no WhatsApp',
+        description: 'Dúvidas e atendimento direto',
+        href: 'https://wa.me/5535998914282?text=' + encodeURIComponent('Olá! Acessei a página da Tem de Tudo e gostaria de mais informações sobre os produtos da loja.'),
+        kind: 'whatsapp',
+      },
+      {
+        id: 'avaliacao-google',
+        label: 'Avalie a loja no Google',
+        description: 'Compartilhe sua experiência com a Tem de Tudo',
+        href: 'https://search.google.com/local/writereview?placeid=ChIJW5Ans4Kjy5QRd4MJayPOPz4',
+        kind: 'other',
+      },
     ],
   },
 };
