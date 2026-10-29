@@ -11,6 +11,7 @@ import {
   MessageCircle,
   ShoppingBag,
   Sparkles,
+  Star,
 } from 'lucide-react';
 import { clientLinkPages, getClientLinkPage } from '@/lib/client-link-pages';
 import type { ClientLinkKind } from '@/lib/client-link-pages';
@@ -23,6 +24,7 @@ const icons = {
   whatsapp: MessageCircle,
   website: Globe2,
   location: MapPin,
+  review: Star,
   other: ArrowUpRight,
 } satisfies Record<ClientLinkKind, typeof Instagram>;
 
@@ -115,24 +117,24 @@ export default async function ClientLinksPage({ params }: Props) {
               );
             })}
           </nav>
-          <p className={styles.note}>Novos canais serão adicionados após a confirmação da loja.</p>
+          
         </section>
 
         <section className={styles.maker} aria-label="Sobre quem criou esta experiência">
           <div className={styles.makerBadge}>
             <ShoppingBag size={20} aria-hidden="true" />
-            <span>DO CHAVEIRO AO DIGITAL</span>
+            <span>EXPERIÊNCIAS QUE CONECTAM</span>
           </div>
-          <p className={styles.makerTitle}>Uma ideia com personalidade, feita pela <strong>Vektua XYZ.</strong></p>
-          <p className={styles.makerBody}>Transformamos ideias em objetos e experiências que aproximam marcas e pessoas.</p>
+          <p className={styles.makerTitle}>Um encontro entre o físico e o digital, criado pela <strong>Vektua XYZ.</strong></p>
+          <p className={styles.makerBody}>Criamos experiências para aproximar marcas e pessoas, com criatividade e personalidade.</p>
           <div className={styles.makerLinks}>
-            <Link href="/chaveiros">Conheça nossos chaveiros <ArrowUpRight size={16} aria-hidden="true" /></Link>
-            <Link href="/contato">Crie um projeto conosco <ArrowUpRight size={16} aria-hidden="true" /></Link>
+            <Link href="/">Conheça a Vektua XYZ <ArrowUpRight size={16} aria-hidden="true" /></Link>
+            <Link href="/contato">Quero uma experiência para minha marca <ArrowUpRight size={16} aria-hidden="true" /></Link>
           </div>
         </section>
 
         <footer className={styles.footer}>
-          <span>Tem de Tudo <span aria-hidden="true">✳</span> Vektua XYZ</span>
+          <span>{client.name} <span aria-hidden="true">✳</span> Vektua XYZ</span>
           <Link href="/" aria-label="Visitar site Vektua XYZ">vektua.xyz</Link>
         </footer>
       </main>
