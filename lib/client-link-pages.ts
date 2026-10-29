@@ -3,7 +3,7 @@
  * Keep slugs permanent once printed/written to a tag.
  * Do not add unverified WhatsApp numbers, addresses, or social accounts.
  */
-export type ClientLinkKind = 'instagram' | 'whatsapp' | 'website' | 'location' | 'other';
+export type ClientLinkKind = 'instagram' | 'whatsapp' | 'website' | 'location' | 'review' | 'other';
 
 export interface ClientLink {
   id: string;
@@ -72,7 +72,7 @@ export const clientLinkPages: Record<string, ClientLinkPage> = {
         label: 'Avalie a loja no Google',
         description: 'Compartilhe sua experiência com a Tem de Tudo',
         href: 'https://search.google.com/local/writereview?placeid=ChIJW5Ans4Kjy5QRd4MJayPOPz4',
-        kind: 'other',
+        kind: 'review',
       },
     ],
   },
