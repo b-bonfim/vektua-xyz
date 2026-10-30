@@ -62,6 +62,9 @@ export default async function ClientLinksPage({ params }: Props) {
     Number(b.kind === 'whatsapp') - Number(a.kind === 'whatsapp')
   );
 
+  const accent = client.headlineAccent;
+  const accentIndex = accent ? client.headline.indexOf(accent) : -1;
+
   const palette = {
     '--client-blue': client.palette.blue,
     '--client-yellow': client.palette.yellow,
@@ -86,7 +89,15 @@ export default async function ClientLinksPage({ params }: Props) {
             />
           </div>
 
-          <h1>{client.headline}</h1>
+          <h1>
+            {accent && accentIndex >= 0 ? (
+              <>
+                {client.headline.slice(0, accentIndex)}
+                <span className={styles.headlineAccent}>{accent}</span>
+                {client.headline.slice(accentIndex + accent.length)}
+              </>
+            ) : client.headline}
+          </h1>
           <p className={styles.intro}>{client.intro}</p>
         </header>
 
