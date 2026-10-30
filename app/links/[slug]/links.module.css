@@ -34,7 +34,11 @@
 .clientLink[data-kind='whatsapp'] { background: var(--client-yellow); border-color: var(--client-yellow); }
 .clientLink[data-kind='whatsapp']:hover { background: #f6df02; border-color: #f6df02; }
 .linkIcon { display: grid; flex: 0 0 42px; place-items: center; width: 42px; height: 42px; border-radius: 11px; color: var(--client-blue); background: #eef2fb; }
-.clientLink[data-kind='whatsapp'] .linkIcon { background: var(--client-blue); color: var(--client-yellow); }
+/* Genuine platform symbols retain their own colors on a neutral tile. */
+.clientLink[data-kind='instagram'] .linkIcon,
+.clientLink[data-kind='whatsapp'] .linkIcon,
+.clientLink[data-kind='review'] .linkIcon { background: #fff; }
+.brandIcon { display: block; width: 26px; height: 26px; object-fit: contain; flex-shrink: 0; }
 .linkCopy { display: flex; flex: 1; flex-direction: column; text-align: left; min-width: 0; }
 .linkCopy strong { color: #132758; font-size: 15px; line-height: 1.3; font-weight: 800; }
 .linkCopy small { display: block; margin-top: 3px; color: #4c5973; font-size: 12.5px; line-height: 1.35; }
