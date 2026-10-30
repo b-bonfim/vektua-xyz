@@ -9,7 +9,6 @@ import {
   Camera,
   MapPin,
   MessageCircle,
-  ShoppingBag,
   Star,
 } from 'lucide-react';
 import { clientLinkPages, getClientLinkPage } from '@/lib/client-link-pages';
@@ -52,6 +51,11 @@ export default async function ClientLinksPage({ params }: Props) {
   const client = getClientLinkPage(slug);
   if (!client) notFound();
 
+  // Keep the action hierarchy and keyboard/tab order aligned; server-side only.
+  const sortedLinks = [...client.links].sort((a, b) =>
+    Number(b.kind === 'whatsapp') - Number(a.kind === 'whatsapp')
+  );
+
   const palette = {
     '--client-blue': client.palette.blue,
     '--client-yellow': client.palette.yellow,
@@ -82,10 +86,10 @@ export default async function ClientLinksPage({ params }: Props) {
 
         <section id="links" className={styles.linksSection} aria-labelledby="links-title">
           <div className={styles.sectionLabel}>
-            <h2 id="links-title">Vamos nos conectar?</h2>
+            <h2 id="links-title">Como podemos te ajudar?</h2>
           </div>
           <nav className={styles.linkList} aria-label={`Links da ${client.name}`}>
-            {client.links.map((item) => {
+            {sortedLinks.map((item) => {
               const Icon = icons[item.kind];
               return (
                 <a
@@ -110,21 +114,14 @@ export default async function ClientLinksPage({ params }: Props) {
         </section>
 
         <section className={styles.maker} aria-label="Sobre quem criou esta experiência">
-          <div className={styles.makerBadge}>
-            <ShoppingBag size={20} aria-hidden="true" />
-            <span>EXPERIÊNCIAS QUE CONECTAM</span>
-          </div>
-          <p className={styles.makerTitle}>Um encontro entre o físico e o digital, criado pela <strong>Vektua XYZ.</strong></p>
-          <p className={styles.makerBody}>Criamos experiências para aproximar marcas e pessoas, com criatividade e personalidade.</p>
+          <p className={styles.makerTitle}>Uma experiência criada pela <strong>Vektua XYZ.</strong></p>
           <div className={styles.makerLinks}>
-            <Link href="/">Conheça a Vektua XYZ <ArrowUpRight size={16} aria-hidden="true" /></Link>
-            <Link href="/contato">Quero uma experiência para minha marca <ArrowUpRight size={16} aria-hidden="true" /></Link>
+            <Link href="/contato">Quer uma experiência assim para sua marca? <ArrowUpRight size={14} aria-hidden="true" /></Link>
           </div>
         </section>
 
         <footer className={styles.footer}>
-          <span>{client.name} <span aria-hidden="true">✳</span> Vektua XYZ</span>
-          <Link href="/" aria-label="Visitar site Vektua XYZ">vektua.xyz</Link>
+          <span>{client.name} · <Link href="/" aria-label="Visitar site Vektua XYZ">vektua.xyz</Link></span>
         </footer>
       </main>
     </div>
