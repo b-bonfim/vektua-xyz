@@ -90,3 +90,89 @@
   .clientLink, .externalIcon { transition: none; }
   .clientLink:hover,.clientLink:active,.clientLink:hover .externalIcon { transform: none; }
 }
+
+
+/* The NFC "discovery" moment: a single brand arrival followed by three
+   clearly ordered destinations. All animation is CSS-only and layout-safe. */
+@media (prefers-reduced-motion: no-preference) {
+  .logoPanel {
+    animation: nfcMarkArrives .68s cubic-bezier(.16, 1, .3, 1) both;
+  }
+  .hero h1 {
+    animation: nfcTextArrives .48s cubic-bezier(.16, 1, .3, 1) .13s both;
+  }
+  .hero .intro {
+    animation: nfcTextArrives .43s cubic-bezier(.16, 1, .3, 1) .22s both;
+  }
+  .headlineAccent {
+    background-repeat: no-repeat;
+    animation: nfcHighlightDraw .55s cubic-bezier(.16, 1, .3, 1) .40s both;
+  }
+  .sectionLabel {
+    animation: nfcTextArrives .38s cubic-bezier(.16, 1, .3, 1) .28s both;
+  }
+  .linkList .clientLink {
+    animation: nfcActionArrives .54s cubic-bezier(.16, 1, .3, 1) both;
+    transition: transform .22s cubic-bezier(.16, 1, .3, 1),
+      background-color .16s ease, border-color .16s ease, box-shadow .2s ease;
+  }
+  .linkList .clientLink:nth-child(1) { animation-delay: .32s; }
+  .linkList .clientLink:nth-child(2) { animation-delay: .42s; }
+  .linkList .clientLink:nth-child(3) { animation-delay: .52s; }
+  .linkList .clientLink:nth-child(n+4) { animation-delay: .58s; }
+
+  .clientLink:hover { transform: translateY(-3px) scale(1.014); }
+  .clientLink:active { transform: scale(.975); transition-duration: .10s; }
+  .clientLink:focus-visible { animation: none; transform: none; }
+
+  .linkIcon {
+    transition: transform .27s cubic-bezier(.16, 1, .3, 1);
+  }
+  .clientLink:hover .linkIcon,
+  .clientLink:focus-visible .linkIcon {
+    transform: translateY(-2px) rotate(-7deg) scale(1.12);
+  }
+  .clientLink:hover .externalIcon,
+  .clientLink:focus-visible .externalIcon {
+    transform: translate(3px, -3px) scale(1.08);
+  }
+
+  /* One-time glint on the primary CTA, not a perpetual attention loop. */
+  .clientLink[data-kind='whatsapp'] {
+    position: relative;
+    overflow: hidden;
+  }
+  .clientLink[data-kind='whatsapp']::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: 0;
+    width: 35%;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.34), transparent);
+    transform: translateX(-150%) skewX(-18deg);
+    animation: nfcPrimaryGlint .85s ease-out .83s both;
+  }
+}
+@keyframes nfcMarkArrives {
+  0% { opacity: 0; transform: translateY(-14px) rotate(-3deg) scale(.86); }
+  68% { opacity: 1; transform: translateY(1px) rotate(.8deg) scale(1.035); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes nfcTextArrives {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes nfcHighlightDraw {
+  from { background-size: 0% 100%; }
+  to { background-size: 100% 100%; }
+}
+@keyframes nfcActionArrives {
+  from { opacity: 0; transform: translateX(-20px) scale(.975); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes nfcPrimaryGlint {
+  from { transform: translateX(-150%) skewX(-18deg); }
+  to { transform: translateX(415%) skewX(-18deg); }
+}
