@@ -20,8 +20,7 @@
 .hero { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .logoPanel { display: grid; place-items: center; width: 100%; min-height: 156px; padding: 19px 16px; border-radius: 16px; background: var(--client-deep); }
 .artwork { width: min(100%, 360px); height: auto; object-fit: contain; }
-.category { margin: 16px 0 9px; color: var(--client-yellow); font-size: 12px; font-weight: 750; letter-spacing: .025em; }
-.hero h1 { max-width: 25ch; margin: 0; color: var(--client-white); font-size: clamp(28px, 7.8vw, 37px); font-weight: 800; line-height: 1.13; letter-spacing: -.03em; text-wrap: balance; }
+.hero h1 { max-width: 25ch; margin: 18px 0 0; color: var(--client-white); font-size: clamp(28px, 7.8vw, 37px); font-weight: 800; line-height: 1.13; letter-spacing: -.03em; text-wrap: balance; }
 .intro { max-width: 48ch; margin: 12px 0 0; color: rgba(255,255,255,.9); font-size: 14px; line-height: 1.55; }
 .linksSection { margin: 28px 0 0; scroll-margin-top: 18px; }
 .sectionLabel { margin: 0 0 14px; }
@@ -63,7 +62,6 @@
 @media (min-width: 720px) {
   .shell { padding-top: 40px; padding-bottom: 52px; }
   .logoPanel { min-height: 183px; padding: 25px 22px; border-radius: 18px; }
-  .category { margin-top: 22px; }
   .linksSection { margin-top: 33px; }
   .clientLink { min-height: 82px; padding: 16px 19px; }
 }
