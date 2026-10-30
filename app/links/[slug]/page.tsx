@@ -76,7 +76,6 @@ export default async function ClientLinksPage({ params }: Props) {
             />
           </div>
 
-          <p className={styles.category}>{client.category}</p>
           <h1>{client.headline}</h1>
           <p className={styles.intro}>{client.intro}</p>
         </header>
