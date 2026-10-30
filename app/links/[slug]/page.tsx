@@ -26,6 +26,12 @@ const icons = {
   other: ArrowUpRight,
 } satisfies Record<ClientLinkKind, typeof Camera>;
 
+const brandIconSrc: Partial<Record<ClientLinkKind, string>> = {
+  instagram: '/images/brand-icons/instagram.svg',
+  whatsapp: '/images/brand-icons/whatsapp.svg',
+  review: '/images/brand-icons/google.svg',
+};
+
 export function generateStaticParams() {
   return Object.keys(clientLinkPages).map((slug) => ({ slug }));
 }
@@ -91,6 +97,7 @@ export default async function ClientLinksPage({ params }: Props) {
           <nav className={styles.linkList} aria-label={`Links da ${client.name}`}>
             {sortedLinks.map((item) => {
               const Icon = icons[item.kind];
+              const brandIcon = brandIconSrc[item.kind];
               return (
                 <a
                   key={item.id}
@@ -101,7 +108,21 @@ export default async function ClientLinksPage({ params }: Props) {
                   data-kind={item.kind}
                   aria-label={`${item.label} — abre em nova aba`}
                 >
-                  <span className={styles.linkIcon}><Icon size={25} strokeWidth={2} aria-hidden="true" /></span>
+                  <span className={styles.linkIcon}>
+                    {brandIcon ? (
+                      <Image
+                        className={styles.brandIcon}
+                        src={brandIcon}
+                        width={26}
+                        height={26}
+                        alt=""
+                        aria-hidden="true"
+                        unoptimized
+                      />
+                    ) : (
+                      <Icon size={25} strokeWidth={2} aria-hidden="true" />
+                    )}
+                  </span>
                   <span className={styles.linkCopy}>
                     <strong>{item.label}</strong>
                     {item.description && <small>{item.description}</small>}
