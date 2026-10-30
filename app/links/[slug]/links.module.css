@@ -87,3 +87,58 @@
   .clientLink { transition: none; }
   .clientLink:hover,.clientLink:active { transform: none; }
 }
+
+/* Tem de Tudo: recognizable brand details without adding visual bulk. */
+.page::before {
+  height: 5px;
+  background: linear-gradient(90deg, var(--client-blue) 0 81%, var(--client-yellow) 81% 100%);
+}
+.hero h1 { color: #112f75; }
+.headlineAccent {
+  padding: 0 .02em;
+  margin: 0 -.02em;
+  border-radius: 2px;
+  background: linear-gradient(180deg, transparent 63%, var(--client-yellow) 63%, var(--client-yellow) 91%, transparent 91%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.sectionLabel h2 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #33456c;
+}
+.sectionLabel h2::before {
+  content: '';
+  display: block;
+  flex: 0 0 4px;
+  height: 14px;
+  background: var(--client-yellow);
+  border-radius: 3px;
+}
+.clientLink { border-color: #dfe5ef; }
+.clientLink:hover { border-color: #9ab3e6; background: #fefeff; }
+.clientLink[data-kind='whatsapp'] {
+  border-color: transparent;
+  box-shadow: 0 7px 17px rgba(10, 54, 144, .13);
+}
+.clientLink[data-kind='whatsapp']:hover {
+  border-color: transparent;
+  background: #fbe504;
+  box-shadow: 0 9px 20px rgba(10, 54, 144, .17);
+}
+.clientLink[data-kind='instagram'] .linkIcon,
+.clientLink[data-kind='review'] .linkIcon { background: transparent; }
+.clientLink[data-kind='whatsapp'] .linkIcon { background: #fff; }
+.externalIcon {
+  opacity: .77;
+  transition: transform .16s ease, opacity .16s ease;
+}
+.clientLink:hover .externalIcon { transform: translate(1px, -1px); opacity: 1; }
+.clientLink:active { transform: scale(.993); }
+.maker { border-top-color: #e4e7ef; }
+.makerTitle strong { color: #1740ae; }
+@media (prefers-reduced-motion: reduce) {
+  .externalIcon { transition: none; }
+  .clientLink:hover .externalIcon { transform: none; }
+}
