@@ -41,14 +41,14 @@ export const clientLinkPages: Record<string, ClientLinkPage> = {
     headline: 'Sempre tem um achado esperando por você.',
     intro: 'Que bom ter você por aqui! Acompanhe nossas novidades e fique pertinho da Tem de Tudo.',
     artwork: {
-      // Arte do chaveiro FDM em 3 cores (20/10/2026), não logotipo-mestre da loja.
-      src: '/images/clients/tem-de-tudo/keychain-art.svg',
-      alt: 'Arte do chaveiro Tem de Tudo: letras amarelas, fundo azul, carrinho de compras e casinha em branco.',
-      width: 1266,
-      height: 543,
+      // Reconstrução digital do logo a partir de referência visual da loja; não é o arquivo-mestre oficial.
+      src: '/images/clients/tem-de-tudo/logo-clean.webp',
+      alt: 'Logo Tem de Tudo: letras amarelas, carrinho de compras e casa em branco sobre base azul.',
+      width: 1357,
+      height: 554,
     },
     palette: {
-      blue: '#0033AB',
+      blue: '#0A3FC2',
       yellow: '#FDE802',
       white: '#FFFFFF',
     },
