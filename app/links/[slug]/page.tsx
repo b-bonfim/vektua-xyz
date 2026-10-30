@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import {
   ArrowUpRight,
   Globe2,
-  Instagram,
+  Camera,
   MapPin,
   MessageCircle,
   ShoppingBag,
@@ -20,13 +20,13 @@ import styles from './links.module.css';
 type Props = { params: Promise<{ slug: string }> };
 
 const icons = {
-  instagram: Instagram,
+  instagram: Camera,
   whatsapp: MessageCircle,
   website: Globe2,
   location: MapPin,
   review: Star,
   other: ArrowUpRight,
-} satisfies Record<ClientLinkKind, typeof Instagram>;
+} satisfies Record<ClientLinkKind, typeof Camera>;
 
 export function generateStaticParams() {
   return Object.keys(clientLinkPages).map((slug) => ({ slug }));
