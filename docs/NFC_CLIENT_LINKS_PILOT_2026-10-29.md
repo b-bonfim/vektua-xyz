@@ -1,7 +1,7 @@
 # Vektua XYZ — NFC Client Links | Piloto Tem de Tudo
 
 **Data:** 2026-10-29  
-**Estado:** implementação proposta em branch de revisão; não publicada, não testada fisicamente.  
+**Estado:** implementação de links e refinamentos de UI integrados ao repositório; novo asset e ajustes visuais documentados, publicação na Hostinger e teste NFC físico ainda não comprovados.  
 **Rota piloto:** `https://vektua.xyz/links/tem-de-tudo`
 
 ## Objetivo
@@ -17,7 +17,8 @@ Um hub de links mobile-first com identidade da loja, acessível por URL NDEF gra
 - `app/links/[slug]/page.tsx` — página dinâmica com metadata e fallback 404; sem métricas ou redirecionamento externo arbitrário.
 - `app/links/[slug]/links.module.css` — estética do cliente, responsiva e com redução de animação.
 - `lib/client-link-pages.ts` — registry versionado por slug. Novos clientes exigem novo registro e validação da identidade/destinos.
-- `public/images/clients/tem-de-tudo/keychain-art.svg` — arte FDM existente, usada como referência visual do projeto.
+- `public/images/clients/tem-de-tudo/keychain-art.svg` — arte FDM anterior, mantida para rastreabilidade; não aparece mais no cabeçalho.
+- `public/images/clients/tem-de-tudo/logo-clean.webp` — reconstrução do logo recebida como imagem aprovada visualmente pelo Founder, recortada com transparência (1357×554 px) e otimizada (~96 KB). Não representa fornecimento do arquivo-mestre pelo titular da marca.
 - `components/whatsapp-contact.tsx` — não sobrepõe botão flutuante da Vektua nas páginas de clientes.
 
 ## Conteúdo verificado e pendente
@@ -46,3 +47,10 @@ Um hub de links mobile-first com identidade da loja, acessível por URL NDEF gra
 
 ## Decisão pendente
 Founder autorizou expressamente merge e deploy em 29/10/2026. Seguir com revisão dos links e verificações técnicas; autorização comercial do Founder não equivale a licença da marca do parceiro, validação de links nem evidência de leitura física. A gravação/produção em lote segue dependente de teste NFC.
+
+## Refinamento visual de 29/10/2026
+- Substituída a arte FDM utilizada no cabeçalho por uma reconstrução de logo com transparência e proporção adequada para web.
+- Removido o retângulo azul escuro atrás do logo; fundo da página harmonizado com azul da versão digital (#0A3FC2) e gradiente discreto.
+- Preservados a hierarquia mobile-first, o Instagram, o WhatsApp com texto pré-preenchido e o link de avaliação do Google.
+- A substituição de imagem não comprova autorização da loja para uso público da marca nem certifica fidelidade ao vetor-mestre; validar com o cliente.
+- Preview de código e verificação de presença do asset não substituem build real, inspeção mobile e deploy na Hostinger.
