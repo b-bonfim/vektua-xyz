@@ -10,7 +10,6 @@ import {
   MapPin,
   MessageCircle,
   ShoppingBag,
-  Sparkles,
   Star,
 } from 'lucide-react';
 import { clientLinkPages, getClientLinkPage } from '@/lib/client-link-pages';
@@ -62,17 +61,9 @@ export default async function ClientLinksPage({ params }: Props) {
   return (
     <div className={styles.page} style={palette}>
       <a className={styles.skipLink} href="#links">Ir para os links</a>
-      <div className={styles.decorOne} aria-hidden="true" />
-      <div className={styles.decorTwo} aria-hidden="true" />
 
       <main className={styles.shell}>
         <header className={styles.hero}>
-          <div className={styles.topline}>
-            <span className={styles.liveDot} aria-hidden="true" />
-            <span>ENCONTRE A GENTE · {client.name.toUpperCase()}</span>
-            <Sparkles size={15} aria-hidden="true" />
-          </div>
-
           <div className={styles.logoPanel}>
             <Image
               src={client.artwork.src}
@@ -92,7 +83,6 @@ export default async function ClientLinksPage({ params }: Props) {
 
         <section id="links" className={styles.linksSection} aria-labelledby="links-title">
           <div className={styles.sectionLabel}>
-            <span className={styles.spark} aria-hidden="true">✳</span>
             <h2 id="links-title">Vamos nos conectar?</h2>
           </div>
           <nav className={styles.linkList} aria-label={`Links da ${client.name}`}>
@@ -105,6 +95,7 @@ export default async function ClientLinksPage({ params }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.clientLink}
+                  data-kind={item.kind}
                   aria-label={`${item.label} — abre em nova aba`}
                 >
                   <span className={styles.linkIcon}><Icon size={25} strokeWidth={2} aria-hidden="true" /></span>
@@ -117,7 +108,6 @@ export default async function ClientLinksPage({ params }: Props) {
               );
             })}
           </nav>
-          
         </section>
 
         <section className={styles.maker} aria-label="Sobre quem criou esta experiência">
