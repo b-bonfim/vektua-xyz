@@ -69,8 +69,8 @@ export const clientLinkPages: Record<string, ClientLinkPage> = {
       },
       {
         id: 'avaliacao-google',
-        label: 'Avalie a loja no Google',
-        description: 'Compartilhe sua experiência com a Tem de Tudo',
+        label: 'Avalie sua experiência no Google',
+        description: 'Gostou de visitar a Tem de Tudo? Sua opinião é muito importante para nós!',
         href: 'https://search.google.com/local/writereview?placeid=ChIJW5Ans4Kjy5QRd4MJayPOPz4',
         kind: 'review',
       },
