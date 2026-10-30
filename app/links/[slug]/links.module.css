@@ -45,7 +45,7 @@
 .makerLinks { margin-top: 8px; }
 .makerLinks a { display: inline-flex; align-items: center; gap: 5px; color: #33426b; font-size: 12px; font-weight: 750; text-decoration: underline; text-decoration-color: #aeb7c6; text-underline-offset: 4px; min-height: 44px; padding: 10px 0; }
 .makerLinks a:hover { color: var(--client-blue); text-decoration-color: var(--client-blue); }
-.footer { display: flex; justify-content: center; margin-top: 18px; color: #748092; font-size: 11px; }
+.footer { display: flex; justify-content: center; margin-top: 18px; color: #637085; font-size: 11px; }
 .footer a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 360px) {
   .shell { width: min(100% - 28px, 476px); padding-top: 23px; }
