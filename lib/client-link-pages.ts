@@ -18,6 +18,7 @@ export interface ClientLinkPage {
   name: string;
   category: string;
   headline: string;
+  headlineAccent?: string;
   intro: string;
   artwork: {
     src: string;
@@ -39,6 +40,7 @@ export const clientLinkPages: Record<string, ClientLinkPage> = {
     name: 'Tem de Tudo',
     category: 'Variedades & Utilidades',
     headline: 'Sempre tem um achado esperando por você.',
+    headlineAccent: 'achado',
     intro: 'Que bom ter você por aqui! Acompanhe nossas novidades e fique pertinho da Tem de Tudo.',
     artwork: {
       // Reconstrução digital do logo a partir de referência visual da loja; não é o arquivo-mestre oficial.
