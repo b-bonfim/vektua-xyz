@@ -176,3 +176,117 @@
   from { transform: translateX(-150%) skewX(-18deg); }
   to { transform: translateX(415%) skewX(-18deg); }
 }
+
+/* The parent-brand link hub reuses the Tem de Tudo component without changing
+   the partner's visual treatment. All Vektua overrides are theme-scoped. */
+.page[data-theme='vektua'] {
+  --client-blue: #176d67;
+  --client-yellow: #c45c3b;
+  --client-white: #ffffff;
+  --client-ink: #24302f;
+  --client-paper: #f7f5f0;
+  --client-rule: #d8dbd4;
+  --client-highlight: rgba(196, 92, 59, .22);
+}
+.page[data-theme='vektua']::before {
+  background: linear-gradient(90deg, #24302f 0 72%, #176d67 72% 90%, #c45c3b 90% 100%);
+}
+.page[data-theme='vektua'] .hero h1 { color: #24302f; }
+.page[data-theme='vektua'] .headlineAccent {
+  background-image: linear-gradient(180deg, transparent 63%, var(--client-highlight) 63%, var(--client-highlight) 91%, transparent 91%);
+}
+.page[data-theme='vektua'] .intro { color: #55625b; }
+.page[data-theme='vektua'] .sectionLabel h2 { color: #24302f; }
+.page[data-theme='vektua'] .sectionLabel h2::before { background: #c45c3b; }
+.page[data-theme='vektua'] .clientLink { color: #24302f; }
+.page[data-theme='vektua'] .clientLink:hover { border-color: #9dbfb2; background: #fff; }
+.page[data-theme='vektua'] .linkCopy strong { color: #24302f; }
+.page[data-theme='vektua'] .linkCopy small { color: #52615a; }
+.page[data-theme='vektua'] .externalIcon { color: #176d67; }
+.page[data-theme='vektua'] .makerTitle,
+.page[data-theme='vektua'] .footer { color: #606b66; }
+.page[data-theme='vektua'] .makerLinks a { color: #176d67; }
+.page[data-theme='vektua'] .makerLinks a:hover { color: #10564f; }
+
+/* WhatsApp is the primary action; the PIX key is never a payment CTA. */
+.page[data-theme='vektua'] .clientLink[data-kind='whatsapp'],
+.page[data-theme='vektua'] .clientLink[data-kind='whatsapp']:hover {
+  background: #176d67;
+  border-color: #176d67;
+  box-shadow: 0 7px 18px rgba(36,48,47,.14);
+}
+.page[data-theme='vektua'] .clientLink[data-kind='whatsapp'] .linkCopy strong,
+.page[data-theme='vektua'] .clientLink[data-kind='whatsapp'] .externalIcon { color: #fff; }
+.page[data-theme='vektua'] .clientLink[data-kind='whatsapp'] .linkCopy small { color: #e3f0eb; }
+.page[data-theme='vektua'] .clientLink[data-kind='whatsapp'] .linkIcon { background: #fff; }
+.page[data-theme='vektua'] .clientLink[data-kind='whatsapp'] .externalIcon { opacity: 1; }
+
+.pixItem { min-width: 0; }
+.pixButton {
+  width: 100%;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.page .pixButton:focus-visible {
+  outline: 3px solid var(--client-blue);
+  outline-offset: 4px;
+}
+.page[data-theme='vektua'] .pixButton {
+  background: #fff;
+  border-color: #d8dbd4;
+}
+.page[data-theme='vektua'] .pixButton .linkIcon {
+  background: #f6ece7;
+}
+.pixGlyph {
+  font-size: 13px;
+  font-weight: 850;
+  letter-spacing: -.035em;
+}
+.page[data-theme='vektua'] .pixGlyph { color: #176d67; }
+.pixNotice {
+  margin: 13px 0 0;
+  color: #606b66;
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+.pixFallback {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #52615a;
+}
+.pixFallback input {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: 1px solid #9dbfb2;
+  color: #24302f;
+  background: #fff;
+  font-size: 12px;
+  font-family: monospace;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+@media (max-width:600px) {
+  .page[data-theme='vektua'] .artwork { width: clamp(194px, 58vw, 232px); }
+  .page[data-theme='vektua'] .linksSection { margin-top: 17px; }
+  .page[data-theme='vektua'] .pixNotice { font-size: 11px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .page[data-theme='vektua'] .linkList > .pixItem .clientLink {
+    animation: nfcActionArrives .54s cubic-bezier(.16,1,.3,1) .52s both;
+  }
+}
