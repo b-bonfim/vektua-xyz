@@ -14,6 +14,7 @@ import {
 import { clientLinkPages, getClientLinkPage } from '@/lib/client-link-pages';
 import type { ClientLinkKind } from '@/lib/client-link-pages';
 import styles from './links.module.css';
+import { CopyPixButton } from './copy-pix-button';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -42,7 +43,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!client) return { title: 'Página não encontrada', robots: { index: false, follow: false } };
   return {
     title: { absolute: `${client.name} | Links & novidades` },
-    description: `Encontre os canais da ${client.name}. Uma experiência digital realizada em parceria com a Vektua XYZ.`,
+    description: client.theme === 'vektua'
+      ? 'Vektua XYZ: objetos com personalidade. Instagram, atendimento por WhatsApp e chave PIX para copiar.'
+      : `Encontre os canais da ${client.name}. Uma experiência digital realizada em parceria com a Vektua XYZ.`,
     robots: { index: false, follow: false },
     openGraph: {
       title: `${client.name} | Todos os links`,
@@ -72,7 +75,7 @@ export default async function ClientLinksPage({ params }: Props) {
   } as CSSProperties;
 
   return (
-    <div className={styles.page} style={palette}>
+    <div className={styles.page} style={palette} data-theme={client.theme}>
       <a className={styles.skipLink} href="#links">Ir para os links</a>
 
       <main className={styles.shell}>
@@ -103,7 +106,7 @@ export default async function ClientLinksPage({ params }: Props) {
 
         <section id="links" className={styles.linksSection} aria-labelledby="links-title">
           <div className={styles.sectionLabel}>
-            <h2 id="links-title">Como podemos te ajudar?</h2>
+            <h2 id="links-title">{client.linksHeading ?? "Como podemos te ajudar?"}</h2>
           </div>
           <nav className={styles.linkList} aria-label={`Links da ${client.name}`}>
             {sortedLinks.map((item) => {
@@ -142,15 +145,37 @@ export default async function ClientLinksPage({ params }: Props) {
                 </a>
               );
             })}
+            {client.pix && (
+              <CopyPixButton
+                pixKey={client.pix.key}
+                label={client.pix.label}
+                description={client.pix.description}
+              />
+            )}
           </nav>
+          {client.pix && (
+            <p className={styles.pixNotice}>
+              Antes de transferir, confira o nome do recebedor no aplicativo do banco.
+              Esta página apenas copia a chave; não realiza pagamentos.
+            </p>
+          )}
         </section>
 
-        <section className={styles.maker} aria-label="Sobre quem criou esta experiência">
-          <p className={styles.makerTitle}>Uma experiência criada pela <strong>Vektua XYZ.</strong></p>
-          <div className={styles.makerLinks}>
-            <Link href="/contato">Quer uma experiência assim para sua marca? <ArrowUpRight size={14} aria-hidden="true" /></Link>
-          </div>
-        </section>
+        {client.theme === 'vektua' ? (
+          <section className={styles.maker} aria-label="Conheça nosso catálogo">
+            <p className={styles.makerTitle}>Do achado à peça só sua.</p>
+            <div className={styles.makerLinks}>
+              <Link href="/">Explore nosso catálogo <ArrowUpRight size={14} aria-hidden="true" /></Link>
+            </div>
+          </section>
+        ) : (
+          <section className={styles.maker} aria-label="Sobre quem criou esta experiência">
+            <p className={styles.makerTitle}>Uma experiência criada pela <strong>Vektua XYZ.</strong></p>
+            <div className={styles.makerLinks}>
+              <Link href="/contato">Quer uma experiência assim para sua marca? <ArrowUpRight size={14} aria-hidden="true" /></Link>
+            </div>
+          </section>
+        )}
 
         <footer className={styles.footer}>
           <span>{client.name} · <Link href="/" aria-label="Visitar site Vektua XYZ">vektua.xyz</Link></span>
