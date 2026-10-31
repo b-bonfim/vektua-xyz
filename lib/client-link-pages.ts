@@ -20,6 +20,9 @@ export interface ClientLinkPage {
   headline: string;
   headlineAccent?: string;
   intro: string;
+  theme?: 'vektua';
+  linksHeading?: string;
+  pix?: { key: string; label: string; description: string };
   artwork: {
     src: string;
     alt: string;
@@ -35,6 +38,48 @@ export interface ClientLinkPage {
 }
 
 export const clientLinkPages: Record<string, ClientLinkPage> = {
+  'vektua': {
+    slug: 'vektua',
+    name: 'Vektua XYZ',
+    category: 'Objetos com personalidade',
+    theme: 'vektua',
+    headline: 'Objetos com personalidade.',
+    headlineAccent: 'personalidade',
+    intro: 'Acompanhe nossos achados, converse com a gente e tenha nossa chave PIX à mão.',
+    linksHeading: 'Por onde vamos começar?',
+    artwork: {
+      src: '/brand/vektua-wordmark.svg',
+      alt: 'Logotipo Vektua XYZ — assinatura principal Rev02.',
+      width: 755,
+      height: 190,
+    },
+    palette: {
+      blue: '#176D67',
+      yellow: '#C45C3B',
+      white: '#FFFFFF',
+    },
+    links: [
+      {
+        id: 'instagram',
+        label: 'Acompanhe nossos achados',
+        description: 'Novidades, bastidores e objetos com personalidade',
+        href: 'https://www.instagram.com/vektua.xyz/',
+        kind: 'instagram',
+      },
+      {
+        id: 'whatsapp',
+        label: 'Converse com a Vektua',
+        description: 'Dúvidas, encomendas e ideias para criar',
+        href: 'https://wa.me/5535984445677?text=' + encodeURIComponent('Olá, Vektua! Encontrei sua página de links e gostaria de saber mais sobre os produtos e personalizações.'),
+        kind: 'whatsapp',
+      },
+    ],
+    pix: {
+      key: '9e36b089-7423-4384-8c6e-60daf7646d90',
+      label: 'Copiar chave PIX',
+      description: 'Chave aleatória · para pagamentos combinados',
+    },
+  },
   'tem-de-tudo': {
     slug: 'tem-de-tudo',
     name: 'Tem de Tudo',
