@@ -45,7 +45,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: { absolute: `${client.name} | Links & novidades` },
     description: client.theme === 'vektua'
       ? 'Vektua XYZ: objetos com personalidade. Instagram, atendimento por WhatsApp e chave PIX para copiar.'
-      : `Encontre os canais da ${client.name}. Uma experiência digital realizada em parceria com a Vektua XYZ.`,
+      : client.theme === 'orion'
+        ? 'Oiee! Eu sou a Laura, da Orion Tattoo. Me chama no WhatsApp, acompanha meus desenhos ou deixa sua avaliação no Google.'
+        : `Encontre os canais da ${client.name}. Uma experiência digital realizada em parceria com a Vektua XYZ.`,
+    icons: client.theme === 'orion'
+      ? { icon: [{ url: '/images/campaigns/orion-tattoo/orion-tattoo-icon.svg', type: 'image/svg+xml' }] }
+      : undefined,
     robots: { index: false, follow: false },
     openGraph: {
       title: `${client.name} | Todos os links`,
@@ -160,6 +165,12 @@ export default async function ClientLinksPage({ params }: Props) {
             </p>
           )}
         </section>
+
+        {client.theme === 'orion' && (
+          <p className={styles.orionSignature}>
+            Com carinho, <strong>Laura · Orion Tattoo</strong> <span aria-hidden="true">🍃🍃</span>
+          </p>
+        )}
 
         {client.theme === 'vektua' ? (
           <section className={styles.maker} aria-label="Conheça nosso catálogo">
