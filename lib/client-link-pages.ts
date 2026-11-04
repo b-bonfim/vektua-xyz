@@ -20,7 +20,7 @@ export interface ClientLinkPage {
   headline: string;
   headlineAccent?: string;
   intro: string;
-  theme?: 'vektua';
+  theme?: 'vektua' | 'orion';
   linksHeading?: string;
   pix?: { key: string; label: string; description: string };
   artwork: {
@@ -79,6 +79,51 @@ export const clientLinkPages: Record<string, ClientLinkPage> = {
       label: 'Copiar chave PIX',
       description: 'Chave aleatória · para pagamentos combinados',
     },
+  },
+  'orion-tattoo': {
+    slug: 'orion-tattoo',
+    name: 'Orion Tattoo',
+    category: 'Arte · Pele · Liberdade',
+    theme: 'orion',
+    headline: 'Oiee! Que bom te ver por aqui.',
+    headlineAccent: 'Oiee!',
+    intro: 'Acompanhe meus trabalhos, entre em contato ou compartilhe sua experiência com a Orion Tattoo.',
+    linksHeading: 'Meus canais',
+    artwork: {
+      // Identidade da campanha Orion, já utilizada em /congrats/orion-tattoo.
+      src: '/images/campaigns/orion-tattoo/orion-tattoo-round-header.webp',
+      alt: 'Arte circular Orion Tattoo com musa de cabelos azuis.',
+      width: 384,
+      height: 384,
+    },
+    palette: {
+      blue: '#075FBE',
+      yellow: '#EDAE00',
+      white: '#FFFFFF',
+    },
+    links: [
+      {
+        id: 'instagram',
+        label: 'Ver trabalhos no Instagram',
+        description: 'Portfólio e novidades da Orion Tattoo',
+        href: 'https://www.instagram.com/oriontattoo.404/',
+        kind: 'instagram',
+      },
+      {
+        id: 'whatsapp',
+        label: 'Me chama no WhatsApp',
+        description: 'Vamos conversar sobre a sua ideia?',
+        href: 'https://wa.me/5535998940158?text=' + encodeURIComponent('Oiee, Laura! Vim pela página de links da Orion Tattoo e queria conversar sobre uma ideia de tatuagem.'),
+        kind: 'whatsapp',
+      },
+      {
+        id: 'avaliacao-google',
+        label: 'Avaliar no Google',
+        description: 'Compartilhe sua experiência com a Orion Tattoo',
+        href: 'https://search.google.com/local/writereview?placeid=ChIJ__f7Dgyjy5QRY5_Z-L-7acc',
+        kind: 'review',
+      },
+    ],
   },
   'tem-de-tudo': {
     slug: 'tem-de-tudo',

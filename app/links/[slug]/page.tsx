@@ -45,7 +45,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: { absolute: `${client.name} | Links & novidades` },
     description: client.theme === 'vektua'
       ? 'Vektua XYZ: objetos com personalidade. Instagram, atendimento por WhatsApp e chave PIX para copiar.'
-      : `Encontre os canais da ${client.name}. Uma experiência digital realizada em parceria com a Vektua XYZ.`,
+      : client.theme === 'orion'
+        ? 'Orion Tattoo: trabalhos, contato via WhatsApp e avaliações no Google.'
+        : `Encontre os canais da ${client.name}. Uma experiência digital realizada em parceria com a Vektua XYZ.`,
+    icons: client.theme === 'orion'
+      ? { icon: [{ url: '/images/campaigns/orion-tattoo/orion-tattoo-icon.svg', type: 'image/svg+xml' }] }
+      : undefined,
     robots: { index: false, follow: false },
     openGraph: {
       title: `${client.name} | Todos os links`,
