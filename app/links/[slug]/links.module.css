@@ -290,3 +290,124 @@
     animation: nfcActionArrives .54s cubic-bezier(.16,1,.3,1) .52s both;
   }
 }
+
+
+/* Orion Tattoo | isolated visual theme, reusing the same NFC link flow.
+   Art and palette originate from /congrats/orion-tattoo, not Vektua's style.
+   Avoid long scroll narratives here: this is a fast, three-action hub. */
+.page[data-theme='orion'] {
+  --client-blue: #075fbe;
+  --client-yellow: #edae00;
+  --client-white: #fff;
+  --client-ink: #0b0b0c;
+  --client-paper: #fbf7ec;
+  --client-rule: #ded8cb;
+}
+.page[data-theme='orion']::before {
+  background: linear-gradient(90deg, #0b0b0c 0 14%, #075fbe 14% 77%, #edae00 77% 100%);
+}
+.page[data-theme='orion'] .artwork {
+  width: min(100%, 206px);
+  filter: drop-shadow(0 7px 12px rgba(7, 58, 136, .08));
+}
+.page[data-theme='orion'] .hero h1 {
+  max-width: 25ch;
+  color: #0b0b0c;
+  font-size: clamp(26px, 6.4vw, 32px);
+  letter-spacing: -.035em;
+}
+.page[data-theme='orion'] .headlineAccent {
+  display: inline-block;
+  padding: 0 .075em;
+  margin: 0 .015em 0 0;
+  color: #075fbe;
+  font-family: "Segoe Print", "Brush Script MT", "URW Chancery L", cursive;
+  font-size: 1.24em;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.15;
+  transform: rotate(-4deg);
+  background-image: linear-gradient(180deg, transparent 76%, rgba(237,174,0,.8) 76%, rgba(237,174,0,.8) 87%, transparent 87%);
+}
+.page[data-theme='orion'] .intro {
+  color: #404040;
+  max-width: 42ch;
+}
+.page[data-theme='orion'] .sectionLabel h2 {
+  color: #0b0b0c;
+  font-weight: 780;
+}
+.page[data-theme='orion'] .sectionLabel h2::before {
+  background: #edae00;
+}
+.page[data-theme='orion'] .clientLink {
+  border-color: #ded8cb;
+  background: #fffdf9;
+  box-shadow: 0 2px 8px rgba(11,11,12,.03);
+}
+.page[data-theme='orion'] .clientLink:hover {
+  border-color: #8bbce1;
+  background: #fff;
+}
+.page[data-theme='orion'] .linkCopy strong { color: #0b0b0c; }
+.page[data-theme='orion'] .linkCopy small { color: #48515c; }
+.page[data-theme='orion'] .linkIcon { background: #eaf5fd; color: #073a88; }
+.page[data-theme='orion'] .externalIcon { color: #075fbe; }
+.page[data-theme='orion'] .clientLink[data-kind='instagram'] .linkIcon,
+.page[data-theme='orion'] .clientLink[data-kind='review'] .linkIcon {
+  background: transparent;
+}
+.page[data-theme='orion'] .clientLink[data-kind='whatsapp'],
+.page[data-theme='orion'] .clientLink[data-kind='whatsapp']:hover {
+  background: #073a88;
+  border-color: #073a88;
+  box-shadow: 0 8px 20px rgba(7,58,136,.17);
+}
+.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .linkCopy strong,
+.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .externalIcon { color: #fff; }
+.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .linkCopy small { color: #e5f4ff; }
+.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .linkIcon { background: #fff; }
+.page[data-theme='orion'] .clientLink[data-kind='whatsapp']:hover {
+  background: #075fbe;
+  border-color: #075fbe;
+}
+.orionSignature { display: none; }
+.page[data-theme='orion'] .orionSignature {
+  display: block;
+  margin: 21px 0 0;
+  color: #075fbe;
+  font-family: "Segoe Print", "Brush Script MT", "URW Chancery L", cursive;
+  font-size: clamp(15px, 3.8vw, 19px);
+  font-weight: 600;
+  font-style: italic;
+  text-align: center;
+}
+.page[data-theme='orion'] .orionSignature strong { font-weight: 800; }
+.page[data-theme='orion'] .maker {
+  margin-top: 22px;
+  border-top-color: #ddd5c5;
+}
+.page[data-theme='orion'] .makerTitle,
+.page[data-theme='orion'] .footer { color: #555450; }
+.page[data-theme='orion'] .makerTitle strong { color: #073a88; }
+.page[data-theme='orion'] .makerLinks a { color: #073a88; }
+.page[data-theme='orion'] .makerLinks a:hover { color: #075fbe; }
+@media (max-width:600px) {
+  .page[data-theme='orion'] .artwork { width: clamp(142px, 42vw, 172px); }
+  .page[data-theme='orion'] .hero h1 {
+    max-width: 28ch;
+    margin-top: 6px;
+    font-size: clamp(22px, 6vw, 26px);
+    line-height: 1.2;
+  }
+  .page[data-theme='orion'] .intro { margin-top: 6px; font-size: 12.5px; line-height: 1.43; }
+  .page[data-theme='orion'] .linksSection { margin-top: 16px; }
+  .page[data-theme='orion'] .orionSignature { margin-top: 18px; }
+}
+@media (max-width:360px) {
+  .page[data-theme='orion'] .artwork { width: 142px; }
+  .page[data-theme='orion'] .hero h1 { font-size: 22px; }
+}
+@media (min-width:700px) {
+  .page[data-theme='orion'] .artwork { width: 228px; }
+}
