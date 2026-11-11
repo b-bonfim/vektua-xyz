@@ -103,6 +103,13 @@ export const clientLinkPages: Record<string, ClientLinkPage> = {
     },
     links: [
       {
+        id: 'avaliacao-google',
+        label: 'Avaliar no Google',
+        description: 'Compartilhe sua experiência com a Orion Tattoo',
+        href: 'https://search.google.com/local/writereview?placeid=ChIJ__f7Dgyjy5QRY5_Z-L-7acc',
+        kind: 'review',
+      },
+      {
         id: 'instagram',
         label: 'Ver trabalhos no Instagram',
         description: 'Portfólio e novidades da Orion Tattoo',
@@ -116,14 +123,12 @@ export const clientLinkPages: Record<string, ClientLinkPage> = {
         href: 'https://wa.me/5535998940158?text=' + encodeURIComponent('Oiee, Laura! Vim pela página de links da Orion Tattoo e queria conversar sobre uma ideia de tatuagem.'),
         kind: 'whatsapp',
       },
-      {
-        id: 'avaliacao-google',
-        label: 'Avaliar no Google',
-        description: 'Compartilhe sua experiência com a Orion Tattoo',
-        href: 'https://search.google.com/local/writereview?placeid=ChIJ__f7Dgyjy5QRY5_Z-L-7acc',
-        kind: 'review',
-      },
     ],
+    pix: {
+      key: '40555585000120',
+      label: 'Copiar chave PIX',
+      description: 'CNPJ · 40.555.585/0001-20',
+    },
   },
   'tem-de-tudo': {
     slug: 'tem-de-tudo',
