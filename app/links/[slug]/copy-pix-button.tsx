@@ -5,12 +5,13 @@ import { Check, Copy } from 'lucide-react';
 import styles from './links.module.css';
 
 type Props = {
+  ownerName: string;
   pixKey: string;
   label: string;
   description: string;
 };
 
-export function CopyPixButton({ pixKey, label, description }: Props) {
+export function CopyPixButton({ ownerName, pixKey, label, description }: Props) {
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>('idle');
 
   async function handleCopy() {
@@ -32,7 +33,7 @@ export function CopyPixButton({ pixKey, label, description }: Props) {
         className={`${styles.clientLink} ${styles.pixButton}`}
         data-kind="pix"
         onClick={handleCopy}
-        aria-label="Copiar chave PIX da Vektua XYZ"
+        aria-label={`Copiar chave PIX de ${ownerName}. ${description}`}
       >
         <span className={styles.linkIcon} aria-hidden="true">
           <span className={styles.pixGlyph}>PIX</span>
@@ -56,7 +57,7 @@ export function CopyPixButton({ pixKey, label, description }: Props) {
           Não foi possível copiar automaticamente. Selecione a chave:
           <input
             readOnly
-            aria-label="Chave PIX da Vektua XYZ para seleção manual"
+            aria-label={`Chave PIX de ${ownerName} para seleção manual`}
             value={pixKey}
             onFocus={(event) => event.currentTarget.select()}
           />
