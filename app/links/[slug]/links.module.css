@@ -357,20 +357,45 @@
 .page[data-theme='orion'] .clientLink[data-kind='review'] .linkIcon {
   background: transparent;
 }
+/* Only Orion highlights Google reviews. WhatsApp remains a regular secondary destination. */
+.page[data-theme='orion'] .clientLink[data-kind='review'] {
+  min-height: 84px;
+  border: 1px solid #073a88;
+  border-left: 5px solid #edae00;
+  background: #073a88;
+  box-shadow: 0 9px 22px rgba(7,58,136,.20);
+}
+.page[data-theme='orion'] .clientLink[data-kind='review']:hover {
+  border-color: #075fbe;
+  border-left-color: #edae00;
+  background: #075fbe;
+  box-shadow: 0 12px 24px rgba(7,58,136,.24);
+}
+.page[data-theme='orion'] .clientLink[data-kind='review'] .linkCopy strong {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 850;
+}
+.page[data-theme='orion'] .clientLink[data-kind='review'] .linkCopy small {
+  color: #e5f4ff;
+}
+.page[data-theme='orion'] .clientLink[data-kind='review'] .linkIcon {
+  background: #fff;
+}
+.page[data-theme='orion'] .clientLink[data-kind='review'] .externalIcon {
+  color: #edae00;
+  opacity: 1;
+}
 .page[data-theme='orion'] .clientLink[data-kind='whatsapp'],
 .page[data-theme='orion'] .clientLink[data-kind='whatsapp']:hover {
-  background: #073a88;
-  border-color: #073a88;
-  box-shadow: 0 8px 20px rgba(7,58,136,.17);
+  background: #fffdf9;
+  border-color: #ded8cb;
+  box-shadow: 0 2px 8px rgba(11,11,12,.03);
 }
-.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .linkCopy strong,
-.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .externalIcon { color: #fff; }
-.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .linkCopy small { color: #e5f4ff; }
-.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .linkIcon { background: #fff; }
-.page[data-theme='orion'] .clientLink[data-kind='whatsapp']:hover {
-  background: #075fbe;
-  border-color: #075fbe;
-}
+.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .linkCopy strong { color: #0b0b0c; }
+.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .linkCopy small { color: #48515c; }
+.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .externalIcon { color: #075fbe; }
+.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .linkIcon { background: #eaf5fd; }
 .page[data-theme='orion'] .maker {
   margin-top: 22px;
   border-top-color: #ddd5c5;
@@ -390,6 +415,12 @@
   }
   .page[data-theme='orion'] .intro { margin-top: 6px; font-size: 12.5px; line-height: 1.43; }
   .page[data-theme='orion'] .linksSection { margin-top: 16px; }
+  .page[data-theme='orion'] .clientLink[data-kind='review'] {
+    min-height: 76px;
+  }
+  .page[data-theme='orion'] .clientLink[data-kind='review'] .linkCopy strong {
+    font-size: 14px;
+  }
 }
 @media (max-width:360px) {
   .page[data-theme='orion'] .artwork { width: 142px; }
@@ -397,4 +428,29 @@
 }
 @media (min-width:700px) {
   .page[data-theme='orion'] .artwork { width: 228px; }
+}
+
+
+/* Transfer the one-time CTA sheen to the Google-review card, only for Orion. */
+@media (prefers-reduced-motion: no-preference) {
+  .page[data-theme='orion'] .clientLink[data-kind='whatsapp']::after {
+    content: none;
+    animation: none;
+  }
+  .page[data-theme='orion'] .clientLink[data-kind='review'] {
+    position: relative;
+    overflow: hidden;
+  }
+  .page[data-theme='orion'] .clientLink[data-kind='review']::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: 0;
+    width: 35%;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+    transform: translateX(-150%) skewX(-18deg);
+    animation: nfcPrimaryGlint .85s ease-out .83s both;
+  }
 }
