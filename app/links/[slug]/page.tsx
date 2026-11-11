@@ -65,10 +65,13 @@ export default async function ClientLinksPage({ params }: Props) {
   const client = getClientLinkPage(slug);
   if (!client) notFound();
 
-  // Keep the action hierarchy and keyboard/tab order aligned; server-side only.
-  const sortedLinks = [...client.links].sort((a, b) =>
-    Number(b.kind === 'whatsapp') - Number(a.kind === 'whatsapp')
-  );
+  // Orion respects the explicit order: Google, Instagram, WhatsApp.
+  // Other hubs keep WhatsApp as the first action. PIX is rendered last.
+  const sortedLinks = client.theme === 'orion'
+    ? [...client.links]
+    : [...client.links].sort((a, b) =>
+        Number(b.kind === 'whatsapp') - Number(a.kind === 'whatsapp')
+      );
 
   const accent = client.headlineAccent;
   const accentIndex = accent ? client.headline.indexOf(accent) : -1;
@@ -152,6 +155,7 @@ export default async function ClientLinksPage({ params }: Props) {
             })}
             {client.pix && (
               <CopyPixButton
+                ownerName={client.name}
                 pixKey={client.pix.key}
                 label={client.pix.label}
                 description={client.pix.description}
