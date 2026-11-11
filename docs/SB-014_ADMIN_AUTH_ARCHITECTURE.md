@@ -1,0 +1,30 @@
+# SB-014 — Decisão de autenticação e revogação do `/admin`
+
+**Estado: 22/09/2026, HOLD; PR #37 draft.** https://trello.com/c/ABBbRxhw . Não houve merge, deploy nem uso de GitHub Actions. Fases documentais: Engineering (correção) e Quality (revisão de risco pelo mesmo ChatGPT, não parecer de auditor independente). SB-040 continua responsável pela experiência completa de portal.
+
+## Estratégia
+
+- Login somente de contas reais autorizadas, email/senha no Supabase Auth; signup público desligado, confirmação de email ligada conforme relatório manual do Founder de 22/09. A credencial é inserida privadamente e jamais anexada.
+- `POST /admin/session`: valida Origin, autentica e depois confirma `getUser` + RPC `public.can_access_admin`. Se o Auth emitir um token mas o painel recusar permissão, expiração ou ocorrer erro, tenta **revogar apenas aquela sessão recém-criada** via `POST /auth/v1/logout?scope=local`, conferindo `response.ok`. Não emite cookie novo de admissão e apaga cookie administrativo anterior. Falha de revogação remota é registrada apenas como alerta genérico sem token/dados pessoais e requer inspeção pelo operador: NÃO declarar remoção remota sem confirmação.
+- Login positivo emite APENAS access token no cookie `HttpOnly; SameSite=Strict; Path=/admin; Secure` na produção; prazo limitado a 1h ou expiração JWT; sem refresh token. Autenticação novamente na expiração. Loja pública permanece fora de `/admin/:path*`.
+- `POST /admin/logout` revoga **apenas a sessão atual** (local scope), confere status HTTP e remove o cookie sempre. Falha de rede/Auth não é ocultada como sucesso de revogação remota; proteção do navegador exige descarte de cookie. Um JWT isolado pode continuar verificável criptograficamente até expirar; o acesso administrativo requer sessão viva no banco.
+- `proxy.ts` valida o acesso em TODA rota protegida `/admin/*`, redireciona 303 se negado e expira o cookie obsoleto. `/admin` também revalida no servidor. **Toda rota de escrita futura deverá aplicar autorização específica e RLS além do proxy.** Não foram criados CRUD, permissões genéricas, contas fictícias nem mudança de sessão da loja.
+- Renderização dinâmica e `Cache-Control: private, no-store, max-age=0`, `Pragma: no-cache` e `Vary: Cookie` aplicados nas respostas administrativas. CDN/Hostinger deve ter bypass comprovado para `/admin` e `/admin/*`, inclusive qualquer resposta `Set-Cookie`, antes do GO.
+
+## Política de revogação de papel — decisão técnica nesta correção
+
+A função original da migration `20260922212956_sb_014_admin_auth_admission` verifica usuário, JWT `session_id`, sessão existente/não expirada, papel reconhecido e ativo. A forward-fix **`20260923000434_sb_014_revoke_admin_sessions_on_role_change`** adiciona `auth.sessions.created_at > app_private.admin_role_assignments.updated_at`. O trigger existente em SB-013 atualiza `updated_at` e audita toda alteração do registro de papel. Consequências: desativar o papel bloqueia imediatamente na próxima consulta; restaurá-lo NÃO revive sessões anteriores; só nova autenticação emitida após a última alteração admite o operador. O proxy também apaga o cookie ao detectar acesso negado.
+
+**Limite importante:** a alteração do papel NÃO apaga a sessão geral do Supabase Auth, não revoga o JWT para outras APIs e não força logout nos demais dispositivos/serviços. A sessão Auth anteriormente remanescente continua existindo até revogação pelo próprio fluxo/operador ou expiração, mas a consulta administrativa recusa a sessão antiga. Não apagar linhas de `auth.sessions` manualmente. Operações emergenciais seguem procedimento autorizado de revogação de sessões no Auth e auditoria.
+
+## Rastreabilidade e segurança
+
+Migração 20260923000434 foi aplicada remotamente via conector (`success=true`), depois registrada em arquivo canônico de mesmo número; migração anterior preservada. Conferido no banco: cláusula de epoch presente; anon sem EXECUTE, authenticated com EXECUTE; 1 sessão preexistente rejeitada pela condição e 1 papel ativo, sem coleta de identificadores pessoais. Isso comprova a regra SQL e inventário, não o fluxo HTTP com credenciais reais nem paridade/rebuild integral. Os builds e testes HTTP da versão ANTERIOR foram reportados no `SB-014_relatorio_execucao.md` e não validam o HEAD corrigido.
+
+O RPC `SECURITY DEFINER`, owner postgres, `search_path=''`, retorno booleano, sem argumentos, compara somente `auth.uid()` + sessão do JWT + papel interno, sem SELECT direto de tabelas a anon/authenticated. Security Advisor conserva WARN `authenticated_security_definer_function_executable`: necessário ao contrato RPC atual, não declarar warning resolvido nem certificação. Dois INFO de tabelas privadas com RLS e sem policies são deliberados, sem grants de SELECT ao browser. Novo WARN separado: proteção de senhas vazadas desativada; projeto no plano Free, recurso disponível no Pro ou superior conforme docs. Não executar upgrade/despesa sem autorização. Qualidade recomenda HOLD até retestes e tratamento de risco residual, inclusive credenciais fortes, MFA e política contra abuso de login.
+
+## Gates de aceite abertos
+
+Repetir A06 com papel inativo e sessão/cookie isolados e conferir que sessão recém-emitida é apagada no Auth; A08 com logout escopo local, contagem de sessões e URL direta; A09 com captura sanitizada de headers de login positivo e negativa, HTTP dev + standalone e Hostinger/CDN real. Rodar `npm ci`, preflight, regressão, build/build:hostinger para HEAD atual, revisar origem atrás de proxy e executar teste de migrações/rebuild. Revisão humana de PR e parecer formal de segurança seguem pendentes. Sem isso, não fazer merge/deploy/mover Trello para Concluído.
+
+Fontes: https://supabase.com/docs/guides/auth/signout ; https://supabase.com/docs/guides/auth/server-side/advanced-guide ; https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable ; https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection .
