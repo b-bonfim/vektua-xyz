@@ -156,6 +156,7 @@ export default async function ClientLinksPage({ params }: Props) {
             {client.pix && (
               <CopyPixButton
                 ownerName={client.name}
+                showOfficialPixIcon={client.theme === 'orion'}
                 pixKey={client.pix.key}
                 label={client.pix.label}
                 description={client.pix.description}
