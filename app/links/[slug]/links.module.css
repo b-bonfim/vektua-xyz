@@ -357,17 +357,17 @@
 .page[data-theme='orion'] .clientLink[data-kind='review'] .linkIcon {
   background: transparent;
 }
-.page[data-theme='orion'] .clientLink[data-kind='whatsapp'],
-.page[data-theme='orion'] .clientLink[data-kind='whatsapp']:hover {
+.page[data-theme='orion'] .clientLink[data-kind='review'],
+.page[data-theme='orion'] .clientLink[data-kind='review']:hover {
   background: #073a88;
   border-color: #073a88;
   box-shadow: 0 8px 20px rgba(7,58,136,.17);
 }
-.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .linkCopy strong,
-.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .externalIcon { color: #fff; }
-.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .linkCopy small { color: #e5f4ff; }
-.page[data-theme='orion'] .clientLink[data-kind='whatsapp'] .linkIcon { background: #fff; }
-.page[data-theme='orion'] .clientLink[data-kind='whatsapp']:hover {
+.page[data-theme='orion'] .clientLink[data-kind='review'] .linkCopy strong,
+.page[data-theme='orion'] .clientLink[data-kind='review'] .externalIcon { color: #fff; }
+.page[data-theme='orion'] .clientLink[data-kind='review'] .linkCopy small { color: #e5f4ff; }
+.page[data-theme='orion'] .clientLink[data-kind='review'] .linkIcon { background: #fff; }
+.page[data-theme='orion'] .clientLink[data-kind='review']:hover {
   background: #075fbe;
   border-color: #075fbe;
 }
@@ -397,4 +397,29 @@
 }
 @media (min-width:700px) {
   .page[data-theme='orion'] .artwork { width: 228px; }
+}
+
+/* Orion only: transfer the existing one-shot primary CTA shine to Google.
+   All copy, link order, sizing and colors remain as previously approved. */
+@media (prefers-reduced-motion: no-preference) {
+  .page[data-theme='orion'] .clientLink[data-kind='whatsapp']::after {
+    content: none;
+    animation: none;
+  }
+  .page[data-theme='orion'] .clientLink[data-kind='review'] {
+    position: relative;
+    overflow: hidden;
+  }
+  .page[data-theme='orion'] .clientLink[data-kind='review']::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: 0;
+    width: 35%;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.34), transparent);
+    transform: translateX(-150%) skewX(-18deg);
+    animation: nfcPrimaryGlint .85s ease-out .83s both;
+  }
 }
