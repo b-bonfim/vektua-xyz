@@ -87,8 +87,8 @@ export const clientLinkPages: Record<string, ClientLinkPage> = {
     theme: 'orion',
     headline: 'Oiee! Que bom te ver por aqui.',
     headlineAccent: 'Oiee!',
-    intro: 'Se você já tatuou comigo, compartilhe sua experiência no Google. Sua opinião ajuda outras pessoas a conhecerem meu trabalho.',
-    linksHeading: 'Sua experiência faz a diferença',
+    intro: 'Já tatuou comigo? Sua avaliação no Google ajuda outras pessoas a conhecerem meu trabalho.',
+    linksHeading: 'Compartilhe sua experiência',
     artwork: {
       // Identidade da campanha Orion, já utilizada em /congrats/orion-tattoo.
       src: '/images/campaigns/orion-tattoo/orion-tattoo-round-header.webp',
@@ -105,7 +105,7 @@ export const clientLinkPages: Record<string, ClientLinkPage> = {
       {
         id: 'avaliacao-google',
         label: 'Deixe sua avaliação no Google',
-        description: 'Sua opinião ajuda outras pessoas a conhecerem meu trabalho',
+        description: 'Conte como foi tatuar comigo.',
         href: 'https://search.google.com/local/writereview?placeid=ChIJ__f7Dgyjy5QRY5_Z-L-7acc',
         kind: 'review',
       },
