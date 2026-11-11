@@ -65,9 +65,11 @@ export default async function ClientLinksPage({ params }: Props) {
   const client = getClientLinkPage(slug);
   if (!client) notFound();
 
-  // Keep the action hierarchy and keyboard/tab order aligned; server-side only.
+  // The Orion Tattoo hub leads with genuine Google reviews; other hubs still
+  // prioritize WhatsApp. Visual order and keyboard order remain identical.
+  const primaryKind: ClientLinkKind = client.theme === 'orion' ? 'review' : 'whatsapp';
   const sortedLinks = [...client.links].sort((a, b) =>
-    Number(b.kind === 'whatsapp') - Number(a.kind === 'whatsapp')
+    Number(b.kind === primaryKind) - Number(a.kind === primaryKind)
   );
 
   const accent = client.headlineAccent;
