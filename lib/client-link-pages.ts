@@ -87,8 +87,8 @@ export const clientLinkPages: Record<string, ClientLinkPage> = {
     theme: 'orion',
     headline: 'Oiee! Que bom te ver por aqui.',
     headlineAccent: 'Oiee!',
-    intro: 'Já tatuou comigo? Sua avaliação no Google ajuda outras pessoas a conhecerem meu trabalho.',
-    linksHeading: 'Compartilhe sua experiência',
+    intro: 'Acompanhe meus trabalhos, entre em contato ou compartilhe sua experiência com a Orion Tattoo.',
+    linksHeading: 'Meus canais',
     artwork: {
       // Identidade da campanha Orion, já utilizada em /congrats/orion-tattoo.
       src: '/images/campaigns/orion-tattoo/orion-tattoo-round-header.webp',
@@ -103,11 +103,11 @@ export const clientLinkPages: Record<string, ClientLinkPage> = {
     },
     links: [
       {
-        id: 'avaliacao-google',
-        label: 'Deixe sua avaliação no Google',
-        description: 'Conte como foi tatuar comigo.',
-        href: 'https://search.google.com/local/writereview?placeid=ChIJ__f7Dgyjy5QRY5_Z-L-7acc',
-        kind: 'review',
+        id: 'instagram',
+        label: 'Ver trabalhos no Instagram',
+        description: 'Portfólio e novidades da Orion Tattoo',
+        href: 'https://www.instagram.com/oriontattoo.404/',
+        kind: 'instagram',
       },
       {
         id: 'whatsapp',
@@ -117,11 +117,11 @@ export const clientLinkPages: Record<string, ClientLinkPage> = {
         kind: 'whatsapp',
       },
       {
-        id: 'instagram',
-        label: 'Ver trabalhos no Instagram',
-        description: 'Portfólio e novidades da Orion Tattoo',
-        href: 'https://www.instagram.com/oriontattoo.404/',
-        kind: 'instagram',
+        id: 'avaliacao-google',
+        label: 'Avaliar no Google',
+        description: 'Compartilhe sua experiência com a Orion Tattoo',
+        href: 'https://search.google.com/local/writereview?placeid=ChIJ__f7Dgyjy5QRY5_Z-L-7acc',
+        kind: 'review',
       },
     ],
   },
