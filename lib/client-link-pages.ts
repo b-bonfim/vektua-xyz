@@ -105,7 +105,7 @@ export const clientLinkPages: Record<string, ClientLinkPage> = {
       {
         id: 'avaliacao-google',
         label: 'Avaliar no Google',
-        description: 'Compartilhe sua experiência com a Orion Tattoo',
+        description: 'Gostou do resultado? Conta pra gente no Google',
         href: 'https://search.google.com/local/writereview?placeid=ChIJ__f7Dgyjy5QRY5_Z-L-7acc',
         kind: 'review',
       },
